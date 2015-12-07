@@ -36,10 +36,8 @@ posisinya tergantung , x-y (dihitung dari body) klik pada canvas
 		_eo = document.getElementById('e_offset'),
 		_ep = document.getElementById('e_page'),
 		h = document.getElementById('holder');
-
-	var cnvs = document.getElementById('cnvs');
-	var ctx = cnvs.getContext('2d');
-
+	var cnvs = document.getElementById('cnvs'),
+		ctx = cnvs.getContext('2d');
 	cnvs.addEventListener('click',function(e) {
 		// client(X/Y) or x/y
 		_ec.style.left = e.clientX+"px";
@@ -53,7 +51,6 @@ posisinya tergantung , x-y (dihitung dari body) klik pada canvas
 		// -
 		buatOhapus(e.offsetX,e.offsetY);
 	});
-
 	// lukis persegi | draw square
 	function buatOhapus(Ox,Oy) {
 		ctx.fillStyle = "#ad0";
@@ -62,7 +59,6 @@ posisinya tergantung , x-y (dihitung dari body) klik pada canvas
 			ctx.clearRect(Ox,Oy,50,50);
 		},1000*5);
 	}
-
 	// pengisi ruang kosong | placeholder
 	var holder_index = 0;
 	(function holder_loop() {
