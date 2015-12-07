@@ -25,11 +25,11 @@ pre {margin: 0px;} body {padding-left: 20px;} #cnvs {background-color: #eee;}
 	<div id="e_offset" class="qwe">OFFSET(X,Y)</div>
 	<div id="e_page" class="qwe">PAGE(X,Y)</div>
 	<canvas id="cnvs" width="900" height="300"></canvas>
-<pre>coba klik dalam <b>canvas</b> diatas. <!-- try, click on canvas (above). -->
-terdapat 3 div dengan position:absolute<!-- there's 3 aboslute div. CLIENT|OFFSET|PAGE(X/Y). -->
-posisinya tergantung , x-y (dihitung dari body) klik pada canvas <!-- the div will positioned (respecly to body) based on click event inside canvas. -->
-<br/>coba scroll sedikit demi sedikit, lalu klik canvas (lihat perbedaannya)<!-- try scroll down a little, then click canvas. (see the different) -->
-<br/>gambaran kotak ijo akan hilang setelah 5 detik.<!-- green rect inside canvas disappear after 5 sec's -->
+<pre>coba klik dalam <b>canvas</b> diatas.
+terdapat 3 div dengan position:absolute
+posisinya tergantung , x-y (dihitung dari body) klik pada canvas
+<br/>coba scroll sedikit demi sedikit, lalu klik canvas (lihat perbedaannya)
+<br/>gambaran kotak ijo akan hilang setelah 5 detik.
 </pre>
 <script>
 	var _ec = document.getElementById('e_client'),
@@ -77,12 +77,12 @@ posisinya tergantung , x-y (dihitung dari body) klik pada canvas <!-- the div wi
 </html>
 <!--
 https://developer.mozilla.org/en/docs/Web/API/MouseEvent
-[id] dikatakan bahwa, x dan y dari mouseEvent adalah alias untuk clientX dan clientY dari mouseEvent. [en] said that, x and y in mouseEvent is an alias for clientX and clientY in mouseEvent.
-[id] keterangan lainnya: [en] another description:
+dikatakan bahwa, x dan y dari mouseEvent adalah alias untuk clientX dan clientY dari mouseEvent.
+keterangan lainnya:
 client: The (X/Y) coordinate of the mouse pointer in local (DOM content) coordinates.
 offset: The (X/Y) coordinate of the mouse pointer relative to the position of the padding edge of the target node
 page: The (X/Y) coordinate of the mouse pointer relative to the whole document.
 
-[id] kenapa e.offset untuk ctx.fillRect dan div.qwe berbeda?
-[id] karena e.offset dari ctx.fillRect merupakan relative <canvas>, dan <div.qwe> relative dari <body> (?)
+kenapa e.offset untuk ctx.fillRect dan div.qwe berbeda?
+karena e.offset dari ctx.fillRect merupakan relative <canvas>, dan <div.qwe> relative dari <body> (?mungkin)
 -->
