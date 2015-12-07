@@ -88,8 +88,7 @@ chara.walkup.paint = function() {
 	chara.opt.sp_index++;
 };
 chara.walkup.moving = function() {
-	var _y = chara.opt.d_h-chara.opt.d_h;
-	if (chara.opt.d_y < _y) {
+	if (chara.opt.d_y < (chara.opt.d_h-chara.opt.d_h)) {
 		chara.opt.d_y = cnvs.height;
 	};
 	ctx.clearRect(chara.opt.d_x,chara.opt.d_y,chara.opt.d_w,chara.opt.d_h);
@@ -150,8 +149,7 @@ chara.walkleft.paint = function() {
 	chara.opt.sp_index++;
 };
 chara.walkleft.moving = function() {
-	var _x = chara.opt.d_w-chara.opt.d_w;
-	if (chara.opt.d_x < _x) {
+	if (chara.opt.d_x < (chara.opt.d_w-chara.opt.d_w)) {
 		chara.opt.d_x = cnvs.width;
 	};
 	ctx.clearRect(chara.opt.d_x,chara.opt.d_y,chara.opt.d_w,chara.opt.d_h);
