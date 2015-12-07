@@ -1,0 +1,88 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8"/><meta name="author" content="Anov Siradj, anov.siradj22@gmail.com"/>
+<title>201511231314 - Cari Koordinat Canvas berdasarkan Mouse Event</title>
+<style>
+pre {margin: 0px;} body {padding-left: 20px;} #cnvs {background-color: #eee;}
+.qwe {
+	width: 200px;
+	padding: 20px;
+	border: 2px solid red;
+	background-color: rgba(34,34,34,0.1);
+	color: red;
+	font-weight: bold;
+	font-family: monospace;
+	/* positioning */
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+.holder {width: 200px;height: 100px;padding: 20px;background-color: #0099ff;color: yellow;}
+</style>
+</head>
+<body>
+	<div id="holder" class="holder">just holder</div>
+	<div id="e_client" class="qwe">CLIENT(X,Y)</div>
+	<div id="e_offset" class="qwe">OFFSET(X,Y)</div>
+	<div id="e_page" class="qwe">PAGE(X,Y)</div>
+	<canvas id="cnvs" width="900" height="300"></canvas>
+<pre>coba klik dalam <b>canvas</b> diatas. <!-- try, click on canvas (above). -->
+terdapat 3 div dengan position:absolute<!-- there's 3 aboslute div. CLIENT|OFFSET|PAGE(X/Y). -->
+posisinya tergantung , x-y (dihitung dari body) klik pada canvas <!-- the div will positioned (respecly to body) based on click event inside canvas. -->
+<br/>coba scroll sedikit demi sedikit, lihat perbedaannya<!-- try scroll down a little, then click canvas. (see the different) -->
+<br/>gambaran kotak ijo akan hilang setelah 5 detik.<!-- green rect inside canvas disappear after 5 sec's -->
+</pre>
+<script>
+	var _ec = document.getElementById('e_client'),
+		_eo = document.getElementById('e_offset'),
+		_ep = document.getElementById('e_page'),
+		h = document.getElementById('holder');
+
+	var cnvs = document.getElementById('cnvs');
+	var ctx = cnvs.getContext('2d');
+
+	cnvs.addEventListener('click',function(e) {
+		// client(X/Y) or x/y
+		_ec.style.left = e.clientX+"px";
+		_ec.style.top = e.clientY+"px";
+		// offset(X/Y)
+		_eo.style.left = e.offsetX+"px";
+		_eo.style.top = e.offsetY+"px";
+		// page(X/Y)
+		_ep.style.left = e.pageX+"px";
+		_ep.style.top = e.pageY+"px";
+		// -
+		buatOhapus(e.offsetX,e.offsetY);
+	});
+
+	// lukis persegi | draw square
+	function buatOhapus(Ox,Oy) {
+		ctx.fillStyle = "#ad0";
+		ctx.fillRect(Ox,Oy,50,50);
+		setTimeout(function() {
+			ctx.clearRect(Ox,Oy,50,50);
+		},1000*5);
+	}
+
+	// pengisi ruang kosong | placeholder
+	var holder_index = 0;
+	(function holder_loop() {
+		document.getElementsByTagName('body')[0].appendChild(h.cloneNode(true));
+		holder_index++;
+		if (holder_index < 10) {
+			holder_loop();
+		};
+	})();
+</script>
+</body>
+</html>
+<!--
+https://developer.mozilla.org/en/docs/Web/API/MouseEvent
+[id] dikatakan bahwa, x dan y dari mouseEvent adalah alias untuk clientX dan clientY dari mouseEvent. [en] said that, x and y in mouseEvent is an alias for clientX and clientY in mouseEvent.
+[id] keterangan lainnya: [en] another description:
+client: The (X/Y) coordinate of the mouse pointer in local (DOM content) coordinates.
+offset: The (X/Y) coordinate of the mouse pointer relative to the position of the padding edge of the target node
+page: The (X/Y) coordinate of the mouse pointer relative to the whole document.
+
+[id] kenapa e.offset untuk ctx.fillRect dan div.qwe berbeda?
+[id] karena e.offset dari ctx.fillRect merupakan relative <canvas>, dan <div.qwe> relative dari <body> (?)
+-->
