@@ -57,8 +57,9 @@ chara.walkdown.paint = function() {
 	chara.opt.sp_index++;
 };
 chara.walkdown.moving = function() {
+	var _y = chara.opt.d_h-chara.opt.d_h;
 	if (chara.opt.d_y > cnvs.height) {
-		chara.opt.d_y = (chara.opt.d_h-chara.opt.d_h);
+		chara.opt.d_y = _y;
 	};
 	ctx.clearRect(chara.opt.d_x,chara.opt.d_y,chara.opt.d_w,chara.opt.d_h);
 	chara.opt.d_y += chara.opt.sp_move_dist;
@@ -87,7 +88,8 @@ chara.walkup.paint = function() {
 	chara.opt.sp_index++;
 };
 chara.walkup.moving = function() {
-	if (chara.opt.d_y < (chara.opt.d_h-chara.opt.d_h)) {
+	var _y = chara.opt.d_h-chara.opt.d_h;
+	if (chara.opt.d_y < _y) {
 		chara.opt.d_y = cnvs.height;
 	};
 	ctx.clearRect(chara.opt.d_x,chara.opt.d_y,chara.opt.d_w,chara.opt.d_h);
@@ -117,8 +119,9 @@ chara.walkright.paint = function() {
 	chara.opt.sp_index++;
 };
 chara.walkright.moving = function() {
+	var _x = chara.opt.d_w-chara.opt.d_w;
 	if (chara.opt.d_x > cnvs.width) {
-		chara.opt.d_x = (chara.opt.d_w-chara.opt.d_w);
+		chara.opt.d_x = _x;
 	};
 	ctx.clearRect(chara.opt.d_x,chara.opt.d_y,chara.opt.d_w,chara.opt.d_h);
 	chara.opt.d_x += chara.opt.sp_move_dist;
@@ -147,7 +150,8 @@ chara.walkleft.paint = function() {
 	chara.opt.sp_index++;
 };
 chara.walkleft.moving = function() {
-	if (chara.opt.d_x < (chara.opt.d_w-chara.opt.d_w)) {
+	var _x = chara.opt.d_w-chara.opt.d_w;
+	if (chara.opt.d_x < _x) {
 		chara.opt.d_x = cnvs.width;
 	};
 	ctx.clearRect(chara.opt.d_x,chara.opt.d_y,chara.opt.d_w,chara.opt.d_h);
