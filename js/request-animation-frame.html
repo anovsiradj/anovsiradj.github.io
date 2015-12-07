@@ -1,0 +1,58 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8"/><meta name="author" content="Anov Siradj, anov.siradj22@gmail.com"/>
+<title>Canvas. Expr:2</title>
+<style>
+body {padding-left: 20px;}
+#cnvs {background-color: #eee;}
+.qwe {
+	width: 200px;
+	padding: 20px;
+	border: 2px solid red;
+	background-color: rgba(34,34,34,0.2);
+	color: red;
+	font-weight: bold;
+	font-family: monospace;
+	/* positioning */
+	position: absolute;
+	left: 0px;
+	top: 0px;
+} .holder {
+	width: 200px;
+	height: 100px;
+	padding: 20px;
+	background-color: #0099ff;
+	color: yellow;
+}
+</style>
+</head>
+<body>
+<div id="holder" class="holder">just holder</div>
+<canvas id="cnvs" width="900" height="300"></canvas>
+<script>
+	var h = document.getElementById('holder');
+	var cnvs = document.getElementById('cnvs');
+	var ctx = cnvs.getContext('2d');
+
+	cnvs.addEventListener('mousemove',function(e) {
+		window.requestAnimationFrame(function() {
+			buatOhapus(e.offsetX,e.offsetY);
+		});
+	});
+	function buatOhapus(Ox,Oy) {
+		ctx.fillStyle = "#ad0";
+		ctx.fillRect(Ox,Oy,50,50);
+		setTimeout(function() {
+			ctx.clearRect(Ox,Oy,50,50);
+		},1000*5);
+	}
+	var holder_index = -1;
+	(function holder_loop() {
+		document.getElementsByTagName('body')[0].appendChild(h.cloneNode(true));
+		holder_index++;
+		if (holder_index < 10) {
+			holder_loop();
+		};
+	})();
+</script>
+</body>
+</html>
