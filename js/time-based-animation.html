@@ -168,6 +168,7 @@ window.onload = function() {
 	chara.walkright.doit();
 }
 document.onkeydown = function(e) {
+	(e||event).preventDefault();
 	var k = e.keyCode;
 	if(k === 40) {
 		window.requestAnimationFrame(chara.walkdown.doit);
