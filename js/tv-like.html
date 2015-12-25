@@ -2,6 +2,7 @@
 <meta name="author" content="Anov Siradj, anov.siradj22@gmail.com"/>
 <title>201511261202</title><style>#cnvs {background-color: #eee;}</style></head><body>
 <canvas id="cnvs" width="900" height="300"></canvas><pre id="log"></pre>
+Command: <input id="cmd" onkeydown="evil(this);"/> <small>(COPY PASTE text above, then ENTER)</small>
 <script>
 	'use strict';
 	var _e_log = document.getElementById('log');
@@ -41,18 +42,29 @@
 			if (bentuk.pers.pos.y < cnvs.height) {
 				setTimeout(tutupiCnvs,per_pers);
 			} else {
-				_log("> // restart:",true);
-				_log("> ctx.clearRect(0,0,cnvs.width,cnvs.height);",true);
-				_log("> bentuk.pers.pos = {x:0,y:0}",true);
-				_log("> tutupiCnvs();",true);
+				_log("// restart:",true);
+				_log("bersihCnvs();",true);
+				_log("tutupiCnvs();",true);
 			};
+		}
+	}
+	function bersihCnvs() {
+		ctx.clearRect(0,0,cnvs.width,cnvs.height);
+		bentuk.pers.pos = {x:0,y:0}
+	}
+
+	function evil(e) {
+		if(event.keyCode == 13) {
+			e.blur();
+			eval(e.value);
+			e.value = "";
 		}
 	}
 	function _log(msg,b) {
 		b = b || false;
 		if (b) { _e_log.innerHTML += "\n"+msg; } else { _e_log.innerHTML = msg; };
 	}
-	_log("> tutupiCnvs();",true);
+	_log("tutupiCnvs();",true);
 
 	// diluar experiment (jadi saya ndak usah nyentuh ini)
 	function randhex() { var h = '#'+(Math.random()*0xFFFFFF<<0).toString(16); return h; }
