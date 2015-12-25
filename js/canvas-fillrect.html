@@ -18,7 +18,7 @@ body {padding-left: 20px;}
 	top: 0px;
 } .holder {
 	width: 200px;
-	height: 100px;
+	height: 50px;
 	padding: 20px;
 	background-color: #0099ff;
 	color: yellow;
@@ -32,10 +32,9 @@ body {padding-left: 20px;}
 	var h = document.getElementById('holder');
 	var cnvs = document.getElementById('cnvs');
 	var ctx = cnvs.getContext('2d');
-
 	cnvs.addEventListener('mousemove',function(e) {
 		window.requestAnimationFrame(function() {
-			buatOhapus(e.offsetX,e.offsetY);
+			buatOhapus(e.offsetX-25,e.offsetY-25);
 		});
 	});
 	function buatOhapus(Ox,Oy) {
