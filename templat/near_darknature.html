@@ -1,0 +1,296 @@
+<!--
+@author Mayendra Costanov (Anovsiradj) <anov(dot)siradj22(at)gmail(dot)com>
+@theme (NeAR) Dark Nature
+@description theme design for my blogger (blogspot) website <ne-a-r.blogspot.com>
+@version 201509070911 (date created)
+@license Extend twitter-Bootstrap and jQuery license.
+--><!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>NeAR</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Cardo"/>
+		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Vollkorn"/>
+		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway"/>
+		<style>
+			.anovsiradj {}
+			body {background-color: #222; }
+			.no-mg {margin: 0px !important;}
+			.no-mg-y {margin-top: 0px !important;margin-bottom: 0px !important;}
+			.no-mg-y-t {margin-top: 0px !important;}
+			.no-mg-y-b {margin-bottom: 0px !important;}
+			.no-mg-x {margin-right: 0px !important;margin-left: 0px !important;}
+			.no-mg-x-r {margin-right: 0px !important;}
+			.no-mg-x-l {margin-left: 0px !important;}
+			.all-tst {transition: all 0.5s ease-in-out;}
+			.ff-title,h1,h2,h3,h4,h5,h6,blockquote {font-family: 'Cardo', serif; }
+			.ff-content,#core_content {font-family: 'Vollkorn', serif; }
+			.ff-element,.btn,.form-control,blockquote {font-family: 'Raleway', sans-serif; }
+			/* mixed: nanti bawah ini campur2 selectornya, yg border radius */
+			.navbar,
+			.navbar-nav>li>.dropdown-menu,
+			.navbar-form .form-control,
+			.navbar-form .btn,
+			.navbar-toggle {border-radius: 0px; }
+			.white {color: #fff; }
+			.btn-darknature {color: #6bb120; background-color: #4d7f17; border-color: transparent; }
+			.btn-darknature:hover {color: #356007; background-color: #6bb120; border-color: #6bb120; }
+			.btn-darknature.active,
+			.btn-darknature:active {color: #6bb120; background-color: #356007; border-color: #356007; }
+			.jumbotron {background-color: transparent; color: #fff; }
+			.jumbotron p {font-size: 14px; }
+			.no-more-glow {outline: none; box-shadow:none !important; }
+			.navbar-darknature {background-color: #4d7f17; border-color: #356007; }
+			.navbar-darknature .navbar-nav > .active > a,
+			.navbar-darknature .navbar-nav > .active > a:focus,
+			.navbar-darknature .navbar-nav > .active > a:hover {color: #6bb120; background-color: #356007; }
+			.navbar-darknature .navbar-nav > li > a {color: #6bb120; }
+			.navbar-darknature > .nav > li > a:focus,
+			.navbar-darknature > .nav > li > a:hover {background-color: #6bb120; color: #356007; }
+			.navbar-darknature .navbar-nav > .open > a,
+			.navbar-darknature .navbar-nav > .open > a:focus,
+			.navbar-darknature .navbar-nav > .open > a:hover {color: #6bb120; background-color: #356007; }
+			.navbar-darknature .navbar-nav > li > a:focus,
+			.navbar-darknature .navbar-nav > li > a:hover {color: #4d7f17; background-color: #6bb120; }
+			.navbar-darknature .navbar-brand {color: #356007; }
+			.navbar-darknature .navbar-brand:focus,
+			.navbar-darknature .navbar-brand:hover {color: #2c4b0c; background-color: transparent; }
+			.navbar-darknature .form-control {background-color: #4d7f17; border-color: transparent; color: #6bb120; }
+			.navbar-darknature .input-group > .form-control:focus {border-bottom-color: #6bb120; }
+			.navbar-darknature .form-control::-webkit-input-placeholder {color:#6bb120 !important; }
+			.navbar-darknature .form-control:-moz-placeholder {color:#6bb120 !important; }
+			.navbar-darknature .form-control::-moz-placeholder {color:#6bb120 !important; }
+			.navbar-darknature .form-control:-ms-input-placeholder {color:#6bb120 !important; }
+			.navbar-darknature .navbar-toggle {border-color: #6bb120; }
+			.navbar-darknature .navbar-toggle:focus,
+			.navbar-darknature .navbar-toggle:hover {background-color: #356007; }
+			.navbar-darknature .navbar-toggle .icon-bar {background-color: #6bb120; }
+			.navbar-darknature .dropdown-menu {background-color: #4d7f17; }
+			.navbar-darknature .dropdown-menu>li>a {color: #6bb120; }
+			.navbar-darknature .dropdown-menu .divider {background-color: #356007; }
+			.navbar-darknature .dropdown-menu>li>a:focus,
+			.navbar-darknature .dropdown-menu>li>a:hover {color: #356007; background-color: #6bb120; }
+			#core_content {background-color: #fff; padding: 16px 16px; font-size: 18px; }
+			#core_content .content-title {margin-bottom: 16px; color: #222; }
+			/* override blogger default css bundle */
+			body .navbar {height: auto !important; }
+		</style>
+	</head>
+	<body>
+		<div class="navbar no-mg-y navbar-darknature all-tst">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Navigasi</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">NeAR</a>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">Pangkal</a></li>
+						<li><a href="#http://anovsiradj.blogspot.com/">Portofolio</a></li>
+						<li><a href="#">Pengantar</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bantuan <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="javascript:togglesidebar();">Alih Bilah Sisi</a></li>
+							</ul>
+						</li>
+					</ul>
+					<form class="navbar-form navbar-right" action="?lorem" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control no-more-glow" placeholder="Kata Kunci ..."/>
+							<span class="input-group-btn">
+								<button class="btn btn-darknature" type="submit">Cari</button>
+							</span>
+						</div>
+					</form>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@anovsiradj <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#https://www.facebook.com/">Facebook</a></li>
+								<li><a href="#https://twitter.com/">Twitter</a></li>
+								<li><a href="#https://instagram.com/">Instagram</a></li>
+								<li><a href="#https://plus.google.com/">Google+</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#https://github.com/">Github</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="jumbotron no-mg-y">
+			<div class="container">
+				<h3 class="no-mg-y">Newbie Area Revolution</h3>
+				<p class="no-mg-y ff-element">Human, Web Developer, Psychologist, Smoker, Poor, Addict, Blessed. Professional</p>
+			</div>
+		</div>
+		<!-- grid-simple:start -->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-9">
+					<div id="core_content">
+						<h3 class="no-mg-y-t content-title">Lorem Ipsum dolor sit amet</h3>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+						<hr/>
+						<!-- table:start -->
+						<table class="table" id="table1">
+							<caption>Optional table caption.</caption>
+							<thead><tr><th>#</th><th>First Name</th><th>Last Name</th><th>Username</th></tr></thead>
+							<tbody>
+								<tr><th scope="row">1</th><td>Mark</td><td>Otto</td><td>@mdo</td></tr>
+								<tr><th scope="row">2</th><td>Jacob</td><td>Thornton</td><td>@fat</td></tr>
+								<tr><th scope="row">3</th><td>Larry</td><td>the Bird</td><td>@twitter</td></tr>
+							</tbody>
+						</table>
+						<!-- some addition -->
+						<input type="checkbox" class="bs-addition" data-tar_get="#table1" data-ty_pe="table-striped" /> table-striped.
+						<input type="checkbox" class="bs-addition" data-tar_get="#table1" data-ty_pe="table-bordered" /> table-bordered.
+						<input type="checkbox" class="bs-addition" data-tar_get="#table1" data-ty_pe="table-hover" /> table-hover.
+						<input type="checkbox" class="bs-addition" data-tar_get="#table1" data-ty_pe="table-condensed" /> table-condensed.
+						<!-- table:end -->
+					</div>
+				</div>
+				<div class="col-md-3" id="core_sidebar">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+
+					<!-- input-state:start -->
+					<div class="form-group has-success">
+						<label class="control-label" for="inputSuccess1">Input with success</label>
+						<input type="text" class="form-control" id="inputSuccess1">
+					</div>
+					<div class="form-group has-warning">
+						<label class="control-label" for="inputWarning1">Input with warning</label>
+						<input type="text" class="form-control" id="inputWarning1">
+					</div>
+					<div class="form-group has-error">
+						<label class="control-label" for="inputError1">Input with error</label>
+						<input type="text" class="form-control" id="inputError1">
+					</div>
+					<!-- input-state:end -->
+
+
+					<!-- button-state:start -->
+					<button type="button" class="btn btn-default btn-sm">Default</button>
+					<button type="button" class="btn btn-primary">Primary</button>
+					<button type="button" class="btn btn-success btn-lg">Success</button>
+					<button type="button" class="btn btn-info">Info</button>
+					<button type="button" class="btn btn-warning btn-sm">Warning</button>
+					<button type="button" class="btn btn-danger btn-xs">Danger</button>
+					<button type="button" class="btn btn-link">Link</button>
+					<!-- button-state:end -->
+
+					<hr/>
+
+					<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<p class="text-primary">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<p class="text-success">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<p class="text-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<p class="text-warning">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<p class="text-danger">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+					<hr/>
+
+					<p class="bg-primary">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<p class="bg-success">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<p class="bg-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<p class="bg-warning">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<p class="bg-danger">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+					<hr/>
+
+					<!-- heading:start -->
+					<h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h1>
+					<h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h2>
+					<h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h3>
+					<h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h4>
+					<h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h5>
+					<h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h6>
+					<!-- heading:end -->
+
+					<hr/>
+
+					<!-- para:start -->
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<!-- para:end -->
+
+					<hr/>
+
+					<!-- bq:start -->
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+					<blockquote class="blockquote-reverse">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+					<!-- bq:end -->
+				</div>
+			</div>
+		</div>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+		var isHasSidebar = false;
+		var blog_lang = "id";
+		var content = $("#core_content");
+		var sidebar = $("#core_sidebar");
+		function togglesidebar() {
+			if (!isHasSidebar) {
+				sidebar.hide();
+				content.parent().removeClass("col-md-9").addClass("col-md-12");
+				isHasSidebar = !isHasSidebar;
+			} else {
+				content.parent().removeClass("col-md-12").addClass("col-md-9");
+				sidebar.show();
+				isHasSidebar = !isHasSidebar;
+			};
+		}
+		$(".bs-addition").on("change",function() {
+			var bo_ol = $(this).is(":checked");
+			var cla_ss = $(this).data("ty_pe");
+			var tar_get = $(this).data("tar_get");
+			if (bo_ol) {
+				$(tar_get).addClass(cla_ss);
+			} else {
+				$("#table1").removeClass(cla_ss);
+			};
+		});
+		</script>
+	</body>
+</html>
