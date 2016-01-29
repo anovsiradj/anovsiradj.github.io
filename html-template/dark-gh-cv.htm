@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+<link href='//fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'/>
+	<title>[a title]</title>
+	<style>
+	* {font-family:'Ubuntu Mono',monospace;}
+	html,body { background-color: #222; color: #fff; }
+	html,body,#wrap { height: 100%; width: 100%; }
+	html,body,div,hr,#wrap { margin: 0px; padding: 0px; }
+	.h1 {font-size:4em;} .h2 {font-size:3em;} .h3 {font-size: 2.34em;} .h4 {font-size:16px;} .h5 {font-size:1.66em;} .h6 {font-size:1.34em;} /* [r2] */
+	.t-shadow {text-shadow: 3px 4px 3px rgba(189,189,189,0.4),3px 8px 13px rgba(189,189,189,0.1),3px 18px 23px rgba(189,189,189,0.1);}
+	.rm-shadow {text-shadow: none;}
+	.a-l {text-align: left;}
+	.a-r {text-align: right;}
+	.a-c {text-align: center;}
+	div.b-inline {display: inline-block;}
+	hr.fade-line { /* [r1] */
+		border: 0;
+		height: 1px;
+		background-image: -webkit-linear-gradient(left, #323232, #555, #222);
+		background-image: -moz-linear-gradient(left, #323232, #555, #222);
+		background-image: -ms-linear-gradient(left, #323232, #555, #222);
+		background-image: -o-linear-gradient(left, #323232, #555, #222);
+		background-image: linear-gradient(left, #323232, #555, #222);
+		margin: 8px 0px;
+	}
+	ul.list-shell { list-style: none; margin: 0px; padding-top: 0px; }
+	ul.list-shell li { position: relative; }
+	ul.list-shell > li:not(:first-child) { padding-top: 8px; }
+	ul.list-shell li:before {
+		content: "›";
+		position: absolute;
+		left: -20px;
+		color: #999;
+		font-weight: bold;
+		font-family: sans-serif;
+	}
+	.va-t { vertical-align: top; text-align: justify; }
+	.t-ctx { font-size: 20px; }
+	.tag-like { padding: 2px 3px; border: 1px solid #555; color: #999; border-radius: 2px; }
+	.tag-like:hover { border-color:#6f5499; color: #cdbfe3; }
+	* > .tag-like:not(:first-child) { margin-left: 6px; }
+	.t-shy {color: #555;}
+	.rm-shy {color: #eee;}
+	.jsm {}
+	</style>
+</head>
+<body>
+	<table id="wrap">
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td colspan="5">
+				<div class="h3 t-shadow">[title] <span class="t-shy rm-shadow">&dash;</span> [what?]</div>
+				<hr class="fade-line jsm jsm_e_margin-top-20px" />
+			</td>
+			<td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+		<tr class="va-t">
+			<td>&nbsp;</td><td>&nbsp;</td><td class="h3">Something</td>
+			<td colspan="4">
+				<ul class="list-shell t-ctx">
+					<li>Hi.., my name is <span class="tag-like">Anovsiradj</span></li>
+					<li>Some pharagraph...,</li>
+					<li>Another pharagraph...,</li>
+					<li>and Soon...,</li>
+					<li>I'm <span class="jse tag-like" data-hell="innerHTML" data-evil="(((new Date().getTime()/1000)-832716000)/31104000).toFixed(2)">my_age</span> years old. (May 22, 1996).</li>
+					<li>...,</li>
+				</ul>
+			</td>
+			<td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+		<tr class="va-t">
+			<td>&nbsp;</td><td>&nbsp;</td><td class="h3">another thing</td>
+			<td colspan="4">
+				<ul class="list-shell t-ctx">
+					<li>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</li><!-- [r3] -->
+					<li><span class="tag-like">tag</span><span class="tag-like">like</span><span class="tag-like">style</span></li>
+					<li><span class="tag-like">or</span><span class="tag-like">maybe</span><span class="tag-like">like</span><span class="tag-like">badge</span></li>
+					<li><span class="tag-like">?</span><span class="tag-like">hmmm..,</span><span class="tag-like">i'm</span><span class="tag-like">not</span><span class="tag-like">sure</span></li>
+				</ul>
+			</td>
+			<td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+
+		<!-- template:start -->
+		<tr>
+			<td>&nbsp;</td><td>&nbsp;</td><td class="h3">...</td>
+			<td colspan="4">
+				<ul class="list-shell t-ctx">
+					<li>...</li>
+				</ul>
+			</td>
+			<td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+		<!-- template:end -->
+
+	</table>
+
+
+	<div class="jsm jsm_e_padding-left-20px jsm_e_padding-right-20px jsm_e_padding-bottom-20px t-shy">
+		<hr class="fade-line jsm jsm_e_margin-bottom-20px" />
+		created-at<span class="t-shy tag-like">20151202113713</span>
+	</div>
+
+<script>
+String.prototype.capitalizeFirstLetter = function() { // [r4]
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+function e_padding(o,p,s) {
+	p = (p === '') ? '' : p.capitalizeFirstLetter();
+	var d = "padding"+p;
+	o.style[d] = s;
+}
+function e_margin(o,p,s) {
+	p = (p === '') ? '' : p.capitalizeFirstLetter();
+	var d = "margin"+p;
+	o.style[d] = s;
+}
+(function() {
+	// js-manipulation
+	var e_manip = document.getElementsByClassName('jsm');
+	for (var i = 0; i < e_manip.length; i++) {
+		var jsm = e_manip[i].className.match(/jsm_([^\s]+)-([^\s]+)-([^\s]+)*/g) || [];
+		for (var i2 = 0; i2 < jsm.length; i2++) {
+			var jsm_param = jsm[i2].slice(4).split("-");
+			var jsm_f = window[jsm_param[0]];
+			jsm_f(e_manip[i],jsm_param[1],jsm_param[2]);
+		};
+	};
+	// js-eval
+	var e_vil = document.getElementsByClassName('jse');
+	for (var i = 0; i < e_vil.length; i++) {
+		e_vil[i][e_vil[i].dataset.hell] = eval(e_vil[i].dataset.evil);
+	};
+})();
+</script>
+</body>
+</html>
+<!--
+resource notes:
+r1: https://css-tricks.com/simple-styles-for-horizontal-rules/
+r2: http://stackoverflow.com/questions/6140430/what-are-the-most-common-font-sizes-for-h1-h6-tags
+r3: http://www.blindtextgenerator.com/lorem-ipsum
+r4: http://stackoverflow.com/a/1026087
+?: .tag-like:hover color,border-color from http://getbootstrap.com/ (inspect)
+-->
