@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id" data-created="20151214103125">
+<head>
+<meta charset="UTF-8">
+<title>Data Anak Lama</title>
+<style>
+* {padding:0px;margin:0px;}
+.box-flot {
+	width: 600px;
+	height: 300px;
+	border: 5px solid orange;
+	background: #fff;
+	margin: 0px auto;
+	margin-top: 10px;
+	margin-left: 10px;
+	float: left;
+	display:block;
+	overflow: visible;
+}
+.flot-area {
+	width: 100%;
+	height: 100%;
+	background-color: #eee;
+	display: block;
+}
+</style>
+</head>
+<body>
+<div class="box-flot"><div class="flot-area" id="normal"></div></div>
+<div class="box-flot"><div class="flot-area" id="normal-variety"></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.min.js"></script>
+<script>
+'use strict';
+var d_1 = [[0,9],[9,2]],
+	d_2 = [[0,4],[2,3],[4,5],[9,2]],
+	d_3 = [[0,1],[1,2],[2,1],[7,2],[9,0]];
+var $target,data,opt;
+// =======================================================================================
+$target = $('#normal');
+data = [{
+	label:'my live',
+	data:d_1
+}, {
+	label:'friend shit',
+	data:d_2
+},{
+	label:'family intergrity',
+	data:d_3
+}];
+$.plot($target,data);
+// =======================================================================================
+$target = $('#normal-variety');
+data = [{
+	data:d_1,
+	label:'my live',
+	color:'#ad0', // green
+	lines:{show:true,fill:true} // default style-graph
+}, {
+	data:d_2,
+	label:'friend shit',
+	color:'#0099ff', // blue
+	bars:{show:true}
+},{
+	data:d_3,
+	label:'family intergrity',
+	color:'#e13300', // red
+	lines:{show:true},
+	points:{show:true}
+}];
+$.plot($target,data);
+// =======================================================================================
+</script>
+</body>
+</html>
