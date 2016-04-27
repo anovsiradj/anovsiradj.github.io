@@ -1,0 +1,101 @@
+<!-- 201603111509
+ketetapan:
+penggunaan class menggunakan prefix "gip" (GI Parallax).
+mengikuti konsep "twbs" dalam penamaan class.
+-->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>201603111509</title>
+<link rel="stylesheet" type="text/css" href="main.css"/>
+<style rel="stylesheet" type="text/css" id="excss"></style>
+</head>
+<body>
+
+<div style="position: fixed;" id="navg"><a href="#holdr">0</a></div>
+
+<div class="gip-container" id="holdr">
+	<div class="gip-row">
+		<div class="gip-col">
+			<div class="gip-center">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus maiores iure dicta! Fugiat iste a distinctio aspernatur, asperiores ab animi delectus ipsum ad. Saepe ut, nostrum in, est porro tenetur.
+			</div>
+		</div>
+	</div>
+	<div class="gip-row">
+		<div class="gip-col">
+			<div class="gip-center">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus maiores iure dicta! Fugiat iste a distinctio aspernatur, asperiores ab animi delectus ipsum ad. Saepe ut, nostrum in, est porro tenetur.
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="/jquery-1.11.3.min.js"></script>
+<script>
+
+var bgimg_src = [
+	// "/C_Windows_Web/Wallpaper/Theme1/img1.jpg",
+	// "/C_Windows_Web/Wallpaper/Theme1/img2.jpg",
+	// "/C_Windows_Web/Wallpaper/Theme1/img3.jpg",
+	// "/C_Windows_Web/Wallpaper/Theme1/img4.jpg",
+	// "/C_Windows_Web/Wallpaper/Theme1/img5.jpg",
+	// "/C_Windows_Web/Wallpaper/Theme1/img6.jpg",
+	// "/C_Windows_Web/Wallpaper/Theme1/img13.jpg",
+	"/C_Windows_Web/Wallpaper/Theme2/img7.jpg",
+	"/C_Windows_Web/Wallpaper/Theme2/img8.jpg",
+	"/C_Windows_Web/Wallpaper/Theme2/img9.jpg",
+	"/C_Windows_Web/Wallpaper/Theme2/img10.jpg",
+	"/C_Windows_Web/Wallpaper/Theme2/img11.jpg",
+	"/C_Windows_Web/Wallpaper/Theme2/img12.jpg"
+];
+var bgimg_pos = ['right','bottom','left','top'];
+
+var navg = $('#navg',document.body)[0]
+var holdr = $('#holdr',document.body)[0];
+var excss = $('#excss',document.head)[0]; // extend-css
+var cache_container = {};
+
+$(document.body).css('overflow-y','hidden');
+
+(function() {
+	var holdred,holdred_id;
+	var holdr_index = 0; //1-based
+	var holdr_length = 10;
+	(function holdr_loop() {
+		var rand = Math.ceil((Math.random(69,96).toFixed(2))*100);
+		holdr_index++;
+		holdred = holdr.cloneNode(true);
+		holdred_id = holdred.id+holdr_index;
+		holdred.id = holdred_id;
+		$(holdred).
+			addClass('gip-bgimg').
+			addClass('gip-bgimg-'+bgimg_pos[rand % bgimg_pos.length]).
+			addClass('gip-bgimg-'+bgimg_pos[(rand+1) % bgimg_pos.length]).
+			css('background-image','url('+bgimg_src[holdr_index % bgimg_src.length]+')');
+		document.body.appendChild(holdred);
+		navg.appendChild($('<a/>').text(' '+holdr_index).attr('href','#holdr'+holdr_index)[0]);
+		if (holdr_index < holdr_length) { holdr_loop(); };
+	})();
+})();
+
+var gip_move_busy = false;
+$('a','#navg').on('click',function(event) {
+	event.preventDefault();
+	if (!gip_move_busy) {
+		gip_move($(this)[0].hash);
+	}
+});
+function gip_move(sh) {
+	gip_move_busy = true;
+	var el_section = cache_container[sh] || (function() {
+		return cache_container[sh] = $(sh,document.body);
+	})();
+	$(document.body).animate({ scrollTop:el_section.offset().top },800,function() {
+		gip_move_busy = false;
+	});
+}
+</script>
+
+</body></html>

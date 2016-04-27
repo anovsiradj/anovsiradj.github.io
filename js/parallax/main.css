@@ -1,0 +1,27 @@
+html,body {
+	margin: 0px;
+	height: 100%;
+}
+.gip-container {
+	width: 100%;
+	height: 100%;
+	display: table;
+}
+.gip-row {
+	position: relative;
+	display: table-row;
+}
+.gip-col {
+	display: table-cell;
+	vertical-align: middle;
+}
+.gip-bgimg {
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+.gip-bgimg.gip-bgimg-left { background-position-x: 0%; }
+.gip-bgimg.gip-bgimg-right { background-position-x: 100%; }
+.gip-bgimg.gip-bgimg-top { background-position-y: 0%; }
+.gip-bgimg.gip-bgimg-bottom { background-position-y: 100%; }
