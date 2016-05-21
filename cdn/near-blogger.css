@@ -1,5 +1,5 @@
 /*
-@created/@edited 201605162021, 201605212202 (tomorrow is birdhday!) - (@initial: 201401)
+@created/@edited 201605162021, 201605212202 (tomorrow is birthday!) - (@initial: 201401)
 @author Anovsiradj <anov.siradj22@(gmail|live).com|anov.siradj@gin.co.id>
 @oldcode https://googledrive.com/host/0B5QQvAjRq64ha2RTZ0dUR3RzZTA/
 @description improved renew-version
@@ -33,3 +33,26 @@
 .w-25p {width: 25%;}
 .w-10p {width: 10%;}
 .w-0p {width: 0%;}
+
+/* navbar darknature */
+.navbar-darknature {background-color: #4d7f17; border-color: #356007;}
+.navbar-darknature .navbar-nav > .active > a,.navbar-darknature .navbar-nav > .active > a:focus,.navbar-darknature .navbar-nav > .active > a:hover {color: #6bb120; background-color: #356007;}
+.navbar-darknature .navbar-nav > li > a {color: #6bb120;}
+.navbar-darknature > .nav > li > a:focus,.navbar-darknature > .nav > li > a:hover {background-color: #6bb120; color: #356007;}
+.navbar-darknature .navbar-nav > .open > a,.navbar-darknature .navbar-nav > .open > a:focus,.navbar-darknature .navbar-nav > .open > a:hover {color: #6bb120; background-color: #356007;}
+.navbar-darknature .navbar-nav > li > a:focus,.navbar-darknature .navbar-nav > li > a:hover {color: #4d7f17; background-color: #6bb120;}
+.navbar-darknature .navbar-brand {color: #356007;}
+.navbar-darknature .navbar-brand:focus,.navbar-darknature .navbar-brand:hover {color: #2c4b0c; background-color: transparent;}
+.navbar-darknature .form-control {background-color: #4d7f17; border-color: transparent; color: #6bb120;}
+.navbar-darknature .input-group > .form-control:focus {border-bottom-color: #6bb120;}
+.navbar-darknature .form-control::-webkit-input-placeholder {color:#6bb120 !important;}
+.navbar-darknature .form-control:-moz-placeholder {color:#6bb120 !important;}
+.navbar-darknature .form-control::-moz-placeholder {color:#6bb120 !important;}
+.navbar-darknature .form-control:-ms-input-placeholder {color:#6bb120 !important;}
+.navbar-darknature .navbar-toggle {border-color: #6bb120;}
+.navbar-darknature .navbar-toggle:focus,.navbar-darknature .navbar-toggle:hover {background-color: #356007;}
+.navbar-darknature .navbar-toggle .icon-bar {background-color: #6bb120;}
+.navbar-darknature .dropdown-menu {background-color: #4d7f17;}
+.navbar-darknature .dropdown-menu>li>a {color: #6bb120;}
+.navbar-darknature .dropdown-menu .divider {background-color: #356007;}
+.navbar-darknature .dropdown-menu>li>a:focus,.navbar-darknature .dropdown-menu>li>a:hover {color: #356007; background-color: #6bb120;}
