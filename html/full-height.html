@@ -1,0 +1,173 @@
+<!-- riwayat: ms-ari-desen.php, index.html -->
+<!DOCTYPE html>
+<html lang="id">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="author" content="anovsiradj"/>
+		<meta name="url" content="//ne-a-r.blogspot.com/ncr"/>
+		<title>2016‎02‎16‏‎141710, 201605282150</title>
+		<!-- <link rel="stylesheet" href="//cdn.io/twbs-3.3.6/css/bootstrap.min.css"/> -->
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css"/>
+		<style>
+			/* utama */
+			#nav_wrapper,
+			#nav_wrapper .dropdown-menu,
+			#side_wrapper > .list-group > a { border-radius: 0px; }
+
+			#nav_wrapper,
+			#side_wrapper > .list-group { margin-bottom: 0px; }
+
+			#side_wrapper { padding: 0px; } /* agar list-link lebar-penuh */
+
+			#side_wrapper > .list-group > a { background-color: #222; }
+			#side_wrapper > .list-group > a { border-color: #000; }
+			#side_wrapper > .list-group > a:first-child { border-top-color: transparent; } /* sudah dari navbar */
+			#side_wrapper > .list-group > a:not(.active):hover {
+				color: #999;
+				background-color: #2c2c2c;
+			}
+
+			#foot_wrapper {
+				color: #666;
+				background-color: #2c2c2c;
+				padding-top: 4px;
+				padding-bottom: 4px;
+			}
+		</style>
+	</head>
+	<body>
+
+		<!-- awal nav -->
+		<div id="nav_wrapper" class="navbar navbar-inverse" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-content">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">sebuah website</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="nav-content">
+					<ul class="nav navbar-nav">
+						<li><a href="#">yang berada di internet</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">pilihan</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">tempat <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">ke gugel</a></li>
+								<li><a href="#">ke yahuu</a></li>
+								<li><a href="#">ke bing</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#">ke tempat lain</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- akhir nav -->
+
+		<div class="container-fluid">
+			<div class="row">
+
+				<!-- awal side -->
+				<div id="side_wrapper" class="col-sm-2 navbar-inverse">
+					<div class="list-group">
+						<a href="#" class="list-group-item active">Cras justo odio</a>
+						<a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+						<a href="#" class="list-group-item">Morbi leo risus</a>
+						<a href="#" class="list-group-item">Porta ac consectetur ac</a>
+						<a href="#" class="list-group-item">Vestibulum at eros</a>
+					</div>
+
+					<!-- awal debugging -->
+					<div id="debg" class="text-center" style="background-color:#669900;padding:6px 10px;font-weight:bold;font-family:monospace;"></div>
+					<!-- akhir debugging -->
+
+				</div>
+				<!-- akhir side -->
+
+				<!-- awal content -->
+				<div class="col-sm-10" id="main_wrapper">
+					<h1>Hai.</h1>
+					<p><kbd>laman-website dengan tinggi-penuh.</kbd></p>
+					<p><kbd>Percobaan: silahkan ubah ukuran-tinggi browser anda. Lihat hasil tingginya di sidebar warna hijau.</kbd></p>
+					<script>
+						var maks_content = 0;
+						(function content_pelan2() {
+							if (maks_content > 20) return; // ok, stop
+							document.getElementById('main_wrapper').innerHTML += 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla iure culpa eos, sed amet magnam, in iusto perspiciatis nobis corporis debitis, hic quo suscipit eveniet at, fugiat! Delectus, laboriosam, voluptatum.';
+							setTimeout(function() {
+								maks_content++;
+								content_pelan2();
+							},0);
+						})();
+					</script>
+				</div>
+				<!-- akhir content -->
+
+			</div>
+
+			<!-- awal foot -->
+			<div class="row navbar-inverse" id="foot_wrapper">
+				<div class="col-md-12 text-center">
+					Powered By <a href="//getbootstrap.com" target="_blank">Twitter Bootstrap</a> v3.3.6 and <a href="//jquery.org" target="_blank">jQuery</a> 1.11.3.
+					Created By <a href="//ne-a-r.blogspot.com/ncr" target="_blank">Anovsiradj</a>. Feel free to asking.
+				</div>
+			</div>
+			<!-- awal foot -->
+
+		</div>
+		<!-- <script src="//cdn.io/jquery-1.11.3.min.js"></script> -->
+		<!-- <script src="//cdn.io/twbs-3.3.6/js/bootstrap.min.js"></script> -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script>
+
+		$(document).ready(function() {
+
+			/* awal script */
+			;(function($w) {
+				var $fullheight = $('#side_wrapper,#main_wrapper').css('overflow-y','auto');
+				var $removedheight = $('#nav_wrapper,#foot_wrapper');
+
+				var $debg = $('#debg'); //
+
+				$w.bind('resize',function() {
+
+					// untuk disable-nya:
+					// return;
+
+					if ($(this).width() > 768) { // bootstrap!
+
+						var toremoveheight = 0;
+
+						$removedheight.each(function() {
+							toremoveheight += $(this).outerHeight();
+						});
+
+						var resheight = $(this).height()-toremoveheight; //
+
+						// $fullheight.css('height',$(this).height()-toremoveheight);
+						$fullheight.css('height',resheight); //
+
+						$debg.text(resheight+'px'); //
+
+					} else {
+						$fullheight.css('height','');
+					}
+
+				}).trigger('resize');
+			})($(window));
+			/* akhir script */
+
+			// baris script yg diakhiri "//", artinya hanya pembantu debug
+
+		});
+		</script>
+	</body>
+</html>
