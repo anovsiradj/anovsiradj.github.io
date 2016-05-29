@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"/>
+<title>201605261905</title>
+<style>
+body * {margin: 0px;}
+body {
+	width: 768px;
+	margin: 0px auto;
+	padding: 0px;
+	font-family: monospace;
+	position: relative;
+}
+#print { background-color: #ddd; }
+table {width: 100%;}
+td {vertical-align: top;}
+</style>
+</head><body>
+
+<h1><br/>List2JSON</h1>
+
+<table>
+	<tr>
+		<td>
+			<b>UL - LI</b>
+			<ul id="root">
+				<li>a</li>
+				<li>b
+					<ul>
+						<li>x</li>
+						<li>y
+							<ul>
+								<li>e</li>
+								<li>f</li>
+								<li>g</li>
+							</ul>
+						</li>
+						<li>z</li>
+					</ul>
+				</li>
+				<li class="only" data-a='a'>c
+					<ul>
+						<li>p</li>
+						<li>q</li>
+						<li>r</li>
+					</ul>
+				</li>
+			</ul>
+		</td>
+		<td>
+			<b>$('ul#root').list2json()</b>
+			<pre id="print"></pre>
+		</td>
+	</tr>
+</table>
+
+<br/>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+/*
+yang dipelajari:
+this <- isinya otomatis jquery object (seakan2 sudah $(...)).
+jika kita pakai prototype, maka harus menggunakan this.proto_fn, tidak bisa fn.proto_fn.
+tapi jika langsung fn.sub_fn = fn(), bisa keduanya. this.sub_fn atau fn.sub_fn.
+*/
+
+/* AWAL KODE DARI PLUGIN */
+(function($) {
+
+	var list2json = function(child_slt) {
+		var res = [];
+
+		list2json.init(child_slt);
+
+		if (this.length > 0) {
+			list2json.opt_parent_slt = this.eq(0)[0].nodeName;
+			list2json.looper(this.eq(0),res);
+		}
+		return res;
+	};
+
+	list2json.version = '0.1 - 201605261901';
+	list2json.description = 'jQuery Plugin for convert (DOM) Element -> JSON.';
+	list2json.author = 'Mayendra Costanov <anov.siradj22@(gmail|live).com>';
+
+	list2json.deft_child_slt = 'li';
+	list2json.opt_parent_slt = null;
+	list2json.opt_child_slt = null;
+
+	list2json.init = function(child_slt) {
+		this.opt_child_slt = child_slt || this.deft_child_slt;
+	};
+
+	list2json.looper = function(elm,obj) {
+		elm.children(list2json.opt_child_slt).each(function() {
+			// console.log(elm.children(list2json.opt_child_slt));
+			var item = {
+				label:$(this)[0].childNodes[0].nodeValue.trim()
+			};
+			obj.push(item);
+			// pastikan li>ul ada
+			if ($(this).children(list2json.opt_parent_slt+':first').length > 0) {
+				// pastikan ul>li ada
+				if ($(this).children(list2json.opt_parent_slt+':first').children(list2json.opt_child_slt).length > 0) {
+					item.children = [];
+					list2json.looper($(this).children(list2json.opt_parent_slt+':first'),item.children);
+				}
+			}
+		});
+	};
+
+	$.fn.list2json = list2json;
+
+})(jQuery);
+/* AKHIR KODE DARI PLUGIN */
+
+function print_result() {
+	$('#print').text(
+		JSON.stringify(
+			$('ul#root').list2json(),
+			undefined,
+			4
+		)
+	);
+}
+
+print_result();
+</script>
+</body>
+</html>

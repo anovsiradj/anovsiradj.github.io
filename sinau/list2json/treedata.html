@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+	<title>201605101001</title>
+	<style>.fl {float: left;}</style>
+</head>
+<body>
+
+<div id="root" class="fl">
+	<ul>
+		<li>a</li>
+		<li>b
+			<ul>
+				<li>x</li>
+				<li>y
+					<ul>
+						<li>e</li>
+						<li>f</li>
+						<li>g</li>
+					</ul>
+				</li>
+				<li>z</li>
+			</ul>
+		</li>
+		<li>c
+			<ul>
+				<li>p</li>
+				<li>q</li>
+				<li>r</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+<pre id="print" class="fl"></pre>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+function parseList(el) {
+	var res = [];
+	function loopList(ul,obj) {
+		ul.children('li').each(function() {
+			var item = {
+				label:$(this)[0].childNodes[0].nodeValue.trim()
+			};
+			obj.push(item);
+			//cek li-ul
+			if ($(this).children('ul:first').length > 0) {
+				var obj_idx = obj.length-1;
+				obj[obj_idx]['children'] = [];
+				loopList($(this).children('ul:first'),obj[obj_idx]['children']);
+			}
+		});
+	}
+	loopList(el.children('ul:first'),res);
+	return res;
+}
+
+$('#print').text(JSON.stringify(parseList($('#root')),undefined,4));
+</script>
+</body>
+</html>
+<!--
+pustaka:
+http://stackoverflow.com/questions/16862627/json-stringify-output-to-div-in-pretty-print-way
+http://stackoverflow.com/questions/13518988/convert-html-div-content-to-json-object
+http://stackoverflow.com/questions/6520192/get-text-node-of-an-element
+-->
