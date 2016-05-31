@@ -274,10 +274,10 @@ $(document).ready(function() {
 				if ($(this).prop('id') === 'sectionX') {
 					$that = $(this);
 					$('#section0').data('link_control').click();
+					sctn = 'sectionX';
 					setTimeout(function() {
-						sctn = 'sectionX';
 						$that[0].scrollIntoView();
-					},0);
+					},durchange);
 					return;
 				}
 				$(this).data('link_control').click();
