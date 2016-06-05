@@ -1,0 +1,97 @@
+<?php
+echo "<pre>";
+
+
+// ini_set('memory_limit', '1M'); //default 128M
+// require('fn/ini_get_bytes.php');
+// $eq = ini_get_bytes('memory_limit') === (1*(1024*1024));
+// var_dump($eq);
+
+
+$mb_calc = 1024 * 1024;
+$mb_format = "%0.2fMb";
+
+$memusage = [
+	// '262144', '66846720', '66846720', '42205184','', //pertama
+	// '262144', '67108864', '67108864', '42729472','', //gc
+	// '262144', '65798144', '65798144', '41156608','', //gc perline
+	// '262144', '262144', '262144', '262144','', //line-by-line
+	// '262144', '68157440', '68157440', '68157440','', //pertama (lagi)
+	189267968,'', //baru
+	189267968,'', //sama
+	189267968,'', //dengan cek memusage
+	189267968,'', //unset header,footer
+	189267968,'', //unset + data
+	74711040,'', //unset perindex dari base-array
+	36175872,'', //cuma bandingkan 1mb dengan bytes dari data, --> #1 <--
+	31981568,'', //idem. tapi 2mb
+	30408704,'', //idem. tapi 3mb
+	27262976,'', //hasil memori paling-akhir setelah unset footer,data-terakhir
+	27262976,'', //idem cek langsung kalau memori 90%++ tidak pakai strlen
+	189267968,'', //hapus unset perindex dari base-array,
+	141819904,'', //kembali ke #1, tidak unset footer,header,base[i] --> #2 <--
+	141819904,'', //lali
+	141819904,'',
+	141819904,'',
+	262144,'', //#2, tanpa cek memori per-loop, tanpa unset data-trakhir. akhir dari file x_datahtml3
+	141819904,'',//idem, awal file x_datahtml4
+	33554432,'',//idem, sambil unset base[1]
+	31195136,'',//idem, unset data-terakhir
+	29097984,'',//idem, 2mb
+];
+$timeusage = [
+	// 212.38113093376,'', //line-by-line
+	// 232.60113692284,'', //idem
+	// 8.523136138916,'', //pertama
+	9.7131218910217,'', //baru
+	9.6053500175476,'', //sama
+	10.297609090805,'',//dengan cek memusage
+	10.312220096588,'',
+	10.447093963623,'',
+	10.458616018295,'', //unset perindex dari base-array
+	8.5851919651031,'',
+	7.9516689777374,'',
+	7.9573519229889,'',
+	10.094696044922,'',
+	10.008994102478,'',
+	9.8222539424896,'',
+	7.4993159770966,'',
+	9.9150381088257,'',
+	8.1399099826813,'',
+	7.507796049118,'',
+	7.3398840427399,'',
+	7.3631970882416,'',
+	8.2414789199829,'',
+	7.9441161155701,'',
+	7.72523188591,'',
+];
+
+
+// function convert($size) {
+//     $unit=array('b','kb','mb','gb','tb','pb');
+//     return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+// }
+
+echo "<div style='float:left;'><b>memory_get_usage:</b>",PHP_EOL,"==========",PHP_EOL;;
+foreach ($memusage as $v) {
+	if (empty($v)) {
+		echo "-----\n";
+		continue;
+	}
+	// echo convert($v)."\n";
+	echo rtrim(rtrim(number_format($v / $mb_calc,2,'.',''),'0'),'.')." Mb (".$v.")\n";
+}
+echo "</div><div style='float:left;'><b>execution time:</b>",PHP_EOL,"==========",PHP_EOL;
+foreach ($timeusage as $v) {
+	if (empty($v)) {
+		echo "-----\n";
+		continue;
+	}
+	echo number_format($v,2,'.',''),
+		" detik atau ",
+		number_format($v/60,2,'.',''),
+		" menit.",
+		" (",$v,")",
+		PHP_EOL;
+}
+echo "</div>";
