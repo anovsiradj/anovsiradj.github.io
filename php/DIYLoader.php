@@ -1,0 +1,1 @@
+<?php require('lainnya/anovsiradj.github.io/php/DIYLoader.php');
