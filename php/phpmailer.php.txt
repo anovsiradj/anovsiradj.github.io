@@ -1,4 +1,4 @@
-<?php
+<?php // 201512
 // load auto loader agar lib bisa bekerja.
 require_once 'PHPMailer-5.2.14'.DIRECTORY_SEPARATOR.'PHPMailerAutoload.php';
 
