@@ -1,0 +1,27 @@
+<?php // ‎2016‎04‎04‏‎165006
+
+header("Content-Type:text/xml"); // agar dibaca sebagai XML
+
+$data = [
+	['nama'=>'Ala','umur'=>15],
+	['nama'=>'Ali','umur'=>16],
+	['nama'=>'Alu','umur'=>13],
+	['nama'=>'Ale','umur'=>19],
+	['nama'=>'Alo','umur'=>11]
+];
+
+$xml = new DOMDocument('1.0','utf-8');
+
+$root = $xml->appendChild(new DOMElement('data'));
+
+for ($i=0; $i < sizeof($data); $i++)
+{
+	$user = $root->appendChild(new DOMElement('user'));
+	foreach ($data[$i] as $k => $v)
+	{
+		$user->appendChild(new DOMElement($k,$v));
+	}
+}
+
+echo $xml->saveXML();
+// print_r($root);
