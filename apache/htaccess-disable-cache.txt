@@ -1,0 +1,10 @@
+# local tak boleh ada cache
+<filesMatch "\.*$">
+  #FileETag None
+  <ifModule mod_headers.c>
+     #Header unset ETag
+     Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+     Header set Pragma "no-cache"
+     Header set Expires "Wed, 22 May 1996 19:21:18 GMT"
+  </ifModule>
+</filesMatch>
