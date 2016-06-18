@@ -1,0 +1,88 @@
+<!--
+201606172025, 201606172256
+-->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="UTF-8">
+	<title>Javascript Param(eter)</title>
+	<link rel="stylesheet" type="text/css" href="../cdn/anovymous.css"/>
+</head>
+<body>
+
+<div id="container">
+	<div id="header"></div>
+	<div id="content">
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-6">
+			<p>My another experiment <code>javascript</code> using <code>prototype</code>.</p>
+			<p>
+				for-what:<br/>
+				Just extract from <code>window.location.search</code> (url.com/<code>?key=value</code>).
+			</p>
+			<p>
+				usage:<br/>
+				<code>
+					var param = new jsParam;<br/>
+					console.log(param.source); // (see) --><br/>
+					param.get('key'); // return 'value'
+				</code>
+				<br/>or:<br/>
+				<code>var obj = (new jsParam).source; // return (see) --></code>
+			</p>
+			<p><a href="?lorem=ipsum&foo=bar">Test Link</a></p>
+		</div>
+		<div class="col-sm-6">
+			result:
+			<pre id="jsp_source" class="bd-rad-0"></pre>
+		</div>
+	</div>
+</div>
+
+	</div>
+	<div id="footer"></div>
+</div>
+
+<script src="../cdn/anovymous.js"></script>
+<script>
+(new Anovymous).init();
+// JSON.stringify(
+// 	$('ul#root').list2json(),
+// 	undefined,
+// 	4
+// )
+
+(function(w) {
+	function jsp() {
+		this.init();
+	}
+	jsp.prototype.extract = function() {
+		if (w.location.search !== '') {
+			this.source = w.location.search.slice(1).split('&').map(function(v) { return v.split('=') });
+		} else {
+			this.source = [];
+		}
+	}
+	jsp.prototype.init = function() {
+		this.extract();
+	};
+	jsp.prototype.get = function(k) {
+		for (var i in this.source) {
+			if (this.source[i][0] === k) {
+				return this.source[i][1];
+			}
+		}
+		return null;
+	};
+	w.jsParam = jsp;
+})(window);
+
+// var param = new jsParam;
+// byid('jsp_source').innerText = jsonify(param.source);
+
+byid('jsp_source').innerText = jsonify((new jsParam).source);
+</script>
+</body>
+</html>

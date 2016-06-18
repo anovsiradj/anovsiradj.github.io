@@ -1,0 +1,47 @@
+/*
+@created/@edited 201606172152, 201606172256 - (@initial: 201401)
+@author Anovsiradj <anov.siradj22@(gmail|live).com|anov.siradj@gin.co.id>
+@oldcode https://googledrive.com/host/0B5QQvAjRq64ha2RTZ0dUR3RzZTA/
+@description improved old-version, targeted instant single-page
+*/
+
+/* mynameis */
+.anovsiradj {}
+
+/* margin, padding */
+.mg-0 {margin: 0px;}
+.mg-x-0 {margin-left: 0px;margin-right: 0px;}
+.mg-x-l-0 {margin-left: 0px;}
+.mg-x-r-0 {margin-right: 0px;}
+.mg-y-0 {margin-top: 0px;margin-bottom: 0px;}
+.mg-y-t-0 {margin-top: 0px;}
+.mg-y-b-0 {margin-bottom: 0px;}
+.pd-0 {padding: 0px;}
+
+.bd-w-0 {border-width: 0px;}
+.bd-rad-0 {border-radius: 0px;}
+
+/* background */
+.bg-trans {background-color: transparent;}
+.bg-dark {background-color: #222;}
+.bg-smoke {background-color: #fff;}
+.bg-green {background-color: #669900;}
+.bg-blue {background-color: #0099ff;}
+
+/* width,height */
+.w-100p {width: 100%;}
+.w-75p {width: 75%;}
+.w-50p {width: 50%;}
+.w-25p {width: 25%;}
+.w-10p {width: 10%;}
+.w-0p {width: 0%;}
+.h-100p {height: 100%;}
+.h-75p {height: 75%;}
+.h-50p {height: 50%;}
+.h-25p {height: 25%;}
+.h-10p {height: 10%;}
+.h-0p {height: 0%;}
+
+/* font */
+.ff-mono { font-family: monospace; }
+.ff-ubuntu { font-family: 'Ubuntu Mono', sans-serif; }
