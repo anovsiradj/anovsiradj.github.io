@@ -4,7 +4,7 @@
 		this.toc = null;
 		this.content = d.getElementById(elm);
 		this.config = {
-			vendor: {
+			'vendor': {
 				'css': {
 					'framework': '//cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.css',
 					'font': '//fonts.googleapis.com/css?family=Ubuntu',
@@ -25,11 +25,9 @@
 				'#[content] a,#[toc] a {color: #0099ff;}'
 			],
 			'hljs': {
-				tabReplace: '    ' // 4 space
+				'tabReplace': '    ' // 4 space
 			}
 		};
-		this.plug_vendor();
-		this.xhr_handle();
 	}
 
 	r5.prototype.plug_vendor = function() {
@@ -51,7 +49,7 @@
 		}
 	};
 
-	r5.prototype.process = function() {
+	r5.prototype.compile = function() {
 		this.render_markdownit(this.xhr.response);
 	};
 
@@ -85,7 +83,7 @@
 		this.xhr = new XMLHttpRequest();
 		this.xhr_event = this.xhr.onreadystatechange = function(ev) {
 			if (this.readyState === 4) { // done, ok
-				self.process();
+				self.compile();
 			}
 		};
 	};
@@ -106,7 +104,7 @@
 		this.toc.id = this.content.id + '_toc';
 		this.content.appendChild(this.toc);
 		for (var i = 0; i < this.content.children.length; i++) {
-			if(/^H\d/.test(this.content.children[i].nodeName)) {
+			if(/^H\d$/.test(this.content.children[i].nodeName)) {
 				this.toc_anchor(this.content.children[i]);
 			}
 		}
@@ -119,7 +117,9 @@
 	};
 
 	r5.prototype.init = function(md_url) {
+		this.plug_vendor();
 		this.make_style();
+		this.xhr_handle();
 		this.xhr.open("GET", md_url, true);
 		this.xhr.send();
 	};
