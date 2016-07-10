@@ -1,0 +1,37 @@
+<?php
+
+/**
+* @date 20140308, 20160701
+* @author Anovsiradj <anov.siradj22@(gmail|live).com>
+* @license MIT
+*/
+
+$data_hewan = array('ayam','kucing','anjing','sapi','buaya','jerapah','gajah');
+
+echo '<style type="text/css">* {margin: 0px; padding: 0px;} pre {margin-left:40px; margin-top:40px;}</style>';
+echo '<pre><h1>';
+echo "Hewan Peliharaan.\n\n";
+
+// cek h
+if (empty($_GET['h'])) { // tidak ada
+
+	foreach ($data_hewan as $id => $hewan) {
+		echo "<a href='?h=" . ( $id + 1 ) . "'>" . $hewan . "</a>\n";
+	}
+
+	echo "\n<a href='?h=" . ( count($data_hewan) + 1 ) . "'>Error</a>\n";
+
+} else { // ada
+
+	$id = $_GET['h']-1;
+
+	// cek data
+	if (empty($data_hewan[$id])) { // tidak ada
+		echo "Saya tidak memelihara hewan yang anda cari.\n";
+	} else { // ada
+		echo "ini adalah hewan [dengan index:" . ($id) . "]: <u>" . ucfirst($data_hewan[$id]) . "</u>.\n";
+	}
+
+	echo "<a href='?'>Kembali</a>";
+
+}
