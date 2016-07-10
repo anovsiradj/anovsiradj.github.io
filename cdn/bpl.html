@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>mockup.</title>
+	<meta name="description" content="I'm So lazy for this shit."/>
+	<style>
+		body {
+			background-color: #222;
+		}
+	</style>
+</head>
+<body>
+	<div class="bpl-content" data-bpl-col="12">
+		what. there's nothing here.
+	</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="bpl.js"></script>
+	<script>
+		var bpl = new BluePrintLite;
+
+		bpl.config.col = 6;
+		bpl.config.header_css = {
+			'border-radius': '0px',
+			'background-color': '#669900'
+		};
+		bpl.config.section_css = {
+			'background-color': '#eee'
+		};
+
+		bpl.init();
+	</script>
+</body>
+</html>
