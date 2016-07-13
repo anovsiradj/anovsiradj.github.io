@@ -1,0 +1,97 @@
+/**
+* Av CustomCSS (CCSS) Mixed version
+* Copyright (C) January 2014 By Mayendra Costanov - anovsiradj.com <anov.siradj22@gmail.com>
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
+*
+* Changelog
+* 18 Maret 2014 <v1.0>
+* 10 April 2014 <v1.11>
+* 26 Juni 2014 <v1.12>
+* 7 Agustus 2014 <v1.33>
+* 9 Oktober 2014
+*/
+.nomargin {margin: 0px;}
+.noymargin {margin-top: 0px;margin-bottom: 0px;}
+.noxmargin {margin-left: 0px;margin-right: 0px;}
+.notmargin {margin-top: 0px;}
+.nobmargin {margin-bottom: 0px;}
+.nolmargin {margin-left: 0px;}
+.normargin {margin-right: 0px;}
+.nopadding {padding: 0px;}
+.noypadding {padding-top: 0px;padding-bottom: 0px;}
+.noxpadding {padding-left: 0px;padding-right: 0px;}
+.notpadding {padding-top: 0px;}
+.nobpadding {padding-bottom: 0px;}
+.nolpadding {padding-left: 0px;}
+.norpadding {padding-right: 0px;}
+.b1solid {border: 1px solid #222;}
+.b1dotted {border: 1px dotted #222;}
+.b1dashed {border: 1px dashed #222;}
+.w1percent {width: 100%;}
+.w1-2percent {width: 50%;}
+.w1-3percent {width: 33.333%;}
+.w1-4percent {width: 25%;}
+.w1-5percent {width: 20%;}
+.w1-8percent {width: 12.5%;}
+.w1-10percent {width: 10%;}
+.h1percent {height: 100%;}
+.h1-2percent {height: 50%;}
+.h1-3percent {height: 33.333%;}
+.h1-4percent {height: 25%;}
+.h1-5percent {height: 20%;}
+.h1-8percent {height: 12.5%;}
+.h1-10percent {height: 10%;}
+.t-u {text-decoration: underline;}
+.t-o {text-decoration: overline;}
+.t-lt {text-decoration: line-through;}
+.t-nostyle {text-decoration: none;}
+.t-cap {text-transform: capitalize;}
+.t-upp {text-transform: uppercase;}
+.t-low {text-transform: lowercase;}
+.clean {clear: both;margin: 0px;padding: 0px;}
+.posrel {position: relative;}
+.posabs {position: absolute;}
+.posfix {position: fixed;}
+.tvalign {vertical-align: top;}
+.mvalign {vertical-align: middle;}
+.bvalign {vertical-align: bottom;}
+.em1 {font-size: 1em !important;}
+.em2 {font-size: 2em !important;}
+.em3 {font-size: 3em !important;}
+.em4 {font-size: 4em !important;}
+.em5 {font-size: 5em !important;}
+.em6 {font-size: 6em !important;}
+.em7 {font-size: 7em !important;}
+.em8 {font-size: 8em !important;}
+.noradius {border-radius: 0;}
+.noborder {border-width: 0;}
+.nobg {background-color: transparent;}
+.bgsmoke {background-color: #fff;}
+.bgdark {background-color: #222;}
+.color-smoke {color: #fff;}
+.color-dark {color: #222;}
+.ff-vass {font-family:Verdana, Arial, sans-serif;}
+.ff-gtts {font-family: Georgia, "Times New Roman", Times, serif;}
+.trans1-2sAll {-webkit-transition: all 0.5s ease-in-out;-moz-transition: all 0.5s ease-in-out;-ms-transition: all 0.5s ease-in-out;-o-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;}
+.trans1sAll {-webkit-transition: all 1s ease-in-out;-moz-transition: all 1s ease-in-out;-ms-transition: all 1s ease-in-out;-o-transition: all 1s ease-in-out;transition: all 1s ease-in-out;}
+.trans2sAll {-webkit-transition: all 2s ease-in-out;-moz-transition: all 2s ease-in-out;-ms-transition: all 2s ease-in-out;-o-transition: all 2s ease-in-out;transition: all 2s ease-in-out;}
+.calign {text-align: center;}
+.lalign {text-align: left;}
+.ralign {text-align: right;}

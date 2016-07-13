@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+DirectoryIndex nsvindex.php
+RewriteEngine on
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} -f [NC,OR]
+RewriteCond %{REQUEST_FILENAME} -d [NC,OR]
+RewriteCond %{REQUEST_FILENAME} -l [NC]
+RewriteRule .* - [L]
+RewriteRule ^([^/]+)/?$ ?p1=$1 [QSA,L]
+RewriteRule ^([^/]+)/?([^/]+)/?$ ?p1=$1&p2=$2 [QSA,L]
+RewriteRule ^([^/]+)/?([^/]+)/?([^/]+)/?$ ?p1=$1&p2=$2&p3=$3 [QSA,L]
+RewriteRule ^([^/]+)/?([^/]+)/?([^/]+)/?([^/]+)/?$ ?p1=$1&p2=$2&p3=$3&p4=$4 [QSA,L]
+RewriteRule ^([^/]+)/?([^/]+)/?([^/]+)/?([^/]+)/?([^/]+)/?$ ?p1=$1&p2=$2&p3=$3&p4=$4&p5=$5 [QSA,L]
+</IfModule>
