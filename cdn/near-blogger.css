@@ -12,6 +12,7 @@
 .no-mg {margin: 0px !important;}.no-mg-y {margin-top: 0px !important;margin-bottom: 0px !important;}.no-mg-y-t {margin-top: 0px !important;}.no-mg-y-b {margin-bottom: 0px !important;}.no-mg-x {margin-right: 0px !important;margin-left: 0px !important;}.no-mg-x-r {margin-right: 0px !important;}.no-mg-x-l {margin-left: 0px !important;}
 .no-pd {padding: 0px !important;}.no-pd-y {padding-top: 0px !important;padding-bottom: 0px !important;}.no-pd-y-t {padding-top: 0px !important;}.no-pd-y-b {padding-bottom: 0px !important;}.no-pd-x {padding-right: 0px !important;margin-left: 0px !important;}.no-pd-x-r {padding-right: 0px !important;}.no-pd-x-l {padding-left: 0px !important;}
 
+/* general */
 .mg-0 {margin: 0px;}
 .mg-x-0 {margin-left: 0px;margin-right: 0px;}
 .mg-x-l-0 {margin-left: 0px;}
@@ -34,7 +35,21 @@
 .w-10p {width: 10%;}
 .w-0p {width: 0%;}
 
-/* navbar darknature */
+/* override */
+body {background-color: #222;}
+twitterwidget {margin-left:auto;margin-right:auto;}
+.all-tst {transition: all 0.5s ease-in-out;}
+.white {color: #fff; }
+.jumbotron {background-color: transparent; color: #fff; }
+.jumbotron p {font-size: 14px; }
+.no-more-glow {outline: none; box-shadow:none !important; }
+.widget-item-control > .blog-admin {display:none;}
+body .navbar {height: auto !important; }
+#core_header .widget {margin-top:0px;margin-bottom:0px;}
+.widget-item-control > .blog-admin {display:none;}
+
+
+/* navbar darknature - rasah di utak-atik */
 .navbar,.navbar-nav>li>.dropdown-menu,.navbar-form .form-control,.navbar-form .btn,.navbar-toggle {border-radius: 0px;}
 .navbar-darknature {background-color: #4d7f17; border-color: #356007;}
 .navbar-darknature .navbar-nav>.active>a,.navbar-darknature .navbar-nav>.active>a:focus,.navbar-darknature .navbar-nav>.active>a:hover {color: #6bb120; background-color: #356007;}
@@ -57,3 +72,24 @@
 .navbar-darknature .dropdown-menu>li>a {color: #6bb120;}
 .navbar-darknature .dropdown-menu .divider {background-color: #356007;}
 .navbar-darknature .dropdown-menu>li>a:focus,.navbar-darknature .dropdown-menu>li>a:hover {color: #356007; background-color: #6bb120;}
+
+/* huruf */
+.ff-mono {font-family:monospace;}
+.ff-title,h1,h2,h3,h4,h5,h6,blockquote {font-family: 'Cardo', serif; }
+.ff-content,#core_content {font-family: 'Vollkorn', serif; }
+.ff-element,.btn,.form-control,blockquote {font-family: 'Raleway', sans-serif; }
+
+/* a,button darknature */
+a.darknature {color: #4D7F17;}
+.btn-darknature {color: #6bb120; background-color: #4d7f17; border-color: transparent; }
+.btn-darknature:hover {color: #356007; background-color: #6bb120; border-color: #6bb120; }
+.btn-darknature.active,
+.btn-darknature:active {color: #6bb120; background-color: #356007; border-color: #356007; }
+
+/* lupa, ini buat apa */
+/*
+.comments .comments-content .loadmore {margin-top:0px;}
+#core_comments {margin-left: -16px;margin-right: -16px;}
+#gpluscomments {width:100% !important;}
+*/
+
