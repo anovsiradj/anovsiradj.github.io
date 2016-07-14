@@ -1,5 +1,4 @@
-if (typeof window.winload === 'undefined') return;
-
+if (typeof window.winload === 'undefined') throw new Error('Kamu siapa?');
 
 var commentable = /^(item|static\_page)$/.test(near.pageType);
 
