@@ -1,14 +1,11 @@
-;(function(w,wl) {
-	if (typeof wl !== 'undefined') {
-		wl = function(f) { w.addEventListener('load', f, false); };
-	};
-})(window,window.winload);
+if (typeof window.winload === 'undefined') return;
 
 
-//<![CDATA[
+var commentable = /^(item|static\_page)$/.test(near.pageType);
+
 var $content = $("#core_content");
-var sidebar = $("#core_sidebar");
-var header = $("#core_header");
+// var sidebar = $("#core_sidebar");
+// var header = $("#core_header");
 
 // sementara, fullpage/print di non-aktifkan
 /*
@@ -40,6 +37,7 @@ function makefancycode(elm_code) {
 	$(elm_code).addClass(elm_code.dataset.prlang).parent('pre').addClass("no-pd bd-rad-0");
 	hljs.highlightBlock(elm_code);
 }
+
 $(document).ready(function() {
 
 	//todo, someday
@@ -47,15 +45,8 @@ $(document).ready(function() {
 	//var $header = $("#core_header");
 	//var $navbar_togglefullpage = $('#navbar_togglefullpage');
 
-	hljs.configure({tabReplace: '    '});
+	hljs.configure({tabReplace: '	'});
 	$content.find("code.makefancycode").each(function(i,elm_code) { makefancycode(elm_code); });
-
-
-	if(/^(item|static\_page)$/.test(near.pageType)) {
-
-		// $('#comment-fb').data('href',near.canonicalUrl); // unused
-
-	} //endif
 
 
 	/*
@@ -85,10 +76,9 @@ $(document).ready(function() {
 
 });
 
-(function(w,d) {
-
-	// disquss-comment
-	w.disqus_config = function () {
+// disquss-comment
+if (commentable) {
+	var disqus_config = function () {
 		var firstBlogPostId = $("[id^=post-body]:first").prop('id').split('-');
 		this.page.url = near.canonicalUrl;
 		this.page.identifier = firstBlogPostId[firstBlogPostId.length-1];
@@ -98,33 +88,28 @@ $(document).ready(function() {
 		s.src = '//near-blogger.disqus.com/embed.js';
 		s.setAttribute('data-timestamp', +new Date());
 		(d.head || d.body).appendChild(s);
-	})(d);
+	})(document);
+}
 
-	// fb-app
-	w.fbAsyncInit = function() {
-		FB.init({
-			appId: '1719982034935434',
-			xfbml: true,
-			version: 'v2.7'
-		});
+// fb-app (saiki gur komentar tok)
+if (commentable) {
+	var fbAsyncInit = function() {
+		FB.init({ appId: '1719982034935434', xfbml: true, version: 'v2.7' });
 	};
-	(function(d, s, id){
+	(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
 		if (d.getElementById(id)) {return;}
 		js = d.createElement(s); js.id = id;
 		js.src = "//connect.facebook.net/en_US/sdk.js";
 		fjs.parentNode.insertBefore(js, fjs);
-	}(d, 'script', 'facebook-jssdk'));
+	}(document, 'script', 'facebook-jssdk'));
+}
 
-})(window, document);
-
-// Bunuh!
-window.netbro_cache_analytics_inv = setInterval(function() {
+// Lawan!
+var netbro_cache_analytics_inv = setInterval(function() {
 	window.netbro_cache_analytics = function(a,b) {};
 	window.requestCfs = function() {};
 	/*console.log("Spartan!");*/
 },0);
-// window.onload = function() { clearInterval(window.netbro_cache_analytics_inv); }
-winload(function() { clearInterval(window.netbro_cache_analytics_inv); });
-//]]>
+winload(function() { clearInterval(netbro_cache_analytics_inv); });
 
