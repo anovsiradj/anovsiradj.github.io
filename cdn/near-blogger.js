@@ -1,8 +1,10 @@
 if (typeof window.winload === 'undefined') throw new Error('Kamu siapa?');
 
+// setter
 var commentable = /^(item|static\_page)$/.test(near.pageType);
-
 var $content = $("#core_content");
+
+hljs.configure({tabReplace: '	'}); // tab:4
 // var sidebar = $("#core_sidebar");
 // var header = $("#core_header");
 
@@ -37,6 +39,12 @@ function makefancycode(elm_code) {
 	hljs.highlightBlock(elm_code);
 }
 
+function fancy_code($elm_pre, $elm_code, prlang) {
+	$elm_pre.addClass("no-pd bd-rad-0");
+	if (prlang) $elm_code.addClass('lang-'+ prlang);
+	hljs.highlightBlock($elm_code[0]);
+};
+
 $(document).ready(function() {
 
 	//todo, someday
@@ -44,7 +52,28 @@ $(document).ready(function() {
 	//var $header = $("#core_header");
 	//var $navbar_togglefullpage = $('#navbar_togglefullpage');
 
-	hljs.configure({tabReplace: '	'});
+	$content.find('.ajax-fancy-code').each(function() {
+		var prlang = $(this).data('prlang') || $(this).children('code').data('prlang') || $(this).parent('pre').data('prlang');
+		var ajx_url = $(this).text();
+		switch(this.nodeName) {
+			case('PRE'):
+				var $pre = $(this);
+				var $code = $(this).children('code');
+			break;
+			case('CODE'):
+				var $pre = $(this).parent('pre');
+				var $code = $(this);
+			break;
+			// todo: div
+		};
+
+		$.get(ajx_url, function(dat) {
+			$code.text(dat);
+			fancy_code($pre, $code, prlang);
+		});
+
+	});
+
 	$content.find("code.makefancycode").each(function(i,elm_code) { makefancycode(elm_code); });
 
 
