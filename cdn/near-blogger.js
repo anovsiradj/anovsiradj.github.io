@@ -1,7 +1,7 @@
 if (typeof window.winload === 'undefined') throw new Error('Kamu siapa?');
 
 // setter
-var commentable = /^(item|static\_page)$/.test(near.pageType);
+var is_page_post = /^(item|static\_page)$/.test(near.pageType);
 var $content = $("#core_content");
 
 hljs.configure({tabReplace: '	'}); // tab:4
@@ -41,7 +41,7 @@ function makefancycode(elm_code) {
 
 function fancy_code($elm_pre, $elm_code, prlang) {
 	$elm_pre.addClass("no-pd bd-rad-0");
-	if (prlang) $elm_code.addClass('lang-'+ prlang);
+	if (prlang) $elm_code.addClass('language-'+ prlang);
 	hljs.highlightBlock($elm_code[0]);
 };
 
@@ -52,29 +52,33 @@ $(document).ready(function() {
 	//var $header = $("#core_header");
 	//var $navbar_togglefullpage = $('#navbar_togglefullpage');
 
-	$content.find('.ajax-fancy-code').each(function() {
-		var prlang = $(this).data('prlang') || $(this).children('code').data('prlang') || $(this).parent('pre').data('prlang');
-		var ajx_url = $(this).text();
-		switch(this.nodeName) {
-			case('PRE'):
-				var $pre = $(this);
-				var $code = $(this).children('code');
-			break;
-			case('CODE'):
-				var $pre = $(this).parent('pre');
-				var $code = $(this);
-			break;
-			// todo: div
-		};
+	if (is_page_post) {
+		$content.find('.ajax-fancy-code').each(function() {
+			var prlang = $(this).data('prlang') || $(this).children('code').data('prlang') || $(this).parent('pre').data('prlang');
+			var ajx_url = $(this).text();
+			switch(this.nodeName) {
+				case('PRE'):
+					var $pre = $(this);
+					var $code = $(this).children('code');
+				break;
+				case('CODE'):
+					var $pre = $(this).parent('pre');
+					var $code = $(this);
+				break;
+				// todo: div
+			};
 
-		$.get(ajx_url, function(dat) {
-			$code.text(dat);
-			fancy_code($pre, $code, prlang);
+			$.get(ajx_url, function(dat) {
+				$code.text(dat);
+				fancy_code($pre, $code, prlang);
+			});
+
 		});
 
-	});
-
-	$content.find("code.makefancycode").each(function(i,elm_code) { makefancycode(elm_code); });
+		$content.find("code.makefancycode").each(function(i,elm_code) {
+			fancy_code($(this).parent('pre'), $(this), $(this)[0].dataset.prlang);
+		});
+	};
 
 
 	/*
@@ -105,7 +109,7 @@ $(document).ready(function() {
 });
 
 // disquss-comment
-if (commentable) {
+if (is_page_post) {
 	var disqus_config = function () {
 		var firstBlogPostId = $("[id^=post-body]:first").prop('id').split('-');
 		this.page.url = near.canonicalUrl;
@@ -120,7 +124,7 @@ if (commentable) {
 }
 
 // fb-app (saiki gur komentar tok)
-if (commentable) {
+if (is_page_post) {
 	var fbAsyncInit = function() {
 		FB.init({ appId: '1719982034935434', xfbml: true, version: 'v2.7' });
 	};
