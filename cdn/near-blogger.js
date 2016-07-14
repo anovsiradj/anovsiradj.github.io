@@ -34,14 +34,10 @@ function togglefullpage() {
 function printpage() { isFullpage = true; togglefullpage(); window.print(); }
 */
 
-function makefancycode(elm_code) {
-	$(elm_code).addClass(elm_code.dataset.prlang).parent('pre').addClass("no-pd bd-rad-0");
-	hljs.highlightBlock(elm_code);
-}
-
 function fancy_code($elm_pre, $elm_code, prlang) {
 	$elm_pre.addClass("no-pd bd-rad-0");
 	if (prlang) $elm_code.addClass('language-'+ prlang);
+	$elm_code.css('white-space','pre'); // h-scroll
 	hljs.highlightBlock($elm_code[0]);
 };
 
@@ -75,7 +71,7 @@ $(document).ready(function() {
 
 		});
 
-		$content.find("code.makefancycode").each(function(i,elm_code) {
+		$content.find("code.makefancycode").each(function() {
 			fancy_code($(this).parent('pre'), $(this), $(this)[0].dataset.prlang);
 		});
 	};
