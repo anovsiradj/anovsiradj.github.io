@@ -53,9 +53,46 @@ $(document).ready(function() {
 	//var $navbar_togglefullpage = $('#navbar_togglefullpage');
 
 	if (is_page_post) {
+		$('#core_content .ajax-fancy-code, #core_content .fancy-code, #core_content code.makefancycode').each(function() {
+			var hljs_it = true;
+			var prlang = $(this).data('prlang') || $(this).children('code').data('prlang') || $(this).parent('pre').data('prlang');
+			var is_ajax = $(this).hasClass('.ajax-fancy-code');
+			if (is_ajax) var ajx_url = $(this).text();
+
+			switch($(this)[0].nodeName) {
+				case('PRE'):
+					var $pre = $(this);
+					var $code = $(this).children('code');
+				break;
+				case('CODE'):
+					var $pre = $(this).parent('pre');
+					var $code = $(this);
+				break;
+				case('DIV'):
+					$(this).html('<pre><code></code></pre>');
+					var $pre = $(this).find('pre:first');
+					var $code = $(this).find('code:first');
+				break;
+				default: hljs_it = false; break;
+			};
+
+			if (hljs_it) {
+				if (is_ajax) {
+					$.get(ajx_url, function(dat) {
+						$code.text(dat);
+						fancy_code($pre, $code, prlang);
+					});
+				} else {
+					fancy_code($pre, $code, prlang);
+				};
+			};
+
+		});
+		/*
 		$content.find('.ajax-fancy-code').each(function() {
 			var prlang = $(this).data('prlang') || $(this).children('code').data('prlang') || $(this).parent('pre').data('prlang');
 			var ajx_url = $(this).text();
+			var do_it = true;
 			switch(this.nodeName) {
 				case('PRE'):
 					var $pre = $(this);
@@ -66,19 +103,32 @@ $(document).ready(function() {
 					var $code = $(this);
 				break;
 				// todo: div
+				case('DIV'):
+					$(this).html('<pre><code></code></pre>');
+					var $pre = $(this).find('pre:first');
+					var $code = $(this).find('code:first');
+				break;
+				default: do_it = false; break;
 			};
 
-			$.get(ajx_url, function(dat) {
-				$code.text(dat);
-				fancy_code($pre, $code, prlang);
-			});
+			if (do_it) {
+				$.get(ajx_url, function(dat) {
+					$code.text(dat);
+					fancy_code($pre, $code, prlang);
+				});
+			};
 
 		});
+		*/
 
-		$content.find("code.makefancycode").each(function(i,elm_code) {
+		/*
+		$content.find("code.makefancycode").each(function() {
 			fancy_code($(this).parent('pre'), $(this), $(this)[0].dataset.prlang);
 		});
+		*/
+
 	};
+	
 
 
 	/*
