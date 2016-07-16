@@ -57,7 +57,7 @@ $(document).ready(function() {
 			var hljs_it = true;
 			var prlang = $(this).data('prlang') || $(this).children('code').data('prlang') || $(this).parent('pre').data('prlang');
 			var is_ajax = $(this).hasClass('.ajax-fancy-code');
-			if (is_ajax) var ajx_url = $(this).text();
+			if (is_ajax) { var ajx_url = $(this).text(); }
 
 			switch($(this)[0].nodeName) {
 				case('PRE'):
@@ -84,8 +84,8 @@ $(document).ready(function() {
 					});
 				} else {
 					fancy_code($pre, $code, prlang);
-				};
-			};
+				}
+			}
 
 		});
 		/*
