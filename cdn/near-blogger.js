@@ -56,7 +56,7 @@ $(document).ready(function() {
 		$('#core_content .ajax-fancy-code, #core_content .fancy-code, #core_content code.makefancycode').each(function() {
 			var hljs_it = true;
 			var prlang = $(this).data('prlang') || $(this).children('code').data('prlang') || $(this).parent('pre').data('prlang');
-			var is_ajax = $(this).hasClass('.ajax-fancy-code');
+			var is_ajax = $(this).hasClass('ajax-fancy-code');
 			if (is_ajax) { var ajx_url = $(this).text(); }
 
 			switch($(this)[0].nodeName) {
