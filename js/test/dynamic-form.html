@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css">
+	<style>
+		section {
+			position: relative;
+			border: 1px solid red;
+			padding: 20px;
+			width: 400px;
+		}
+		select {
+			width: 200px;
+		}
+		#bungkus > section > button {
+			position: absolute;
+			top: 0px;
+			right: -30px;
+		}
+	</style>
+</head>
+<body>
+
+	<template id="tpl" hidden>
+		<section>
+			<input type="text" name="nama_siswa[]" placeholder="nama"/>
+			<select name="golongan[]" class="golongan"></select>
+			<button type="button" onclick="kurangi_section($(this))">&times;</button>
+		</section>
+	</template>
+
+	<form id="form">
+		<button type="button" onclick="buat_section()">tambah</button>
+		<button type="submit">simpan</button>
+		<div id="bungkus"></div>
+	</form>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script>
+var maks_section = 6;
+var data_ajax = [
+	{id:'1.3.2', text:'lorem'},
+	{id:'3.2.1', text:'ipsum'},
+	{id:'2.1.3', text:'dolor'}
+];
+
+$(function() {
+	buat_section();
+});
+
+$('#form').on('submit', function(ev) {
+	ev.preventDefault();
+});
+
+function buat_section() {
+	if ($('#bungkus').children().length < maks_section) {
+		var $tpl = $($('#tpl').html()).appendTo('#form');
+		$('#bungkus').append($tpl);
+		buat_select2($tpl);
+	}
+}
+function buat_select2($elm) {
+	$elm.find('.golongan').select2({
+		data: data_ajax
+	});
+}
+
+function kurangi_section($elm) {
+	if ($('#bungkus').children().length > 1) {
+		$elm.parent().remove();
+	}
+}
+</script>
+</body>
+</html>
