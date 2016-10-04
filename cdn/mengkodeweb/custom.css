@@ -1,0 +1,3 @@
+#_header .widget:not(.header) .title {
+  display:none;
+}
