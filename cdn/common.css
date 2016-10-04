@@ -1,0 +1,36 @@
+/*
+@created/@edited 201610041608 - (@initial: 201401)
+@author Anovsiradj <anov.siradj22@(gmail|live).com|anov.siradj@gin.co.id>
+@description New Common CSSS
+*/
+
+/* mynameis */ .anovsiradj {}
+
+/* fallback blog old-class, lazy to replace */
+.no-mg {margin: 0px !important;}.no-mg-y {margin-top: 0px !important;margin-bottom: 0px !important;}.no-mg-y-t {margin-top: 0px !important;}.no-mg-y-b {margin-bottom: 0px !important;}.no-mg-x {margin-right: 0px !important;margin-left: 0px !important;}.no-mg-x-r {margin-right: 0px !important;}.no-mg-x-l {margin-left: 0px !important;}
+.no-pd {padding: 0px !important;}.no-pd-y {padding-top: 0px !important;padding-bottom: 0px !important;}.no-pd-y-t {padding-top: 0px !important;}.no-pd-y-b {padding-bottom: 0px !important;}.no-pd-x {padding-right: 0px !important;margin-left: 0px !important;}.no-pd-x-r {padding-right: 0px !important;}.no-pd-x-l {padding-left: 0px !important;}
+
+/* general */
+.mg-0 {margin: 0px;}
+.mg-x-0 {margin-left: 0px;margin-right: 0px;}
+.mg-x-l-0 {margin-left: 0px;}
+.mg-x-r-0 {margin-right: 0px;}
+.mg-y-0 {margin-top: 0px;margin-bottom: 0px;}
+.mg-y-t-0 {margin-top: 0px;}
+.mg-y-b-0 {margin-bottom: 0px;}
+.pd-0 {padding: 0px;}
+.bd-w-0 {border-width: 0px;}
+.bd-rad-0 {border-radius: 0px;}
+.no-bg {background-color: transparent;}
+.bg-dark {background-color: #222;}
+.bg-smoke {background-color: #fff;}
+.bg-green {background-color: #669900;}
+.bg-blue {background-color: #0099ff;}
+.w-100p {width: 100%;}
+.w-75p {width: 75%;}
+.w-50p {width: 50%;}
+.w-25p {width: 25%;}
+.w-10p {width: 10%;}
+.w-0p {width: 0%;}
+
+.ff-mono {font-family:monospace;}
