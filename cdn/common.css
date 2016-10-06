@@ -28,9 +28,11 @@
 .w-75p {width: 75%;}
 .w-50p {width: 50%;}
 .w-25p {width: 25%;}
+.w-20p {width: 20%;}
 .w-10p {width: 10%;}
+.w-5p {width: 5%;}
 .w-0p {width: 0%;}
 
 .ff-mono {font-family:monospace;}
 /* because, text-[position] in twbs4 is not available */
-.t-center, .text-center {text-align:center;} .t-left, .text-left {text-align:left;} .t-right, .text-right {text-align:right;}
+.t-center, .text-center {text-align:center;} .t-left, .text-left {text-align:left;} .t-right, .text-right {text-align:right;} .t-justify, .text-justify {text-align:justify;}
