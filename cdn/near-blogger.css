@@ -141,6 +141,7 @@ margin-left:0.2em;
 #core_sidebar .widget.Label a {color:#356007;}
 #core_sidebar .widget.Label a:hover {color: #6bb120;}
 #core_sidebar .widget-content.popular-posts {color:#444;}
+#core_sidebar .widget-content.popular-posts .item-snippet {overflow:auto;}
 #core_sidebar .widget-content.popular-posts .item-snippet:hover {color:#888;}
 @media print {
 #blog-pager,#comments,#core_content .feed-links,#core_content .post-footer-line {display:none;}
