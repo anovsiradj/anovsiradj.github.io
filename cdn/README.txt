@@ -1,1 +1,0 @@
-Github Self CDN.
