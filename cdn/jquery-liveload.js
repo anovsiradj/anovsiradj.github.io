@@ -11,11 +11,11 @@
 	CDN: //anovsiradj.github.io/cdn/jquery-liveload.js
 
 	LIMITATION:
-	This plugin CANNOT watch file/url-generated-by PHP script or htaccess (e.g: /index.php?page=home, etc).
-	Only static file like html, css, js, etc. but you CAN hack it, if you know the dirty way.
+	This plugin CANNOT watch file/url-generated-by PHP script or htaccess (e.g: /index.php?page=home, etc) --by default--.
+	Only static file like css, js, image, etc.
 
 	LICENSE: MIT
-	NOTICE: This code belongs to me. I created this code without the intervention from the company I work.
+	NOTICE: This code belongs to me. I created this code without the intervention from the company I work (kerja3).
 
 */
 
@@ -50,11 +50,11 @@
 
 		var delay_get = function() {
 			if (options.stop) {
-				console.log('Liveload stop:', options.target);
-				return;
+				return console.log('Liveload stop:', options.target);
 			}
 			if (is_first_watch && options.log) console.log('Liveload Running:', options.target);
-			setTimeout(modif_get, options.delay);
+
+			setTimeout(modif_get, is_first_watch ? 0 : options.delay);
 		}
 		var update_get = function() {
 			if (options.refresh) {
@@ -66,7 +66,10 @@
 			}
 		}
 		var modif_get = function() {
-			if (options.stop) return; // trap timeout on delay_get()
+			if (options.stop) {
+				// trap timeout then back to delay_get()
+				return delay_get();
+			}
 
 			$.ajax({
 				url: options.target,
@@ -75,11 +78,12 @@
 					if (xhr.status === 304) delay_get();
 					else {
 						// on first request, --xhr.status-- always return 200, not 304.
-						// because, first request, there's no if-modif-since
+						// because, first request, there's no if-modif-since header
 						if (is_first_watch) {
 							is_first_watch = false;
-							delay_get();
-						} else update_get();
+							return delay_get();
+						}
+						update_get();
 					}
 				},
 				fail: function() {
