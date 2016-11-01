@@ -5,7 +5,7 @@
 	This plugin watch file change, based on HTTP header request.
 
 	Creted By anovsiradj (Mayendra Costanov) <anov.siradj(22@(gmail|live).com|@gin.co.id)>
-	Date Created/Updated: 201610121146, 201610191001
+	Date Created/Updated: 201610121146, 201610191001, 201611011919
 
 	SOURCE: https://github.com/anovsiradj/anovsiradj.github.io/blob/master/cdn/jquery-liveload.js
 	CDN: //anovsiradj.github.io/cdn/jquery-liveload.js
@@ -34,7 +34,8 @@
 	$.liveload = function() { // target | delay | options
 		var options = $.extend({}, $.liveload.defaults);
 		var is_first_watch = true;
-		var xhr_res_ifmodif_header;
+		var xhr_res_lmodif_header;
+		var xhr_res_etag_header;
 		var xhr_header = {};
 
 		if (arguments[0]) {
@@ -66,25 +67,40 @@
 			}
 		}
 		var modif_get = function() {
-			if (options.stop) {
-				// trap timeout then back to delay_get()
-				return delay_get();
-			}
+			// trap timeout then back to delay_get()
+			if (options.stop) return delay_get();
 
 			$.ajax({
 				url: options.target,
 				ifModified: true, // http://stackoverflow.com/a/10579657/3036312
 				success: function(a, b, xhr) {
+
+					var header_lmodif = xhr.getResponseHeader('Last-Modified');
+					var header_etag = xhr.getResponseHeader('ETag');
+
 					if (xhr.status === 304) delay_get();
 					else {
-						// on first request, --xhr.status-- always return 200, not 304.
-						// because, first request, there's no if-modif-since header
+						// on first request, --xhr.statuscode-- always return 200, not 304.
+						// because, first request, there's no if-modif-since header request
 						if (is_first_watch) {
 							is_first_watch = false;
-							return delay_get();
+							delay_get();
+						} else {
+							// http://stackoverflow.com/a/1101758/3036312, http://serverfault.com/a/696832
+							// disini. kita tidak bisa mempercayai renponse dari http, jika di header-nya terdapat entri "etag"
+							// karena itu akan mengabaikan status 304 dan akan-selalu merespond dengan status 200
+							// sehingga membuat koneksi http sulit untuk di prediksi
+							if (header_etag === null) {
+								if (header_lmodif !== null && header_lmodif === xhr_res_lmodif_header) delay_get();
+								else update_get();
+							} else {
+								if (header_lmodif !== null && header_lmodif === xhr_res_lmodif_header && header_etag === xhr_res_etag_header) delay_get();
+								else update_get();
+							}
 						}
-						update_get();
 					}
+					xhr_res_lmodif_header = header_lmodif;
+					xhr_res_etag_header = header_etag;
 				},
 				fail: function() {
 					if (options.log) console.warn('Liveload: AJAX Failed:', options.target);
