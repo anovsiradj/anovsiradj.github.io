@@ -1,0 +1,34 @@
+.avz-fnavi {
+position: absolute;
+background: #8CC220;
+color: #222;
+display: none;
+width: 100%;
+margin: 0px;
+top: 0px;
+left: 0px;
+right: 0px;
+border-bottom: 10px solid #222;
+}
+.avz-fnavi-ceil {
+    z-index:+999;
+}
+.avz-fnavi-content {
+    display:none;
+    position:relative;
+    color:#222;
+}
+
+.avz-fnavi-hadle {
+padding: 5px 10px;
+display: inline-block;
+position: absolute;
+right: 15px;
+bottom: -30px;
+background-color: #222;
+font-size: 13px;
+font-weight: bold;
+font-family:monospace;
+cursor: pointer;
+color: #ddd;
+}
