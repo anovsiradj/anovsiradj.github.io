@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>jQuery fNavi - Anov Siradj</title>
+	<meta name="description" content="Jquery Plugin : Fixed Navigation"/>
+	<meta name="author" content="Anov SIradj"/>
+	<link rel="stylesheet" href="fnavi.css"/>
+	<style>
+	/* simple reset */
+	html,body,div,h1,h2,h3,h4,h5,h6,pre,p {margin:0px;padding:0px;}
+
+	#sub-body1 {width:600px;height:400px;background:yellow;}
+	</style>
+</head>
+<body>
+	<div class="avz-fnavi">
+		<h1>Hello World ! (Global)</h1>
+		<h3>Halo Dunia ! (Indonesian)</h3>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/>
+			Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.<br/>
+			Sed nisi. Nulla quis sem at nibh elementum imperdiet.<br/>
+			Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.<br/>
+			Mauris massa. Vestibulum lacinia arcu eget nulla.<br/>
+		</p>
+		<h2>"Amazingly few discotheques provide jukeboxes".</h2>
+	</div>
+
+	<br/>
+
+	<div id="sub-body1">
+		<div class="avz-fnavi">
+			Pack my box with five dozen liquor jugs.
+			<h2>Sphinx of black quartz, judge my vow.</h2>
+			<h5>Waltz, nymph, for quick jigs vex Bud.</h5>
+			<h1>Mr. Jock, TV quiz PhD, bags few lynx.</h1>
+			<button>Sample Button</button>
+		</div>
+		<p>The quick brown fox jumps over the lazy dog.</p>
+	</div>
+
+<pre style="margin-left:5px;"><code><i>JS (jQuery):</i> $.<b>avzFnavi</b>();
+<i>Affect all elements.</i>
+
+<i>HTML:</i> &lt;div class="<b>avz-fnavi</b>"&gt;content&lt;/div&gt;
+</code></pre>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="fnavi.js"></script>
+	<script>$.avzFnavi();</script>
+</body>
+</html>

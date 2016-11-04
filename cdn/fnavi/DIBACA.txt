@@ -1,0 +1,20 @@
+Dibuat/Diubah/Dirombak 20150413, 20161104
+
+Eksperiment yg saya buat, di awal2 belajar jquery.
+saya sendiri lupa kapan-tepatnya. waktu masih di kerja1/kerja2.
+atau malah diantaranya (waktu masih ngganggur).
+
+------------------------------------
+| jQuery: Fnavi (fixed navigation) |
+------------------------------------
+
+jquery plugin untuk membuat fixed-navigation, dengan style slide.
+terinspirasi dari navigasi di web mozilla (firefox).
+
+awalnya dibuat pakai js langsung, lalu saya ingin jadikan jquery plugin.
+
+-----------
+| LICENSE |
+-----------
+
+https://anovsiradj.mit-license.org/2015
