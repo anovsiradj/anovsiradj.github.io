@@ -5,30 +5,18 @@
 	<title>jQuery fNavi - Anov Siradj</title>
 	<meta name="description" content="Jquery Plugin : Fixed Navigation"/>
 	<meta name="author" content="Anov SIradj"/>
+	<link rel="stylesheet" href="fnavi.css"/>
 	<style>
-	/* brutal reset */
-	html,body,div,h1,h2,h3,h4,h5,h6,pre,p {
-		/*margin:0px;*/
-		/*padding:0px;*/
-	}
+	/* simple reset */
+	html,body,div,h1,h2,h3,h4,h5,h6,pre,p {margin:0px;padding:0px;}
 
-	#section1 {
-		width:600px;
-		height:400px;
-		background: yellow;
-	}
+	#sub-body1 {width:600px;height:400px;background:yellow;}
 	</style>
 </head>
 <body>
-
-	<div>
-		see <a href="index-old.html">old (original) version</a>.
-	</div>
-
-
-	<div class="make-fixed-nav">
-		<h1>Hello World ! (EN)</h1>
-		<h3>Halo Dunia ! (ID)</h3>
+	<div class="avz-fnavi">
+		<h1>Hello World ! (Global)</h1>
+		<h3>Halo Dunia ! (Indonesian)</h3>
 		<p>
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/>
 			Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.<br/>
@@ -38,12 +26,11 @@
 		</p>
 		<h2>"Amazingly few discotheques provide jukeboxes".</h2>
 	</div>
-	hello darkness my friend!
 
 	<br/>
 
-	<div id="section1">
-		<div class="make-fixed-nav">
+	<div id="sub-body1">
+		<div class="avz-fnavi">
 			Pack my box with five dozen liquor jugs.
 			<h2>Sphinx of black quartz, judge my vow.</h2>
 			<h5>Waltz, nymph, for quick jigs vex Bud.</h5>
@@ -53,13 +40,14 @@
 		<p>The quick brown fox jumps over the lazy dog.</p>
 	</div>
 
-	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.js"></script> -->
-	<script src="fnavi.js"></script>
-	<script>
-		document.querySelectorAll('.make-fixed-nav').forEach(function(elm) {
-			fnavi(elm);
-		});
-		// $('.make-fixed-nav').fnavi();
-	</script>
+<pre style="margin-left:5px;"><code><i>JS (jQuery):</i> $.<b>avzFnavi</b>();
+<i>Affect all elements.</i>
+
+<i>HTML:</i> &lt;div class="<b>avz-fnavi</b>"&gt;content&lt;/div&gt;
+</code></pre>
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="fnavi-old.js"></script>
+	<script>$.avzFnavi();</script>
 </body>
 </html>

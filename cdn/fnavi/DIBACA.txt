@@ -2,7 +2,7 @@ Dibuat/Diubah/Dirombak 20150413, 20161104
 
 Eksperiment yg saya buat, di awal2 belajar jquery.
 saya sendiri lupa kapan-tepatnya. waktu masih di kerja1/kerja2.
-atau malah diantaranya (waktu masih ngganggur).
+atau malah diantaranya (saat masih ngganggur).
 
 ------------------------------------
 | jQuery: Fnavi (fixed navigation) |
@@ -17,4 +17,4 @@ awalnya dibuat pakai js langsung, lalu saya ingin jadikan jquery plugin.
 | LICENSE |
 -----------
 
-https://anovsiradj.mit-license.org/2015
+MIT (https://anovsiradj.mit-license.org/2015)
