@@ -1,0 +1,25 @@
+<?php
+$qwr = app()->db()->query("SELECT * FROM `table` WHERE a='{$b}' LIMIT 0,9");
+?>
+
+<header>
+	<h1>
+		<a href="/home"><? echo app()->name ?></a>
+	</h1>
+</header>
+
+Products:
+<ul>
+	<? while ($obj = $qwr->fetch_array()) { ?>
+	<li>
+		<a href="?id=<?=$obj['id']?>"><?= $obj['name'] ?></a>
+		<? echo date('Ymd') ?>
+	</li>
+	<? } ?>
+</ul>
+
+<footer>
+	<h4>
+		<a href="/about"><? echo $app->copyright ?></a>
+	</h4>
+</footer>
