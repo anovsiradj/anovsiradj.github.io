@@ -1,0 +1,51 @@
+html, body, * {
+	margin: 0px;
+	padding: 0px;
+	border: none;
+}
+
+body {
+	color: #fff;
+	background-color: #333;
+}
+
+header, textarea, pre, article {
+	margin: 0px auto;
+	display: block;
+	width: 80%;
+}
+
+header {
+	padding: 10px 8px;
+}
+h1, h2 {
+	font-family: monospace;
+	font-size: 1.4em;
+}
+
+textarea, pre {
+	background-color: #eee;
+	border: 1px solid #999;
+	overflow: auto;
+}
+textarea {
+	resize: vertical;
+	height: 200px;
+}
+
+pre {
+	color: #222;
+	height: 300px;
+}
+
+iframe, div {
+	display: none;
+}
+
+.mark {
+	background-color: yellow;
+}
+
+code {
+	color: pink;
+}
