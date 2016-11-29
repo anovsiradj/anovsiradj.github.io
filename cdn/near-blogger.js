@@ -35,13 +35,14 @@ function printpage() { isFullpage = true; togglefullpage(); window.print(); }
 */
 
 function makefancycode(elm_code) {
-	$(elm_code).addClass(elm_code.dataset.prlang).parent('pre').addClass("no-pd bd-rad-0");
+	elm_code.className += ' ' + elm_code.dataset.prlang;
+	elm_code.parentElement.className += ' no-pd bd-rad-0';
 	hljs.highlightBlock(elm_code);
 }
 
 function fancy_code($elm_pre, $elm_code, prlang) {
 	$elm_pre[0].className += ' no-pd bd-rad-0';
-	if (prlang) $elm_code[0].className += ' language-'+ prlang;
+	if (prlang) $elm_code[0].className += ' ' + prlang;
 	hljs.highlightBlock($elm_code[0]);
 };
 
