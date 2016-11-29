@@ -1,7 +1,7 @@
 if (typeof window.winload === 'undefined') throw new Error('Kamu siapa?');
 
 // setter
-var is_page_post = /^(item|static\_page)$/.test(near.pageType);
+var is_posting = /^(item|static\_page)$/.test(near.pageType);
 var $content = $("#core_content");
 
 hljs.configure({tabReplace: '	'}); // tab:4
@@ -40,8 +40,8 @@ function makefancycode(elm_code) {
 }
 
 function fancy_code($elm_pre, $elm_code, prlang) {
-	$elm_pre.addClass("no-pd bd-rad-0");
-	if (prlang) $elm_code.addClass('language-'+ prlang);
+	$elm_pre[0].className += ' no-pd bd-rad-0';
+	if (prlang) $elm_code[0].className += ' language-'+ prlang;
 	hljs.highlightBlock($elm_code[0]);
 };
 
@@ -52,26 +52,41 @@ $(document).ready(function() {
 	//var $header = $("#core_header");
 	//var $navbar_togglefullpage = $('#navbar_togglefullpage');
 
-	if (is_page_post) {
-		$('#core_content .ajax-fancy-code, #core_content .fancy-code, #core_content code.makefancycode').each(function() {
+	if (is_posting) {
+		$('.ajax-fancy-code, .fancy-code, code.makefancycode', $content[0]).each(function() {
 			var hljs_it = true;
 			var prlang = $(this).data('prlang') || $(this).children('code').data('prlang') || $(this).parent('pre').data('prlang');
-			var is_ajax = $(this).hasClass('ajax-fancy-code');
+			var is_ajax = /ajax\-fancy\-code/.test(this.className);
 			if (is_ajax) { var ajx_url = $(this).text(); }
 
-			switch($(this)[0].nodeName) {
+			switch(this.nodeName) {
 				case('PRE'):
 					var $pre = $(this);
-					var $code = $(this).children('code');
+					if (this.children[0] && this.children[0].nodeName === 'CODE') {
+						var $code = this.children[0];
+					} else {
+						var t = this.innerHTML;
+						this.innerHTML = '<code></code>';
+						this.children[0].innerHTML = t;
+						var $code = $(this.children[0]);
+					}
 				break;
 				case('CODE'):
-					var $pre = $(this).parent('pre');
+					if (this.parentElement.nodeName === 'PRE') {
+						var $pre = $(this.parentElement);
+					} else {
+						this.insertAdjacentHTML('beforebegin', '<pre></pre>');
+						this.previousElementSibling.appendChild(this);
+						var $pre = $(this.parentElement);
+					}
 					var $code = $(this);
 				break;
 				case('DIV'):
-					$(this).html('<pre><code></code></pre>');
-					var $pre = $(this).find('pre:first');
-					var $code = $(this).find('code:first');
+					var t = this.innerHTML;
+					this.innerHTML = '<pre><code></code></pre>';
+					var $pre = $(this.children[0]);
+					var $code = $(this.children[0].children[0]);
+					this.children[0].children[0].innerHTML = t;
 				break;
 				default: hljs_it = false; break;
 			};
@@ -121,45 +136,15 @@ $(document).ready(function() {
 		});
 		*/
 
-		/*
-		$content.find("code.makefancycode").each(function() {
-			fancy_code($(this).parent('pre'), $(this), $(this)[0].dataset.prlang);
-		});
-		*/
 
 	};
 	
 
 
-	/*
-		// fb-app
-		window.fbAsyncInit = function() {
-				FB.init({ appId: '1719982034935434', xfbml: true, version: 'v2.6' });
-		};
-		(function(d, s, id){
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id)) {return;}
-				js = d.createElement(s); js.id = id;
-				js.src = "//connect.facebook.net/id_ID/sdk.js";
-				fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-	*/
-
-	// fb-plugin
-	/*
-		(function(d, s, id) {
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id)) return;
-				js = d.createElement(s); js.id = id;
-				js.src = "//connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v2.6";
-				fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-		*/
-
 });
 
 // disquss-comment
-if (is_page_post) {
+if (is_posting) {
 	var disqus_config = function () {
 		var firstBlogPostId = $("[id^=post-body]:first").prop('id').split('-');
 		this.page.url = near.canonicalUrl;
@@ -173,10 +158,10 @@ if (is_page_post) {
 	})(document);
 }
 
-// fb-app (saiki gur komentar tok)
-if (is_page_post) {
+// fb-app (gur komentar tok)
+if (is_posting) {
 	var fbAsyncInit = function() {
-		FB.init({ appId: '1719982034935434', xfbml: true, version: 'v2.7' });
+		FB.init({ appId: '1719982034935434', xfbml: true, version: 'v2.8' });
 	};
 	(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
@@ -186,12 +171,3 @@ if (is_page_post) {
 		fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
 }
-
-// Lawan!
-var netbro_cache_analytics_inv = setInterval(function() {
-	window.netbro_cache_analytics = function(a,b) {};
-	window.requestCfs = function() {};
-	/*console.log("Spartan!");*/
-},0);
-winload(function() { clearInterval(netbro_cache_analytics_inv); });
-
