@@ -98,38 +98,42 @@ a.darknature {color: #4D7F17;}
 /* override blogger default css bundle */
 #core_content .blog-posts>.date-outer:first-child .date-header {margin-top:-8px;padding-top:0px;border-top:none;}
 #core_content .blog-posts>.date-outer .date-header {
-margin-left: -16px;
-padding-left: 16px;
-margin-right: -16px;
-padding-right: 16px;
-margin-top:8px;
-padding-top:8px;
-border-top: 5px solid #222;
-font-size: 1vw;
-font-weight: 600;
+	margin-left: -16px;
+	padding-left: 16px;
+	margin-right: -16px;
+	padding-right: 16px;
+	margin-top:8px;
+	padding-top:8px;
+	border-top: 5px solid #222;
+	font-size: 1em;
+	font-weight: normal;
 }
-#core_content h3.post-title {background-color: #222;padding: 16px;margin-left: -16px;margin-right: -16px;margin-top:10px;}
+#core_content h3.post-title {
+	background-color: #222;padding: 16px;margin-left: -16px;margin-right: -16px;margin-top:10px;
+}
 #core_content h3.post-title,
 #core_content h3.post-title>a {color: #4D7F17;}
 #core_content .date-outer .date-posts .post.hentry iframe {margin:0px auto;}
 #core_content .date-outer .date-posts .post.hentry blockquote {
-font-size: 2.2vw;position:relative;quotes:"\201C""\201D""\2018""\2019";
+	font-size: 2.2vw;
+	position:relative;
+	quotes:"\201C""\201D""\2018""\2019";
 }
 #core_content .date-outer .date-posts .post.hentry blockquote>div:first-child:before,
 #core_content .date-outer .date-posts .post.hentry blockquote>div:first-child:after {
-color: #999;
-font-size: 4vw;
-vertical-align: -0.2em;
-font-family: 'Cardo', serif;
-line-height:0px;
+	color: #999;
+	font-size: 4vw;
+	vertical-align: -0.2em;
+	font-family: 'Cardo', serif;
+	line-height:0px;
 }
 #core_content .date-outer .date-posts .post.hentry blockquote>div:first-child:before {
-content: open-quote;
-margin-right: 0.2em;
+	content: open-quote;
+	margin-right: 0.2em;
 }
 #core_content .date-outer .date-posts .post.hentry blockquote>div:first-child:after {
-content: close-quote;
-margin-left:0.2em;
+	content: close-quote;
+	margin-left:0.2em;
 }
 #core_content .date-outer .date-posts .post.hentry blockquote>small {font-size: 1.1vw;}
 #core_content .date-outer .date-posts .post.hentry .separator > a {margin:0px !important;}
@@ -144,5 +148,5 @@ margin-left:0.2em;
 #core_sidebar .widget-content.popular-posts .item-snippet {overflow:auto;}
 #core_sidebar .widget-content.popular-posts .item-snippet:hover {color:#888;}
 @media print {
-#blog-pager,#comments,#core_content .feed-links,#core_content .post-footer-line {display:none;}
+	#blog-pager,#comments,#core_content .feed-links, #core_content .post-footer-line {display:none;}
 }
