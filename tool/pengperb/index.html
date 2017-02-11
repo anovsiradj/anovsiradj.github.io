@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head>
+<meta charset="utf-8"/><meta name="copyright" content="Avirtualizer"/>
+<meta name="keywords" content="anov siradj,avirtualizer,aspect ratio,aspek rasio,perbandingan,calculator,kalkulator"/>
+<meta name="author" content="Anov Siradj, anov.siradj22@gmail.com"/>
+<meta name="url" content="http://anovsiradj.blogspot.com/"/>
+<title>Penghitung Perbandingan</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!--script src="jq-v1.11.1.min.js" type="text/javascript"></script-->
+<style>
+*, html, html * {margin:0px;padding:0px;}
+body {background-color:#222;}
+body, body * {font-family:monospace;}
+#-title {
+	font-size:30px;
+	text-align:center;
+	padding-top:25px;
+	padding-bottom:15px;
+	border-bottom:1px solid #666;
+}
+#-container {
+	background-color:#444;
+	color:#fff;
+	width:920px;
+	margin-top:40px;
+	padding-left:10px;
+	padding-right:10px;
+	margin-left:auto;
+	margin-right:auto;
+}
+.title-value, .split-value, .input-value {font-weight:bold;font-size:20px;}
+.title-value {text-align:center;padding-top:20px;}
+.split-value {text-align:center;padding-left:10px;padding-right:10px;padding-bottom:20px;
+}
+#A, #B, #C, #D {
+	width:100%;
+	color:#222;
+	box-sizing: border-box;
+	border-width:0px;
+	padding:2px 4px;
+	border-radius:5px;
+	margin-bottom:20px;
+}
+#-author {color:#999;padding-top:10px;padding-bottom:10px;border-top:1px solid #666;}
+</style></head><body><table id="-container">
+<tr><td id="-title" colspan="7">Penghitung Perbandingan</td></tr>
+<tr><td class="title-value">A</td><td>&nbsp;</td><td class="title-value">B</td><td>&nbsp;</td>
+<td class="title-value">C</td><td>&nbsp;</td><td class="title-value">D</td></tr>
+<tr><td><input id="A" class="input-value"/></td><td class="split-value">:</td>
+<td><input id="B" class="input-value"/></td><td class="split-value">=</td>
+<td><input id="C" class="input-value"/></td><td class="split-value">:</td>
+<td><input id="D" class="input-value"/></td>
+</tr><td colspan="7">
+<b>Penghitung Perbandingan (Aspek Rasio)</b><br/><br/>
+<u>Cara Penggunaan :</u><br/>
+Masukkan nilai A dan B untuk mencari nilai C atau D.<br/><br/>
+<u>Misal :</u><br/>A = 1;<br/>B = 2;<br/><br/>
+<u>Maka :</u><br/>(jika) C = 4;<br/>D = 8;<br/><br/>
+<u>Atau :</u><br/>(jika) D = 4;<br/>C = 8;<br/><br/>
+</td>
+<tr><td id="-author" colspan="7">Dibuat oleh Anov Siradj - <!-- sabtu, 28 Feb -->2015</td></tr>
+</table><script type="text/javascript">
+$(function() {
+var where = "E",from = "E",A,B,C,D,_A,_B,_C,_D;
+function n(e) {var r;if(isNaN(e) === true) {r = 0;} else {r = e;} return Number(r);}
+function forAB() {C = n($("#C").val());D = n($("#D").val());
+	if(A !== 0 && B !== 0) {if(where == "D") {findC();} if(where == "C") {findD();}}}
+function findC() {_C = (A*D)/B;$("#C").val(_C);} function findD() {_D = (C*B)/A;$("#D").val(_D);}
+$("#A").on("keyup",function() {A = n($(this).val());B = n($("#B").val());forAB();}); // end-A event
+$("#B").on("keyup",function() {A = n($("#A").val());B = n($(this).val());forAB();}); // end-B event
+$("#C").on("keyup",function() {A = n($("#A").val());B = n($("#B").val());C = n($(this).val());
+	if(A !== 0 && B !== 0 && C !== 0) {findD();inpActive();}}); // end-C event
+$("#D").on("keyup",function() {A = n($("#A").val());B = n($("#B").val());D = n($(this).val());
+	if(A !== 0 && B !== 0 && D !== 0) {findC();inpActive();}}); // end-D event
+$("#C").on("input",function() {where = "C";from= "D";});$("#D").on("input",function() {where = "D";from = "C"});
+function inpActive() {
+    $("#C, #D").css("background-color","#fff");
+    $("#"+from).css("background-color","#ccc");
+};
+}); // end-initial
+</script></body></html>
