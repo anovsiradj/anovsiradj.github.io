@@ -1,0 +1,57 @@
+*, html, html * {
+	margin:0px;
+	padding:0px;
+}
+body {
+	background-color:#222;
+}
+body, body * {
+	font-family:monospace;
+}
+
+#-title {
+	font-size:30px;
+	text-align:center;
+	padding-top:25px;
+	padding-bottom:15px;
+	border-bottom:1px solid #666;
+}
+#-container {
+	background-color:#444;
+	color:#fff;
+	width:920px;
+	margin-top:40px;
+	padding-left:10px;
+	padding-right:10px;
+	margin-left:auto;
+	margin-right:auto;
+}
+.title-value, .split-value, .input-value {
+	font-weight:bold;
+	font-size:20px;
+}
+.title-value {
+	text-align:center;
+	padding-top:20px;
+}
+.split-value {
+	text-align:center;
+	padding-left:10px;
+	padding-right:10px;
+	padding-bottom:20px;
+}
+#A, #B, #C, #D {
+	width:100%;
+	color:#222;
+	box-sizing: border-box;
+	border-width:0px;
+	padding:2px 4px;
+	border-radius:5px;
+	margin-bottom:20px;
+}
+#-author {
+	color:#999;
+	padding-top:10px;
+	padding-bottom:10px;
+	border-top:1px solid #666;
+}
