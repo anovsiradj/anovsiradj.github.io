@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Headings Media Queries - Anov Siradj</title>
+<meta name="author" content="Anov Siradj"/>
+<meta name="copyright" content="avitrualizer">
+<meta name="contact" content="anov.siradj22@gmail.com"/>
+<meta name="description" content="Anov Siradj's Experiments Heding media Queries"/>
+<meta name="identifier-URL" content="http://www.anovsiradj.com/"/>
+<meta itemprop="image" content="http://anovsiradj.com/cdn/anov_lg.png"/>
+<meta name="keywords" content="Anov Siradj, Experiment, Headings, Media Queries"/>
+
+<style>
+/* Default */
+h1.fluid {font-size: 4em;background-color: aqua;}
+h2.fluid {font-size: 3.5em;background-color: aqua;}
+h3.fluid {font-size: 3em;background-color: aqua;}
+h4.fluid {font-size: 2.5em;background-color: aqua;}
+h5.fluid {font-size: 2em;background-color: aqua;}
+h6.fluid {font-size: 1.5em;background-color: aqua;}
+/* 900px */
+@media all and (max-width: 899px) {
+	h1.fluid {font-size: 3em;background-color: green;}
+	h2.fluid {font-size: 2.5em;background-color: green;}
+	h3.fluid {font-size: 2em;background-color: green;}
+}
+/* 600px */
+@media all and (max-width: 599px) {
+	h1.fluid {font-size: 2em;background-color: red;}
+	h2.fluid {font-size: 1.5em;background-color: red;}
+	h3.fluid {font-size: 1em;background-color: red;}
+}
+/* 300px */
+@media all and (max-width: 299px) {
+	h1.fluid,h2.fluid,h3.fluid,h4.fluid,h5.fluid,h6.fluid {font-size: 0.99em;background-color: blue;}
+}
+</style>
+<!-- <link rel="stylesheet" href="https://googledrive.com/host/0B5QQvAjRq64ha2RTZ0dUR3RzZTA"/> -->
+</head>
+<body>
+<div style='text-align:center;'>
+<h3>Try To Resize The Browser</h3>
+<p>Colored with Media Queries. Other with HTML default</p>
+</div>
+<div class="b1dotted w1-2percent posrel" style="margin:0 auto;">
+	<h1 class="nomargin fluid">Hello World !</h1>
+	<h1 class="nomargin">Hello World !</h1>
+<hr/>
+	<h2 class="nomargin fluid">Hello World !</h2>
+	<h2 class="nomargin">Hello World !</h2>
+<hr/>
+	<h3 class="nomargin fluid">Hello World !</h3>
+	<h3 class="nomargin">Hello World !</h3>
+<hr/>
+	<h4 class="nomargin fluid">Hello World !</h4>
+	<h4 class="nomargin">Hello World !</h4>
+<hr/>
+	<h5 class="nomargin fluid">Hello World !</h5>
+	<h5 class="nomargin">Hello World !</h5>
+<hr/>
+	<h6 class="nomargin fluid">Hello World !</h6>
+	<h6 class="nomargin">Hello World !</h6>
+</div>
+<hr/>
+<pre class="w1-2percent" style="margin:0 auto;">
+default &#9668; 900px : h1 = 4em
+		  h2 = 3.5em
+		  h3 = 3em
+		  h4 = 2.5em
+		  h5 = 2em
+		  h6 = 1.5em
+</pre>
+
+<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+<!-- <script>
+// get width
+console.log($(window).width());
+console.log($(document).width());
+</script> -->
+</body>
+</html>
