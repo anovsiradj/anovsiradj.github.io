@@ -1,70 +1,45 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Equal Height - Anov Siradj</title>
-<!-- jquery 1.11.0 / 1.10.2 -->
-<style type='text/css'>
-/* reset */
-* {margin: 0px;padding: 0px;}
-html {width: 100%;height: 100%;}
-input, textarea {border: 1px solid #000;}
-.sapu {clear:both;}
+	<meta charset="UTF-8">
+	<title>Equal Height - Anov Siradj</title>
+	<style type='text/css'>
+	/* reset */
+	* {margin: 0px;padding: 0px;}
+	html {width: 100%;height: 100%;}
+	input, textarea {border: 1px solid #000;}
+	.sapu {clear:both;}
 
-#ak47 {width: 940px;margin-left: auto;margin-right: auto;}
-body {background-color: #222222;}
+	#ak47 {width: 940px;margin-left: auto;margin-right: auto;}
+	body {background-color: #222222;}
 
-header, nav, footer {width: 100%;}
-nav, footer {background-color: #669900;}
+	header, nav, footer {width: 100%;}
+	nav, footer {background-color: #669900;}
 
-header {background-color: #0099FF;display: table;}
-header h1 {font-family: arial;display: table-cell;vertical-align: middle;text-align:center;}
+	header {background-color: #0099FF;display: table;}
+	header h1 {font-family: arial;display: table-cell;vertical-align: middle;text-align:center;}
 
-article {background-color: #FFF;width: 65%;float: left;}
-aside {background-color: #CC3300;width: 35%;float: right;}
-nav a {display: inline-block;font-size: 30px;background-color: #FF9900;text-decoration: none;font-family: verdana;padding: 2px 5px;border: 1px solid #222;color:#000;}
-nav a:hover {background-color: #CC3300;color: #fff;}
+	article {background-color: #FFF;width: 65%;float: left;}
+	aside {background-color: #CC3300;width: 35%;float: right;}
+	nav a {display: inline-block;font-size: 30px;background-color: #FF9900;text-decoration: none;font-family: verdana;padding: 2px 5px;border: 1px solid #222;color:#000;}
+	nav a:hover {background-color: #CC3300;color: #fff;}
 
-/*aside, article {min-height: 300px;}*/
+	/*aside, article {min-height: 300px;}*/
 
-@media (max-width:970px) {
-	#ak47 {width: 90%;margin-left: auto;margin-right: auto;}
-} 
-
-@media all and (max-width:800px) {
-	/* body {background-color: red;} */
-	article {background-color: #FFF;width: 100%;float: none;min-height: 0%;}
-	aside {background-color: #CC3300;width: 100%;float: none;min-height: 0%;}
-	nav a {display: block;text-align: center;}
-	header h1 {display: block;text-align: center;padding-top: 5px;}
-	/* header img {float: none;margin: 0px;padding: 0px;}
-	header img {margin-left: auto !important;margin-right: auto !important;} */
-}
-</style>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-	var hArticle = $("article").height();
-	var hAside = $("aside").height();
-
-	if (hArticle > hAside) {
-		$("aside").css("height",hArticle);
-	} else {
-		$("article").css("height",hAside);
+	@media (max-width:970px) {
+		#ak47 {width: 90%;margin-left: auto;margin-right: auto;}
 	}
-	$(window).resize(function(){
-		if ($("article,aside").css("float") == "none" ){
-				$("article").css("height","auto");
-				$("aside").css("height","auto");
-		}
-		if (hArticle > hAside) {
-			$("aside").css("height",hArticle);
-		} else {
-			$("article").css("height",hAside);
-		}
-	});
-});
-</script>
+
+	@media all and (max-width:800px) {
+		/* body {background-color: red;} */
+		article {background-color: #FFF;width: 100%;float: none;min-height: 0%;}
+		aside {background-color: #CC3300;width: 100%;float: none;min-height: 0%;}
+		nav a {display: block;text-align: center;}
+		header h1 {display: block;text-align: center;padding-top: 5px;}
+		/* header img {float: none;margin: 0px;padding: 0px;}
+		header img {margin-left: auto !important;margin-right: auto !important;} */
+	}
+	</style>
 </head>
 <body>
 	<div id="ak47">
@@ -77,20 +52,45 @@ $(document).ready(function(){
 			<a href="#about">About</a>
 			<a href="#contact">Contact</a>
 		</nav>
+
 		<article>
-			<p>
-Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their projects again and again. And if she hasn’t been rewritten, then they are still using her.
-			</p>
+			<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their projects again and again. And if she hasn’t been rewritten, then they are still using her.</p>
 		</article>
 		<aside>
-			<p>
-Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their projects again and again. And if she hasn’t been rewritten, then they are still using her.
-			</p>
+			<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their projects again and again. And if she hasn’t been rewritten, then they are still using her.</p>
 		</aside>
+
 		<div class="sapu"></div>
+
 		<footer>
-			<h4>Anov Siradj | Avirtualizer 2014</h4>
+			<h4>Anov Siradj | Avirtualizer &copy; 2014, 2017-02-12</h4>
 		</footer>
 	</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- <script src="/bower_components/jquery/dist/jquery.min.js"></script> -->
+<script>
+$(document).ready(function(){
+	var hArticle = $("article").height();
+	var hAside = $("aside").height();
+
+	if (hArticle > hAside) {
+		$("aside").css("height",hArticle);
+	} else {
+		$("article").css("height",hAside);
+	}
+	$(window).resize(function(){
+		if ($("article,aside").css("float") == "none" ) {
+				$("article").css("height","auto");
+				$("aside").css("height","auto");
+		}
+		if (hArticle > hAside) {
+			$("aside").css("height",hArticle);
+		} else {
+			$("article").css("height",hAside);
+		}
+	});
+});
+</script>
 </body>
 </html>
