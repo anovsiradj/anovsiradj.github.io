@@ -1,0 +1,11 @@
+html, body {width: 100%;height: 100%;}
+body {font-family: Georgia, "Times New Roman", Times, serif;font-size:20px;}
+
+/* reset html5 default start */
+* {margin:0px;padding:0px;}
+/* reset html5 default end */
+
+.go-center {text-align:center;}
+.bottle {margin:0 auto;width:600px;margin-top:10px;}
+.full-w {width: 100%;}
+.m-top {margin-top: 30px;}

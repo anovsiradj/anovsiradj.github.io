@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<title>Fluid Percent - Anov Siradj</title>
+<meta name="author" content="Anov Siradj"/>
+<meta name="copyright" content="avitrualizer">
+<meta name="contact" content="anov.siradj22@gmail.com"/>
+<meta name="description" content="Anov Siradj's Experiments Layout With Fluid Width using Percent"/>
+<meta name="identifier-URL" content="http://www.anovsiradj.com/"/>
+<meta itemprop="image" content="http://anovsiradj.com/cdn/anov_lg.png"/>
+<meta name="keywords" content="Anov Siradj, Experiment, html, css, js, php"/>
+
+<style>
+html,body {height: 100%;}
+body {margin: 0px;background-color: #222;}
+#w-sec-1 {height: 100%;width: 90%;margin:0px auto 0px auto;background-color: transparent;}
+#sec-av1 {height: 5%;background-color: #0099FF;}
+#sec-av1 td h1 {font-family: arial;font-size: 200%;margin: 0px 0px 0px 0px;text-align: center;}
+#sec-av1 td+td {width: 50%;}
+#sec-av1 td+td {text-align: right;width: 50%;}
+#sec-av1 td+td img {width: 95%;border: 3px solid #222;margin: 5px 0px 2px 0px;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+}
+
+#sec-av2 {height: 5%;background-color: #669900;margin-top: 2px;}
+#sec-av2 td {position: relative;}
+
+#sec-av3 {height: 85%;border: 0px;}
+#sec-av3 td {vertical-align: top;position: relative;}
+#sec-av3, #sec-av3 tr, #sec-av3 td {border: 0px;}
+#sec-av3 #sec-av3-p1 {width: 70%;background-color: #fff;}
+#sec-av3 #sec-av3-p2 {width: 30%;background-color: #CC3300;}
+
+#sec-av4 {height: 4%;background-color: #669900;}
+#sec-av4 td {position: relative;}
+
+[id^="sec-av"][data-valign="middle"] td {vertical-align: middle;}
+[id^="sec-av"] {width: 100%;}
+
+.valignmiddle {vertical-align: middle;}
+
+.gtts {font-family: Georgia, "Times New Roman", Times, serif !important;}
+</style>
+</head>
+<body>
+<div id="w-sec-1">
+<table id="sec-av1" data-valign="middle"><tr><td>
+<h1 class="gtts">Newbie Area Revolution</h1>
+</td><!--td>
+<img src="http://1.bp.blogspot.com/-KjL5Dp_PBYU/U0u07wMfKLI/AAAAAAAAA_M/iRUoS9G9UIQ/s1600/indogator_only.png" class="valignmiddle" />
+</td--></tr></table>
+
+<table id="sec-av2" data-valign="middle"><tr><td>
+Navigation
+</td></tr></table>
+
+<table id="sec-av3"><tr><td id="sec-av3-p1">
+Content
+</td><td id="sec-av3-p2">
+Sidebar
+</td></tr></table>
+
+<table id="sec-av4" data-valign="middle"><tr><td>
+Footer
+</td></tr></table>
+</div>
+</body>
+</html>
