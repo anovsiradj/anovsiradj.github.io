@@ -1,0 +1,107 @@
+/**
+* Dialog-v2.0.js
+* Copyright (C) 2014 by Mayendra Costanov
+* All rights reserved.
+*/
+
+.dialog {
+	display:none;
+	z-index: 999;
+	position:fixed;
+	top:0px;
+	bottom:0px;
+	left:0px;
+	right:0px;
+	background-color:rgba(34, 34, 34, 0.8);
+}
+.dialog-outer {
+	display:table;
+	width:40%;
+	height:100%;
+	margin-right:auto;
+	margin-left:auto;
+}
+.dialog-inner {
+display:table-cell;
+vertical-align:middle;
+}
+.dialog-body {
+	display:block;
+	background-color:#fff;
+	padding-top:25px;
+	padding-left:20px;
+	padding-right:20px;
+	padding-bottom:25px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	box-shadow:0px 4px 10px #000;
+}
+.dialog-header {
+	display:block;
+	font-weight:normal;
+	font-size:1.5em;
+	margin-top:-25px;
+	margin-left:-20px;
+	margin-right:-20px;
+	margin-bottom:2px;
+	padding-left:20px;
+	padding-right:20px;
+	padding-bottom:8px;
+	padding-top:6px;
+	border-bottom:1px solid #eee;
+}
+.dialog-footer {
+	display:block;
+	margin-top:5px;
+	margin-bottom:-25px;
+	margin-left:-20px;
+	margin-right:-20px;
+	font-weight:normal;
+	padding-left:20px;
+	padding-right:20px;
+	padding-top:10px;
+	padding-bottom:10px;
+	border-top:1px solid #eee;
+	text-align:right;
+}
+.dialog-footer button,.dialog-footer input[type=submit] {
+	cursor:pointer;
+}
+.dialog-close {
+	cursor: pointer;
+	float: right;
+	color: #222;
+	opacity: 0.3;
+}
+.dialog-close:hover {
+	opacity: 1.0;
+}
+.dialog-close:after {
+	content: " ";
+	clear: both;
+}
+@media all and (max-width:1000px) {
+	.dialog-outer {
+		width:65%;
+	}
+}
+@media all and (max-width:850px) {
+	.dialog-outer {
+		width:70%;
+	}
+}
+@media all and (max-width:650px) {
+	.dialog-outer {
+		width:75%;
+	}
+}
+@media all and (max-width:450px) {
+	.dialog-outer {
+		width:90%;
+	}
+}
+
+@media all and (max-width:400px) {
+	.dialog-outer {
+		width:98%;
+	}
+}

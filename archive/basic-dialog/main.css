@@ -1,0 +1,32 @@
+/**
+* Copyright (C) 2014 by Mayendra Costanov
+* All rights reserved.
+*/
+
+/* set full height */
+html, body {width: 100%;height: 100%;}
+body {font-family: Georgia, "Times New Roman", Times, serif;}
+/* reset html5 default */
+* {margin:0px;padding:0px;}
+/* text-align class */
+.tcenter {text-align:center;}
+.tleft {text-align:left;}
+.tright {text-align:right;}
+ 
+.bottle {margin:0 auto;width:700px;margin-top:10px;}
+.hwidth {width: 50%;}
+.fwidth {width: 100%;}
+/* cursor class */
+.cpointer {cursor: pointer;}
+.cmove {cursor: move;}
+/* float class */
+.fright {float: right;}
+.fleft {float: left;}
+/* text-color class */
+.twhite {color: #fff;}
+.tdark {color: #222222;}
+.tblue {color: #3399FF;}
+/* background-color class */
+.bgwhite {background-color: #fff;}
+.bgdark {background-color: #222222;}
+.bgblue {background-color: #3399FF;}
