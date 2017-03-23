@@ -1,0 +1,44 @@
+<!--
+MD5: http://stackoverflow.com/a/1655795
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>My Gravatar URL</title>
+	<script src="//rawgit.com/PixnBits/8811212/raw/d73b52f9b942704030913a28edaae855fb40800d/md5.js"></script>
+	<style>
+	img {
+		margin: 10px auto;
+		border: 3px solid #ddd;
+	}
+	</style>
+</head>
+<body>
+
+<h1><script>document.write(document.title)</script></h1>
+
+<pre>Example, from official Gravatar Documentation (https://en.gravatar.com/site/implement/)</pre>
+
+<form method="post" onsubmit="my_form_action(this,event);">
+	<input name="str" placeholder="gravatar email or username" style="width: 200px;" required/>
+	<button type="submit">submit</button>
+</form>
+
+<pre id="result"></pre>
+
+<script>
+var elm_result = document.getElementById('result');
+function my_form_action(elm,evt) {
+
+	evt.preventDefault();
+
+	var str_id = elm.elements.str.value.toLowerCase();
+	var str_md5 = md5(str_id);
+	var str = location.protocol + '//www.gravatar.com/avatar/' + str_md5;
+
+	elm_result.innerHTML = str + "\n<img src='" + str + "' style='display:none;' onload=\"this.style=''\"/>";
+}
+</script>
+</body>
+</html>
