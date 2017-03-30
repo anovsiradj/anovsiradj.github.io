@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>20150403</title>
+<meta name="author" content="Anov Siradj"/>
+<meta name="copyright" content="avitrualizer"/>
+<meta name="contact" content="anov.siradj22@gmail.com"/>
+<meta name="description" content="Very Simple and Basic (._.) Puzzle game with JQuery"/>
+<!--meta name="identifier-URL" content="http://www.anovsiradj.com/"/>
+<meta itemprop="image" content="http://cdn.anovsiradj.com/logoKu.png"/-->
+<meta name="keywords" content="anov siradj, puzzle, jquery"/>
+<style>
+#cole {width: 600px;margin: 0 auto;text-align: center;}
+#av-puzzle-wrap {
+	width:600px;height:600px;background-color:#eee;position: relative;padding: 0px;margin: 0px auto;
+}
+#av-puzzle-wrap .av-puzzle-block {
+	width: 198px;height: 198px;background-color: #222;color:#fff;margin: 1px;float: left;
+}
+#av-puzzle-wrap .av-puzzle-img {
+	background-image:url('//2.bp.blogspot.com/-oSm5EzIh1Ns/U528X4Y6CpI/AAAAAAAABDU/Zrrmv6TmlIE/s512-c/art.png');
+	background-size: 600px;
+	background-repeat: no-repeat;
+}
+#av-puzzle-wrap .av-puzzle-block-add {
+	width: 198px;height: 198px;background-color: #999;margin: 1px;float: left;
+}
+#av-puzzle-wrap .av-puzzle-img1 {
+	background-position: 0px 0px;
+}
+#av-puzzle-wrap .av-puzzle-img2 {
+	background-position: -200px 0px;
+}
+#av-puzzle-wrap .av-puzzle-img3 {
+	background-position: -400px 0px;
+}
+#av-puzzle-wrap .av-puzzle-img4 {
+	background-position: 0px -200px;
+}
+#av-puzzle-wrap .av-puzzle-img5 {
+	background-position: -200px -200px;
+}
+#av-puzzle-wrap .av-puzzle-img6 {
+	background-position: -400px -200px;
+}
+#av-puzzle-wrap .av-puzzle-img7 {
+	background-position: 0px -400px;
+}
+#av-puzzle-wrap .av-puzzle-img8 {
+	background-position: -200px -400px;
+}
+</style>
+</head>
+<body>
+<div style="margin:0 auto;width:70%;position:relative;text-align:center;">
+<h3 style="margin-bottom: 5px;">Just A Puzzle...,</h3>
+<p>
+<!--button onclick="change('http://cdn.anovsiradj.com/logoKu.png')">img1</button>
+<button onclick="change('http://cdn.anovsiradj.com/picts/Chloe-Moretz-ar.jpg')">img2</button-->
+</p>
+<div id="av-puzzle-wrap">
+<div class="av-puzzle-block av-puzzle-img av-puzzle-img7"></div>
+<div class="av-puzzle-block av-puzzle-img av-puzzle-img4"></div>
+<div class="av-puzzle-block av-puzzle-img av-puzzle-img1"></div>
+<div class="av-puzzle-block av-puzzle-img av-puzzle-img2"></div>
+<div class="av-puzzle-block av-puzzle-buffer"></div>
+<div class="av-puzzle-block av-puzzle-img av-puzzle-img6"></div>
+<div class="av-puzzle-block av-puzzle-img av-puzzle-img8"></div>
+<div class="av-puzzle-block av-puzzle-img av-puzzle-img5"></div>
+<div class="av-puzzle-block av-puzzle-img av-puzzle-img3">Blank Here</div>
+</div>
+
+<br/>
+<img id="insetimg" src="//2.bp.blogspot.com/-oSm5EzIh1Ns/U528X4Y6CpI/AAAAAAAABDU/Zrrmv6TmlIE/s512-c/art.png" style="width:70px;"/>
+<!-- <br/> -->
+<!-- <h4>Look at Fay Games <a href="http://portofaylio.com/makeagames">Here</a></h4> -->
+<!-- <small>(http://ne-a-r.blogspot.com/2015/09/marah-gambar.html)</small> -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+$(document).on('click','#av-puzzle-wrap .av-puzzle-block.av-puzzle-img',function(){
+	var A = $(this).attr("class");
+	var B = $(".av-puzzle-block.av-puzzle-buffer").attr("class");
+	$(".av-puzzle-block.av-puzzle-buffer").attr("class",A);
+	$(this).attr("class",B);
+});
+/*
+function change(gambarURL) {
+var iimg = document.getElementById("insetimg");
+iimg.src=gambarURL;
+
+if (!document.getElementsByTagName("head")[0].getElementsByTagName("style")[1]) {
+$("head").append('<style type="text/css"></style>');
+}
+var new_stylesheet = $("head").children(':last');
+new_stylesheet.html("#av-puzzle-wrap .av-puzzle-img {background-image:url('"+gambarURL+"');}");
+}
+*/
+</script>
+</body>
+</html>
