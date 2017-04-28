@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buku>
+	<halaman>
+		<judul>Mendesain Tampilan</judul>
+		<isi><![CDATA[
+<p>Halaman utama :</p>
+<img src="gambar/pds/pta-img00009.png" width="150" height="209" vspace="0" hspace="0">
+<p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/>
+<p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/>
+<p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/>
+		]]></isi>
+	</halaman>
+	<halaman>
+		<judul>Mendesain Tampilan</judul>
+		<isi><![CDATA[
+<p>Halaman menonton video :</p>
+<img src="gambar/pds/pta-img00011.png" width="150" height="239" vspace="0" hspace="0">
+<p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/>
+<p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/>
+<p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/>
+		]]></isi>
+	</halaman>
+	<halaman>
+		<judul>Mendesain Tampilan</judul>
+		<isi><![CDATA[
+<p>Halaman pengaturan akun pengguna :</p>
+<img src="gambar/pds/pta-img00013.png" width="150" height="183" vspace="0" hspace="0">
+<p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/>
+<p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/>
+<p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/>
+		]]></isi>
+	</halaman>
+	<halaman>
+		<judul>Mendesain Tampilan</judul>
+		<isi><![CDATA[
+<p>Halaman proses unggah video :</p>
+<img src="gambar/pds/pta-img00014.png" width="150" height="246" vspace="0" hspace="0">
+<p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/>
+<p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/>
+<p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/><p>&nbsp;</p><br/>
+		]]></isi>
+	</halaman>
+	<halaman>
+		<judul>Scripting</judul>
+		<isi><![CDATA[
+<ul>
+	<li><br/>Membangun tampilan website berdasarkan <u>desain tampilan</u>. Dengan HTML dan CSS menggunakan Bootstrap.</li>
+	<li><br/>Membangun sistem website menggunakan PHP dengan penyimpanan data MySQL.</li>
+	<li><br/>Membuat penanganan terhadap interaksi pengunjung dan pengguna yang tersinkronisasi dengan Javascript menggunakan jQuery.</li>
+</ul>
+		]]></isi>
+	</halaman>
+</buku>
