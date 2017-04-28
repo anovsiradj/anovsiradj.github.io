@@ -57,30 +57,17 @@
 		<div class="col-md-8 col-md-push-1">
 			<ul class="list-ubuntu">
 				<li>
-					<h3 class="jsm jsm_e_margin-bottom-0px">Senior Web Programmer</h3>
-					<p class="text-muted">
-						<span class='text-info'>Nov 2013 - Agt 2014</span>
-						<span>/</span>
-						<span class='text-info'>CV. Solusi Dunia Digital</span>
-						<span>/</span>
-						<span class='text-info'>Yogyakarta</span>
-					</p>
-					Saya mulai bekerja di ketika saya kelas 11 (2) SMK (Sekolah Menengah Kejuruan).
-					Disana saya membuat bermacam-macam website, mulai dari company profile, website sekolah hingga website pemerintah.
-					Banyak hal baru yang saya pelajari disana sebagai pekerjaan pertama.
-					Di awal Kelas 12 (3) SMK, saya resign (mengundurkan diri) untuk mempersiapkan UN (ujian nasional).
-				</li>
-				<li>
 					<h3 class="jsm jsm_e_margin-bottom-0px">Web Developer</h3>
 					<p class="text-muted">
-						<span class='text-info'>Agt 2015 - sekarang</span>
+						<span class='text-info'>Agt 2015 - Jan 2016</span>
 						<span>/</span>
 						<span class='text-info'>NextIn Indonesia (<a href="http://nextin-indonesia.com/" target="_blank">nextin-indonesia.com</a>)</span>
 						<span>/</span>
 						<span class='text-info'>Yogyakarta</span>
 					</p>
 					NextIn adalah sebuah perusahaan startup TI dengan misi untuk memecahkan masalah pendidikan &amp; sosial.
-					Disana saya bekerja kontrak untuk membuat sebuah aplikasi website berskala nasional, yaitu <a href="http://nbpcenter.com/" target="_blank">NBPCenter</a> (Neuro-Development, Behavior &amp; Pediatrics Learning Center) bagian <i>Member</i>.<br/>
+					Disana saya bekerja kontrak untuk membuat sebuah aplikasi website berskala nasional,
+					yaitu <a href="http://nbpcenter.com/" target="_blank">NBPCenter</a> (Neuro-Development, Behavior &amp; Pediatrics Learning Center) bagian <i>Member</i>.<br/>
 					Disana saya membuat website aplikasi tersebut secara individual dari nol.
 				</li>
 				<li>
@@ -107,7 +94,9 @@
 							</p>
 							Beberapa waktu setelah resign (mengundurkan diri) dari SDD (CV. Solusi Dunia Digital) karena membutuhkan dana,
 							saya menghubungi mereka untuk bertanya apakah ada proyek yang bisa saya kerjakan sebagai freelance (pekerja lepas).
-							Lalu mereka menawarkan proyek ini, dan saya menerimanya.<br/><br/>
+							Lalu mereka menawarkan proyek ini, dan saya menerimanya.
+							<!--
+							<br/><br/>
 							Cara kerja singkat website ini (misal):<br/>
 							Tim futsal si <b>A</b> (didunia nyata), belum menemukan lawan tandingnya.
 							Lalu si <b>A</b> membuat <i>event</i> pertandingan futsalnya di website ini.
@@ -115,8 +104,23 @@
 							lalu dia melihat tim si <b>A</b> membutuhkan lawan tanding. Lalu si <b>B</b> assign (menetapkan) timnya sebagai lawan tim si <b>A</b>.
 							Lalu mereka bertanding di dunia nyata.<br/>
 							selesai.
+							-->
 						</li>
 					</ul>
+				</li>
+				<li>
+					<h3 class="jsm jsm_e_margin-bottom-0px">Senior Web Programmer</h3>
+					<p class="text-muted">
+						<span class='text-info'>Nov 2013 - Agt 2014</span>
+						<span>/</span>
+						<span class='text-info'>CV. Solusi Dunia Digital</span>
+						<span>/</span>
+						<span class='text-info'>Yogyakarta</span>
+					</p>
+					Saya mulai bekerja di ketika saya kelas 11 (2) SMK (Sekolah Menengah Kejuruan).
+					Disana saya membuat bermacam-macam website, mulai dari company profile, website sekolah hingga website pemerintah.
+					Banyak hal baru yang saya pelajari disana sebagai pekerjaan pertama.
+					Di awal Kelas 12 (3) SMK, saya resign (mengundurkan diri) untuk mempersiapkan UN (ujian nasional) dan beberapa alasan lainnya.
 				</li>
 			</ul>
 		</div>
@@ -203,8 +207,14 @@
 	<div class="row text-muted">
 		<div class="col-md-3">Dibuat oleh <a href="javascript:void(0);">Anov Siradj</a>.</div>
 		<div class="col-md-3">Terinspirasi oleh <a href="https://www.paulirish.com/" target="_blank">Paul Irish</a> resume.</div>
-		<div class="col-md-3">Menggunakan <a href="http://getbootstrap.com/" target="_blank">Bootstrap Framework</a> dan <a href="http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu web style Framework</a>.</div>
-		<div class="col-md-3">Dibuat 03 Desember 2015, 17:35<br/>Diubah 19 Desember 2015, 13:39</div>
+		<div class="col-md-3">
+			Menggunakan <a href="http://getbootstrap.com/" target="_blank">Twitter-Bootstrap Framework</a> dan <a href="http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu web style Framework</a>.
+		</div>
+		<div class="col-md-3">
+			<div id="git-commits-first"></div>
+			<div id="git-commits-last"></div>
+			<div id="git-commits-count"></div>
+		</div>
 	</div>
 </div>
 
@@ -212,21 +222,22 @@
 String.prototype.capitalizeFirstLetter = function() { // // http://stackoverflow.com/a/1026087
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
-function e_padding(o,p,s) {
-	p = (p === '') ? '' : p.capitalizeFirstLetter();
-	var d = "padding"+p;
-	o.style[d] = s;
-}
-function e_margin(o,p,s) {
-	p = (p === '') ? '' : p.capitalizeFirstLetter();
-	var d = "margin"+p;
-	o.style[d] = s;
-}
-function jsm_runner(fn) { // // http://stackoverflow.com/a/7301163/3036312
-	var args = Array.prototype.splice.call(arguments, 1)[0];
-	window[fn].apply(null, args);
-}
-(function() {
+;(function() {
+	function e_padding(o,p,s) {
+		p = (p === '') ? '' : p.capitalizeFirstLetter();
+		var d = "padding"+p;
+		o.style[d] = s;
+	}
+	function e_margin(o,p,s) {
+		p = (p === '') ? '' : p.capitalizeFirstLetter();
+		var d = "margin"+p;
+		o.style[d] = s;
+	}
+	function jsm_runner(fn) { // // http://stackoverflow.com/a/7301163/3036312
+		var args = Array.prototype.splice.call(arguments, 1)[0];
+		window[fn].apply(null, args);
+	}
+
 	var jsm_query = document.getElementsByClassName('jsm');
 	for (var i = 0; i < jsm_query.length; i++) {
 		var elm_args = jsm_query[i].className.match(/jsm_([^\s]+)-*([^\s]+)-([^\s]+)*/g) || [];
@@ -246,5 +257,51 @@ function jsm_runner(fn) { // // http://stackoverflow.com/a/7301163/3036312
 <script>// matikan script dari telkom </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+;(function() {
+	// https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
+	var LSAvailable = (function() {
+		try {
+			var ls = window.localStorage, x = '__ls_test__';
+			ls.setItem(x, x);
+			ls.getItem(x);
+			ls.removeItem(x);
+			return true;
+		} catch(e) { return false; } // !={}
+	})();
+
+	if (LSAvailable) {
+		var commits = localStorage.getItem('github-api');
+		if (commits === null) {
+			github_api_ajax();
+		} else {
+			github_api_exec(JSON.parse(commits));
+		}
+	} else {
+		github_api_ajax();
+	}
+
+	function github_api_ajax() {
+		$.get('//api.github.com/repos/anovsiradj/anovsiradj.github.io/commits?path=resume.html', function(commits) {
+			if (LSAvailable) localStorage.setItem('github-api', JSON.stringify(commits));
+			github_api_exec(commits);
+		});
+	}
+	function github_api_exec(commits) {
+		var d1 = new Date(commits[0].commit.committer.date);
+		var d2 = new Date(commits[commits.length-1].commit.committer.date);
+		var d_opts = {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+			hour: 'numeric',
+			minute: 'numeric'
+		};
+		$('#git-commits-count').text('Revisi ke ' + commits.length + ' kali');
+		$('#git-commits-last').text('Terakhir diubah ' + d1.toLocaleDateString('id', d_opts));
+		$('#git-commits-first').text('Pertama dibuat ' + d2.toLocaleDateString('id', d_opts));
+	}
+})();
+</script>
 </body>
 </html>
