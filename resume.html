@@ -44,6 +44,9 @@
 	.section-item-title, .section-subitem-title {
 		margin: 0px;
 	}
+	.section-item-title ~ ul + p {
+		margin-top: 0.75em; /* disamakan dengan p[style=margin-bottom] supaya ada jarak */
+	}
 </style>
 </head>
 <body>
@@ -74,6 +77,17 @@
 		<div class="col-md-8 col-md-push-1">
 			<ul class="list-ubuntu">
 				<li>
+					<h3 class="section-item-title">Web Programmer</h3>
+					<p class="text-muted">
+						<span class='text-info'>Feb 2016 - Sekarang</span>
+						<span>/</span>
+						<span class='text-info'>Global Intermedia Nusantara (<a href="http://www.gi.co.id/" target="_blank">www.gi.co.id</a>)</span>
+						<span>/</span>
+						<span class='text-info'>Yogyakarta</span>
+					</p>
+					<!-- <p>...</p> -->
+				</li>
+				<li>
 					<h3 class="section-item-title">Web Developer</h3>
 					<p class="text-muted">
 						<span class='text-info'>Agt 2015 - Jan 2016</span>
@@ -82,16 +96,20 @@
 						<span>/</span>
 						<span class='text-info'>Yogyakarta</span>
 					</p>
-					NextIn adalah sebuah perusahaan startup TI dengan misi untuk memecahkan masalah pendidikan &amp; sosial.
-					Disana saya bekerja kontrak untuk membuat sebuah aplikasi website berskala nasional,
-					yaitu <a href="http://nbpcenter.com/" target="_blank">NBPCenter</a> (Neuro-Development, Behavior &amp; Pediatrics Learning Center) bagian <i>Keanggotaan (Member)</i>.<br/>
-					Disana saya membuat website aplikasi tersebut secara individual dari nol.
+					<p>
+						NextIn adalah sebuah perusahaan startup TI dengan misi untuk memecahkan masalah pendidikan &amp; sosial.
+						Disana saya bekerja kontrak untuk membuat sebuah aplikasi website berskala nasional,
+						yaitu <a href="http://nbpcenter.com/" target="_blank">NBPCenter</a> (Neuro-Development, Behavior &amp; Pediatrics Learning Center) bagian <i>Keanggotaan (Member)</i>.<br/>
+						Disana saya membuat website aplikasi tersebut secara individual dari nol.
+					</p>
 				</li>
 				<li>
 					<h3 class="section-item-title">Mentor Skripsi</h3>
-					Selama bekerja di CV. Solusi Dunia Digital, saya tidak hanya membuat website pesanan.
-					Saya juga meng-kursus-kan/membuatkan orang kuliahan website yang mereka buat sebagai skripsi.
-					Konsep, aset, rancangan dan data dari/permintaan mereka, sedangkan coding (penulisan code/script) adalah saya dari nol.
+					<p>
+						Selama bekerja di CV. Solusi Dunia Digital, saya tidak hanya membuat website pesanan.
+						Saya juga meng-kursus-kan/membuatkan orang kuliahan website yang mereka buat sebagai skripsi.
+						Konsep, aset, rancangan dan data dari/permintaan mereka, sedangkan coding (penulisan code/script) adalah saya dari nol.
+					</p>
 					<ul class="list-canonical">
 						<li>
 							<h4 class="section-subitem-title">Website Futsal</h4>
@@ -109,7 +127,7 @@
 								saya menghubungi mereka untuk bertanya apakah ada proyek yang bisa saya kerjakan sebagai freelance (pekerja lepas).
 								Lalu mereka menawarkan proyek ini, dan saya menerimanya.
 							</p>
-							Website mencari lawan futsal secara online.
+							<p>Website mencari lawan futsal secara online.</p>
 							<!--
 							<br/><br/>
 							Cara kerja singkat website ini (misal):<br/>
@@ -145,10 +163,12 @@
 						<span>/</span>
 						<span class='text-info'>Yogyakarta</span>
 					</p>
-					Saya mulai bekerja disini, ketika saya kelas 11 (2) SMK (Sekolah Menengah Kejuruan).
-					Disana saya membuat bermacam-macam website, mulai dari company profile, website sekolah hingga website pemerintah.
-					Banyak hal baru yang saya pelajari disana sebagai <i>pekerjaan pertama saya</i>.
-					Di awal Kelas 12 (3) SMK, saya resign (mengundurkan diri) untuk mempersiapkan UN (ujian nasional) dan beberapa alasan lainnya.
+					<p>
+						Saya mulai bekerja disini, ketika saya kelas 11 (2) SMK (Sekolah Menengah Kejuruan).
+						Disana saya membuat bermacam-macam website, mulai dari company profile, website sekolah hingga website pemerintah.
+						Banyak hal baru yang saya pelajari disana sebagai <i>pekerjaan pertama saya</i>.
+						Di awal Kelas 12 (3) SMK, saya resign (mengundurkan diri) untuk mempersiapkan UN (ujian nasional) dan beberapa alasan lainnya.
+					</p>
 				</li>
 			</ul>
 		</div>
@@ -160,35 +180,56 @@
 		<div class="col-md-8 col-md-push-1">
 			<ul class="list-ubuntu">
 				<li>
-					<h3 class="section-item-title">PHP (PHP: Hypertext Preprocessor)</h3>
-					<p>Saya sendiri jarang memakai skript PHP pihak ketiga (seperti Framework atau CMS). Tapi jika diperlukan, saya bisa mempelajarinya.</p>
-					<p>Selama ini, saya lebih memilih membuatnya. Berikut beberapa yang saya ingat:</p>
+					<h3 class="section-item-title">PHP: Hypertext Preprocessor</h3>
 					<ul class="list-canonical">
+						<li><a href="http://php.net/" target="_blank">PHP (v4.* - v7.*)</a></li>
+						<li><a href="https://www.codeigniter.com/" target="_blank">CodeIgniter (v3.*)</a></li>
+						<li>Composer</li>
+						<li>PHPUnit (v5.*)</li>
+						<!-- <li>Laravel 5</li> -->
+					</ul>
+					<p>Saya sendiri jarang memakai Framework atau CMS di PHP. Tapi jika diperlukan, saya bisa mempelajarinya.</p>
+					<!-- <p>Selama ini, saya lebih memilih membuatnya. Berikut beberapa yang saya ingat:</p> -->
+					<!-- <ul class="list-canonical">
 						<li>Avz (semi Framework)</li>
 						<li>Gangsal (Framework)</li>
 						<li>PHP Chain Controller (semi Framework)</li>
 						<li>SDD_CMS (CMS)</li>
 						<li>PureDB (semi CMS)</li>
+					</ul> -->
+					<p>Berikut beberapa framework atau library yang saya buat:</p>
+					<ul class="list-canonical">
+						<li>
+							<a href="https://github.com/anovsiradj/php-cutter" target="_blank">Cutter</a> Template Library.
+							Ada juga yang khusus <a href="https://github.com/anovsiradj/codeigniter-cutter" target="_blank">CodeIgniter v3.*</a>
+						</li>
 					</ul>
 				</li>
 				<li>
 					<h3 class="section-item-title">SQL (Structured Query Language)</h3>
 					<ul class="list-canonical">
+						<li><a href="https://www.sqlite.org/" target="_blank">SQLite</a></li>
+						<li><a href="http://www.firebirdsql.org/">FireBird</a></li>
 						<li>MySQL</li>
 					</ul>
 				</li>
 				<li>
-					<h3 class="section-item-title">JavaScript (ECMAScript)</h3>
+					<h3 class="section-item-title">JavaScript (ECMAScript) dan Node.js</h3>
 					<ul class="list-canonical">
-						<li>jQuery 1.*</li>
-						<li>AngularJS (masih belajar)</li>
+						<li><a href="https://nodejs.org" target="_blank">Node.js (v6.*)</a></li>
+						<li>jQuery (v1.* - v3.*)</li>
+						<li>NPM, Yarn dan Bower</li>
+						<li>Vue.js (v2.*)</li>
+						<li>Lodash dan Undescore.js</li>
+						<!-- <li>AngularJS (masih belajar)</li> -->
 					</ul>
 				</li>
 				<li>
-					<h3 class="section-item-title">HTML (Hyper Text Markup Language)</h3>
+					<h3 class="section-item-title">HTML (Hyper Text Markup Language) dan XML</h3>
 					<ul class="list-canonical">
 						<li>HTML4</li>
 						<li>HTML5</li>
+						<li>Blogger (Blogspot) XML Layout Template</li>
 					</ul>
 				</li>
 				<li>
@@ -196,21 +237,20 @@
 					<ul class="list-canonical">
 						<li>CSS2</li>
 						<li>CSS3</li>
-						<li><a href="http://getbootstrap.com/" target="_blank">Bootstrap Framework (3.*)</a></li>
-						<li><a href="http://purecss.io/" target="_blank">Pure Framework</a></li>
+						<li><a href="http://getbootstrap.com/" target="_blank">Twitter-Bootstrap Framework (v3.*)</a></li>
+						<li><a href="http://purecss.io/" target="_blank">Pure Framework (v0.*)</a></li>
 					</ul>
 				</li>
 				<li>
 					<h3 class="section-item-title">Lain-lain</h3>
 					<ul class="list-canonical">
-						<li>Blogger (Blogspot)</li>
 						<li>Git (Github, GitLab, RedHat Openshift, etc)</li>
 						<!-- <li>CMS WordPress (dasar)</li> -->
-						<li>ActionScript 2.0 (AS2) dan 3.0 (AS3) - Adobe (Macromedia) Flash</li>
-						<li>Apache (Adobe) Flex (sama dengan ActionScript tapi berbeda)</li>
-						<li>Pixel Graphic - Adobe Photoshop, Gimp</li>
-						<li>Vector Graphic - CorelDraw, InkScape</li>
-						<li>3D Modeling - Wings3D</li>
+						<li>ActionScript (AS2 dan AS3) - Adobe (Macromedia) Flash</li>
+						<li>Apache (Adobe) Flex (sama dengan ActionScript tapi sedikit berbeda)</li>
+						<li>Pixel Graphic - Gimp, <span title="Lupa-lupa ingat">Adobe Photoshop</span>, <span title="(O_o)">Paint</span></li>
+						<li>Vector Graphic - <span title="Lupa-lupa ingat">InkScape, CorelDraw</span></li>
+						<li>3D Modeling - <span title="Lupa-lupa ingat">Wings3D</span></li>
 					</ul>
 				</li>
 			</ul>
