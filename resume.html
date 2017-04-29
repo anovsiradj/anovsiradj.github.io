@@ -5,40 +5,57 @@
 <title>anovsiradj - Resume</title>
 <style>body { font-family:'Ubuntu Mono',monospace; vertical-align: baseline; }</style>
 <style>
-/* http://ohryan.ca/2014/08/14/set-responsive-text-alignment-bootstrap-3/ */
-.text-xs-left {text-align: left;}
-.text-xs-right {text-align: right;}
-.text-xs-center {text-align: center;}
-.text-xs-justify {text-align: justify;}
-@media (min-width: 768px) {
-  .text-sm-left {text-align: left;}
-  .text-sm-right {text-align: right;}
-  .text-sm-center {text-align: center;}
-  .text-sm-justify {text-align: justify;}
-}
-@media (min-width: 992px) {
-  .text-md-left {text-align: left;}
-  .text-md-right {text-align: right;}
-  .text-md-center {text-align: center;}
-  .text-md-justify {text-align: justify;}
-}
-@media (min-width: 1200px) {
-  .text-lg-left {text-align: left;}
-  .text-lg-right {text-align: right;}
-  .text-lg-center {text-align: center;}
-  .text-lg-justify {text-align: justify;}
-}
+	/* http://ohryan.ca/2014/08/14/set-responsive-text-alignment-bootstrap-3/ */
+	.text-xs-left {text-align: left;}
+	.text-xs-right {text-align: right;}
+	.text-xs-center {text-align: center;}
+	.text-xs-justify {text-align: justify;}
+	@media (min-width: 768px) {
+	  .text-sm-left {text-align: left;}
+	  .text-sm-right {text-align: right;}
+	  .text-sm-center {text-align: center;}
+	  .text-sm-justify {text-align: justify;}
+	}
+	@media (min-width: 992px) {
+	  .text-md-left {text-align: left;}
+	  .text-md-right {text-align: right;}
+	  .text-md-center {text-align: center;}
+	  .text-md-justify {text-align: justify;}
+	}
+	@media (min-width: 1200px) {
+	  .text-lg-left {text-align: left;}
+	  .text-lg-right {text-align: right;}
+	  .text-lg-center {text-align: center;}
+	  .text-lg-justify {text-align: justify;}
+	}
+</style>
+<style>
+	.mg-0 { margin: 0px; }
+	.mg-t-0 { margin-top: 0px; }
+	.mg-b-0 { margin-bottom: 0px; }
+	.header-title h1 {
+		margin: 0px;
+	}
+	.header-title h1 span {
+		padding: 1.5vw 2.2vw;
+		display:inline-block;
+		font-size:4.2vw;
+	}
+	.section-item-title, .section-subitem-title {
+		margin: 0px;
+	}
 </style>
 </head>
 <body>
-<!-- <div class="jsm jsm_e_padding--10px"></div> -->
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-6 text-xs-center text-md-left">
-			<h1 class="jsm jsm_e_margin--0px" title="Anov Siradj"><span class="jsm jsm_e_padding--16px btn-warning text-info" style="display:inline-block;font-size:4.3vw;">Mayendra Costanov</span></h1>
+		<div class="header-title col-md-6 text-xs-center text-md-left">
+			<h1 title="Anov Siradj">
+				<span class="btn-warning text-info">Mayendra Costanov</span>
+			</h1>
 			<!--small>Just another people who looking for better Life</small-->
 		</div>
-		<div class="col-md-6 text-xs-center text-md-right">
+		<div class="header-info col-md-6 text-xs-center text-md-right">
 			<span class="jse" data-hell="innerHTML" data-evil="['Indonesia','di Yogyakarta'].reverse().join(', ');"></span>
 			<br/>
 			<span class="jse" data-hell="innerHTML" data-evil="['.com','gmail','@','.siradj22','anov'].reverse().join('');"></span>
@@ -52,12 +69,12 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-2 col-md-push-1">
-			<h2>Pengalaman</h2>
+			<h2 class="section-title">Pengalaman</h2>
 		</div>
 		<div class="col-md-8 col-md-push-1">
 			<ul class="list-ubuntu">
 				<li>
-					<h3 class="jsm jsm_e_margin-bottom-0px">Web Developer</h3>
+					<h3 class="section-item-title">Web Developer</h3>
 					<p class="text-muted">
 						<span class='text-info'>Agt 2015 - Jan 2016</span>
 						<span>/</span>
@@ -67,34 +84,32 @@
 					</p>
 					NextIn adalah sebuah perusahaan startup TI dengan misi untuk memecahkan masalah pendidikan &amp; sosial.
 					Disana saya bekerja kontrak untuk membuat sebuah aplikasi website berskala nasional,
-					yaitu <a href="http://nbpcenter.com/" target="_blank">NBPCenter</a> (Neuro-Development, Behavior &amp; Pediatrics Learning Center) bagian <i>Member</i>.<br/>
+					yaitu <a href="http://nbpcenter.com/" target="_blank">NBPCenter</a> (Neuro-Development, Behavior &amp; Pediatrics Learning Center) bagian <i>Keanggotaan (Member)</i>.<br/>
 					Disana saya membuat website aplikasi tersebut secara individual dari nol.
 				</li>
 				<li>
-					<h3 class="jsm jsm_e_margin-bottom-0px">Mentor Skripsi</h3>
-					Selama bekerja di SDD (CV. Solusi Dunia Digital), saya tidak hanya membuat website.
-					Saya juga meng-kursus-kan/membuatkan orang kuliahan untuk website yang mereka kerjakan sebagai skripsi mereka.
-					Konsep, aset, rancangan dan data dari/permintaan orang tersebut, sedangkan coding (penulisan code/script) saya dari nol.
+					<h3 class="section-item-title">Mentor Skripsi</h3>
+					Selama bekerja di CV. Solusi Dunia Digital, saya tidak hanya membuat website pesanan.
+					Saya juga meng-kursus-kan/membuatkan orang kuliahan website yang mereka buat sebagai skripsi.
+					Konsep, aset, rancangan dan data dari/permintaan mereka, sedangkan coding (penulisan code/script) adalah saya dari nol.
 					<ul class="list-canonical">
 						<li>
-							<h4 class="jsm jsm_e_margin-bottom-0px">Website Koperasi</h4>
-							<p class="text-muted">
-								<span class='text-info'>2013</span>
-								<span>/</span>
-								<span class='text-info'>KSP Bintang Harapan</span>
-							</p>
-							Sebuah website KSP (Koperasi Simpan Pinjam).
-						</li>
-						<li>
-							<h4 class="jsm jsm_e_margin-bottom-0px">Website mencari lawan Futsal</h4>
+							<h4 class="section-subitem-title">Website Futsal</h4>
 							<p class="text-muted">
 								<span class='text-info'>2014</span>
 								<span>/</span>
 								<span class='text-info'>Magenda Futsal</span>
+								<span>/</span>
+								<span class='text-info'>Freelance (Kerja Lepas) di CV. Solusi Dunia Digital</span>
+								<span>/</span>
+								<span class='text-info'>Yogyakarta</span>
 							</p>
-							Beberapa waktu setelah resign (mengundurkan diri) dari SDD (CV. Solusi Dunia Digital) karena membutuhkan dana,
-							saya menghubungi mereka untuk bertanya apakah ada proyek yang bisa saya kerjakan sebagai freelance (pekerja lepas).
-							Lalu mereka menawarkan proyek ini, dan saya menerimanya.
+							<p>
+								Beberapa waktu setelah resign (mengundurkan diri) dari SDD (CV. Solusi Dunia Digital) karena membutuhkan dana,
+								saya menghubungi mereka untuk bertanya apakah ada proyek yang bisa saya kerjakan sebagai freelance (pekerja lepas).
+								Lalu mereka menawarkan proyek ini, dan saya menerimanya.
+							</p>
+							Website mencari lawan futsal secara online.
 							<!--
 							<br/><br/>
 							Cara kerja singkat website ini (misal):<br/>
@@ -106,10 +121,23 @@
 							selesai.
 							-->
 						</li>
+						<li>
+							<h4 class="section-subitem-title">Website Koperasi</h4>
+							<p class="text-muted">
+								<span class='text-info'>2013</span>
+								<span>/</span>
+								<span class='text-info'>KSP Bintang Harapan</span>
+								<span>/</span>
+								<span class='text-info'>CV. Solusi Dunia Digital</span>
+								<span>/</span>
+								<span class='text-info'>Yogyakarta</span>
+							</p>
+							Sebuah website KSP (Koperasi Simpan Pinjam).
+						</li>
 					</ul>
 				</li>
 				<li>
-					<h3 class="jsm jsm_e_margin-bottom-0px">Senior Web Programmer</h3>
+					<h3 class="section-item-title">Senior Web Programmer</h3>
 					<p class="text-muted">
 						<span class='text-info'>Nov 2013 - Agt 2014</span>
 						<span>/</span>
@@ -117,9 +145,9 @@
 						<span>/</span>
 						<span class='text-info'>Yogyakarta</span>
 					</p>
-					Saya mulai bekerja di ketika saya kelas 11 (2) SMK (Sekolah Menengah Kejuruan).
+					Saya mulai bekerja disini, ketika saya kelas 11 (2) SMK (Sekolah Menengah Kejuruan).
 					Disana saya membuat bermacam-macam website, mulai dari company profile, website sekolah hingga website pemerintah.
-					Banyak hal baru yang saya pelajari disana sebagai pekerjaan pertama.
+					Banyak hal baru yang saya pelajari disana sebagai <i>pekerjaan pertama saya</i>.
 					Di awal Kelas 12 (3) SMK, saya resign (mengundurkan diri) untuk mempersiapkan UN (ujian nasional) dan beberapa alasan lainnya.
 				</li>
 			</ul>
@@ -127,12 +155,12 @@
 	</div>
 	<div class="row">
 		<div class="col-md-2 col-md-push-1">
-			<h2>Keahlian</h2>
+			<h2 class="section-title">Keahlian</h2>
 		</div>
 		<div class="col-md-8 col-md-push-1">
 			<ul class="list-ubuntu">
 				<li>
-					<h3 class="jsm jsm_e_margin-bottom-0px">PHP (PHP: Hypertext Preprocessor)</h3>
+					<h3 class="section-item-title">PHP (PHP: Hypertext Preprocessor)</h3>
 					<p>Saya sendiri jarang memakai skript PHP pihak ketiga (seperti Framework atau CMS). Tapi jika diperlukan, saya bisa mempelajarinya.</p>
 					<p>Selama ini, saya lebih memilih membuatnya. Berikut beberapa yang saya ingat:</p>
 					<ul class="list-canonical">
@@ -144,27 +172,27 @@
 					</ul>
 				</li>
 				<li>
-					<h3 class="jsm jsm_e_margin-bottom-0px">SQL (Structured Query Language)</h3>
+					<h3 class="section-item-title">SQL (Structured Query Language)</h3>
 					<ul class="list-canonical">
 						<li>MySQL</li>
 					</ul>
 				</li>
 				<li>
-					<h3 class="jsm jsm_e_margin-bottom-0px">JavaScript (ECMAScript)</h3>
+					<h3 class="section-item-title">JavaScript (ECMAScript)</h3>
 					<ul class="list-canonical">
 						<li>jQuery 1.*</li>
 						<li>AngularJS (masih belajar)</li>
 					</ul>
 				</li>
 				<li>
-					<h3 class="jsm jsm_e_margin-bottom-0px">HTML (Hyper Text Markup Language)</h3>
+					<h3 class="section-item-title">HTML (Hyper Text Markup Language)</h3>
 					<ul class="list-canonical">
 						<li>HTML4</li>
 						<li>HTML5</li>
 					</ul>
 				</li>
 				<li>
-					<h3 class="jsm jsm_e_margin-bottom-0px">CSS (Cascading Style Sheets)</h3>
+					<h3 class="section-item-title">CSS (Cascading Style Sheets)</h3>
 					<ul class="list-canonical">
 						<li>CSS2</li>
 						<li>CSS3</li>
@@ -173,12 +201,13 @@
 					</ul>
 				</li>
 				<li>
-					<h3 class="jsm jsm_e_margin-bottom-0px">Lain-lain</h3>
+					<h3 class="section-item-title">Lain-lain</h3>
 					<ul class="list-canonical">
-						<li>Blogger (Blogspot) Desain Templat</li>
-						<li>Git Revision (Github, RedHat Openshift, etc)</li>
-						<li>CMS WordPress (dasar)</li>
-						<li>ActionScript 2.0 (AS2) - Adobe (Macromedia) Flash</li>
+						<li>Blogger (Blogspot)</li>
+						<li>Git (Github, GitLab, RedHat Openshift, etc)</li>
+						<!-- <li>CMS WordPress (dasar)</li> -->
+						<li>ActionScript 2.0 (AS2) dan 3.0 (AS3) - Adobe (Macromedia) Flash</li>
+						<li>Apache (Adobe) Flex (sama dengan ActionScript tapi berbeda)</li>
 						<li>Pixel Graphic - Adobe Photoshop, Gimp</li>
 						<li>Vector Graphic - CorelDraw, InkScape</li>
 						<li>3D Modeling - Wings3D</li>
@@ -189,14 +218,14 @@
 	</div>
 	<div class="row">
 		<div class="col-md-2 col-md-push-1">
-			<h2>Ketertarikan</h2>
+			<h2 class="section-title">Ketertarikan</h2>
 		</div>
 		<div class="col-md-8 col-md-push-1">
 			<div class="jsm jsm_e_padding-top-6px">
 				<small>
 				mempelajari hal baru, ingin membuat games, nonton film misteri, mendenganrkan musik rap/elektrik/western jadul/,
-				menggambar di kertas, menulis cerita dibuku, pilih capek dari pada santai, nonton rapat Ahok, tidur, makan nasi padang,
-				anti politik, lebih memilih dikejar deadline dari pada bebas, GG.Signature.
+				menggambar di kertas, menulis cerita dibuku, pilih capek dari pada santai, tidur, makan nasi padang,
+				nonton rapat Ahok, lebih memilih dikejar deadline dari pada bebas, GG.Signature.
 				</small>
 			</div>
 		</div>
@@ -222,22 +251,22 @@
 String.prototype.capitalizeFirstLetter = function() { // // http://stackoverflow.com/a/1026087
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
+function e_padding(o,p,s) {
+	p = (p === '') ? '' : p.capitalizeFirstLetter();
+	var d = "padding"+p;
+	o.style[d] = s;
+}
+function e_margin(o,p,s) {
+	p = (p === '') ? '' : p.capitalizeFirstLetter();
+	var d = "margin"+p;
+	o.style[d] = s;
+}
+function jsm_runner(fn) { // // http://stackoverflow.com/a/7301163/3036312
+	var args = Array.prototype.splice.call(arguments, 1)[0];
+	window[fn].apply(null, args);
+}
 ;(function() {
-	function e_padding(o,p,s) {
-		p = (p === '') ? '' : p.capitalizeFirstLetter();
-		var d = "padding"+p;
-		o.style[d] = s;
-	}
-	function e_margin(o,p,s) {
-		p = (p === '') ? '' : p.capitalizeFirstLetter();
-		var d = "margin"+p;
-		o.style[d] = s;
-	}
-	function jsm_runner(fn) { // // http://stackoverflow.com/a/7301163/3036312
-		var args = Array.prototype.splice.call(arguments, 1)[0];
-		window[fn].apply(null, args);
-	}
-
+	// return;
 	var jsm_query = document.getElementsByClassName('jsm');
 	for (var i = 0; i < jsm_query.length; i++) {
 		var elm_args = jsm_query[i].className.match(/jsm_([^\s]+)-*([^\s]+)-([^\s]+)*/g) || [];
