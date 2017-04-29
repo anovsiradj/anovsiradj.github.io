@@ -41,16 +41,16 @@
 		display:inline-block;
 		font-size:4.2vw;
 	}
-	.section-item-title, .section-subitem-title {
+	.content-item-title, .content-subitem-title {
 		margin: 0px;
 	}
-	.section-item-title ~ ul + p {
+	.content-item-title ~ ul + p {
 		margin-top: 0.75em; /* disamakan dengan p[style=margin-bottom] supaya ada jarak */
 	}
 </style>
 </head>
 <body>
-<div class="container-fluid">
+<div id="header" class="container-fluid">
 	<div class="row">
 		<div class="header-title col-md-6 text-xs-center text-md-left">
 			<h1 title="Anov Siradj">
@@ -67,15 +67,15 @@
 		</div>
 	</div>
 </div>
-<div class="container-fluid">
+<div id="content" class="container-fluid">
 	<div class="row">
 		<div class="col-md-2 col-md-push-1">
-			<h2 class="section-title">Pengalaman</h2>
+			<h2 class="content-title">Pengalaman</h2>
 		</div>
 		<div class="col-md-8 col-md-push-1">
 			<ul class="list-ubuntu">
 				<li>
-					<h3 class="section-item-title">Web Programmer</h3>
+					<h3 class="content-item-title">Web Programmer</h3>
 					<p class="text-muted">
 						<span class='text-info'>Feb 2016 - Sekarang</span>
 						<span>/</span>
@@ -86,7 +86,7 @@
 					<!-- <p>...</p> -->
 				</li>
 				<li>
-					<h3 class="section-item-title">Web Developer</h3>
+					<h3 class="content-item-title">Web Developer</h3>
 					<p class="text-muted">
 						<span class='text-info'>Agt 2015 - Jan 2016</span>
 						<span>/</span>
@@ -102,7 +102,7 @@
 					</p>
 				</li>
 				<li>
-					<h3 class="section-item-title">Mentor Skripsi</h3>
+					<h3 class="content-item-title">Mentor Skripsi</h3>
 					<p>
 						Selama bekerja di CV. Solusi Dunia Digital, saya tidak hanya membuat website pesanan.
 						Saya juga meng-kursus-kan/membuatkan orang kuliahan website yang mereka buat sebagai skripsi.
@@ -111,7 +111,7 @@
 					</p>
 					<ul class="list-canonical">
 						<li>
-							<h4 class="section-subitem-title">Website Futsal</h4>
+							<h4 class="content-subitem-title">Website Futsal</h4>
 							<p class="text-muted">
 								<span class='text-info'>2014</span>
 								<span>/</span>
@@ -139,7 +139,7 @@
 							-->
 						</li>
 						<li>
-							<h4 class="section-subitem-title">Website Koperasi</h4>
+							<h4 class="content-subitem-title">Website Koperasi</h4>
 							<p class="text-muted">
 								<span class='text-info'>2013</span>
 								<span>/</span>
@@ -154,7 +154,7 @@
 					</ul>
 				</li>
 				<li>
-					<h3 class="section-item-title">Senior Web Programmer</h3>
+					<h3 class="content-item-title">Senior Web Programmer</h3>
 					<p class="text-muted">
 						<span class='text-info'>Nov 2013 - Agt 2014</span>
 						<span>/</span>
@@ -174,12 +174,12 @@
 	</div>
 	<div class="row">
 		<div class="col-md-2 col-md-push-1">
-			<h2 class="section-title">Keahlian</h2>
+			<h2 class="content-title">Keahlian</h2>
 		</div>
 		<div class="col-md-8 col-md-push-1">
 			<ul class="list-ubuntu">
 				<li>
-					<h3 class="section-item-title">PHP: Hypertext Preprocessor</h3>
+					<h3 class="content-item-title">PHP: Hypertext Preprocessor</h3>
 					<ul class="list-canonical">
 						<li><a href="http://php.net/" target="_blank">PHP (v4.* - v7.*)</a></li>
 						<li><a href="https://www.codeigniter.com/" target="_blank">CodeIgniter (v3.*)</a></li>
@@ -205,7 +205,7 @@
 					</ul>
 				</li>
 				<li>
-					<h3 class="section-item-title">SQL (Structured Query Language)</h3>
+					<h3 class="content-item-title">SQL (Structured Query Language)</h3>
 					<ul class="list-canonical">
 						<li><a href="https://www.sqlite.org/" target="_blank">SQLite</a></li>
 						<li><a href="http://www.firebirdsql.org/">FireBird</a></li>
@@ -213,7 +213,7 @@
 					</ul>
 				</li>
 				<li>
-					<h3 class="section-item-title">JavaScript (ECMAScript) dan Node.js</h3>
+					<h3 class="content-item-title">JavaScript (ECMAScript) dan Node.js</h3>
 					<ul class="list-canonical">
 						<li><a href="https://nodejs.org" target="_blank">Node.js (v6.*)</a></li>
 						<li>jQuery (v1.* - v3.*)</li>
@@ -224,7 +224,7 @@
 					</ul>
 				</li>
 				<li>
-					<h3 class="section-item-title">HTML (Hyper Text Markup Language) dan XML</h3>
+					<h3 class="content-item-title">HTML (Hyper Text Markup Language) dan XML</h3>
 					<ul class="list-canonical">
 						<li>HTML4</li>
 						<li>HTML5</li>
@@ -232,7 +232,7 @@
 					</ul>
 				</li>
 				<li>
-					<h3 class="section-item-title">CSS (Cascading Style Sheets)</h3>
+					<h3 class="content-item-title">CSS (Cascading Style Sheets)</h3>
 					<ul class="list-canonical">
 						<li>CSS2</li>
 						<li>CSS3</li>
@@ -241,7 +241,7 @@
 					</ul>
 				</li>
 				<li>
-					<h3 class="section-item-title">Lain-lain</h3>
+					<h3 class="content-item-title">Lain-lain</h3>
 					<ul class="list-canonical">
 						<li>Git (Github, GitLab, RedHat Openshift, etc)</li>
 						<!-- <li>CMS WordPress (dasar)</li> -->
@@ -257,26 +257,29 @@
 	</div>
 	<div class="row">
 		<div class="col-md-2 col-md-push-1">
-			<h2 class="section-title">Ketertarikan</h2>
+			<h2 class="content-title">Ketertarikan</h2>
 		</div>
 		<div class="col-md-8 col-md-push-1">
-			<div class="jsm jsm_e_padding-top-6px">
-				<small>
-				mempelajari hal baru, ingin membuat games, nonton film misteri, mendenganrkan musik rap/elektrik/western jadul/,
-				menggambar di kertas, menulis cerita dibuku, pilih capek dari pada santai, tidur, makan nasi padang,
-				nonton rapat Ahok, lebih memilih dikejar deadline dari pada bebas, GG.Signature.
-				</small>
-			</div>
+			<small style="text-align: justify-all;">
+				mempelajari hal baru, ingin membuat games, nonton film aksi/ misteri/ psikis,
+				mendenganrkan musik rap/ western jadul/ edm, menggambar di kertas, punya bakat seniman,
+				lebih memilih dikejar deadline dari pada bebas, pengen ngeblog tapi males,
+				menulis di buku, pilih capek dari pada santai,
+				ngoding yg tidak jelas, coba-coba fw/lib baru, susah fokus kalau tidak cocok,
+				tidur, makan nasi padang, ke angkringan, nonton rapat Ahok di yt,
+				GG-Signature/ malbor/ danhil, suka main bonk.io,
+				dll.
+			</small>
 		</div>
 	</div>
 </div>
 
-<div class="container-fluid">
+<div id="footer" class="container-fluid">
 	<div class="row text-muted">
 		<div class="col-md-3">Dibuat oleh <a href="javascript:void(0);">Anov Siradj</a>.</div>
-		<div class="col-md-3">Terinspirasi oleh <a href="https://www.paulirish.com/" target="_blank">Paul Irish</a> resume.</div>
+		<div class="col-md-3">Terinspirasi resume milik <a href="https://www.paulirish.com/" target="_blank">Paul Irish</a>.</div>
 		<div class="col-md-3">
-			Menggunakan <a href="http://getbootstrap.com/" target="_blank">Twitter-Bootstrap Framework</a> dan <a href="http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu web style Framework</a>.
+			Dibuat menggunakan <a href="http://getbootstrap.com/" target="_blank">Twitter-Bootstrap Framework</a> dan <a href="http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu web style Framework</a>.
 		</div>
 		<div class="col-md-3">
 			<div id="git-commits-first"></div>
@@ -287,6 +290,7 @@
 </div>
 
 <script>
+
 String.prototype.capitalizeFirstLetter = function() { // // http://stackoverflow.com/a/1026087
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
