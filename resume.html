@@ -290,43 +290,13 @@
 </div>
 
 <script>
-
-String.prototype.capitalizeFirstLetter = function() { // // http://stackoverflow.com/a/1026087
-    return this.charAt(0).toUpperCase() + this.slice(1);
-}
-function e_padding(o,p,s) {
-	p = (p === '') ? '' : p.capitalizeFirstLetter();
-	var d = "padding"+p;
-	o.style[d] = s;
-}
-function e_margin(o,p,s) {
-	p = (p === '') ? '' : p.capitalizeFirstLetter();
-	var d = "margin"+p;
-	o.style[d] = s;
-}
-function jsm_runner(fn) { // // http://stackoverflow.com/a/7301163/3036312
-	var args = Array.prototype.splice.call(arguments, 1)[0];
-	window[fn].apply(null, args);
-}
 ;(function() {
-	// return;
-	var jsm_query = document.getElementsByClassName('jsm');
-	for (var i = 0; i < jsm_query.length; i++) {
-		var elm_args = jsm_query[i].className.match(/jsm_([^\s]+)-*([^\s]+)-([^\s]+)*/g) || [];
-		for (var i2 = 0; i2 < elm_args.length; i2++) {
-			var class_fn = elm_args[i2].slice(4).split("-");
-			var param = class_fn.slice(1);
-			param.unshift(jsm_query[i]);
-			jsm_runner(class_fn[0],param);
-		};
-	};
 	var e_vil = document.getElementsByClassName('jse');
 	for (var i = 0; i < e_vil.length; i++) {
 		e_vil[i][e_vil[i].dataset.hell] = eval(e_vil[i].dataset.evil);
 	};
 })();
 </script>
-<script>// matikan script dari telkom </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
