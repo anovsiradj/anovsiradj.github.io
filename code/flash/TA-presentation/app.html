@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>TA Was Here</title>
+	<style>
+	html, body, object {
+		box-sizing:border-box;
+		width:100%;height:100%;
+		padding:0px !important;
+		margin:0px !important;
+		background-color:#222;
+		color:#fff;
+		overflow:hidden;
+		border-box:box-sizing;
+		background-color: #eee;
+		overflow: hidden;
+	}
+	</style>
+</head>
+<body>
+	<object data='Untitled-1.swf' id='embedfile' type='application/x-shockwave-flash'>
+		<param name='movie' value='Untitled-1.swf'/>
+		<param name='allowScriptAccess' value='always'/>
+		<param name='allowFullScreen' value='true'/>
+		<param name='quality' value='high'/>
+	</object>
+	<script>
+		(function() {
+			var z = 2; //zoom
+			var t = document.getElementById("Untitled-1").getElementsByTagName("embed")[0]; //target
+			var r = { //rasio
+			    h:t.height*z,
+			    w:t.width*z
+			}
+			t.height = r.h+"px";
+			t.width = r.w+"px";
+			console.log(r);
+		})();
+	</script>
+</body>
+</html>
