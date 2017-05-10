@@ -300,7 +300,7 @@
 <script>
 ;(function() {
 	// https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
-	var LSAvailable = (function() {
+	var LStorageAvailable = (function() {
 		try {
 			var ls = window.localStorage, x = '__ls_test__';
 			ls.setItem(x, x);
@@ -310,8 +310,8 @@
 		} catch(e) { return false; } // !={}
 	})();
 
-	if (LSAvailable) {
-		var commits = localStorage.getItem('github-api');
+	if (LStorageAvailable) {
+		var commits = localStorage.getItem('resume-git-revision');
 		if (commits === null) {
 			github_api_ajax();
 		} else {
@@ -323,7 +323,7 @@
 
 	function github_api_ajax() {
 		$.get('//api.github.com/repos/anovsiradj/anovsiradj.github.io/commits?path=resume.html', function(commits) {
-			if (LSAvailable) localStorage.setItem('github-api', JSON.stringify(commits));
+			if (LStorageAvailable) localStorage.setItem('resume-git-revision', JSON.stringify(commits));
 			github_api_exec(commits);
 		});
 	}
@@ -342,18 +342,6 @@
 		$('#git-commits-first').text('Pertama dibuat ' + d2.toLocaleDateString('id', d_opts));
 	}
 })();
-
-// https://github.com/mdn/sw-test/blob/gh-pages/app.js
-// https://googlechrome.github.io/samples/service-worker/custom-offline-page/index.html
-
-// register service worker
-if ('serviceWorker' in navigator) {
-	navigator.serviceWorker.register('cdn/service-worker/resume.js', {scope: '/' }).then(function(sw) {
-		console.log('sw status: ', sw);
-	}).catch(function(sw_err) {
-		console.log('sw error: ', sw_err);
-	});
-}
 </script>
 </body>
 </html>
