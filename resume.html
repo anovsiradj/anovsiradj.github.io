@@ -348,7 +348,7 @@
 
 // register service worker
 if ('serviceWorker' in navigator) {
-	navigator.serviceWorker.register('cdn/service-worker/resume.js').then(function(sw) {
+	navigator.serviceWorker.register('cdn/service-worker/resume.js', {scope: '/' }).then(function(sw) {
 		console.log('sw status: ', sw);
 	}).catch(function(sw_err) {
 		console.log('sw error: ', sw_err);
