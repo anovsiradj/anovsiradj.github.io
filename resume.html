@@ -2,6 +2,7 @@
 <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Ubuntu+Mono'/>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="//assets.ubuntu.com/sites/guidelines/css/latest/ubuntu-styles.css"/>
+<link rel='image_src' href='cdn/img/anovsiradj-markup-style.png'/>
 <title>anovsiradj - Resume</title>
 <style>body { font-family:'Ubuntu Mono',monospace; vertical-align: baseline; }</style>
 <style>
@@ -341,6 +342,18 @@
 		$('#git-commits-first').text('Pertama dibuat ' + d2.toLocaleDateString('id', d_opts));
 	}
 })();
+
+// https://github.com/mdn/sw-test/blob/gh-pages/app.js
+// https://googlechrome.github.io/samples/service-worker/custom-offline-page/index.html
+
+// register service worker
+if ('serviceWorker' in navigator) {
+	navigator.serviceWorker.register('cdn/service-worker/resume.js').then(function(sw) {
+		console.log('sw status: ', sw);
+	}).catch(function(sw_err) {
+		console.log('sw error: ', sw_err);
+	});
+}
 </script>
 </body>
 </html>
