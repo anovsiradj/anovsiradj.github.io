@@ -3,7 +3,7 @@
 
 'use strict';
 
-const CACHE_VERSION = 'resume-v1.0.2'; // local-network
+const CACHE_VERSION = 'resume-v1.0.3'; // local-network
 
 let CACHE_PAGE_DEFAULT = '/resume.html';
 
@@ -18,60 +18,17 @@ this.addEventListener('install', function(event) {
 	);
 });
 
-self.addEventListener('fetch', function(event) {
-	/*
-	var response;
-	event.respondWith(caches.match(event.request).catch(function() {
-		return fetch(event.request);
-	}).then(function(rspns) {
-		response = rspns;
-		caches.open(CACHE_VERSION).then(function(cache) {
-			cache.put(event.request, response);
-		});
-		return response.clone();
-	}).catch(function() {
-	  return caches.match(CACHE_PAGE_DEFAULT);
-	}));
-	*/
-
-	console.log('sw-fetch: ', event.request.url);
-
+this.addEventListener('fetch', function(event) {
 	event.respondWith(
-		caches.match(event.request).then(function(response) {
+		caches.match(event.request).catch(function() {
+			return fetch(event.request);
+		}).then(function(response) {
+			caches.open(CACHE_VERSION).then(function(cache) {
+				cache.put(event.request, response);
+			});
 			return response;
 		}).catch(function() {
-			return fetch(event.request).then(function(response) {
-				caches.open(CACHE_VERSION).then(function(cache) {
-					cache.put(event.request, response);
-				});
-				return response;
-			});
+			return caches.match(CACHE_PAGE_DEFAULT);
 		})
 	);
-
-	/*
-
-	event.respondWith(caches.match(event.request).catch(function() {
-		console.log('sw-fetch (network):', event.request);
-		return fetch(event.request);
-	}).then(function(response) {
-		console.log('sw-fetch-serve: ', response);
-
-		caches.open(CACHE_VERSION).then(function(cache) {
-			cache.put(event.request, response);
-		});
-
-		return response;
-
-		console.log('sw-fetch: network');
-
-		return fetch(event.request).then(function(response) {
-			return response;
-		}).catch(function(error) {
-			console.error('sw-fetch-serve network-failed: ', error);
-			throw error;
-		});
-	}));
-	*/
 });
-
