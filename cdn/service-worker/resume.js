@@ -38,12 +38,12 @@ self.addEventListener('fetch', function(event) {
 
 	event.respondWith(
 		caches.match(event.request).then(function(response) {
-			caches.open(CACHE_VERSION).then(function(cache) {
-				cache.put(event.request, response);
-			});
 			return response;
 		}).catch(function() {
 			return fetch(event.request).then(function(response) {
+				caches.open(CACHE_VERSION).then(function(cache) {
+					cache.put(event.request, response);
+				});
 				return response;
 			});
 		})
