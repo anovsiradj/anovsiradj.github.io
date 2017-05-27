@@ -150,7 +150,3 @@ a.darknature {color: #4D7F17;}
 @media print {
 	#blog-pager,#comments,#core_content .feed-links, #core_content .post-footer-line {display:none;}
 }
-
-.buorg {
-	text-align: center;
-}
