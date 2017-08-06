@@ -1,38 +1,8 @@
-if (typeof window.winload === 'undefined') throw new Error('Kamu siapa?');
+var WebAppData = WebAppData || {};
 
-// setter
-var is_posting = /^(item|static\_page)$/.test(near.pageType);
+var is_posting = /^(item|static\_page)$/.test(WebAppData.pageType);
 var $content = $("#core_content");
-
-hljs.configure({tabReplace: '	'}); // tab:4
-// var sidebar = $("#core_sidebar");
-// var header = $("#core_header");
-
-// sementara, fullpage/print di non-aktifkan
-/*
-var isFullpage = false;
-var crx = document.cookie.match('isfullpage=([^\\s;]*)'); // match('[; ]isfullpage=([^\\s;]*)');
-if(crx !== null) { isFullpage = !!Number(crx[1]); togglefullpage(); }
-function togglefullpage() {
-	var oem = "#core_content .blog-posts>.date-outer .date-header, #core_comments, #core_comments_nav"; // other element(s);
-	if (isFullpage) {
-		sidebar.hide(); header.hide(); $(oem).hide();
-		$content.css({
-			"padding-top":"0px",
-			"margin-top":"16px"
-		}).parent().removeClass("col-md-9").addClass("col-md-12").css("padding","0px");
-		document.cookie = "isfullpage=1;path=/";
-	} else {
-		$content.css({
-			"padding-top":"",
-			"margin-top":""
-		}).parent().removeClass("col-md-12").addClass("col-md-9").css("padding","");
-		header.show(); sidebar.show(); $(oem).show();
-		document.cookie = "isfullpage=0;path=/";
-	};
-}
-function printpage() { isFullpage = true; togglefullpage(); window.print(); }
-*/
+WebAppData.is_content = is_posting;
 
 function makefancycode(elm_code) {
 	elm_code.className += ' ' + elm_code.dataset.prlang;
@@ -47,13 +17,7 @@ function fancy_code($elm_pre, $elm_code, prlang) {
 };
 
 $(document).ready(function() {
-
-	//todo, someday
-	//var $sidebar = $("#core_sidebar");
-	//var $header = $("#core_header");
-	//var $navbar_togglefullpage = $('#navbar_togglefullpage');
-
-	if (is_posting) {
+	if (WebAppData.is_content) {
 		$('.ajax-fancy-code, .fancy-code, code.makefancycode', $content[0]).each(function() {
 			var hljs_it = true;
 			var prlang = $(this).data('prlang') || $(this).children('code').data('prlang') || $(this).parent('pre').data('prlang');
@@ -144,11 +108,11 @@ $(document).ready(function() {
 
 });
 
-// disquss-comment
 if (is_posting) {
+	// disquss-comment
 	var disqus_config = function () {
 		var firstBlogPostId = $("[id^=post-body]:first").prop('id').split('-');
-		this.page.url = near.canonicalUrl;
+		this.page.url = WebAppData.canonicalUrl;
 		this.page.identifier = firstBlogPostId[firstBlogPostId.length-1];
 	};
 	(function(d) {
@@ -157,10 +121,8 @@ if (is_posting) {
 		s.setAttribute('data-timestamp', +new Date());
 		(d.head || d.body).appendChild(s);
 	})(document);
-}
 
-// fb-app (gur komentar tok)
-if (is_posting) {
+	// fb-app (hanya komentar saja)
 	var fbAsyncInit = function() {
 		FB.init({ appId: '1719982034935434', xfbml: true, version: 'v2.8' });
 	};
