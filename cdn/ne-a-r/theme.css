@@ -6,19 +6,27 @@
 @description (2017/08-): starting to use latest CSS technology
 */
 
-@import url('https://fonts.googleapis.com/css?family=Cardo');
-@import url('https://fonts.googleapis.com/css?family=Vollkorn');
-@import url('https://fonts.googleapis.com/css?family=Raleway');
+/* mynameis */ .anovsiradj {}
+
+@import url('//fonts.googleapis.com/css?family=Cardo');
+@import url('//fonts.googleapis.com/css?family=Vollkorn');
+@import url('//fonts.googleapis.com/css?family=Raleway');
 
 :root {
-	--mycolor-background: #222;
-	--mycolor-foreground: #eee;
+	--mycolor-bg: #222;
+	--mycolor-fg: #eee;
 	--mycolor-base: #4d7f17;
+	--mycolor-base-lighter: #6bb120;
+	--mycolor-base-darker: #356007;
 	--myfont-title: 'Cardo', serif;
 }
 
-/* mynameis */
-.anovsiradj {}
+body {
+	background-color: var(--mycolor-bg);
+}
+a {
+	color: var(--mycolor-base);
+}
 
 /* fallback blog old-class, lazy to replace */
 .no-mg {margin: 0px !important;}.no-mg-y {margin-top: 0px !important;margin-bottom: 0px !important;}.no-mg-y-t {margin-top: 0px !important;}.no-mg-y-b {margin-bottom: 0px !important;}.no-mg-x {margin-right: 0px !important;margin-left: 0px !important;}.no-mg-x-r {margin-right: 0px !important;}.no-mg-x-l {margin-left: 0px !important;}
@@ -48,32 +56,32 @@
 .w-0p {width: 0%;}
 
 /* override */
-body {background-color: #222;}
 twitterwidget {margin-left:auto;margin-right:auto;}
 .all-tst {transition: all 0.5s ease-in-out;}
-.white {color: #fff; }
-.jumbotron {background-color: transparent; color: #fff; }
-.jumbotron p {font-size: 14px; }
 .no-more-glow {outline: none; box-shadow:none !important; }
-.widget-item-control > .blog-admin {display:none;}
 body .navbar {height: auto !important; }
-.widget-item-control > .blog-admin {display:none;}
+.widget-item-control {
+	display: none;
+}
 
 #header {
 	background-color: transparent;
+	color: var(--mycolor-fg);
 }
-#header .widget.Header {
+
+.widget.Header {
 	color: var(--mycolor-base);
 	font-family: var(--myfont-title);
 }
-#header .widget.Header .title {
+.widget.Header .title {
 	margin: 0;
 	padding: 0;
 	font-size: xx-large;
 }
-#header .widget.Header .description {
+.widget.Header .description {
 	margin: 0;
 	padding: 0;
+	font-size: medium;
 }
 
 /* navbar darknature - rasah di utak-atik */
