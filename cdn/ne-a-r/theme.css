@@ -1,9 +1,21 @@
 /*
-@created/@edited 201605162021, 201605212202 (tomorrow is birthday!) - (@initial: 201401)
-@author Anovsiradj <anov.siradj22@(gmail|live).com|anov.siradj@gin.co.id>
-@oldcode https://googledrive.com/host/0B5QQvAjRq64ha2RTZ0dUR3RzZTA/
-@description improved renew-version
+@created/@edited 20170806, 201605162021, 201605212202 (tomorrow is birthday!)
+@author Anovsiradj <anov.siradj22@gmail.com>
+@description (2014) initial 201401
+@description (-2016): improved renew-version (old version https://googledrive.com/host/0B5QQvAjRq64ha2RTZ0dUR3RzZTA/)
+@description (2017/08-): starting to use latest CSS technology
 */
+
+@import url('https://fonts.googleapis.com/css?family=Cardo');
+@import url('https://fonts.googleapis.com/css?family=Vollkorn');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+:root {
+	--mycolor-background: #222;
+	--mycolor-foreground: #eee;
+	--mycolor-base: #4d7f17;
+	--myfont-title: 'Cardo', serif;
+}
 
 /* mynameis */
 .anovsiradj {}
@@ -50,12 +62,14 @@ body .navbar {height: auto !important; }
 #header {
 	background-color: transparent;
 }
-#header .widget {
-	margin: 0;
+#header .widget.Header {
+	color: var(--mycolor-base);
+	font-family: var(--myfont-title);
 }
 #header .widget.Header .title {
 	margin: 0;
 	padding: 0;
+	font-size: xx-large;
 }
 #header .widget.Header .description {
 	margin: 0;
