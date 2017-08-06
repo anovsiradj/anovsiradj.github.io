@@ -24,9 +24,10 @@
 body {
 	background-color: var(--mycolor-bg);
 }
-a {
-	color: var(--mycolor-base);
-}
+
+/* override blue-ist bootstrap */
+a { color: var(--mycolor-base); }
+a:focus, a:hover { color: var(--mycolor-base-darker); }
 
 /* fallback blog old-class, lazy to replace */
 .no-mg {margin: 0px !important;}.no-mg-y {margin-top: 0px !important;margin-bottom: 0px !important;}.no-mg-y-t {margin-top: 0px !important;}.no-mg-y-b {margin-bottom: 0px !important;}.no-mg-x {margin-right: 0px !important;margin-left: 0px !important;}.no-mg-x-r {margin-right: 0px !important;}.no-mg-x-l {margin-left: 0px !important;}
