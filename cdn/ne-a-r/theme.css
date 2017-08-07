@@ -128,42 +128,36 @@ a.darknature {color: #4D7F17;}
 #gpluscomments {width:100% !important;}
 */
 
-/* mixed: nanti bawah ini campur2 selectornya, yg border radius */
-#core_content {background-color: #fff; padding: 16px 16px; font-size: 18px; }
-/* override blogger default css bundle */
-#core_content .blog-posts>.date-outer:first-child .date-header {margin-top:-8px;padding-top:0px;border-top:none;}
-#core_content .blog-posts>.date-outer .date-header {
-	margin-left: -16px;
-	padding-left: 16px;
-	margin-right: -16px;
-	padding-right: 16px;
-	margin-top:8px;
-	padding-top:8px;
-	border-top: 5px solid #222;
-	font-size: 1em;
-}
-
 #core_content {
 	background-color: var(--mycolor-fg);
 	font-size: var(--myfont-content-size);
+	padding: calc(var(--mycontent-gap)/2) var(--mycontent-gap);
+	padding-top: 0;
 }
+
 .widget.Blog .date-header {
 	font-size: medium;
-	font-weight: normal;
+	font-weight: 600;
+	padding: calc(var(--mycontent-gap)/2) 0;
+	margin: 0;
 }
-.widget.Blog .date-header:before {
+.widget.Blog .date-outer:not(:first-child) .date-header:before {
 	content: '';
-	height: 1px;
+	height: calc(var(--mycontent-gap)/4);
 	display: block;
-	background: var(--mycolor-base);
+	background: var(--mycolor-bg);
+	padding: 0;
+	margin-top: 0;
+	margin-bottom: calc(var(--mycontent-gap)/2);
 	margin-left: calc(-1 * var(--mycontent-gap));
 	margin-right: calc(-1 * var(--mycontent-gap));
 }
+
 .widget.Blog .post-title {
 	background-color: var(--mycolor-bg);
 	color: var(--mycolor-base);
-	margin-left: calc(-1 * var(--mycontent-gap));
-	margin-right: calc(-1 * var(--mycontent-gap));
+	margin: 0 calc(-1 * var(--mycontent-gap));
+	padding: calc(var(--mycontent-gap)/2) calc(var(--mycontent-gap));
 }
 
 #core_content .date-outer .date-posts .post.hentry iframe {margin:0px auto;}
