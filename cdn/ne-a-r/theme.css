@@ -14,7 +14,9 @@
 
 :root {
 	--mycolor-bg: #222;
-	--mycolor-fg: #eee;
+	--mycolor-bg-lighter: #444;
+	--mycolor-bg-more-lighter: #888;
+	--mycolor-fg: #fff;
 	--mycolor-base: #4d7f17;
 	--mycolor-base-lighter: #6bb120;
 	--mycolor-base-darker: #356007;
@@ -58,8 +60,11 @@ a:focus, a:hover { color: var(--mycolor-base-darker); }
 .w-10p {width: 10%;}
 .w-0p {width: 0%;}
 
+/* override twbs */
+abbr[title] {
+	border: none;
+}
 /* override */
-twitterwidget {margin-left:auto;margin-right:auto;}
 .all-tst {transition: all 0.5s ease-in-out;}
 .no-more-glow {outline: none; box-shadow:none !important; }
 body .navbar {height: auto !important; }
@@ -133,7 +138,14 @@ a.darknature {color: #4D7F17;}
 	font-size: var(--myfont-content-size);
 	padding: calc(var(--mycontent-gap)/2) var(--mycontent-gap);
 	padding-top: 0;
+	margin: 0;
 }
+
+#core_sidebar {
+	padding: 0;
+	margin: 0;
+}
+#core_sidebar .widget > h2 {display: none;}
 
 .widget.Blog .date-header {
 	font-size: medium;
@@ -189,20 +201,30 @@ a.darknature {color: #4D7F17;}
 }
 #core_content .date-outer .date-posts .post.hentry blockquote>small {font-size: 1.1vw;}
 #core_content .date-outer .date-posts .post.hentry .separator > a {margin:0px !important;}
+#core_content .blog-posts>.date-outer>.date-posts>.post-outer #comments h4:first-child {display: none;}
 
-#core_content .blog-posts>.date-outer>.date-posts>.post-outer #comments h4:first-child,
-#core_content .post-comment-link,
-#core_sidebar .widget>h2 {display: none;}
-
-#core_sidebar .section {margin-left:0px;margin-right:0px;}
-#core_sidebar .widget.PopularPosts ul {padding-left:0px;padding-right:0px;}
-#core_sidebar .widget.Label a {color:#356007;}
-#core_sidebar .widget.Label a:hover {color: #6bb120;}
-#core_sidebar .widget-content.popular-posts {color:#444;}
-#core_sidebar .widget-content.popular-posts .item-snippet {overflow:auto;}
-#core_sidebar .widget-content.popular-posts .item-snippet:hover {color:#888;}
 @media print {
 	#blog-pager,#comments,#core_content .feed-links, #core_content .post-footer-line {display:none;}
+}
+
+.widget.Label a {
+	color: var(--mycolor-base);
+}
+.widget.Label a:hover, .widget.Label a:focus {
+	color: var(--mycolor-base-lighter);
+}
+
+.widget.PopularPosts ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.widget.PopularPosts .item-snippet {
+	color: var(--mycolor-bg-lighter);
+	overflow: auto;
+}
+.widget.PopularPosts .item-snippet:hover {
+	color: var(--mycolor-bg-more-lighter);
 }
 
 .status-msg-wrap {
@@ -218,4 +240,3 @@ a.darknature {color: #4D7F17;}
 .status-msg-border {
 	display:none;
 }
-
