@@ -6,8 +6,8 @@ var ads = {
 		url: 'https://goo.gl/Giv1mD',
 		icon: 'https://www.cashtree.id/favicon.ico',
 		title: 'Kamu Mau Pulsa Gratis?',
-    headline: 'Hanya Lewat Smartphone Android Kamu',
-		description: 'Install Aplikasinya Sekarang dan Saldo Awal Sebesar 2000 Poin. Kalau beruntung, kamu bisa mendapatkan Smartphone Gratis!'
+    headline: 'Cuma Lewat Smartphone Android Kamu',
+		description: 'Install Aplikasinya dan Dapatkan Saldo Awal 2000 Poin. Jika beruntung, kamu bisa mendapatkan Smartphone Gratis!'
 	},
 	NiagaHoster: {
     url: 'https://panel.niagahoster.co.id/ref/12399',
@@ -105,4 +105,3 @@ window['avirtualzr_' + id] = function() {
 };
 })();
 
-// avirtualzr_simplead();
