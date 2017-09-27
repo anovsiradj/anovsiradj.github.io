@@ -63,8 +63,8 @@
 			<br class="hidden-lg hidden-md"/>
 			<div class="jse" data-hell="innerText" data-evil="['Indonesia','Tinggal di Yogyakarta'].reverse().join(', ')"></div>
 			<div class="jse" data-hell="innerText" data-evil="atob('YW5vdi5zaXJhZGoyMkBnbWFpbC5jb20=')"></div>
-			<div class="jse" data-hell="innerText" data-evil="['947','562','803','(+62)85'].reverse().join('')"></div>
-			<div class="jse" data-hell="innerText" data-evil="'Umur, '+((new Date().getFullYear())-1996)+' Tahun'"></div>
+			<div class="jse" data-hell="innerText" data-evil="['894','515','806','(+62)88'].reverse().join('')"></div>
+			<div class="jse" data-hell="innerText" data-evil="'Umur, '+((new Date().getFullYear())-1996)+' Tahun'" title="Dihitung Secara Otomatis"></div>
 			<div>
 				<a href="http://ne-a-r.blogspot.com/" target="_blank">Blog</a>
 			</div>
@@ -286,9 +286,9 @@
 			Dibuat menggunakan <a href="http://getbootstrap.com/" target="_blank">Twitter-Bootstrap Framework</a> dan <a href="http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu web style Framework</a>.
 		</div>
 		<div class="col-md-3">
-			<div id="git-commits-first"></div>
-			<div id="git-commits-last"></div>
-			<div id="git-commits-count"></div>
+			<div id="revision-first"></div>
+			<div id="revision-last"></div>
+			<div id="revision-count"></div>
 		</div>
 	</div>
 </div>
@@ -300,7 +300,7 @@
 <script>
 ;(function() {
 	// https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
-	var LStorageAvailable = (function() {
+	var LSAvailable = (function() {
 		try {
 			var ls = window.localStorage, x = '__ls_test__';
 			ls.setItem(x, x);
@@ -310,8 +310,8 @@
 		} catch(e) { return false; } // !={}
 	})();
 
-	if (LStorageAvailable) {
-		var commits = localStorage.getItem('resume-git-revision');
+	if (LSAvailable) {
+		var commits = localStorage.getItem('git-resume-revision');
 		if (commits === null) {
 			github_api_ajax();
 		} else {
@@ -323,7 +323,7 @@
 
 	function github_api_ajax() {
 		$.get('//api.github.com/repos/anovsiradj/anovsiradj.github.io/commits?path=resume.html', function(commits) {
-			if (LStorageAvailable) localStorage.setItem('resume-git-revision', JSON.stringify(commits));
+			if (LSAvailable) localStorage.setItem('git-resume-revision', JSON.stringify(commits));
 			github_api_exec(commits);
 		});
 	}
@@ -337,9 +337,9 @@
 			hour: 'numeric',
 			minute: 'numeric'
 		};
-		$('#git-commits-count').text('Revisi ke ' + commits.length + ' kali');
-		$('#git-commits-last').text('Terakhir diubah ' + d1.toLocaleDateString('id', d_opts));
-		$('#git-commits-first').text('Pertama dibuat ' + d2.toLocaleDateString('id', d_opts));
+		$('#revision-count').text('Revisi ke ' + commits.length + ' kali');
+		$('#revision-last').text('Terakhir diubah ' + d1.toLocaleDateString('id', d_opts));
+		$('#revision-first').text('Pertama dibuat ' + d2.toLocaleDateString('id', d_opts));
 	}
 })();
 </script>
