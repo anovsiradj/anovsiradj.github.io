@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="//assets.ubuntu.com/sites/guidelines/css/latest/ubuntu-styles.css"/>
 <link rel='image_src' href='cdn/img/anovsiradj-markup-style.png'/>
 <title>anovsiradj - Resume</title>
-<style>body { font-family:'Ubuntu Mono',monospace; vertical-align: baseline; }</style>
+<style>body { font-family:'Ubuntu Mono', monospace; vertical-align: baseline; }</style>
 <style>
 	/* http://ohryan.ca/2014/08/14/set-responsive-text-alignment-bootstrap-3/ */
 	.text-xs-left {text-align: left;}
@@ -48,9 +48,31 @@
 	.content-item-title ~ ul + p {
 		margin-top: 0.75em; /* disamakan dengan p[style=margin-bottom] supaya ada jarak */
 	}
+
+	.content-item-alt {}
+	.content-item-alt .label {
+		display: inline-block;
+	}
+	.content-item-alt a {
+		color: #fff;
+	}
+	/*
+	#wallpaper {
+		position: fixed;
+		top: 0; bottom: 0; left: 0; right: 0;
+		background-repeat: no-repeat;
+		background-position: center center;
+		opacity: 0.3;
+	}
+	#wallpaper {
+		background-image: url('http://www.bing.com/az/hprichbg?p=rb%2fYBayBridge_JA-JP10021254212_1366x768.jpg');
+	}
+	*/
 </style>
 </head>
 <body>
+<!-- <div id="wallpaper"></div> -->
+
 <div id="header" class="container-fluid">
 	<div class="row">
 		<div class="header-title col-md-6 text-xs-center text-md-left">
@@ -66,11 +88,12 @@
 			<div class="jse" data-hell="innerText" data-evil="['894','515','806','(+62)88'].reverse().join('')"></div>
 			<div class="jse" data-hell="innerText" data-evil="'Umur, '+((new Date().getFullYear())-1996)+' Tahun'" title="Dihitung Secara Otomatis"></div>
 			<div>
-				<a href="http://ne-a-r.blogspot.com/" target="_blank">Blog</a>
+				<a class="jse" data-hell="href" data-evil="'http://ne-a-r.blogspot.com/ncr'" target="_blank">Blog</a>
 			</div>
 		</div>
 	</div>
 </div>
+
 <div id="content" class="container-fluid">
 	<div class="row">
 		<div class="col-md-2 col-md-push-1">
@@ -106,7 +129,7 @@
 					</p>
 				</li>
 				<li>
-					<h3 class="content-item-title">Mentor Skripsi</h3>
+					<h3 class="content-item-title">Pembimbing Skripsi</h3>
 					<p>
 						Selama bekerja di CV. Solusi Dunia Digital, saya tidak hanya membuat website pesanan.
 						Saya juga meng-kursus-kan/membuatkan orang kuliahan website yang mereka buat sebagai skripsi.
@@ -126,7 +149,7 @@
 								<span class='text-info'>Yogyakarta</span>
 							</p>
 							<p>
-								Beberapa waktu setelah resign (mengundurkan diri) dari SDD (CV. Solusi Dunia Digital) karena membutuhkan dana,
+								Beberapa bulan setelah resign (mengundurkan diri) dari SDD (CV. Solusi Dunia Digital) karena saya sedang membutuhkan dana,
 								saya menghubungi mereka untuk bertanya apakah ada proyek yang bisa saya kerjakan sebagai freelance (pekerja lepas).
 								Lalu mereka menawarkan proyek ini, dan saya menerimanya.
 							</p>
@@ -185,54 +208,73 @@
 				<li>
 					<h3 class="content-item-title">PHP: Hypertext Preprocessor</h3>
 					<ul class="list-canonical">
-						<li><a href="http://php.net/" target="_blank">PHP (v4.* - v7.*)</a></li>
-						<li><a href="https://www.codeigniter.com/" target="_blank">CodeIgniter (v3.*)</a></li>
-						<li>Composer</li>
+						<li><a href="http://php.net/" target="_blank">PHP</a> (v5.* - v7.*)</li>
+						<li><a href="https://getcomposer.org/" target="_blank">Composer</a></li>
 						<li>PHPUnit (v5.*)</li>
+						<li><a href="https://www.codeigniter.com/" target="_blank">CodeIgniter</a> (v3.*)</li>
 						<!-- <li>Laravel 5</li> -->
 					</ul>
-					<p>Saya sendiri jarang memakai Framework atau CMS di PHP. Tapi jika diperlukan, saya bisa mempelajarinya.</p>
-					<!-- <p>Selama ini, saya lebih memilih membuatnya. Berikut beberapa yang saya ingat:</p> -->
-					<!-- <ul class="list-canonical">
-						<li>Avz (semi Framework)</li>
-						<li>Gangsal (Framework)</li>
-						<li>PHP Chain Controller (semi Framework)</li>
-						<li>SDD_CMS (CMS)</li>
-						<li>PureDB (semi CMS)</li>
-					</ul> -->
-					<p>Berikut beberapa framework atau library yang saya buat:</p>
+					<p>
+						Saya sendiri jarang memakai Framework atau CMS.
+						Tapi jika diperlukan, saya bisa mempelajarinya.
+					</p>
+					<p>Saya lebih sering menggunakan <code>No-Framework Framework</code></p>
+				</li>
+				<li>
+					<h3 class="content-item-title">JavaScript (ECMAScript)</h3>
 					<ul class="list-canonical">
+						<li>JavaScript (ECMAScript)</li>
 						<li>
-							<a href="https://github.com/anovsiradj/php-cutter" target="_blank">Cutter</a> Template Library.
-							Ada juga yang khusus <a href="https://github.com/anovsiradj/codeigniter-cutter" target="_blank">CodeIgniter v3.*</a>
+							<a href="https://jquery.com/" target="_blank">jQuery</a>,
+							<a href="https://jqueryui.com/" target="_blank">jQuery UI</a>,
+							<a href="https://jquerymobile.com/" target="_blank">jQuery Mobile</a>
 						</li>
+						<li><a href="https://nodejs.org" target="_blank">Node.js</a> (v6.*)</li>
+						<li>
+							<a href="https://www.npmjs.com/" target="_blank">NPM</a>,
+							<a href="https://yarnpkg.com/en/" target="_blank">Yarn</a>,
+							<a href="https://bower.io/" target="_blank">Bower</a>
+						</li>
+						<li><a href="https://vuejs.org/" target="_blank">Vue.js</a> (v2.*)</li>
+						<!-- <li>AngularJS (masih belajar)</li> -->
 					</ul>
+					<p class="content-item-alt">
+						<span class="label label-default">Less.js</span>
+						<span class="label label-default">Browserify</span>
+						<span class="label label-default">Grunt</span>
+					</p>
+					<p class="content-item-alt">
+						<span class="label label-default"><a href="https://lodash.com/" target="_blank">LoDash</a></span>
+						<span class="label label-default">Moment.js</span>
+						<span class="label label-default">datatables.net</span>
+					</p>
+					<p class="content-item-alt">
+						<span class="label label-default">NW.js</span>
+					</p>
 				</li>
 				<li>
 					<h3 class="content-item-title">SQL (Structured Query Language)</h3>
 					<ul class="list-canonical">
 						<li><a href="https://www.sqlite.org/" target="_blank">SQLite</a></li>
-						<li><a href="http://www.firebirdsql.org/">FireBird</a></li>
-						<li>MySQL</li>
+						<li><a href="http://www.firebirdsql.org/" target="_blank">FireBird</a></li>
+						<li><a href="https://www.mysql.com/" target="_blank">MySQL</a></li>
 					</ul>
+					<p class="content-item-alt">
+						<span>Cukup bisa:</span>
+						<span class="label label-default">PostgresSQL</span>
+					</p>
 				</li>
 				<li>
-					<h3 class="content-item-title">JavaScript (ECMAScript) dan Node.js</h3>
+					<h3 class="content-item-title">(X)HTML ([Extensible] Hypertext Markup Language)</h3>
 					<ul class="list-canonical">
-						<li><a href="https://nodejs.org" target="_blank">Node.js (v6.*)</a></li>
-						<li>jQuery (v1.* - v3.*)</li>
-						<li>NPM, Yarn dan Bower</li>
-						<li>Vue.js (v2.*)</li>
-						<li>Lodash dan Undescore.js</li>
-						<!-- <li>AngularJS (masih belajar)</li> -->
-					</ul>
-				</li>
-				<li>
-					<h3 class="content-item-title">HTML (Hyper Text Markup Language) dan XML</h3>
-					<ul class="list-canonical">
-						<li>HTML4</li>
-						<li>HTML5</li>
-						<li>Blogger (Blogspot) XML Layout Template</li>
+						<li>XML</li>
+						<li>
+							<a href="https://en.wikipedia.org/wiki/MXML" target="_blank">MXML</a>
+							(Flex)
+						</li>
+						<li>(X)HTML4</li>
+						<li>(X)HTML5</li>
+						<li><a href="https://www.blogger.com/" target="_blank">Blogger (Blogspot)</a> Template (Custom XML)</li>
 					</ul>
 				</li>
 				<li>
@@ -240,20 +282,37 @@
 					<ul class="list-canonical">
 						<li>CSS2</li>
 						<li>CSS3</li>
-						<li><a href="http://getbootstrap.com/" target="_blank">Twitter-Bootstrap Framework (v3.*)</a></li>
-						<li><a href="http://purecss.io/" target="_blank">Pure Framework (v0.*)</a></li>
+						<li><a href="http://getbootstrap.com/" target="_blank">Twitter-Bootstrap</a> (v3.*)</li>
+						<li><a href="http://purecss.io/" target="_blank">Pure</a> (v0.*)</li>
 					</ul>
 				</li>
 				<li>
 					<h3 class="content-item-title">Lain-lain</h3>
 					<ul class="list-canonical">
-						<li>Git (Github, GitLab, RedHat Openshift, etc)</li>
+						<li>OS - Windows, Windows Server, Ubuntu</li>
+						<li>Git (Github, GitLab, RedHat OpenShift, Heroku, dst)</li>
 						<!-- <li>CMS WordPress (dasar)</li> -->
-						<li>ActionScript (AS2 dan AS3) - Adobe (Macromedia) Flash</li>
-						<li>Apache (Adobe) Flex (sama dengan ActionScript tapi sedikit berbeda)</li>
-						<li>Pixel Graphic - Gimp, <span title="Lupa-lupa ingat">Adobe Photoshop</span>, <span title="(O_o)">Paint</span></li>
-						<li>Vector Graphic - <span title="Lupa-lupa ingat">InkScape, CorelDraw</span></li>
-						<li>3D Modeling - <span title="Lupa-lupa ingat">Wings3D</span></li>
+						<li>ActionScript (AS2 dan AS3) - Adobe Flash (sebelumnya: Macromedia)</li>
+						<li>Apache Flex (sebelumnya: Adobe Flex) (ActionScript tapi sedikit berbeda)</li>
+						<li>
+							Pixel Graphic -
+							<span title="Lupa-lupa ingat">
+								Gimp,
+								Adobe Photoshop,
+							</span>
+							<span title="(O_o)">Paint</span>
+						</li>
+						<li>
+							Vector Graphic -
+							<span title="Lupa-lupa ingat">
+								InkScape,
+								CorelDraw
+							</span>
+						</li>
+						<li>
+							3D Modeling -
+							<span title="Lupa-lupa ingat">Wings3D</span>
+						</li>
 					</ul>
 				</li>
 			</ul>
@@ -266,12 +325,21 @@
 		<div class="col-md-8 col-md-push-1">
 			<small style="text-align: justify-all;">
 				mempelajari hal baru, ingin membuat games, nonton film aksi/ misteri/ psikis,
-				mendenganrkan musik rap/ western jadul/ edm, menggambar di kertas, punya bakat seniman,
+				mendengarkan musik rap/ western jadul/ edm, punya bakat seniman,
 				lebih memilih dikejar deadline dari pada bebas, pengen ngeblog tapi males,
 				menulis di buku, pilih capek dari pada santai,
+				ingin membuat startup, saya ahli menggambar,
 				ngoding yg tidak jelas, coba-coba fw/lib baru, susah fokus kalau tidak cocok,
-				tidur, makan nasi padang, ke angkringan, nonton rapat Ahok di yt,
-				GG-Signature/ malbor/ danhil, suka main bonk.io,
+				tidur, naik sepeda,
+				<!-- makan nasi padang, -->
+				ke angkringan, menyerah adsense, saya (bisa dibilang) sombong,
+				<!-- nonton rapat Ahok di yt, -->
+				wismilak kretek, promild, sampoerna, 76,
+				<!-- GG-Signature/ malbor/ danhil, -->
+				<!-- suka film aksi korea, anti-weeb, -->
+				produk web saya tidak laku-laku,
+				<!-- suka main bonk.io, -->
+				mau belajar android tapi terbatas,
 				dll.
 			</small>
 		</div>
@@ -283,7 +351,13 @@
 		<div class="col-md-3">Dibuat oleh <a href="javascript:void(0);">Anov Siradj</a>.</div>
 		<div class="col-md-3">Terinspirasi resume milik <a href="https://www.paulirish.com/" target="_blank">Paul Irish</a>.</div>
 		<div class="col-md-3">
-			Dibuat menggunakan <a href="http://getbootstrap.com/" target="_blank">Twitter-Bootstrap Framework</a> dan <a href="http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu web style Framework</a>.
+			Desain menggunakan
+			<!-- <a href="http://getbootstrap.com/" target="_blank">Twitter-Bootstrap</a> -->
+			<a href="https://getbootstrap.com/docs/3.3/" target="_blank">Twitter-Bootstrap</a>
+			dan
+			<!-- <a href="http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu web style Framework</a>. -->
+			<a href="https://web.archive.org/web/20171011213844/http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu web style</a>
+			<a href="https://vanillaframework.io/" target="_blank">(alt)</a>.
 		</div>
 		<div class="col-md-3">
 			<div id="revision-first"></div>
@@ -332,7 +406,7 @@
 		var d2 = new Date(commits[commits.length-1].commit.committer.date);
 		var d_opts = {
 			year: 'numeric',
-			month: 'long',
+			month: 'short',
 			day: 'numeric',
 			hour: 'numeric',
 			minute: 'numeric'
@@ -341,6 +415,8 @@
 		$('#revision-last').text('Terakhir diubah ' + d1.toLocaleDateString('id', d_opts));
 		$('#revision-first').text('Pertama dibuat ' + d2.toLocaleDateString('id', d_opts));
 	}
+
+	// $.get('http://feeds.feedburner.com/bingimages', function(xml_string) {});
 })();
 </script>
 </body>
