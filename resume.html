@@ -5,73 +5,69 @@
 <link rel='image_src' href='cdn/img/anovsiradj-markup-style.png'/>
 <title>anovsiradj - Resume</title>
 <style>body { font-family:'Ubuntu Mono', monospace; vertical-align: baseline; }</style>
-<style>
-	/* http://ohryan.ca/2014/08/14/set-responsive-text-alignment-bootstrap-3/ */
-	.text-xs-left {text-align: left;}
-	.text-xs-right {text-align: right;}
-	.text-xs-center {text-align: center;}
-	.text-xs-justify {text-align: justify;}
-	@media (min-width: 768px) {
-	  .text-sm-left {text-align: left;}
-	  .text-sm-right {text-align: right;}
-	  .text-sm-center {text-align: center;}
-	  .text-sm-justify {text-align: justify;}
+<link rel="stylesheet/less" href="//cdn.rawgit.com/ohryan/b9593841c024c033783d/raw/23e29f06e2e8a6ddd28487e8faba814f4e6c9cdb/responsive-align.less"/>
+<style type="text/x-less">
+.header-title {
+	h1 {
+		margin: 0;
+		span {
+			padding: 1.5vw 2.2vw;
+			display:inline-block;
+			font-size:4.2vw;
+		}
 	}
-	@media (min-width: 992px) {
-	  .text-md-left {text-align: left;}
-	  .text-md-right {text-align: right;}
-	  .text-md-center {text-align: center;}
-	  .text-md-justify {text-align: justify;}
+}
+.content-item-title {
+	&, .content-subitem-title {
+		margin: 0;
 	}
-	@media (min-width: 1200px) {
-	  .text-lg-left {text-align: left;}
-	  .text-lg-right {text-align: right;}
-	  .text-lg-center {text-align: center;}
-	  .text-lg-justify {text-align: justify;}
+	~ ul + p {
+		margin-top: 0.75em; /* disamakan dengan p[style=margin-bottom] (default) supaya ada jarak */
 	}
-</style>
-<style>
-	.mg-0 { margin: 0px; }
-	.mg-t-0 { margin-top: 0px; }
-	.mg-b-0 { margin-bottom: 0px; }
-	.header-title h1 {
-		margin: 0px;
-	}
-	.header-title h1 span {
-		padding: 1.5vw 2.2vw;
-		display:inline-block;
-		font-size:4.2vw;
-	}
-	.content-item-title, .content-subitem-title {
-		margin: 0px;
-	}
-	.content-item-title ~ ul + p {
-		margin-top: 0.75em; /* disamakan dengan p[style=margin-bottom] supaya ada jarak */
-	}
-
-	.content-item-alt {}
-	.content-item-alt .label {
-		display: inline-block;
-	}
-	.content-item-alt a {
+}
+.content-list-alt {
+	a {
 		color: #fff;
 	}
-	/*
-	#wallpaper {
-		position: fixed;
-		top: 0; bottom: 0; left: 0; right: 0;
-		background-repeat: no-repeat;
-		background-position: center center;
-		opacity: 0.3;
+	.label {
+		display: inline-block;
 	}
-	#wallpaper {
-		background-image: url('http://www.bing.com/az/hprichbg?p=rb%2fYBayBridge_JA-JP10021254212_1366x768.jpg');
+}
+.looper(@class, @property, @unit, @min: 0, @max: 10, @step: 1) {
+	.loop(@i) when (@i <= @max) {
+		@cls: e(replace(@class, '\*', @i, 'g'));
+		@{cls} {
+			@{property}: unit(@i, @unit);
+		}
+		.loop(@i + @step);
 	}
-	*/
+	.loop(@min);
+}
+.looper('.w-*', width, px, 0, 100, 5);
+.looper('.w-*p', width, %, 0, 100, 5);
+@looper-max: 100;
+@looper-step: 1;
+.looper('.mg-*', margin, px, 0, @looper-max, @looper-step);
+.looper('.mg-t-*', margin-top, px, 0, @looper-max, @looper-step);
+.looper('.mg-b-*', margin-bottom, px, 0, @looper-max, @looper-step);
+.looper('.pd-*', padding, px, 0, @looper-max, @looper-step);
+.looper('.pd-t-*', padding-top, px, 0, @looper-max, @looper-step);
+.looper('.pd-b-*', padding-bottom, px, 0, @looper-max, @looper-step);
 </style>
+<script>
+var less = {
+	env: 'production', // development
+	async: true,
+	globalVars: {
+		'screen-sm-min': '768px',
+		'screen-md-min': '992px',
+		'screen-lg-min': '1200px'
+	}
+}
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.3/less.min.js"></script>
 </head>
 <body>
-<!-- <div id="wallpaper"></div> -->
 
 <div id="header" class="container-fluid">
 	<div class="row">
@@ -238,17 +234,17 @@
 						<li><a href="https://vuejs.org/" target="_blank">Vue.js</a> (v2.*)</li>
 						<!-- <li>AngularJS (masih belajar)</li> -->
 					</ul>
-					<p class="content-item-alt">
+					<p class="content-list-alt">
 						<span class="label label-default">Less.js</span>
 						<span class="label label-default">Browserify</span>
 						<span class="label label-default">Grunt</span>
 					</p>
-					<p class="content-item-alt">
+					<p class="content-list-alt">
 						<span class="label label-default"><a href="https://lodash.com/" target="_blank">LoDash</a></span>
 						<span class="label label-default">Moment.js</span>
 						<span class="label label-default">datatables.net</span>
 					</p>
-					<p class="content-item-alt">
+					<p class="content-list-alt">
 						<span class="label label-default">NW.js</span>
 					</p>
 				</li>
@@ -259,7 +255,7 @@
 						<li><a href="http://www.firebirdsql.org/" target="_blank">FireBird</a></li>
 						<li><a href="https://www.mysql.com/" target="_blank">MySQL</a></li>
 					</ul>
-					<p class="content-item-alt">
+					<p class="content-list-alt">
 						<span>Cukup bisa:</span>
 						<span class="label label-default">PostgresSQL</span>
 					</p>
@@ -357,7 +353,7 @@
 			dan
 			<!-- <a href="http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu web style Framework</a>. -->
 			<a href="https://web.archive.org/web/20171011213844/http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu web style</a>
-			<a href="https://vanillaframework.io/" target="_blank">(alt)</a>.
+			(<a href="https://vanillaframework.io/" target="_blank">Vanilla</a>).
 		</div>
 		<div class="col-md-3">
 			<div id="revision-first"></div>
@@ -415,8 +411,6 @@
 		$('#revision-last').text('Terakhir diubah ' + d1.toLocaleDateString('id', d_opts));
 		$('#revision-first').text('Pertama dibuat ' + d2.toLocaleDateString('id', d_opts));
 	}
-
-	// $.get('http://feeds.feedburner.com/bingimages', function(xml_string) {});
 })();
 </script>
 </body>
