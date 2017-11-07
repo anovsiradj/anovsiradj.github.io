@@ -363,7 +363,7 @@ body {
 	https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
 	https://developer.mozilla.org/en-US/docs/Web/HTTP/Response_codes
 	*/
-	var AJAX = (function() {
+	var XHRGET = (function() {
 		function load(xhr, callback) {
 			/*
 			responseheader:Content-Type is match /json/ => parse to JSON
@@ -397,56 +397,29 @@ body {
 		function error(xhr, callback) {
 			callback(xhr.statusText, xhr);
 		}
-		return function(method, target, loaded, failed) {
+		return function(target, loaded, failed) {
 			var xhr = new XMLHttpRequest();
-			if (method) {
-				if (failed) {
-					xhr._failed = failed;
-					xhr.addEventListener('error', function() {
-						error(this, failed);
-					});
-					xhr.addEventListener('abort', function() {
-						error(this, failed);
-					});
-				}
-				if (loaded) {
-					xhr._loaded = loaded;
-					xhr.addEventListener('load', function() {
-						load(this, loaded);
-					});
-				}
-				if (target) {
-					xhr.open(method, target);
-				}
+			if (failed) {
+				xhr._failed = failed;
+				xhr.addEventListener('error', function() {
+					error(this, failed);
+				});
+				xhr.addEventListener('abort', function() {
+					error(this, failed);
+				});
+			}
+			if (loaded) {
+				xhr._loaded = loaded;
+				xhr.addEventListener('load', function() {
+					load(this, loaded);
+				});
+			}
+			if (target) {
+				xhr.open('get', target);
 			}
 			xhr.send();
 		}
 	})();
-
-	/*
-	AJAX('get', '/git/hub/Chrome49Shim/manifest.json', function(data) {
-		console.log(data);
-	}, function(message) {
-		console.error(message);
-	});
-	AJAX('get', '/git/hub/js-utilities/package.json', function(data) {
-		console.log(data);
-	}, function(message) {
-		console.error(message);
-	});
-	AJAX('get', '/gin/NEOKUD/crossdomain.xml', function(data) {
-		console.log(data);
-	});
-	AJAX('get', '/blank.html', function(data) {
-		console.log(data);
-	});
-
-	AJAX('get', '/fake.file', function(data) {
-		console.log(data);
-	}, function(message) {
-		console.error(message);
-	});
-	*/
 </script>
 <script>
 ;(function() {
@@ -476,7 +449,7 @@ body {
 	}
 
 	function github_api_ajax() {
-		AJAX('get', '//api.github.com/repos/anovsiradj/anovsiradj.github.io/commits?path=resume.html', function(commits) {
+		XHRGET('//api.github.com/repos/anovsiradj/anovsiradj.github.io/commits?path=resume.html', function(commits) {
 			if (LSAvailable) localStorage.setItem('git-resume-revision', JSON.stringify(commits));
 			github_api_exec(commits);
 		});
