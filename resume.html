@@ -4,9 +4,12 @@
 <link rel="stylesheet" href="//assets.ubuntu.com/sites/guidelines/css/latest/ubuntu-styles.css"/>
 <link rel='image_src' href='cdn/img/anovsiradj-markup-style.png'/>
 <title>anovsiradj - Resume</title>
-<style>body { font-family:'Ubuntu Mono', monospace; vertical-align: baseline; }</style>
-<link rel="stylesheet/less" href="//cdn.rawgit.com/ohryan/b9593841c024c033783d/raw/23e29f06e2e8a6ddd28487e8faba814f4e6c9cdb/responsive-align.less"/>
 <style type="text/x-less">
+body {
+	font-family:'Ubuntu Mono', monospace;
+	vertical-align: baseline;
+}
+
 .header-title {
 	h1 {
 		margin: 0;
@@ -33,20 +36,19 @@
 		display: inline-block;
 	}
 }
-.looper(@class, @property, @unit, @min: 0, @max: 10, @step: 1) {
-	.loop(@i) when (@i <= @max) {
-		@cls: e(replace(@class, '\*', @i, 'g'));
-		@{cls} {
-			@{property}: unit(@i, @unit);
-		}
-		.loop(@i + @step);
-	}
-	.loop(@min);
-}
+</style>
+<style type="text/x-less">
+@screen-sm-min: 768px;
+@screen-md-min: 992px;
+@screen-lg-min: 1200px;
+@import (less) '//gist.githubusercontent.com/ohryan/b9593841c024c033783d/raw/eaae7694dac1de45717ce729b7d219936ca68af1/responsive-align.less';
+</style>
+<style type="text/x-less">
+@import (less) '//gist.githubusercontent.com/anovsiradj/3de6c00e85480a2e8b4f4dd2db0887e6/raw/7b67df209ecd686fef65599868c5da979d2077a8/looper.less';
 .looper('.w-*', width, px, 0, 100, 5);
 .looper('.w-*p', width, %, 0, 100, 5);
 @looper-max: 100;
-@looper-step: 1;
+@looper-step: 5;
 .looper('.mg-*', margin, px, 0, @looper-max, @looper-step);
 .looper('.mg-t-*', margin-top, px, 0, @looper-max, @looper-step);
 .looper('.mg-b-*', margin-bottom, px, 0, @looper-max, @looper-step);
@@ -54,18 +56,7 @@
 .looper('.pd-t-*', padding-top, px, 0, @looper-max, @looper-step);
 .looper('.pd-b-*', padding-bottom, px, 0, @looper-max, @looper-step);
 </style>
-<script>
-var less = {
-	env: 'production', // development
-	async: true,
-	globalVars: {
-		'screen-sm-min': '768px',
-		'screen-md-min': '992px',
-		'screen-lg-min': '1200px'
-	}
-}
-</script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.3/less.min.js"></script>
+<script data-env="production" data-env-alt="development" data-async="true" data-file-async="true" src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.3/less.min.js"></script>
 </head>
 <body>
 
@@ -365,10 +356,103 @@ var less = {
 
 <script src="cdn/lib/w3l3k.js"></script>
 <script>w3l3k({class:'jse'}).init();</script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<script>
+	/*
+	https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
+	https://developer.mozilla.org/en-US/docs/Web/HTTP/Response_codes
+	*/
+	var AJAX = (function() {
+		function load(xhr, callback) {
+			/*
+			responseheader:Content-Type is match /json/ => parse to JSON
+			responseXML isnot NULL => yes
+			anything else, responseText.
+			*/
+			var mime = xhr.getResponseHeader('Content-Type');
+			var result;
+			if (/json/.test(mime)) {
+				try {
+					result = JSON.parse(xhr.response);
+				} catch(e) {
+					if (xhr._failed) {
+						xhr._failed(e.message, xhr);
+						return;
+					}
+				}
+			} else if (xhr.responseXML) {
+				result = xhr.responseXML;
+			} else {
+				result = xhr.responseText;
+			}
+			if (xhr.status >= 200 && xhr.status < 400) {
+				callback(result, xhr);
+			} else {
+				if (xhr._failed) {
+					error(xhr, xhr._failed);
+				}
+			}
+		}
+		function error(xhr, callback) {
+			callback(xhr.statusText, xhr);
+		}
+		return function(method, target, loaded, failed) {
+			var xhr = new XMLHttpRequest();
+			if (method) {
+				if (failed) {
+					xhr._failed = failed;
+					xhr.addEventListener('error', function() {
+						error(this, failed);
+					});
+					xhr.addEventListener('abort', function() {
+						error(this, failed);
+					});
+				}
+				if (loaded) {
+					xhr._loaded = loaded;
+					xhr.addEventListener('load', function() {
+						load(this, loaded);
+					});
+				}
+				if (target) {
+					xhr.open(method, target);
+				}
+			}
+			xhr.send();
+		}
+	})();
+
+	/*
+	AJAX('get', '/git/hub/Chrome49Shim/manifest.json', function(data) {
+		console.log(data);
+	}, function(message) {
+		console.error(message);
+	});
+	AJAX('get', '/git/hub/js-utilities/package.json', function(data) {
+		console.log(data);
+	}, function(message) {
+		console.error(message);
+	});
+	AJAX('get', '/gin/NEOKUD/crossdomain.xml', function(data) {
+		console.log(data);
+	});
+	AJAX('get', '/blank.html', function(data) {
+		console.log(data);
+	});
+
+	AJAX('get', '/fake.file', function(data) {
+		console.log(data);
+	}, function(message) {
+		console.error(message);
+	});
+	*/
+</script>
 <script>
 ;(function() {
+	function id(id) {
+		return document.getElementById(id);
+	}
 	// https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
 	var LSAvailable = (function() {
 		try {
@@ -392,7 +476,7 @@ var less = {
 	}
 
 	function github_api_ajax() {
-		$.get('//api.github.com/repos/anovsiradj/anovsiradj.github.io/commits?path=resume.html', function(commits) {
+		AJAX('get', '//api.github.com/repos/anovsiradj/anovsiradj.github.io/commits?path=resume.html', function(commits) {
 			if (LSAvailable) localStorage.setItem('git-resume-revision', JSON.stringify(commits));
 			github_api_exec(commits);
 		});
@@ -407,9 +491,9 @@ var less = {
 			hour: 'numeric',
 			minute: 'numeric'
 		};
-		$('#revision-count').text('Revisi ke ' + commits.length + ' kali');
-		$('#revision-last').text('Terakhir diubah ' + d1.toLocaleDateString('id', d_opts));
-		$('#revision-first').text('Pertama dibuat ' + d2.toLocaleDateString('id', d_opts));
+		id('revision-count').innerText = 'Revisi ke ' + commits.length + ' kali';
+		id('revision-last').innerText = 'Terakhir diubah ' + d1.toLocaleDateString('id', d_opts);
+		id('revision-first').innerText = 'Pertama dibuat ' + d2.toLocaleDateString('id', d_opts);
 	}
 })();
 </script>
