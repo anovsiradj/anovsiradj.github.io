@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<script>
+/**
+* Number.(isNaN|isFinite|isInteger) Polyfill
+* 
+* @author © 2005–2017 Mozilla Developer Network and individual contributors.
+* @url https://developer.mozilla.org/
+* 
+* @refference:
+* https://stackoverflow.com/a/7972460
+* 
+*/
+if (!('isNaN' in Number)) {
+	Number.isNaN = function(value) {
+		return value !== value;
+	};
+}
+if (!('isFinite' in Number)) {
+	Number.isFinite = function(value) {
+		return typeof value === 'number' && isFinite(value);
+	};
+}
+if (!('isInteger' in Number)) {
+	Number.isInteger = function(value) {
+		return typeof value === 'number' && isFinite(value) && Math.floor(value) === value;
+	};
+}
+</script>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ping Para + Suda</title>
+	<style>
+		html, body, * {
+			margin: 0;
+			padding: 0;
+			border: none;
+		}
+		body {
+			font-family: sans-serif;
+		}
+		form {
+			padding: 10px;
+		}
+		input {
+			outline: none;
+			display: block;
+			font-size: 2em;
+			width: 100%;
+			margin-bottom: 10px;
+		}
+		input[name=input] {
+			padding-bottom: 10px;
+			border-bottom: 1px solid rgba(0,0,0,0.1);
+		}
+		input[name=input]:focus {
+			border-bottom-color: rgba(0,0,0,0.5);
+		}
+		button[type=submit] {
+			visibility: hidden;
+			height: 0px;
+		}
+		pre {
+			text-align: right;
+			color: rgba(0,0,0,0.1);
+		}
+		pre:hover {
+			color: rgba(0,0,0,0.5);
+		}
+	</style>
+</head>
+<body>
+	<form autocomplete="off">
+		<input name="input" placeholder="+-*/" autofocus/>
+		<input name="output"/>
+		<button type="submit">enter</button>
+		<pre>you can change <b>options</b> from browser's devtool.</pre>
+	</form>
+	<script>
+		var form = document.forms[0];
+		var options = {
+			float_fixed: 2,
+			onenter_disable: true,
+			oninput_disable: false
+		};
+
+		form.addEventListener('submit', function(ev) {
+			ev.preventDefault();
+			if (options.onenter_disable) return;
+			update(this.elements.namedItem('input'), this.elements.namedItem('output'));
+		});
+
+		form.addEventListener('input', function() {
+			if (options.oninput_disable) return;
+			update(this.elements.namedItem('input'), this.elements.namedItem('output'));
+		});
+
+		function update(input, output) {
+			var result;
+			try {
+				result = eval(input.value);
+			} catch (e) {
+				result = 0;
+			}
+			if (Number.isNaN(result) === false && Number.isFinite(result)) {
+				if (Number.isInteger(result)) {
+					output.value = result;
+				} else {
+					output.value = result.toFixed(options.float_fixed);
+				}
+			} else {
+				output.value = null;
+			}
+		}
+	</script>
+</body>
+</html>
