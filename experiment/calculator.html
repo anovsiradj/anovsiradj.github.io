@@ -3,7 +3,7 @@
 /**
 * Number.(isNaN|isFinite|isInteger) Polyfill
 * 
-* @author © 2005–2017 Mozilla Developer Network and individual contributors.
+* @author Mozilla Developer Network and individual contributors.
 * @url https://developer.mozilla.org/
 * 
 * @refference:
@@ -37,10 +37,8 @@ if (!('isInteger' in Number)) {
 			border: none;
 		}
 		body {
-			font-family: sans-serif;
-		}
-		form {
 			padding: 10px;
+			font-family: sans-serif;
 		}
 		input {
 			outline: none;
@@ -51,10 +49,10 @@ if (!('isInteger' in Number)) {
 		}
 		input[name=input] {
 			padding-bottom: 10px;
-			border-bottom: 1px solid rgba(0,0,0,0.1);
+			border-bottom: 1px solid rgba(0,0,0,0.025);
 		}
 		input[name=input]:focus {
-			border-bottom-color: rgba(0,0,0,0.5);
+			border-bottom-color: rgba(0,0,0,0.050);
 		}
 		button[type=submit] {
 			visibility: hidden;
@@ -74,14 +72,15 @@ if (!('isInteger' in Number)) {
 		<input name="input" placeholder="+-*/" autofocus/>
 		<input name="output"/>
 		<button type="submit">enter</button>
-		<pre>you can change <b>options</b> from browser's devtool.</pre>
 	</form>
+	<pre>you can change <b>options</b> from browser's devtool.</pre>
 	<script>
 		var form = document.forms[0];
 		var options = {
 			float_fixed: 2,
 			onenter_disable: true,
-			oninput_disable: false
+			oninput_disable: false,
+			rgx: /^[\.\(\)\<\>\%0-9\*\/\+\-]+$/
 		};
 
 		form.addEventListener('submit', function(ev) {
@@ -97,12 +96,15 @@ if (!('isInteger' in Number)) {
 
 		function update(input, output) {
 			var result;
-			try {
-				result = eval(input.value);
-			} catch (e) {
-				result = 0;
+			if (options.rgx.test(input.value)) {
+				try {
+					result = eval(input.value);
+				} catch (e) {
+					// do nothing ...
+				}
 			}
-			if (Number.isNaN(result) === false && Number.isFinite(result)) {
+
+			if (result && Number.isNaN(result) === false && Number.isFinite(result)) {
 				if (Number.isInteger(result)) {
 					output.value = result;
 				} else {
