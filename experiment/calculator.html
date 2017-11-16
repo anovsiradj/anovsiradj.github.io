@@ -28,7 +28,13 @@ if (!('isInteger' in Number)) {
 </script>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8"/>
+	<!--
+	from twbs v3
+	https://getbootstrap.com/docs/3.3/getting-started/
+	-->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Ping Para + Suda</title>
 	<style>
 		html, body, * {
@@ -37,43 +43,37 @@ if (!('isInteger' in Number)) {
 			border: none;
 		}
 		body {
+			color: #000;
 			padding: 10px;
-			font-family: sans-serif;
 		}
 		input {
 			outline: none;
 			display: block;
-			font-size: 2em;
+			font-size: 2.5em;
+			font-family: sans-serif;
 			width: 100%;
+			padding-bottom: 10px;
 			margin-bottom: 10px;
 		}
 		input[name=input] {
-			padding-bottom: 10px;
-			border-bottom: 1px solid rgba(0,0,0,0.025);
+			border-bottom: 0.1em solid rgba(0,0,0,0.1);
 		}
 		input[name=input]:focus {
-			border-bottom-color: rgba(0,0,0,0.050);
+			border-bottom-color: rgba(0,0,0,0.5);
 		}
 		button[type=submit] {
 			visibility: hidden;
-			height: 0px;
-		}
-		pre {
-			text-align: right;
-			color: rgba(0,0,0,0.1);
-		}
-		pre:hover {
-			color: rgba(0,0,0,0.5);
+			overflow: hidden;
+			height: 0;
 		}
 	</style>
 </head>
 <body>
 	<form autocomplete="off">
-		<input name="input" placeholder="+-*/" autofocus/>
+		<input name="input" placeholder="*/+-" autofocus/>
 		<input name="output"/>
 		<button type="submit">enter</button>
 	</form>
-	<pre>you can change <b>options</b> from browser's devtool.</pre>
 	<script>
 		var form = document.forms[0];
 		var options = {
