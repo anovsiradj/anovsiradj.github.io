@@ -11,19 +11,19 @@
 			'vendor': {
 				'css': {
 					'font': '//fonts.googleapis.com/css?family=Ubuntu',
-					'framework': '//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css',
-					'hjls_theme':'//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/gruvbox-dark.min.css'
+					'framework': '//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css',
+					'hjls_theme':'//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/gruvbox-dark.min.css'
 				},
 				'js': {
-					'markdownit': '//cdnjs.cloudflare.com/ajax/libs/markdown-it/8.2.2/markdown-it.min.js',
-					'hjls': '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js'
+					'markdownit': '//cdnjs.cloudflare.com/ajax/libs/markdown-it/8.4.0/markdown-it.min.js',
+					'hjls': '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js'
 				}
 			},
 			'style': [
 				'#[content] {background-color: #eee; color: #222;}',
 				'#[content] {position: relative;font-family:Ubuntu,sans-serif;padding:32px 72px;margin: 0px;}',
 				'#[content]>h1, #[content]>h2, #[content]>h3, #[content]>h4, #[content]>h5, #[content]>h6 {}',
-				'#[content]>p code {color: #8C1C13;background-color:rgba(140,28,19,0.1);padding-left:4px;padding-right:4px;}',
+				'#[content] *:not(pre) code {color: #8C1C13;background-color:rgba(140,28,19,0.1);padding-left:4px;padding-right:4px;}',
 				'#[toc] {font-family:Ubuntu,sans-serif;position:fixed;top:8px;right:8px;padding:8px;background-color:rgba(255,255,255,0.8);color:#333;border:1px solid #999;z-index:999;opacity:0.2;}',
 				'#[toc]:hover{opacity:1;}',
 				'#[content] a,#[toc] a {color: #0099ff;}'
