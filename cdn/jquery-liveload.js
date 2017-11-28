@@ -20,6 +20,10 @@
 */
 
 ;(function($) {
+	if (!($)) {
+		console.error('jQuery is not defined.');
+		return;
+	}
 
 	var defaults = {
 		target: window.location.href, // self
@@ -71,6 +75,7 @@
 			if (options.stop) return delay_get();
 
 			$.ajax({
+				type: 'HEAD',
 				url: options.target,
 				ifModified: true, // http://stackoverflow.com/a/10579657/3036312
 				success: function(a, b, xhr) {
