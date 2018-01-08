@@ -1,0 +1,4 @@
+/*
+todo.
+XHRGET = require('./xhrget');
+*/

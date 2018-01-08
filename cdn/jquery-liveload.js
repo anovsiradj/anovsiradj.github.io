@@ -76,7 +76,11 @@
 
 			$.ajax({
 				type: 'HEAD',
+				cache: false,
 				url: options.target,
+				data: {
+					_: Date.now()
+				},
 				ifModified: true, // http://stackoverflow.com/a/10579657/3036312
 				success: function(a, b, xhr) {
 
