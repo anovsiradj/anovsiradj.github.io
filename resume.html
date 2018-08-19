@@ -4,20 +4,26 @@
 <link rel="stylesheet" href="//assets.ubuntu.com/sites/guidelines/css/latest/ubuntu-styles.css"/>
 <link rel='image_src' href='cdn/img/anovsiradj-markup-style.png'/>
 <title>anovsiradj - Resume</title>
+<script>
+	window.less = {
+		'env': 'production',
+		'async': true,
+		'fileAsync': true,
+	};
+</script>
 <style type="text/x-less">
 body {
 	font-family:'Ubuntu Mono', monospace;
 	vertical-align: baseline;
-	font-size: 14px;
+	//font-size: 16px;
 }
-
 .header-title {
 	h1 {
 		margin: 0;
 		span {
-			padding: 1.5vw 2.2vw;
-			display:inline-block;
-			font-size:4.2vw;
+			padding: 1.1vw 2.2vw;
+			display: inline-block;
+			font-size: 4.4vw;
 		}
 	}
 }
@@ -43,8 +49,6 @@ body {
 @screen-md-min: 992px;
 @screen-lg-min: 1200px;
 @import (less) '//gist.githubusercontent.com/ohryan/b9593841c024c033783d/raw/eaae7694dac1de45717ce729b7d219936ca68af1/responsive-align.less';
-</style>
-<style type="text/x-less">
 @import (less) '//gist.githubusercontent.com/anovsiradj/3de6c00e85480a2e8b4f4dd2db0887e6/raw/7b67df209ecd686fef65599868c5da979d2077a8/looper.less';
 .looper('.w-*', width, px, 0, 100, 5);
 .looper('.w-*p', width, %, 0, 100, 5);
@@ -57,7 +61,7 @@ body {
 .looper('.pd-t-*', padding-top, px, 0, @looper-max, @looper-step);
 .looper('.pd-b-*', padding-bottom, px, 0, @looper-max, @looper-step);
 </style>
-<script data-env="production" data-env-alt="development" data-async="true" data-file-async="true" src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.0.4/less.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.8.1/less.min.js"></script>
 </head>
 <body>
 
@@ -73,9 +77,9 @@ body {
 			<div class="jse" data-hell="innerText" data-evil="'suatu tempat di Indonesia'"></div>
 			<div class="jse" data-hell="innerText" data-evil="atob('YW5vdi5zaXJhZGoyMkBnbWFpbC5jb20=')"></div>
 			<div class="jse" data-hell="innerText" data-evil="['2526', '9810' , '(+62)821'].reverse().join('')"></div>
-			<div class="jse" data-hell="innerText" data-evil="'Umur '+((new Date().getFullYear())-1996)+' tahun'" title="Dihitung Secara Otomatis"></div>
+			<div class="jse" data-hell="innerText" data-evil="'Umur '+(((new Date()).getFullYear())-1996)+' tahun'" title="Dihitung Secara Otomatis"></div>
 			<div>
-				<a class="jse" data-hell="href" data-evil="'http://ne-a-r.blogspot.com/ncr'" target="_blank">Blog</a>
+				<a class="jse" data-hell="href" data-evil="'https://ne-a-r.blogspot.com/ncr'" target="_blank">Blog</a>
 			</div>
 		</div>
 	</div>
@@ -95,7 +99,7 @@ body {
 						<span>/</span>
 						<span class='text-info'><a href="http://www.gi.co.id/" target="_blank">Global Intermedia Nusantara</a></span>
 						<span>/</span>
-						<span class='text-info'>Yogyakarta, Papua (Nabire, Jayapura, Yahukimo)</span>
+						<span class='text-info'>Yogyakarta, Papua (Nabire, Yahukimo, Jayapura)</span>
 					</p>
 				</li>
 				<li>
@@ -191,18 +195,16 @@ body {
 		</div>
 		<div class="col-md-8 col-md-push-1">
 			<p>
-				Semua kode pernah saya tulis, saya Git-kan di
+				Sebagian besar kode yang saya buat, saya publikasikan di
 				<a href="//github.com/anovsiradj" target="_blank">GitHub</a>
-				maupun
-				<a href="//gitlab.com/anovsiradj" target="_blank">GitLab</a>.
+				(dan <a href="//gitlab.com/anovsiradj" target="_blank">GitLab</a>).
 			</p>
-			<p></p>
 
 			<ul class="list-ubuntu">
 				<li>
 					<h3 class="content-item-title">PHP: Hypertext Preprocessor</h3>
 					<ul class="list-canonical">
-						<li><a href="http://php.net/" target="_blank">PHP</a> (5/7)</li>
+						<li><a href="https://secure.php.net/" target="_blank">PHP</a> (5/7)</li>
 						<li><a href="https://getcomposer.org/" target="_blank">Composer</a></li>
 						<li><a href="https://www.codeigniter.com/" target="_blank">CodeIgniter</a> (3)</li>
 						<!-- <li>PHPUnit</li> -->
@@ -220,9 +222,8 @@ body {
 						<li>JavaScript (ECMAScript)</li>
 						<li><a href="https://nodejs.org" target="_blank">Node.js</a> (6)</li>
 						<li>
-							<a href="https://jquery.com/" target="_blank">jQuery</a>,
-							<a href="https://jqueryui.com/" target="_blank">jQuery UI</a>,
-							<a href="https://jquerymobile.com/" target="_blank">jQuery Mobile</a>
+							<a href="https://jquery.com/" target="_blank">jQuery</a>
+							(dan <a href="https://jqueryui.com/" target="_blank">jQuery UI</a>)
 						</li>
 						<li>
 							<a href="https://www.npmjs.com/" target="_blank">NPM</a>,
@@ -245,7 +246,7 @@ body {
 					<h3 class="content-item-title">SQL (Structured Query Language - Database)</h3>
 					<ul class="list-canonical">
 						<li><a href="https://www.sqlite.org/" target="_blank">SQLite</a></li>
-						<li><a href="http://www.firebirdsql.org/" target="_blank">FireBird</a></li>
+						<li><a href="https://www.firebirdsql.org/" target="_blank">FireBirdSQL</a></li>
 						<li><a href="https://www.mysql.com/" target="_blank">MySQL</a></li>
 					</ul>
 					<p class="content-list-alt">
@@ -262,7 +263,7 @@ body {
 						</li>
 						<li>(X)HTML4</li>
 						<li>(X)HTML5</li>
-						<li><a href="https://www.blogger.com/" target="_blank">Blogger (Blogspot)</a> Template (Custom XML)</li>
+						<li><a href="https://www.blogger.com/" target="_blank">Blogger/Blogspot</a> Template (Custom XML)</li>
 					</ul>
 				</li>
 				<li>
@@ -270,7 +271,7 @@ body {
 					<ul class="list-canonical">
 						<li>CSS2</li>
 						<li>CSS3</li>
-						<li><a href="http://getbootstrap.com/" target="_blank">Twitter-Bootstrap</a> (3)</li>
+						<li><a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> (3)</li>
 						<li><a href="http://purecss.io/" target="_blank">Pure</a> (1)</li>
 					</ul>
 				</li>
@@ -338,19 +339,16 @@ body {
 
 <div id="footer" class="container-fluid">
 	<div class="row text-muted">
-		<div class="col-md-3">Dibuat oleh <a href="javascript:void(0);">Anov Siradj</a>.</div>
-		<div class="col-md-3">
-			Terinspirasi resume milik <a href="https://www.paulirish.com/" target="_blank">Paul Irish</a>.
-		</div>
-		<div class="col-md-3">
+		<div class="col-md-4">Dibuat oleh <a href="javascript:void(0);">Anov Siradj</a>.</div>
+		<div class="col-md-4">
 			Desain menggunakan
-			<a href="https://getbootstrap.com/docs/3.3/" target="_blank">Twitter-Bootstrap</a>
+			<a href="https://getbootstrap.com/docs/3.3/" target="_blank">Bootstrap (3)</a>
 			dan
 			<!-- <a href="http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu web style Framework</a>. -->
 			<a href="https://web.archive.org/web/20171011213844/http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu web style</a>
 			(<a href="https://vanillaframework.io/" target="_blank">Vanilla</a>).
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-4">
 			<div id="revision-first"></div>
 			<div id="revision-last"></div>
 			<div id="revision-count"></div>
