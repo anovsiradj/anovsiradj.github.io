@@ -14,7 +14,7 @@ jadi saya ikutan juga bikin webapp untuk "PON Papua 2020".
 ---
 
 ```txt
-pertama dibuat pada 20180808-222644,
+pertama dibuat pada 20180909-222644,
 lama pembuatan ~3jam.
 ```
 
