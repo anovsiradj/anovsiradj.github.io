@@ -1,0 +1,23 @@
+*.css
+*.map
+!*.min.css
+!*-min.css
+*.js
+!*.min.js
+
+!table-grid/*.css
+!ab4af91cb7e62ce8c48798356c123bd1/*.js
+jquery/external
+
+*.md
+*.html
+*.json
+*.less
+
+# bs3
+font*
+grunt*
+Gem*
+less*
+*.nuspec
+*.ps1

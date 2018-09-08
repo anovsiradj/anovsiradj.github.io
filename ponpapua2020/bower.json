@@ -1,0 +1,17 @@
+{
+  "name": "ponpapua2020",
+  "authors": [
+    "anovsiradj <anov.siradj22@gmail.com>"
+  ],
+  "description": "ponpapua2020",
+  "main": "",
+  "license": "ISC",
+  "homepage": "www.poppapua2020.id",
+  "private": true,
+  "dependencies": {
+    "pure": "^1.0.0",
+    "bootstrap": "3",
+    "table-grid": "mdo/table-grid#^1.0.0",
+    "ab4af91cb7e62ce8c48798356c123bd1": "https://gist.github.com/ab4af91cb7e62ce8c48798356c123bd1.git"
+  }
+}
