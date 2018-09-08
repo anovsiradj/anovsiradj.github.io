@@ -6,6 +6,7 @@ assets
 [theme.css](theme.css)
 [ponxx.js](ponxx.js)
 [main.js](main.js)
+| [yt](https://youtu.be/KRKzlLEQbCg)
 
 karena mengajar dan melihat membuat OCD saya kambuh,
 jadi saya ikutan juga bikin webapp untuk "PON Papua 2020".
