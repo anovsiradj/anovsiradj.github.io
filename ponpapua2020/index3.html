@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="bower_components/pure/pure-min.css">
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bower_components/table-grid/table-grid.css">
+	<link rel="stylesheet" href="theme.css">
+	<script src="ponxx.js"></script>
+	<style>
+		.headline:nth-child(1) span {
+			background-color: var(--green);
+		}
+		.headline:nth-child(3) span {
+			background-color: var(--yellow);
+		}
+		.headline:nth-child(4) span {
+			background-color: var(--red);
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div id="bg"></div>
+	<div id="content">
+		<div class="grid grid-align-middle">
+			<div class="col col-12">
+				<h4 class="headline"><span class="eval" data-k="innerText" data-v="window.ponxx.url"></span></h4>
+				<h3 class="headline" id="countdown">
+					<span>
+						<b class="cd">000</b>
+						<small>Hari</small>
+					</span>
+					<span>
+						<b class="ch">00</b>
+						<small>Jam</small>
+					</span>
+					<span>
+						<b class="cm">00</b>
+						<small>Menit</small>
+					</span>
+					<span>
+						<b class="cs">00</b>
+						<small>Detik</small>
+					</span>
+				</h3>
+				<h1 class="headline"><span>Menuju PON Papua 2020</span></h1>
+				<h5 class="headline"><span>09 September 2020 20:20:00 WIT</span></h5>
+			</div>
+		</div>
+	</div>
+
+<script src="bower_components/jquery/dist/jquery.slim.min.js"></script>
+<script src="bower_components/ab4af91cb7e62ce8c48798356c123bd1/time-countdown.js"></script>
+<script src="main.js"></script>	
+</body>
+</html>

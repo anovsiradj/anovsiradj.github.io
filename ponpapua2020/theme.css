@@ -1,0 +1,85 @@
+:root {
+	/* https://gist.github.com/anovsiradj/d4c62e260895b95a2c8accdd1c0c58ad */
+	--fonts: 'system-ui', '-apple-system', BlinkMacSystemFont, Ubuntu, Oxygen, Cantarell, Roboto, 'Droid Sans', 'Segoe UI', Tahoma, 'Microsoft Sans Serif', Helvetica, 'sans-serif';
+	/* https://coolors.co/0267c1-669900-841c26-353531-f5b700 */
+	--blue: #0267C1;
+	--red: #841C26;
+	--yellow: #F5B700;
+	--green: #669900;
+	--black: #222;
+	--white: whitesmoke;
+	--gap: 8px;
+}
+
+html,body,#content {
+	height: 100%;
+}
+
+body {
+	font-family: var(--fonts);
+	color: var(--black);
+	background-color: whitesmoke;
+}
+
+#bg {
+	position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+	opacity: 0;
+	transition: opacity 1s linear;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	/*filter: blur(1px);*/
+}
+
+#content {
+	position: relative;
+}
+#content > .grid.grid-align-middle {
+	height: 100%;
+	vertical-align: middle;
+	position: relative;
+}
+
+#countdown span {
+	min-width: 16vw;
+	color: #fff;
+	background: var(--blue);
+}
+#countdown small {
+	color: var(--white);
+}
+#countdown.headline {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+*.headline {
+	margin: 0;
+	text-align: center;
+	margin: calc(var(--gap)*1.5);
+	margin-bottom: calc(var(--gap)*2);
+}
+*.headline span {
+	display: inline-block;
+	border: 1px solid rgba(0,0,0,0.0);
+	padding: calc(var(--gap)*0.5) calc(var(--gap)*1.5);
+}
+h1.headline {
+	font-size: 6vw;
+}
+h2.headline {
+	font-size: 5vw;
+}
+h3.headline {
+	font-size: 4vw;
+}
+h4.headline {
+	font-size: 3vw;
+}
+h5.headline {
+	font-size: 2vw;
+}
+h6.headline {
+	font-size: 1vw;
+}
