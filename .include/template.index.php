@@ -58,7 +58,7 @@ if(!$index_development) ob_start();
 		text-decoration: none;
 	}
 	</style>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
 </head>
 <body>
 	<table>
