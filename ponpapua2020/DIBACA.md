@@ -8,10 +8,6 @@ assets
 [main.js](main.js)
 | [yt](https://youtu.be/KRKzlLEQbCg)
 
-karena mengajar dan melihat membuat OCD saya kambuh,
-jadi saya ikutan juga bikin webapp untuk "PON Papua 2020".
-
----
 
 ```txt
 pertama dibuat pada 20180909-222644,
