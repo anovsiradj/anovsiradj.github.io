@@ -1,16 +1,10 @@
 <!DOCTYPE html><html lang="id" dir="ltr"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
 <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Ubuntu+Mono'/>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="//assets.ubuntu.com/sites/guidelines/css/latest/ubuntu-styles.css"/>
 <link rel='image_src' href='cdn/img/anovsiradj-markup-style.png'/>
 <title>anovsiradj - Resume</title>
-<script>
-	window.less = {
-		'env': 'production',
-		'async': true,
-		'fileAsync': true,
-	};
-</script>
+<script>window.less = { 'env': 'production', 'async': true, 'fileAsync': true, };</script>
 <style type="text/x-less">
 body {
 	font-family:'Ubuntu Mono', monospace;
@@ -61,7 +55,7 @@ body {
 .looper('.pd-t-*', padding-top, px, 0, @looper-max, @looper-step);
 .looper('.pd-b-*', padding-bottom, px, 0, @looper-max, @looper-step);
 </style>
-<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.8.1/less.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 </head>
 <body>
 
@@ -74,12 +68,12 @@ body {
 		</div>
 		<div class="header-info col-md-6 text-xs-center text-md-right">
 			<br class="hidden-lg hidden-md"/>
-			<div class="jse" data-hell="innerText" data-evil="'suatu tempat di Indonesia'"></div>
+			<div class="jse" data-hell="innerText" data-evil="'Berada di suatu tempat di Indonesia'"></div>
 			<div class="jse" data-hell="innerText" data-evil="atob('YW5vdi5zaXJhZGoyMkBnbWFpbC5jb20=')"></div>
-			<div class="jse" data-hell="innerText" data-evil="['2526', '9810' , '(+62)821'].reverse().join('')"></div>
-			<div class="jse" data-hell="innerText" data-evil="'Umur '+(((new Date()).getFullYear())-1996)+' tahun'" title="Dihitung Secara Otomatis"></div>
+			<div class="jse" data-hell="innerText" data-evil="['2526', '9810' , '(+62)821'].reverse().join(' ')"></div>
+			<div class="jse" data-hell="innerText" data-evil="'Umur ' + (((new Date()).getFullYear())-1996) + ' Tahun'" title="Dihitung Secara Otomatis"></div>
 			<div>
-				<a class="jse" data-hell="href" data-evil="'https://ne-a-r.blogspot.com/ncr'" target="_blank">Blog</a>
+				<a class="jse" data-hell="href" data-evil="'https://ne-a-r.blogspot.com'" target="_blank">WebLog</a>
 			</div>
 		</div>
 	</div>
@@ -97,7 +91,7 @@ body {
 					<p class="text-muted">
 						<span class='text-info'>Feb 2016 - Sekarang</span>
 						<span>/</span>
-						<span class='text-info'><a href="http://www.gi.co.id/" target="_blank">Global Intermedia Nusantara</a></span>
+						<span class='text-info'><a href="http://www.gi.co.id/" target="_blank">PT. Global Intermedia Nusantara</a></span>
 						<span>/</span>
 						<span class='text-info'>Yogyakarta, Papua (Nabire, Yahukimo, Jayapura)</span>
 					</p>
@@ -107,7 +101,7 @@ body {
 					<p class="text-muted">
 						<span class='text-info'>Agt 2015 - Jan 2016</span>
 						<span>/</span>
-						<span class='text-info'><a href="http://nextin-indonesia.com/" target="_blank">NextIn Indonesia</a></span>
+						<span class='text-info'>NextIn Indonesia</span>
 						<span>/</span>
 						<span class='text-info'>Yogyakarta</span>
 					</p>
@@ -195,20 +189,21 @@ body {
 		</div>
 		<div class="col-md-8 col-md-push-1">
 			<p>
-				Sebagian besar kode yang saya buat, saya publikasikan di
+				Sebagian besar sourcecode yang saya buat, saya publikasikan pada
 				<a href="//github.com/anovsiradj" target="_blank">GitHub</a>
-				(dan <a href="//gitlab.com/anovsiradj" target="_blank">GitLab</a>).
+				(dan <a href="//gitlab.com/anovsiradj" target="_blank">GitLab</a>)
+				serta <a href="https://jsfiddle.net/user/anovsiradj">JSFiddle</a>.
 			</p>
 
 			<ul class="list-ubuntu">
 				<li>
 					<h3 class="content-item-title">PHP: Hypertext Preprocessor</h3>
 					<ul class="list-canonical">
-						<li><a href="https://secure.php.net/" target="_blank">PHP</a> (5/7)</li>
+						<li><a href="https://secure.php.net/" target="_blank">PHP</a></li>
 						<li><a href="https://getcomposer.org/" target="_blank">Composer</a></li>
 						<li><a href="https://www.codeigniter.com/" target="_blank">CodeIgniter</a> (3)</li>
-						<!-- <li>PHPUnit</li> -->
-						<!-- <li>Laravel 5</li> -->
+						<li>Laravel (5) <span class="text-muted">(lupa)</span></li>
+						<li>PHPUnit</li>
 					</ul>
 					<p>Saya lebih sering menggunakan <code>No-Framework Framework</code>.</p>
 					<p>
@@ -216,25 +211,41 @@ body {
 						tapi jika diperlukan, saya bisa mempelajarinya.
 					</p>
 				</li>
+
 				<li>
-					<h3 class="content-item-title">JavaScript (ECMAScript) - Node.js</h3>
+					<h3 class="content-item-title">Python</h3>
 					<ul class="list-canonical">
-						<li>JavaScript (ECMAScript)</li>
-						<li><a href="https://nodejs.org" target="_blank">Node.js</a> (6)</li>
+						<li>
+							<a href="https://www.python.org/" target="_blank">Python</a> (3)
+							dan <a href="https://pip.pypa.io/en/stable/">pip</a>
+						</li>
+						<li><a href="https://getcomposer.org/" target="_blank">Django</a> (2)</li>
+					</ul>
+					<p>Saya lebih sering menggunakan <code>No-Framework Framework</code>.</p>
+					<p>
+						Saya sendiri jarang memakai Framework atau CMS,
+						tapi jika diperlukan, saya bisa mempelajarinya.
+					</p>
+				</li>
+
+				<li>
+					<h3 class="content-item-title">JavaScript ( ECMAScript ) - Node.js</h3>
+					<ul class="list-canonical">
+						<li>JavaScript (ECMAScript) ECMA-262</li>
+						<li><a href="https://nodejs.org" target="_blank">Node.js</a> (6/8)</li>
 						<li>
 							<a href="https://jquery.com/" target="_blank">jQuery</a>
 							(dan <a href="https://jqueryui.com/" target="_blank">jQuery UI</a>)
 						</li>
 						<li>
+							<a href="https://bower.io/" target="_blank">Bower</a>,
 							<a href="https://www.npmjs.com/" target="_blank">NPM</a>,
-							<a href="https://yarnpkg.com/en/" target="_blank">Yarn</a>,
-							<a href="https://bower.io/" target="_blank">Bower</a>
+							<a href="https://yarnpkg.com/en/" target="_blank">Yarn</a>
 						</li>
 						<li><a href="https://vuejs.org/" target="_blank">Vue.js</a> (2)</li>
 					</ul>
 					<p class="content-list-alt">
 						<span class="label label-default">NW.js</span>
-						<span class="label label-default">Less.js</span>
 						<span class="label label-default">Browserify</span>
 						<span class="label label-default">Grunt</span>
 						<span class="label label-default"><a href="https://lodash.com/" target="_blank">LoDash</a></span>
@@ -243,34 +254,32 @@ body {
 					</p>
 				</li>
 				<li>
-					<h3 class="content-item-title">SQL (Structured Query Language - Database)</h3>
+					<h3 class="content-item-title">[no]SQL ( [no] Structured Query Language - Database )</h3>
 					<ul class="list-canonical">
 						<li><a href="https://www.sqlite.org/" target="_blank">SQLite</a></li>
-						<li><a href="https://www.firebirdsql.org/" target="_blank">FireBirdSQL</a></li>
-						<li><a href="https://www.mysql.com/" target="_blank">MySQL</a></li>
+						<li><a href="https://www.firebirdsql.org/" target="_blank">FireBirdSQL</a> (2/3)</li>
+						<li><a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a> (9)</li>
+						<li><a href="https://www.mysql.com/" target="_blank">MySQL</a> (5)</li>
+						<li class="text-muted"><a href="https://couchdb.apache.org/">CouchDB</a> (2)</li>
 					</ul>
-					<p class="content-list-alt">
-						<!-- <span>Cukup bisa:</span> -->
-						<span class="label label-default">PostgresSQL</span>
-					</p>
 				</li>
 				<li>
-					<h3 class="content-item-title">(X)HTML ([Extensible] Hypertext Markup Language)</h3>
+					<h3 class="content-item-title">[X]HTML ( [Extensible] Hypertext Markup Language )</h3>
 					<ul class="list-canonical">
 						<li>XML</li>
-						<li>
-							<a href="https://en.wikipedia.org/wiki/MXML" target="_blank">MXML</a>
+						<li>[X]HTML4</li>
+						<li>[X]HTML5</li>
+						<li class="text-muted">
+							<a href="https://www.blogger.com/" target="_blank">Blogger/Blogspot</a> Template (Custom XML)
 						</li>
-						<li>(X)HTML4</li>
-						<li>(X)HTML5</li>
-						<li><a href="https://www.blogger.com/" target="_blank">Blogger/Blogspot</a> Template (Custom XML)</li>
 					</ul>
 				</li>
 				<li>
-					<h3 class="content-item-title">CSS (Cascading Style Sheets)</h3>
+					<h3 class="content-item-title">CSS ( Cascading Style Sheets )</h3>
 					<ul class="list-canonical">
 						<li>CSS2</li>
 						<li>CSS3</li>
+						<li><a href="http://lesscss.org/">LESS</a> (3)</li>
 						<li><a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> (3)</li>
 						<li><a href="http://purecss.io/" target="_blank">Pure</a> (1)</li>
 					</ul>
@@ -278,11 +287,9 @@ body {
 				<li>
 					<h3 class="content-item-title">Lain-lain</h3>
 					<ul class="list-canonical">
-						<li>OS - Linux (Ubuntu, Mint), Windows</li>
-						<li>Git (Github, GitLab, RedHat OpenShift, Heroku, dst)</li>
-						<li>ActionScript (AS2 dan AS3) - Adobe Flash (sebelumnya: Macromedia Flash)</li>
-						<li>Apache Flex (sebelumnya: Adobe Flex) (ActionScript versi XML)</li>
-						<li>
+						<li>OS - Linux (Debian, Ubuntu, Mint), Windows</li>
+						<li>Git (Github, GitLab, OpenShift)</li>
+						<li class="text-muted">
 							Pixel Graphic -
 							<span title="Lupa-lupa ingat">
 								Gimp,
@@ -290,14 +297,14 @@ body {
 							</span>
 							<span title="(O_o)">Paint</span>
 						</li>
-						<li>
+						<li class="text-muted">
 							Vector Graphic -
 							<span title="Lupa-lupa ingat">
 								InkScape,
 								CorelDraw
 							</span>
 						</li>
-						<li>
+						<li class="text-muted">
 							3D Modeling -
 							<span title="Lupa-lupa ingat">Wings3D</span>
 						</li>
@@ -312,25 +319,20 @@ body {
 		</div>
 		<div class="col-md-8 col-md-push-1">
 			<small style="text-align: justify-all;">
-				mempelajari hal-hal baru, ingin membuat permainan dengan pemrograman yg saya kuasai, nonton film aksi/ misteri/ psikis,
-				mendengarkan musik rap/ western jadul/ edm/ korea, punya bakat seniman,
-				lebih memilih dikejar deadline dari pada bebas, pengen ngeblog tapi malas,
+				mempelajari hal-hal baru, ingin membuat permainan dengan pemrograman yang saya kuasai,
+				nonton film aksi/ misteri/ psikis, mendengarkan musik eurobeat /soultronica /edm,
+				punya bakat seniman, 7sin:malas,
+				lebih memilih dikejar deadline dari pada bebas, pengen nulis weblog tapi malas,
 				suka menulis di kertas, pilih capek dari pada santai,
 				uang bukan prioritas tapi untuk memfasilitas ngoding,
-				lebih percaya orang yang menonton pron daripada orang yang menonton anemi,
-				ingin membuat startup, pinter ngambar,
-				kadang buat issue di github,
+				ingin membuat startup, apa itu OpenGL/DirectX !?,
 				ngoding yang tidak jelas, coba-coba fw/library baru, susah fokus kalau tidak cocok,
 				tidur, naik sepeda, naik bis,
-				<!-- makan nasi padang, -->
 				makan di angkringan, suka makan telur, sudah menyerah adsense, saya (bisa dibilang) sombong,
-				<!-- nonton rapat Ahok di yt, -->
-				wismilak kretek, promild, sampoerna, 76, malbor
-				<!-- GG-Signature/ malbor/ danhil, -->
-				suka film aksi korea, anti-weeb-shit,
-				produk web tidak laku-laku,
-				suka main bonk.io,
-				ingin belajar android tapi fasilitas terbatas,
+				sampoerna, malbor,
+				produk website tidak laku-laku,
+				suka main bonk(dot)io,
+				ingin belajar android tapi fasilitas tidak memenuhi,
 				etc.
 			</small>
 		</div>
@@ -341,11 +343,10 @@ body {
 	<div class="row text-muted">
 		<div class="col-md-4">Dibuat oleh <a href="javascript:void(0);">Anov Siradj</a>.</div>
 		<div class="col-md-4">
-			Desain menggunakan
+			Tema
 			<a href="https://getbootstrap.com/docs/3.3/" target="_blank">Bootstrap (3)</a>
 			dan
-			<!-- <a href="http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu web style Framework</a>. -->
-			<a href="https://web.archive.org/web/20171011213844/http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu web style</a>
+			<a href="https://web.archive.org/web/20171011213844/http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu Web Style</a>
 			(<a href="https://vanillaframework.io/" target="_blank">Vanilla</a>).
 		</div>
 		<div class="col-md-4">
@@ -388,8 +389,11 @@ body {
 		});
 	}
 	function github_api_exec(commits) {
+		var lang = (document.querySelector('html') || {}).lang || 'id';
 		var d1 = new Date(commits[0].commit.committer.date);
+		var d1_1 = new Date(commits[1].commit.committer.date);
 		var d2 = new Date(commits[commits.length-1].commit.committer.date);
+		var d2_1 = new Date(commits[commits.length-2].commit.committer.date);
 		var d_opts = {
 			year: 'numeric',
 			month: 'short',
@@ -398,8 +402,8 @@ body {
 			// minute: 'numeric'
 		};
 		id('revision-count').innerText = 'Revisi ke ' + commits.length + ' kali';
-		id('revision-last').innerText = 'Terakhir diubah ' + d1.toLocaleDateString('id', d_opts);
-		id('revision-first').innerText = 'Pertama dibuat ' + d2.toLocaleDateString('id', d_opts);
+		id('revision-last').innerText = 'Terakhir diubah ' + (d1.toLocaleDateString(lang, d_opts) || d1.toString());
+		id('revision-first').innerText = 'Pertama dibuat ' + (d2.toLocaleDateString(lang, d_opts) || d2.toString());
 	}
 })();
 </script>
