@@ -1,0 +1,60 @@
+20190925085339
+
+# ABANDONED #
+
+linux 4.15.0-64-generic x86_64 / ubuntu 16.04 lts (xenial xerus) / wine 4.16 devel
+
+```sh
+
+unzip FastReport.v2019.4.0-CommunityEdition.zip
+mv FastReport.Community/ FRCE
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x64 WINEARCH=win64 wineboot
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x64 
+
+<< errwarnlogs___
+	Unhandled Exception:
+	System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.TypeInitializationException: The type initializer for 'FastReport.Utils.Config' threw an exception. ---> System.ComponentModel.Win32Exception: No valid icon entry were found.
+	  at System.Drawing.Icon.InitFromStreamWithSize (System.IO.Stream stream, System.Int32 width, System.Int32 height) [0x001f3] in <bf6bb9e05442423182af98afb32b074a>:0 
+	  at System.Drawing.Icon..ctor (System.IO.Stream stream, System.Int32 width, System.Int32 height) [0x00011] in <bf6bb9e05442423182af98afb32b074a>:0 
+	  at System.Drawing.Icon..ctor (System.IO.Stream stream) [0x00000] in <bf6bb9e05442423182af98afb32b074a>:0 
+	  at (wrapper remoting-invoke-with-check) System.Drawing.Icon..ctor(System.IO.Stream)
+	  at FastReport.Utils.ResourceLoader.GetIcon (System.String assembly, System.String resource) [0x00007] in <40be3ada096a4be08e709e94e3f61940>:0 
+	  at FastReport.Utils.ResourceLoader.GetIcon (System.String resource) [0x00000] in <40be3ada096a4be08e709e94e3f61940>:0 
+	  at FastReport.Design.DesignerSettings..ctor () [0x00006] in <40be3ada096a4be08e709e94e3f61940>:0 
+	  at FastReport.Utils.Config..cctor () [0x00000] in <40be3ada096a4be08e709e94e3f61940>:0 
+	   --- End of inner exception stack trace ---
+	  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+	  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	   --- End of inner exception stack trace ---
+	  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	  at System.Reflection.RuntimePropertyInfo.SetValue (System.Object obj, System.Object value, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] index, System.Globalization.CultureInfo culture) [0x0005d] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	  at System.Reflection.PropertyInfo.SetValue (System.Object obj, System.Object value, System.Object[] index) [0x00000] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	  at Viewer.Program.Main (System.String[] args) [0x001b6] in <5f27ab38054e4571815112dfdb4de29f>:0 
+	[ERROR] FATAL UNHANDLED EXCEPTION: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.TypeInitializationException: The type initializer for 'FastReport.Utils.Config' threw an exception. ---> System.ComponentModel.Win32Exception: No valid icon entry were found.
+	  at System.Drawing.Icon.InitFromStreamWithSize (System.IO.Stream stream, System.Int32 width, System.Int32 height) [0x001f3] in <bf6bb9e05442423182af98afb32b074a>:0 
+	  at System.Drawing.Icon..ctor (System.IO.Stream stream, System.Int32 width, System.Int32 height) [0x00011] in <bf6bb9e05442423182af98afb32b074a>:0 
+	  at System.Drawing.Icon..ctor (System.IO.Stream stream) [0x00000] in <bf6bb9e05442423182af98afb32b074a>:0 
+	  at (wrapper remoting-invoke-with-check) System.Drawing.Icon..ctor(System.IO.Stream)
+	  at FastReport.Utils.ResourceLoader.GetIcon (System.String assembly, System.String resource) [0x00007] in <40be3ada096a4be08e709e94e3f61940>:0 
+	  at FastReport.Utils.ResourceLoader.GetIcon (System.String resource) [0x00000] in <40be3ada096a4be08e709e94e3f61940>:0 
+	  at FastReport.Design.DesignerSettings..ctor () [0x00006] in <40be3ada096a4be08e709e94e3f61940>:0 
+	  at FastReport.Utils.Config..cctor () [0x00000] in <40be3ada096a4be08e709e94e3f61940>:0 
+	   --- End of inner exception stack trace ---
+	  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+	  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	   --- End of inner exception stack trace ---
+	  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	  at System.Reflection.RuntimePropertyInfo.SetValue (System.Object obj, System.Object value, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] index, System.Globalization.CultureInfo culture) [0x0005d] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	  at System.Reflection.PropertyInfo.SetValue (System.Object obj, System.Object value, System.Object[] index) [0x00000] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	  at Viewer.Program.Main (System.String[] args) [0x001b6] in <5f27ab38054e4571815112dfdb4de29f>:0 
+errwarnlogs___
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x64 winetricks vcrun6 vcrun6sp6
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x64 winetricks riched20 riched30 richtx32
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x64 winetricks msxml3 msxml4 msxml6
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x64 winetricks dotnet20 # FAIL #
+
+```
