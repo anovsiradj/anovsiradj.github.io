@@ -1,0 +1,814 @@
+20190925085339
+
+# BERHASIL #
+
+tapi tidak bisa simpan. sekarang sudah bisa simpan, dengan cara dari winecfg lalu
+comctl32,comctl32ocx,comdlg32ocx,tabctl32 rubah native,builtin menjadi builtin,native.
+
+linux 4.15.0-64-generic x86_64 / ubuntu 16.04 lts (xenial xerus) / wine 4.16 devel
+
+```sh
+
+unzip FastReport.v2019.4.0-CommunityEdition.zip
+mv FastReport.Community/ FRCE
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 WINEARCH=win32 wineboot
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine FRCE/Viewer.exe
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 WINEDEBUG=+seh,loaddll wine FRCE/Viewer.exe
+<< errwarnlogs___
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
+	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
+	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
+	000b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
+	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\wineboot.exe" at 0x400000: PE builtin
+	000b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ece0000: builtin
+	000b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7ec20000: builtin
+	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
+	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
+	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\winemenubuilder.exe" at 0x7ed20000: builtin
+	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ebd0000: builtin
+	000f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
+	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\gdi32.dll" at 0x7ea80000: builtin
+	000f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
+	000f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\services.exe" at 0x400000: PE builtin
+	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7e9a0000: builtin
+	000f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ece0000: builtin
+	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
+	000f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7ec20000: builtin
+	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\version.dll" at 0x65980000: PE builtin
+	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\user32.dll" at 0x7e770000: builtin
+	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\ole32.dll" at 0x65200000: PE builtin
+	000f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
+	000f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\version.dll" at 0x65980000: PE builtin
+	000f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\setupapi.dll" at 0x6a900000: PE builtin
+	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\oleaut32.dll" at 0x6a300000: PE builtin
+	000f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\userenv.dll" at 0x67f00000: PE builtin
+	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\propsys.dll" at 0x69e80000: PE builtin
+	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shlwapi.dll" at 0x68c40000: PE builtin
+	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shcore.dll" at 0x64b40000: PE builtin
+	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\windowscodecs.dll" at 0x7ec60000: builtin
+	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\shell32.dll" at 0x7dd70000: builtin
+	0012:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
+	0012:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
+	0012:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\plugplay.exe" at 0x400000: PE builtin
+	0012:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ece0000: builtin
+	0012:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7ec20000: builtin
+	0012:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
+	0019:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
+	0019:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
+	0019:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\winedevice.exe" at 0x400000: PE builtin
+	0019:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ece0000: builtin
+	0019:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7ec20000: builtin
+	0019:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\hal.dll" at 0x6f200000: PE builtin
+	0019:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\ntoskrnl.exe" at 0x67c00000: PE builtin
+	0019:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
+	001b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\version.dll" at 0x65980000: PE builtin
+	001b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\setupapi.dll" at 0x6a900000: PE builtin
+	001b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\drivers\\winebus.sys" at 0x7ebd0000: builtin
+	001b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\hidclass.sys" at 0x62e40000: PE builtin
+	001b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\drivers\\winehid.sys" at 0x6b5c0000: PE builtin
+	001b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\hid.dll" at 0x64d80000: PE builtin
+	001b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\gdi32.dll" at 0x7e690000: builtin
+	001b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\user32.dll" at 0x7e7f0000: builtin
+	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\imm32.dll" at 0x6c0c0000: PE builtin
+	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
+	001f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
+	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\explorer.exe" at 0x400000: PE builtin
+	001f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ece0000: builtin
+	001f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\gdi32.dll" at 0x7eb90000: builtin
+	001f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7eac0000: builtin
+	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
+	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\version.dll" at 0x65980000: PE builtin
+	001f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\user32.dll" at 0x7e890000: builtin
+	001b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\imm32.dll" at 0x6c0c0000: PE builtin
+	0022:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
+	0022:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
+	0022:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\winedevice.exe" at 0x400000: PE builtin
+	0022:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ece0000: builtin
+	0022:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7ec20000: builtin
+	0022:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\hal.dll" at 0x6f200000: PE builtin
+	0022:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\ntoskrnl.exe" at 0x67c00000: PE builtin
+	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\imm32.dll" at 0x6c0c0000: PE builtin
+	0022:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
+	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\setupapi.dll" at 0x6a900000: PE builtin
+	001f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\winex11.drv" at 0x7e600000: builtin
+	0024:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\drivers\\mountmgr.sys" at 0x7ebd0000: builtin
+	0024:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\version.dll" at 0x65980000: PE builtin
+	0024:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\setupapi.dll" at 0x6a900000: PE builtin
+	0026:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\gdi32.dll" at 0x7e390000: builtin
+	0026:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\user32.dll" at 0x7e4f0000: builtin
+	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\setupapi.dll" at 0x6a900000: PE builtin
+	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\winex11.drv" at 0x7dad0000: builtin
+	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shlwapi.dll" at 0x68c40000: PE builtin
+	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\ole32.dll" at 0x65200000: PE builtin
+	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shcore.dll" at 0x64b40000: PE builtin
+	001f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\shell32.dll" at 0x7d660000: builtin
+	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\oleaut32.dll" at 0x6a300000: PE builtin
+	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\actxprxy.dll" at 0xab0000: PE builtin
+	0026:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\imm32.dll" at 0x6c0c0000: PE builtin
+	000b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\gdi32.dll" at 0x7e040000: builtin
+	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\version.dll" at 0x65980000: PE builtin
+	000b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\user32.dll" at 0x7de20000: builtin
+	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shlwapi.dll" at 0x68c40000: PE builtin
+	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
+	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\ole32.dll" at 0x65200000: PE builtin
+	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shcore.dll" at 0x64b40000: PE builtin
+	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\imm32.dll" at 0x6c0c0000: PE builtin
+	000b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\shell32.dll" at 0x7e220000: builtin
+	0009:trace:loaddll:load_native_dll Loaded L"Z:\\home\\anoop\\Softwares\\win\\FastReportEditor\\FRCE\\Viewer.exe" at 0x400000: native
+	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ece0000: builtin
+	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\dbghelp.dll" at 0x7ec60000: builtin
+	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7eb80000: builtin
+	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\gdi32.dll" at 0x7ea20000: builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\version.dll" at 0x65980000: PE builtin
+	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\user32.dll" at 0x7e7f0000: builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\ole32.dll" at 0x65200000: PE builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shlwapi.dll" at 0x68c40000: PE builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shcore.dll" at 0x64b40000: PE builtin
+	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\shell32.dll" at 0x7dde0000: builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\mscoree.dll" at 0x643c0000: PE builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\imm32.dll" at 0x6c0c0000: PE builtin
+	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\bcrypt.dll" at 0xf7c00000: builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\OLEAUT32.dll" at 0x6a300000: PE builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\PSAPI.DLL" at 0x6aec0000: PE builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\msacm32.dll" at 0x66640000: PE builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\WINMM.DLL" at 0x639c0000: PE builtin
+	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\WS2_32.dll" at 0xf7bd0000: builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\bin\\libmono-2.0-x86.dll" at 0x6c540000: native
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\Microsoft.NET\\Framework\\v2.0.50727\\fusion.dll" at 0x6fcc0000: PE builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\4.5\\mscorlib.dll" at 0x2530000: native
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\setupapi.dll" at 0x6a900000: PE builtin
+	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\winex11.drv" at 0xf7810000: builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Windows.Forms\\4.0.0.0__b77a5c561934e089\\System.Windows.Forms.dll" at 0x10000000: native
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System\\4.0.0.0__b77a5c561934e089\\System.dll" at 0x2b60000: native
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Core\\4.0.0.0__b77a5c561934e089\\System.Core.dll" at 0x2df0000: native
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Drawing\\4.0.0.0__b03f5f7f11d50a3a\\System.Drawing.dll" at 0x2f00000: native
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Windows.Forms\\4.0.0.0__b77a5c561934e089\\uxtheme.dll" at 0x62340000: PE builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Configuration\\4.0.0.0__b03f5f7f11d50a3a\\System.Configuration.dll" at 0x2f80000: native
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Xml\\4.0.0.0__b77a5c561934e089\\System.Xml.dll" at 0xd1c0000: native
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Windows.Forms.DataVisualization\\4.0.0.0__31bf3856ad364e35\\System.Windows.Forms.DataVisualization.dll" at 0xd4d0000: native
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Data\\4.0.0.0__b77a5c561934e089\\System.Data.dll" at 0xd500000: native
+	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\ucrtbase.dll" at 0xf74e0000: builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Drawing\\4.0.0.0__b03f5f7f11d50a3a\\gdiplus.dll" at 0x6f680000: PE builtin
+	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\propsys.dll" at 0x69e80000: PE builtin
+	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\windowscodecs.dll" at 0xf73f0000: builtin
+
+	Unhandled Exception:
+	System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.TypeInitializationException: The type initializer for 'FastReport.Utils.Config' threw an exception. ---> System.ComponentModel.Win32Exception: No valid icon entry were found.
+	  at System.Drawing.Icon.InitFromStreamWithSize (System.IO.Stream stream, System.Int32 width, System.Int32 height) [0x001f3] in <bf6bb9e05442423182af98afb32b074a>:0 
+	  at System.Drawing.Icon..ctor (System.IO.Stream stream, System.Int32 width, System.Int32 height) [0x00011] in <bf6bb9e05442423182af98afb32b074a>:0 
+	  at System.Drawing.Icon..ctor (System.IO.Stream stream) [0x00000] in <bf6bb9e05442423182af98afb32b074a>:0 
+	  at (wrapper remoting-invoke-with-check) System.Drawing.Icon..ctor(System.IO.Stream)
+	  at FastReport.Utils.ResourceLoader.GetIcon (System.String assembly, System.String resource) [0x00007] in <40be3ada096a4be08e709e94e3f61940>:0 
+	  at FastReport.Utils.ResourceLoader.GetIcon (System.String resource) [0x00000] in <40be3ada096a4be08e709e94e3f61940>:0 
+	  at FastReport.Design.DesignerSettings..ctor () [0x00006] in <40be3ada096a4be08e709e94e3f61940>:0 
+	  at FastReport.Utils.Config..cctor () [0x00000] in <40be3ada096a4be08e709e94e3f61940>:0 
+	   --- End of inner exception stack trace ---
+	  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+	  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	   --- End of inner exception stack trace ---
+	  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	  at System.Reflection.RuntimePropertyInfo.SetValue (System.Object obj, System.Object value, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] index, System.Globalization.CultureInfo culture) [0x0005d] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	  at System.Reflection.PropertyInfo.SetValue (System.Object obj, System.Object value, System.Object[] index) [0x00000] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	  at Viewer.Program.Main (System.String[] args) [0x001b6] in <5f27ab38054e4571815112dfdb4de29f>:0 
+	[ERROR] FATAL UNHANDLED EXCEPTION: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.TypeInitializationException: The type initializer for 'FastReport.Utils.Config' threw an exception. ---> System.ComponentModel.Win32Exception: No valid icon entry were found.
+	  at System.Drawing.Icon.InitFromStreamWithSize (System.IO.Stream stream, System.Int32 width, System.Int32 height) [0x001f3] in <bf6bb9e05442423182af98afb32b074a>:0 
+	  at System.Drawing.Icon..ctor (System.IO.Stream stream, System.Int32 width, System.Int32 height) [0x00011] in <bf6bb9e05442423182af98afb32b074a>:0 
+	  at System.Drawing.Icon..ctor (System.IO.Stream stream) [0x00000] in <bf6bb9e05442423182af98afb32b074a>:0 
+	  at (wrapper remoting-invoke-with-check) System.Drawing.Icon..ctor(System.IO.Stream)
+	  at FastReport.Utils.ResourceLoader.GetIcon (System.String assembly, System.String resource) [0x00007] in <40be3ada096a4be08e709e94e3f61940>:0 
+	  at FastReport.Utils.ResourceLoader.GetIcon (System.String resource) [0x00000] in <40be3ada096a4be08e709e94e3f61940>:0 
+	  at FastReport.Design.DesignerSettings..ctor () [0x00006] in <40be3ada096a4be08e709e94e3f61940>:0 
+	  at FastReport.Utils.Config..cctor () [0x00000] in <40be3ada096a4be08e709e94e3f61940>:0 
+	   --- End of inner exception stack trace ---
+	  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+	  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	   --- End of inner exception stack trace ---
+	  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	  at System.Reflection.RuntimePropertyInfo.SetValue (System.Object obj, System.Object value, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] index, System.Globalization.CultureInfo culture) [0x0005d] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	  at System.Reflection.PropertyInfo.SetValue (System.Object obj, System.Object value, System.Object[] index) [0x00000] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
+	  at Viewer.Program.Main (System.String[] args) [0x001b6] in <5f27ab38054e4571815112dfdb4de29f>:0 
+	0009:trace:loaddll:free_modref Unloaded module L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Xml\\4.0.0.0__b77a5c561934e089\\System.Xml.dll" : native
+	0009:trace:loaddll:free_modref Unloaded module L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Windows.Forms.DataVisualization\\4.0.0.0__31bf3856ad364e35\\System.Windows.Forms.DataVisualization.dll" : native
+	0009:trace:loaddll:free_modref Unloaded module L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Data\\4.0.0.0__b77a5c561934e089\\System.Data.dll" : native
+	0009:trace:loaddll:free_modref Unloaded module L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Drawing\\4.0.0.0__b03f5f7f11d50a3a\\gdiplus.dll" : builtin
+	0009:trace:loaddll:free_modref Unloaded module L"C:\\windows\\system32\\ucrtbase.dll" : builtin
+	0009:trace:loaddll:free_modref Unloaded module L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Windows.Forms\\4.0.0.0__b77a5c561934e089\\uxtheme.dll" : builtin
+errwarnlogs___
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks vcrun6 vcrun6sp6
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks riched20 riched30 richtx32
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks msxml3 msxml4 msxml6
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks dotnet20
+
+# FAIL #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks dotnet20sp1
+# DONE #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine ~/.cache/winetricks/dotnet20sp1/NetFx20SP1_x86.exe
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks dotnet20sp2
+
+# TOOK SO LONG #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine "c:\\windows\\Microsoft.NET\\Framework\\v2.0.50727\\ngen.exe" update
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 WINEDEBUG=+warn,+err,+msgbox wine FRCE/Viewer.exe
+<< errwarnlogs___
+	002f:fixme:process:SetProcessShutdownParameters (00000380, 00000000): partial stub.
+	0009:trace:msgbox:MSGBOX_OnInit L"To run this application, you first must install one of the following versions of the .NET Framework:\r\n  v4.0.30319\r\nContact your application publisher for instructions about obtaining the appropriate version of the .NET Framework."
+	002f:fixme:service:QueryServiceConfig2W Level 6 not implemented
+	0034:err:ole:CoReleaseMarshalData StdMarshal ReleaseMarshalData failed with error 0x8001011d
+	0034:fixme:msvcrt:__clean_type_info_names_internal (0x7a3c5ca4) stub
+	0045:err:ole:CoReleaseMarshalData StdMarshal ReleaseMarshalData failed with error 0x8001011d
+	0045:fixme:msvcrt:__clean_type_info_names_internal (0x7a3c5ca4) stub
+	0053:err:ole:CoReleaseMarshalData StdMarshal ReleaseMarshalData failed with error 0x8001011d
+	0061:err:ole:CoReleaseMarshalData StdMarshal ReleaseMarshalData failed with error 0x8001011d
+	0061:fixme:msvcrt:__clean_type_info_names_internal (0x7a3c5ca4) stub
+	006f:err:ole:CoReleaseMarshalData StdMarshal ReleaseMarshalData failed with error 0x8001011d
+	006f:fixme:msvcrt:__clean_type_info_names_internal (0x7a3c5ca4) stub
+	002f:fixme:service:QueryServiceConfig2W Level 6 not implemented
+errwarnlogs___
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks corefonts
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks dotnet40
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine "c:\\windows\\Microsoft.NET\\Framework\\v4.0.30319\\ngen.exe" update
+
+<< errwarnlogs___
+	0009:fixme:ntdll:EtwEventRegister ({e13c0d23-ccbc-4e12-931b-d9cc2eee27e4}, 0x7932a40c, 0x797293b0, 0x79764880) stub.
+	0009:fixme:ntdll:EtwEventRegister ({763fd754-7086-4dfe-95eb-c01a46faf4ca}, 0x7932a40c, 0x797292f0, 0x79729998) stub.
+	0009:fixme:ntdll:EtwEventRegister ({a669021c-c450-4609-a035-5af59af4df18}, 0x7932a40c, 0x79764890, 0x79764888) stub.
+	0009:fixme:wer:WerRegisterRuntimeExceptionModule (L"C:\\windows\\Microsoft.NET\\Framework\\v4.0.30319\\mscordacwks.dll", 0x79140000) stub!
+	002d:err:ole:CoGetContextToken apartment not initialised
+	0009:fixme:nls:LocaleNameToLCID unsupported flags 8000000
+	0009:fixme:path:parse_url failed to parse L"System.Windows.Forms"
+	0009:fixme:path:parse_url failed to parse L"System.Core"
+	0009:fixme:path:parse_url failed to parse L"System.Drawing"
+	0009:fixme:path:parse_url failed to parse L"System"
+	0009:fixme:process:FlushProcessWriteBuffers : stub
+	0009:fixme:path:parse_url failed to parse L"System.Xml"
+	0009:fixme:path:parse_url failed to parse L"FastReport.Bars"
+	0009:fixme:nls:LCIDToLocaleName unsupported flags 8000000
+	0009:fixme:nls:get_dummy_preferred_ui_language (0x0 0x3298b4 (nil) 0x3298b0) returning a dummy value (current locale)
+	0009:fixme:nls:get_dummy_preferred_ui_language (0x0 0x3298b4 0x16fe38 0x3298b0) returning a dummy value (current locale)
+	0009:fixme:path:parse_url failed to parse L"System.Windows.Forms.DataVisualization"
+	0009:fixme:path:parse_url failed to parse L"System.Data"
+	0009:fixme:ntdll:EtwEventRegister ({8e9f5090-2d75-4d03-8a81-e5afbf85daf1}, 0x1750612, (nil), 0x1ad74bc) stub.
+	0009:fixme:path:parse_url failed to parse L"Viewer.resources"
+	0009:fixme:path:parse_url failed to parse L"Viewer.resources"
+	0009:fixme:path:parse_url failed to parse L"Accessibility"
+	0009:fixme:gdiplus:GdipCreateHalftonePalette stub
+	0009:fixme:gdiplus:GdipGetFamilyName No support for handling of multiple languages!
+	0009:fixme:gdiplus:GdipGetNearestColor (06A109C0, 0032E2C8): Passing color unmodified
+	0009:fixme:gdiplus:GdipGetNearestColor (06A0F878, 0032E3A4): Passing color unmodified
+	0009:fixme:gdiplus:GdipGetNearestColor (06A18450, 0032E7C4): Passing color unmodified
+	0009:fixme:olepicture:OLEPictureImpl_QueryInterface () : asking for unsupported interface {c3fcc19e-a970-11d2-8b5a-00a0c9b7c9c4}
+	0009:fixme:olepicture:OLEPictureImpl_QueryInterface () : asking for unsupported interface {b196b283-bab4-101a-b69c-00aa00341d07}
+	0009:fixme:olepicture:OLEPictureImpl_QueryInterface () : asking for unsupported interface {00000003-0000-0000-c000-000000000046}
+	0009:fixme:gdiplus:GdipGetNearestColor (06A2D880, 0032E610): Passing color unmodified
+	0009:fixme:gdiplus:GdipGetNearestColor (06A2D880, 0032E610): Passing color unmodified
+	0009:fixme:gdiplus:GdipGetNearestColor (06A2D880, 0032E610): Passing color unmodified
+	0009:fixme:olepicture:OLEPictureImpl_QueryInterface () : asking for unsupported interface {c3fcc19e-a970-11d2-8b5a-00a0c9b7c9c4}
+	0009:fixme:olepicture:OLEPictureImpl_QueryInterface () : asking for unsupported interface {b196b283-bab4-101a-b69c-00aa00341d07}
+	0009:fixme:olepicture:OLEPictureImpl_QueryInterface () : asking for unsupported interface {00000003-0000-0000-c000-000000000046}
+	0009:fixme:gdiplus:GdipGetNearestColor (06AE9408, 0032C860): Passing color unmodified
+	0009:fixme:gdiplus:GdipGetNearestColor (06AF19D8, 0032CD60): Passing color unmodified
+	0009:fixme:path:parse_url failed to parse L"FastReport.Bars.resources"
+	0009:fixme:path:parse_url failed to parse L"FastReport.Bars.resources"
+	0009:fixme:path:parse_url failed to parse L"FastReport.Bars.resources"
+	0009:fixme:gdiplus:GdipGetNearestColor (069FA430, 0032C1B0): Passing color unmodified
+	0009:fixme:gdiplus:GdipGetNearestColor (06AF8A10, 0032C710): Passing color unmodified
+	0009:fixme:gdiplus:GdipGetNearestColor (06A4E3F0, 0032E2E0): Passing color unmodified
+	0009:fixme:path:parse_url failed to parse L"FastReport.Bars.resources"
+	0009:fixme:path:parse_url failed to parse L"FastReport.Bars.resources"
+	0009:fixme:path:parse_url failed to parse L"FastReport.Bars.resources"
+	0009:fixme:gdiplus:GdipGetNearestColor (06AFDE90, 0032B970): Passing color unmodified
+	0009:fixme:gdiplus:GdipGetNearestColor (001435E8, 0032B970): Passing color unmodified
+	0009:fixme:commdlg:IFileDialog2_fnQueryInterface Unknown interface requested: {c3fcc19e-a970-11d2-8b5a-00a0c9b7c9c4}.
+	0009:fixme:commdlg:IFileDialog2_fnQueryInterface Unknown interface requested: {00000003-0000-0000-c000-000000000046}.
+	0009:fixme:commdlg:IFileDialog2_fnQueryInterface Unknown interface requested: {00000144-0000-0000-c000-000000000046}.
+	0009:fixme:shell:ShellItem_QueryInterface not implemented for {c3fcc19e-a970-11d2-8b5a-00a0c9b7c9c4} (unknown)
+	0009:fixme:shell:ShellItem_QueryInterface not implemented for {b196b283-bab4-101a-b69c-00aa00341d07} (unknown)
+	0009:fixme:shell:ShellItem_QueryInterface not implemented for {00000003-0000-0000-c000-000000000046} (unknown)
+	0009:fixme:commdlg:IServiceProvider_fnQueryService Interface {e07010ec-bc17-44c0-97b0-46c7c95b9edc} requested from unknown service {e07010ec-bc17-44c0-97b0-46c7c95b9edc}
+	0009:fixme:shell:ViewModeToListStyle ViewMode 0 not implemented
+	0009:fixme:shell:IShellBrowser_fnSendControlMsg stub, 0x6a132e0 (2, 1026, a003, 0, 0x32d788)
+	0009:fixme:shell:IShellBrowser_fnSendControlMsg stub, 0x6a132e0 (2, 1025, a004, 1, 0x32d788)
+	0009:fixme:nstc:NSTC2_fnSetControlStyle2 mask & style (0x00000004) contains unsupported style(s): 0x00000004
+	0009:fixme:gdiplus:GdipGetNearestColor (07806478, 0032E2E0): Passing color unmodified
+	0009:fixme:gdiplus:GdipGetNearestColor (06904820, 0032E2E0): Passing color unmodified
+	002d:fixme:ntdll:EtwEventUnregister (deadbeef) stub.
+	002d:fixme:ole:Context_CC_ContextCallback (0021B190/0021B194)->(791C8272, 03C1CC98, {d7174f82-36b8-4aa8-800a-e963ab2dfab9}, 2, 00000000)
+	002d:fixme:ole:Context_CC_ContextCallback (0021B190/0021B194)->(791C8272, 03C1CC24, {d7174f82-36b8-4aa8-800a-e963ab2dfab9}, 2, 00000000)
+	002d:fixme:ole:Context_CC_ContextCallback (0021B190/0021B194)->(791C8272, 03C1CC24, {d7174f82-36b8-4aa8-800a-e963ab2dfab9}, 2, 00000000)
+errwarnlogs___
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks gdiplus
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks comctl32 comctl32ocx comdlg32ocx
+
+# TOOK SO LONG #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine "c:\\windows\\Microsoft.NET\\Framework\\v4.0.30319\\ngen.exe" update
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks windowmanagerdecorated=n windowmanagermanaged=n
+
+
+# DATASOURCES IS EMPTY #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine FRCE/Designer.exe
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks mdac27 mdac28
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine "c:\\windows\\Microsoft.NET\\Framework\\v4.0.30319\\ngen.exe" update
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks ole32 oleaut32
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine "c:\\windows\\Microsoft.NET\\Framework\\v4.0.30319\\ngen.exe" update
+<< errwarnlogs___
+	0025:fixme:reg:RegOpenUserClassesRoot (00000084, 0x0, 0x2000000, 0068F274) semi-stub
+	0025:fixme:ole:NdrCorrelationInitialize (0068E590, 0068E06C, 1024, 0x0): semi-stub
+	0025:fixme:ole:NdrCorrelationFree (0068E590): stub
+	000d:fixme:reg:RegOpenUserClassesRoot (00000094, 0x0, 0x2000000, 0032F8C8) semi-stub
+	0009:fixme:heap:RtlSetHeapInformation (nil) 1 (nil) 0 stub
+	0009:fixme:heap:RtlSetHeapInformation (nil) 1 (nil) 0 stub
+	0009:fixme:service:QueryServiceConfig2W Level 6 not implemented
+	Microsoft (R) CLR Native Image Generator - Version 4.0.30319.1
+	Copyright (c) Microsoft Corporation.  All rights reserved.
+	002b:fixme:heap:RtlSetHeapInformation (nil) 1 (nil) 0 stub
+	002b:fixme:heap:RtlSetHeapInformation (nil) 1 (nil) 0 stub
+	002b:fixme:reg:RegOpenUserClassesRoot (00000080, 0x0, 0x2000000, 0032F7A4) semi-stub
+	002b:fixme:ole:NdrCorrelationInitialize (0032EAC0, 0032E59C, 1024, 0x0): semi-stub
+	002b:fixme:ole:NdrCorrelationFree (0032EAC0): stub
+	ERROR:  GetCorSvcBindToUnregisteredWorker failed because the worker process died with errorcode -2147024882
+	All compilation targets are up to date.
+
+	windows error code -2147024882 === out of memory
+errwarnlogs___
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks tabctl32
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine "c:\\windows\\Microsoft.NET\\Framework\\v4.0.30319\\ngen.exe" update
+
+# CANNOT USE SAVE PROMPT, EXCEPTION OCCURED. #
+<< errwarnlogs___
+	See the end of this message for details on invoking 
+	just-in-time (JIT) debugging instead of this dialog box.
+
+	************** Exception Text **************
+	System.Runtime.InteropServices.SEHException (0x80004005): External component has thrown an exception.
+	   at System.Windows.Forms.FileDialogNative.IFileDialog.Show(IntPtr parent)
+	   at System.Windows.Forms.FileDialog.RunDialogVista(IntPtr hWndOwner)
+	   at System.Windows.Forms.FileDialog.RunDialog(IntPtr hWndOwner)
+	   at System.Windows.Forms.CommonDialog.ShowDialog(IWin32Window owner)
+	   at System.Windows.Forms.CommonDialog.ShowDialog()
+	   at FastReport.Design.DesignerSettings.OnCustomSaveDialog(Object sender, OpenSaveDialogEventArgs e)
+	   at FastReport.Design.ReportTab.SaveFile(Boolean saveAs)
+	   at FastReport.Design.SaveAsCommand.Invoke()
+	   at FastReport.Design.DesignerCommand.Invoke(Object sender, EventArgs e)
+	   at FastReport.DevComponents.DotNetBar.BaseItem.RaiseClick(eEventSource source)
+	   at FastReport.DevComponents.DotNetBar.BaseItem.InternalMouseUp(MouseEventArgs objArg)
+	   at FastReport.DevComponents.DotNetBar.PopupItem.InternalMouseUp(MouseEventArgs objArg)
+	   at FastReport.DevComponents.DotNetBar.ButtonItem.InternalMouseUp(MouseEventArgs objArg)
+	   at FastReport.DevComponents.DotNetBar.MenuPanel.OnMouseUp(MouseEventArgs e)
+	   at System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+	   at System.Windows.Forms.Control.WndProc(Message& m)
+	   at FastReport.DevComponents.DotNetBar.MenuPanel.WndProc(Message& m)
+	   at System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message& m)
+	   at System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message& m)
+	   at System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+
+
+	************** Loaded Assemblies **************
+	mscorlib
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 (RTMRel.030319-0100)
+	    CodeBase: file:///C:/windows/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll
+	----------------------------------------
+	Designer
+	    Assembly Version: 2019.4.0.0
+	    Win32 Version: 2019.4.0.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/Designer.exe
+	----------------------------------------
+	System.Windows.Forms
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 built by: RTMRel
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_MSIL/System.Windows.Forms/v4.0_4.0.0.0__b77a5c561934e089/System.Windows.Forms.dll
+	----------------------------------------
+	System.Drawing
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 built by: RTMRel
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_MSIL/System.Drawing/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Drawing.dll
+	----------------------------------------
+	System
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 built by: RTMRel
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_MSIL/System/v4.0_4.0.0.0__b77a5c561934e089/System.dll
+	----------------------------------------
+	System.Core
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 built by: RTMRel
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_MSIL/System.Core/v4.0_4.0.0.0__b77a5c561934e089/System.Core.dll
+	----------------------------------------
+	FastReport
+	    Assembly Version: 2019.4.0.0
+	    Win32 Version: 2019.4.0.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/Designer.exe
+	----------------------------------------
+	FastReport.Bars
+	    Assembly Version: 2019.4.0.0
+	    Win32 Version: 2019.4.0.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/Designer.exe
+	----------------------------------------
+	FastReport.Editor
+	    Assembly Version: 2019.4.0.0
+	    Win32 Version: 2019.4.0.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/Designer.exe
+	----------------------------------------
+	System.Xml
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 built by: RTMRel
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_MSIL/System.Xml/v4.0_4.0.0.0__b77a5c561934e089/System.Xml.dll
+	----------------------------------------
+	System.Windows.Forms.DataVisualization
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_MSIL/System.Windows.Forms.DataVisualization/v4.0_4.0.0.0__31bf3856ad364e35/System.Windows.Forms.DataVisualization.dll
+	----------------------------------------
+	System.Data
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 (RTMRel.030319-0100)
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_32/System.Data/v4.0_4.0.0.0__b77a5c561934e089/System.Data.dll
+	----------------------------------------
+	FastReport.Data.Couchbase
+	    Assembly Version: 2019.4.0.0
+	    Win32 Version: 2019.4.0.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/Designer.exe
+	----------------------------------------
+	FastReport.Data.Json
+	    Assembly Version: 2019.4.0.0
+	    Win32 Version: 2019.4.0.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/FastReport.Data.Json.DLL
+	----------------------------------------
+	FastReport.Data.Json
+	    Assembly Version: 2019.4.0.0
+	    Win32 Version: 2019.4.0.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/Designer.exe
+	----------------------------------------
+	Newtonsoft.Json
+	    Assembly Version: 11.0.0.0
+	    Win32 Version: 11.0.2.21924
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/Newtonsoft.Json.DLL
+	----------------------------------------
+	FastReport.Data.MongoDB
+	    Assembly Version: 2019.4.0.0
+	    Win32 Version: 2019.4.0.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/Designer.exe
+	----------------------------------------
+	FastReport.Data.MsSql
+	    Assembly Version: 2019.4.0.0
+	    Win32 Version: 2019.4.0.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/Designer.exe
+	----------------------------------------
+	netstandard
+	    Assembly Version: 2.0.0.0
+	    Win32 Version: 4.6.26011.1
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/netstandard.DLL
+	----------------------------------------
+	FastReport.Data.MySql
+	    Assembly Version: 2019.4.0.0
+	    Win32 Version: 2019.4.0.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/Designer.exe
+	----------------------------------------
+	FastReport.Data.OracleODPCore
+	    Assembly Version: 2019.4.0.0
+	    Win32 Version: 2019.4.0.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/Designer.exe
+	----------------------------------------
+	FastReport.Data.Postgres
+	    Assembly Version: 2019.4.0.0
+	    Win32 Version: 2019.4.0.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/Designer.exe
+	----------------------------------------
+	FastReport.Data.RavenDB
+	    Assembly Version: 2019.4.0.0
+	    Win32 Version: 2019.4.0.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/Designer.exe
+	----------------------------------------
+	FastReport.Data.SQLite
+	    Assembly Version: 2019.4.0.0
+	    Win32 Version: 2019.4.0.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/Designer.exe
+	----------------------------------------
+	Accessibility
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 built by: RTMRel
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_MSIL/Accessibility/v4.0_4.0.0.0__b03f5f7f11d50a3a/Accessibility.dll
+	----------------------------------------
+	MySql.Data
+	    Assembly Version: 6.7.9.0
+	    Win32 Version: 6.7.9.0
+	    CodeBase: file:///Z:/home/anoop/Softwares/win/FastReportEditor/FRCE/MySql.Data.DLL
+	----------------------------------------
+	System.Design
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 built by: RTMRel
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_MSIL/System.Design/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Design.dll
+	----------------------------------------
+	System.Transactions
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 (RTMRel.030319-0100)
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_32/System.Transactions/v4.0_4.0.0.0__b77a5c561934e089/System.Transactions.dll
+	----------------------------------------
+	System.Configuration
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 (RTMRel.030319-0100)
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_MSIL/System.Configuration/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Configuration.dll
+	----------------------------------------
+	System.EnterpriseServices
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 (RTMRel.030319-0100)
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_32/System.EnterpriseServices/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.EnterpriseServices.dll
+	----------------------------------------
+	System.Management
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 (RTMRel.030319-0100)
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_MSIL/System.Management/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Management.dll
+	----------------------------------------
+	System.Numerics
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 built by: RTMRel
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_MSIL/System.Numerics/v4.0_4.0.0.0__b77a5c561934e089/System.Numerics.dll
+	----------------------------------------
+	System.Security
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 (RTMRel.030319-0100)
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_MSIL/System.Security/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Security.dll
+	----------------------------------------
+	System.Data.SqlXml
+	    Assembly Version: 4.0.0.0
+	    Win32 Version: 4.0.30319.1 built by: RTMRel
+	    CodeBase: file:///C:/windows/Microsoft.Net/assembly/GAC_MSIL/System.Data.SqlXml/v4.0_4.0.0.0__b77a5c561934e089/System.Data.SqlXml.dll
+	----------------------------------------
+
+	************** JIT Debugging **************
+	To enable just-in-time (JIT) debugging, the .config file for this
+	application or computer (machine.config) must have the
+	jitDebugging value set in the system.windows.forms section.
+	The application must also be compiled with debugging
+	enabled.
+
+	For example:
+
+	<configuration>
+	    <system.windows.forms jitDebugging="true" />
+	</configuration>
+
+	When JIT debugging is enabled, any unhandled exception
+	will be sent to the JIT debugger registered on the computer
+	rather than be handled by this dialog box.
+errwarnlogs___
+<< errwarnlogs___
+	Unhandled exception: 0xe0434352 in 32-bit code (0x7124ca2f).
+	0042:fixme:dbghelp:elf_search_auxv can't find symbol in module
+	Register dump:
+	 CS:0023 SS:002b DS:002b ES:002b FS:0063 GS:006b
+	 EIP:7124ca2f ESP:0032ed6c EBP:0032ee60 EFLAGS:00200246(   - --  I  Z- -P- )
+	 EAX:0032ed78 EBX:00000000 ECX:0032ee2c EDX:00000010
+	 ESI:0032ee2c EDI:00142438
+	Stack dump:
+	0x0032ed6c:  79881104 0032ed80 7919c587 e0434352
+	0x0032ed7c:  00000001 00000000 7124ca2f 00000005
+	0x0032ed8c:  80131604 00000000 00000000 00000000
+	0x0032ed9c:  79140000 79150579 0032edb4 02000059
+	0x0032edac:  0032edb8 7915bc5e 79b9fd9c 0032edc8
+	0x0032edbc:  791ca99c 79b92bf0 0000014e 0032edd8
+	Backtrace:
+	=>0 0x7124ca2f EntryPoint+0xffffffff() in kernelbase (0x0032ee60)
+	  1 0x791cac08 EntryPoint+0xffffffff() in clr (0x0032ee60)
+	  2 0x793b5e83 AttachProfiler+0x972fa() in clr (0x0032ee80)
+	  3 0x793b5eff AttachProfiler+0x97376() in clr (0x0032eeac)
+	  4 0x793b5f3d AttachProfiler+0x973b4() in clr (0x0032eedc)
+	  5 0x793b5f50 AttachProfiler+0x973c7() in clr (0x0032eef0)
+	  6 0x794884e5 AttachProfiler+0x16995c() in clr (0x0032f10c)
+	  7 0x791d7d65 EntryPoint+0xffffffff() in clr (0x0032f1d8)
+	  8 0x79b3d689 in mscorlib.ni (+0x2bd688) (0x0032f22c)
+	  9 0x79b3d3d0 in mscorlib.ni (+0x2bd3cf) (0x0032f264)
+	  10 0x79b3bfed in mscorlib.ni (+0x2bbfec) (0x0032f28c)
+	  11 0x003e0a1e (0x0032f384)
+	  12 0x791421db EntryPoint+0xffffffff() in clr (0x0032f394)
+	  13 0x79164a2a EntryPoint+0xffffffff() in clr (0x0032f410)
+	  14 0x79164bcc EntryPoint+0xffffffff() in clr (0x0032f550)
+	  15 0x79164c01 EntryPoint+0xffffffff() in clr (0x0032f56c)
+	  16 0x79164c21 EntryPoint+0xffffffff() in clr (0x0032f584)
+	  17 0x7922ce82 EntryPoint+0x37591() in clr (0x0032f6e8)
+	  18 0x7922cf90 EntryPoint+0x3769f() in clr (0x0032f950)
+	  19 0x7922cda4 EntryPoint+0x374b3() in clr (0x0032fe34)
+	  20 0x7922d199 EntryPoint+0x378a8() in clr (0x0032fe88)
+	  21 0x7922d09a EntryPoint+0x377a9() in clr (0x0032fed4)
+	  22 0x792aaf00 EntryPoint+0xb560f() in clr (0x0032ff0c)
+	  23 0x603b55ab EntryPoint+0x2032() in mscoreei (0x0032ff18)
+	  24 0x79007f16 EntryPoint+0x50c1() in mscoree (0x0032ff28)
+	  25 0x79004de3 EntryPoint+0x1f8e() in mscoree (0x0032ff48)
+	  26 0x7b4729d1 ExitProcess+0x2320() in kernel32 (0x0032ffd8)
+	  27 0x7b4706ae call_process_entry+0x1d() in kernel32 (0x0032ffec)
+	0x7124ca2f EntryPoint+0xffffffff in kernelbase: subl	$4,%esp
+	Modules:
+	Module	Address			Debug info	Name (147 modules)
+	PE	  400000- 13c2000	Deferred        designer
+	PE	 41f0000- 4e5b000	Deferred        system.windows.forms.ni
+	PE	 5d70000- 604c000	Deferred        system.data
+	PE	 62c0000- 62cd000	Deferred        api-ms-win-core-processthreads-l1-1-0
+	PE	 fec0000- ffa3000	Deferred        oleacc
+	PE	100d0000-1010a000	Deferred        system.enterpriseservices.wrapper
+	PE	10120000-101bf000	Deferred        system.transactions.ni
+	PE	105d0000-1102b000	Deferred        system.design.ni
+	PE	117a0000-118bd000	Deferred        system.management.ni
+	PE	25cb0000-25e40000	Deferred        gdiplus
+	PE	5e0d0000-5e17a000	Deferred        diasymreader
+	PE	60060000-6006e000	Deferred        accessibility.ni
+	PE	603b0000-60416000	Export          mscoreei
+	PE	60930000-60940000	Deferred        nlssorting
+	PE	60c90000-60d81000	Deferred        system.configuration.ni
+	PE	60e50000-61506000	Deferred        system.core.ni
+	PE	61750000-61dc4000	Deferred        system.data.ni
+	PE	62800000-628b6000	Deferred        usp10
+	PE	64400000-6466f000	Deferred        system.data.sqlxml.ni
+	PE	64b40000-64b76000	Deferred        shcore
+	PE	65980000-65999000	Deferred        version
+	PE	65d70000-65e33000	Deferred        system.enterpriseservices.ni
+	PE	65f00000-65f0d000	Deferred        api-ms-win-core-localregistry-l1-1-0
+	PE	66230000-66256000	Deferred        system.numerics.ni
+	PE	66510000-665c3000	Deferred        system.security.ni
+	PE	66680000-666c4000	Deferred        system.transactions
+	PE	66700000-6677d000	Deferred        rsaenh
+	PE	67940000-67a33000	Deferred        wbemprox
+	PE	68c40000-68d10000	Deferred        shlwapi
+	PE	69130000-6957c000	Deferred        system.windows.forms.datavisualization.ni
+	PE	69720000-69c73000	Deferred        system.xml.ni
+	PE	69e80000-69eda000	Deferred        propsys
+	PE	69fa0000-69fa9000	Deferred        wminet_utils
+	PE	6a900000-6aa5f000	Deferred        setupapi
+	PE	6b5c0000-6b611000	Deferred        explorerframe
+	PE	6b8c0000-6ba94000	Deferred        comdlg32
+	PE	6c0c0000-6c0fb000	Deferred        imm32
+	PE	6c6c0000-6c6cf000	Deferred        api-ms-win-security-base-l1-1-0
+	PE	6d8c0000-6d8cd000	Deferred        shfolder
+	PE	6dbc0000-6dc07000	Deferred        mpr
+	PE	6fc30000-6fcbf000	Deferred        oleaut32
+	PE	6fdc0000-6ff75000	Deferred        rpcrt4
+	PE	71240000-7140b000	Dwarf           kernelbase
+	PE	71590000-71617000	Deferred        comctl32
+	PE	74e60000-74e79000	Deferred        wmiutils
+	PE	774e0000-7761d000	Deferred        ole32
+	PE	79000000-7904a000	Export          mscoree
+	PE	79060000-7911e000	Deferred        msvcr100_clr0400
+	PE	79140000-797af000	Export          clr
+	PE	79810000-79870000	Deferred        clrjit
+	PE	79880000-7a643000	Export          mscorlib.ni
+	PE	7a820000-7b0b8000	Deferred        system.ni
+	PE	7b1d0000-7b366000	Deferred        system.drawing.ni
+	ELF	7b400000-7b82f000	Dwarf           kernel32<elf>
+	  \-PE	7b420000-7b82f000	\               kernel32
+	ELF	7bc00000-7bd41000	Deferred        ntdll<elf>
+	  \-PE	7bc30000-7bd41000	\               ntdll
+	ELF	7c000000-7c004000	Deferred        <wine-loader>
+	ELF	7ed0a000-7ed2d000	Deferred        libtinfo.so.5
+	ELF	7ed2d000-7ed53000	Deferred        libncurses.so.5
+	ELF	7ef53000-7ef66000	Deferred        libnss_files.so.2
+	ELF	7ef66000-7ef73000	Deferred        libnss_nis.so.2
+	ELF	7ef73000-7ef8e000	Deferred        libnsl.so.1
+	ELF	7ef8e000-7efe3000	Deferred        libm.so.6
+	ELF	f4c8d000-f4ca3000	Deferred        libgpg-error.so.0
+	ELF	f4ca3000-f4d18000	Deferred        libpcre.so.3
+	ELF	f4d18000-f4d35000	Deferred        libgcc_s.so.1
+	ELF	f4d35000-f4de4000	Deferred        libgcrypt.so.20
+	ELF	f4de4000-f4e0a000	Deferred        liblzma.so.5
+	ELF	f4e0a000-f4e13000	Deferred        librt.so.1
+	ELF	f4e13000-f4e39000	Deferred        libselinux.so.1
+	ELF	f4e39000-f4ec8000	Deferred        libsystemd.so.0
+	ELF	f4ec8000-f4f22000	Deferred        libdbus-1.so.3
+	ELF	f4f22000-f4f53000	Deferred        libk5crypto.so.3
+	ELF	f4f53000-f5029000	Deferred        libkrb5.so.3
+	ELF	f5029000-f5172000	Deferred        opengl32<elf>
+	  \-PE	f5060000-f5172000	\               opengl32
+	ELF	f5172000-f5300000	Deferred        wined3d<elf>
+	  \-PE	f51b0000-f5300000	\               wined3d
+	ELF	f5401000-f541a000	Deferred        libresolv.so.2
+	ELF	f541a000-f5427000	Deferred        libkrb5support.so.0
+	ELF	f5427000-f5479000	Deferred        libgssapi_krb5.so.2
+	ELF	f5479000-f5500000	Deferred        libcups.so.2
+	ELF	f5805000-f5819000	Deferred        libavahi-client.so.3
+	ELF	f5836000-f588d000	Deferred        winspool<elf>
+	  \-PE	f5840000-f588d000	\               winspool
+	ELF	f588d000-f58ba000	Deferred        iphlpapi<elf>
+	  \-PE	f58a0000-f58ba000	\               iphlpapi
+	ELF	f58ba000-f595d000	Deferred        wininet<elf>
+	  \-PE	f58d0000-f595d000	\               wininet
+	ELF	f607b000-f6089000	Deferred        libavahi-common.so.3
+	ELF	f6089000-f60bc000	Deferred        dxgi<elf>
+	  \-PE	f6090000-f60bc000	\               dxgi
+	ELF	f61f3000-f6c00000	Deferred        shell32<elf>
+	  \-PE	f6220000-f6c00000	\               shell32
+	ELF	f6d05000-f6de5000	Deferred        windowscodecs<elf>
+	  \-PE	f6d30000-f6de5000	\               windowscodecs
+	ELF	f6de5000-f6e20000	Deferred        ws2_32<elf>
+	  \-PE	f6df0000-f6e20000	\               ws2_32
+	ELF	f6e20000-f6e29000	Deferred        libffi.so.6
+	ELF	f6e29000-f6eb5000	Deferred        libgmp.so.10
+	ELF	f6eb5000-f6eea000	Deferred        libhogweed.so.4
+	ELF	f6eea000-f6f27000	Deferred        libnettle.so.6
+	ELF	f6f27000-f6f5b000	Deferred        libidn.so.11
+	ELF	f6f5b000-f6fbc000	Deferred        libp11-kit.so.0
+	ELF	f6fbc000-f7114000	Deferred        libgnutls.so.30
+	ELF	f7116000-f711b000	Deferred        libkeyutils.so.1
+	ELF	f711b000-f7120000	Deferred        libcom_err.so.2
+	ELF	f7131000-f722a000	Deferred        crypt32<elf>
+	  \-PE	f7150000-f722a000	\               crypt32
+	ELF	f722a000-f724e000	Deferred        bcrypt<elf>
+	  \-PE	f7230000-f724e000	\               bcrypt
+	ELF	f7294000-f729b000	Deferred        libxfixes.so.3
+	ELF	f729b000-f72a7000	Deferred        libxcursor.so.1
+	ELF	f72a7000-f72ba000	Deferred        libxi.so.6
+	ELF	f72ba000-f72be000	Deferred        libxcomposite.so.1
+	ELF	f72be000-f72cb000	Deferred        libxrandr.so.2
+	ELF	f72cb000-f72d7000	Deferred        libxrender.so.1
+	ELF	f72d7000-f72de000	Deferred        libxxf86vm.so.1
+	ELF	f72de000-f72e2000	Deferred        libxinerama.so.1
+	ELF	f72e2000-f72e9000	Deferred        libxdmcp.so.6
+	ELF	f72e9000-f72ed000	Deferred        libxau.so.6
+	ELF	f72ed000-f7313000	Deferred        libxcb.so.1
+	ELF	f7313000-f745e000	Deferred        libx11.so.6
+	ELF	f745e000-f7473000	Deferred        libxext.so.6
+	ELF	f7479000-f748e000	Deferred        libtasn1.so.6
+	ELF	f7490000-f7548000	Deferred        winex11<elf>
+	  \-PE	f74b0000-f7548000	\               winex11
+	ELF	f75bb000-f75e5000	Deferred        libexpat.so.1
+	ELF	f75e5000-f762e000	Deferred        libfontconfig.so.1
+	ELF	f762e000-f7659000	Deferred        libpng12.so.0
+	ELF	f7659000-f7709000	Deferred        libfreetype.so.6
+	ELF	f7726000-f795d000	Deferred        user32<elf>
+	  \-PE	f7750000-f795d000	\               user32
+	ELF	f795d000-f7a36000	Deferred        msvcrt<elf>
+	  \-PE	f7980000-f7a36000	\               msvcrt
+	ELF	f7a36000-f7b91000	Deferred        gdi32<elf>
+	  \-PE	f7a50000-f7b91000	\               gdi32
+	ELF	f7b91000-f7c15000	Deferred        advapi32<elf>
+	  \-PE	f7ba0000-f7c15000	\               advapi32
+	ELF	f7c15000-f7c1f000	Deferred        libnss_compat.so.2
+	ELF	f7c21000-f7c26000	Deferred        libdl.so.2
+	ELF	f7c26000-f7ddc000	Deferred        libc.so.6
+	ELF	f7ddc000-f7df9000	Deferred        libpthread.so.0
+	ELF	f7df9000-f7e14000	Deferred        libz.so.1
+	ELF	f7e16000-f7fce000	Dwarf           libwine.so.1
+	ELF	f7fcf000-f7ff4000	Deferred        ld-linux.so.2
+	Threads:
+	process  tid      prio (all id:s are in hex)
+	00000008 (D) Z:\home\anoop\Softwares\win\FastReportEditor\FRCE\Designer.exe
+		00000043    0
+		00000032    0
+		00000030    0
+		0000002e    0
+		0000002d    0
+		0000002c    0
+		0000002b    0
+		0000002a    2
+		00000029    0
+		00000009    0 <==
+	0000000e services.exe
+		00000036    0
+		00000020    0
+		0000001b    0
+		00000013    0
+		00000010    0
+		0000000f    0
+	00000011 winedevice.exe
+		00000018    0
+		00000017    0
+		00000016    0
+		00000012    0
+	00000019 plugplay.exe
+		0000001d    0
+		0000001c    0
+		0000001a    0
+	0000001e winedevice.exe
+		00000026    0
+		00000023    0
+		00000022    0
+		00000021    0
+		0000001f    0
+	00000024 explorer.exe
+		00000028    0
+		00000025    0
+	00000034 mscorsvw.exe
+		0000003a    0
+		00000039    0
+		00000038    0
+		00000035    0
+	System information:
+	    Wine build: wine-4.16
+	    Platform: i386
+	    Version: Windows 7
+	    Host system: Linux
+	    Host version: 4.15.0-64-generic
+errwarnlogs___
+
+```
