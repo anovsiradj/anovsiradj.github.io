@@ -1,0 +1,13 @@
+20190710000016
+
+```sh
+tar zxf php-5.6.40.tar.gz
+
+mkdir build && cd build/ && mkdir builded
+
+../php-5.6.40/configure --prefix=$PWD/builded --with-mysqli --with-interbase --with-gd --enable-mbstring --quiet
+../php-5.6.40/configure --prefix=$PWD/builded --with-mysql --with-mysqli --with-interbase --with-gd --enable-mbstring --quiet
+
+make --silent
+make install --silent
+```
