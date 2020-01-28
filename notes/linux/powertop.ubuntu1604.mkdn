@@ -1,0 +1,24 @@
+20200117145359
+
+# DONE #
+
+<https://github.com/fenrus75/powertop>
+
+linux 4.15.0-74-generic x86_64 / ubuntu 16.04 lts (xenial xerus)
+
+```sh
+git clone git@github.com:fenrus75/powertop.git
+sudo apt install libpci-dev
+sudo apt install libnl-3-dev libnl-genl-3-dev
+sudo apt install libncurses5-dev
+
+cd powertop/
+./autogen.sh
+./configure
+# configure: error: libnl and libnl-genl are required but were not found #
+
+make
+# display.h:31:21: fatal error: ncurses.h: No such file or directory #
+
+sudo make install
+```
