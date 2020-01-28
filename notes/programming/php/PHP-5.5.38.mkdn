@@ -1,0 +1,17 @@
+20190621130124
+
+```sh
+tar zxvf php-5.5.38.tar.gz
+
+mkdir build && cd build/ && mkdir builded
+../php-5.5.38/configure --prefix=$PWD/builded --with-mysqli --without-pear --disable-xml --disable-xmlwriter --disable-xmlreader --disable-pdo 
+
+make
+make test
+make install
+
+echo '[PHP]' >> ./php.ini
+echo 'date.timezone = Asia/Jakarta' >> ./php.ini
+
+cp ../php.ini builded/lib/
+```

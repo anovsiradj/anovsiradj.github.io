@@ -1,0 +1,25 @@
+20190620131145
+
+```sh
+tar zxvf php-7.4.0alpha1.tar.gz
+
+mkdir build && cd build/
+
+../php-7.4.0alpha1/configure --prefix=$PWD/builded
+
+make
+make test
+make install
+
+../php-7.4.0alpha1/configure \
+--prefix=$PWD/builded \
+--with-mysqli \
+--disable-pdo \
+--disable-xml \
+--disable-xmlreader \
+--disable-xmlwriter 
+
+make
+make test
+make install
+```
