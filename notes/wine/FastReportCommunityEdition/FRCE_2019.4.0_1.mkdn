@@ -1,6 +1,6 @@
 20190925085339
 
-# BERHASIL #
+# SUCCESS #
 
 tapi tidak bisa simpan. sekarang sudah bisa simpan, dengan cara dari winecfg lalu
 comctl32,comctl32ocx,comdlg32ocx,tabctl32 rubah native,builtin menjadi builtin,native.
@@ -20,28 +20,16 @@ WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 WINEDEBUG=+seh,loaddll wine FRC
 << errwarnlogs___
 	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
 	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
-	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
-	000b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
 	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\wineboot.exe" at 0x400000: PE builtin
 	000b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ece0000: builtin
 	000b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7ec20000: builtin
-	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
-	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
 	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\winemenubuilder.exe" at 0x7ed20000: builtin
-	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ebd0000: builtin
-	000f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
 	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\gdi32.dll" at 0x7ea80000: builtin
-	000f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
 	000f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\services.exe" at 0x400000: PE builtin
-	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7e9a0000: builtin
-	000f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ece0000: builtin
 	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
-	000f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7ec20000: builtin
 	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\version.dll" at 0x65980000: PE builtin
 	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\user32.dll" at 0x7e770000: builtin
 	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\ole32.dll" at 0x65200000: PE builtin
-	000f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
-	000f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\version.dll" at 0x65980000: PE builtin
 	000f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\setupapi.dll" at 0x6a900000: PE builtin
 	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\oleaut32.dll" at 0x6a300000: PE builtin
 	000f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\userenv.dll" at 0x67f00000: PE builtin
@@ -50,89 +38,24 @@ WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 WINEDEBUG=+seh,loaddll wine FRC
 	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shcore.dll" at 0x64b40000: PE builtin
 	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\windowscodecs.dll" at 0x7ec60000: builtin
 	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\shell32.dll" at 0x7dd70000: builtin
-	0012:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
-	0012:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
 	0012:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\plugplay.exe" at 0x400000: PE builtin
-	0012:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ece0000: builtin
-	0012:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7ec20000: builtin
-	0012:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
-	0019:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
-	0019:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
 	0019:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\winedevice.exe" at 0x400000: PE builtin
-	0019:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ece0000: builtin
-	0019:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7ec20000: builtin
 	0019:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\hal.dll" at 0x6f200000: PE builtin
 	0019:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\ntoskrnl.exe" at 0x67c00000: PE builtin
-	0019:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
-	001b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\version.dll" at 0x65980000: PE builtin
-	001b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\setupapi.dll" at 0x6a900000: PE builtin
 	001b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\drivers\\winebus.sys" at 0x7ebd0000: builtin
 	001b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\hidclass.sys" at 0x62e40000: PE builtin
 	001b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\drivers\\winehid.sys" at 0x6b5c0000: PE builtin
 	001b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\hid.dll" at 0x64d80000: PE builtin
-	001b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\gdi32.dll" at 0x7e690000: builtin
-	001b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\user32.dll" at 0x7e7f0000: builtin
 	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\imm32.dll" at 0x6c0c0000: PE builtin
-	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
-	001f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
 	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\explorer.exe" at 0x400000: PE builtin
-	001f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ece0000: builtin
-	001f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\gdi32.dll" at 0x7eb90000: builtin
-	001f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7eac0000: builtin
-	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
-	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\version.dll" at 0x65980000: PE builtin
-	001f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\user32.dll" at 0x7e890000: builtin
-	001b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\imm32.dll" at 0x6c0c0000: PE builtin
-	0022:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\kernelbase.dll" at 0x71240000: PE builtin
-	0022:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\kernel32.dll" at 0x7b420000: builtin
-	0022:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\winedevice.exe" at 0x400000: PE builtin
-	0022:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ece0000: builtin
-	0022:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7ec20000: builtin
-	0022:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\hal.dll" at 0x6f200000: PE builtin
 	0022:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\ntoskrnl.exe" at 0x67c00000: PE builtin
-	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\imm32.dll" at 0x6c0c0000: PE builtin
-	0022:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
-	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\setupapi.dll" at 0x6a900000: PE builtin
 	001f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\winex11.drv" at 0x7e600000: builtin
 	0024:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\drivers\\mountmgr.sys" at 0x7ebd0000: builtin
-	0024:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\version.dll" at 0x65980000: PE builtin
-	0024:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\setupapi.dll" at 0x6a900000: PE builtin
-	0026:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\gdi32.dll" at 0x7e390000: builtin
-	0026:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\user32.dll" at 0x7e4f0000: builtin
-	000d:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\setupapi.dll" at 0x6a900000: PE builtin
-	000d:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\winex11.drv" at 0x7dad0000: builtin
-	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shlwapi.dll" at 0x68c40000: PE builtin
-	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\ole32.dll" at 0x65200000: PE builtin
-	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shcore.dll" at 0x64b40000: PE builtin
-	001f:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\shell32.dll" at 0x7d660000: builtin
-	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\oleaut32.dll" at 0x6a300000: PE builtin
 	001f:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\actxprxy.dll" at 0xab0000: PE builtin
-	0026:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\imm32.dll" at 0x6c0c0000: PE builtin
-	000b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\gdi32.dll" at 0x7e040000: builtin
-	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\version.dll" at 0x65980000: PE builtin
-	000b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\user32.dll" at 0x7de20000: builtin
-	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shlwapi.dll" at 0x68c40000: PE builtin
-	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
-	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\ole32.dll" at 0x65200000: PE builtin
-	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shcore.dll" at 0x64b40000: PE builtin
-	000b:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\imm32.dll" at 0x6c0c0000: PE builtin
-	000b:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\shell32.dll" at 0x7e220000: builtin
 	0009:trace:loaddll:load_native_dll Loaded L"Z:\\home\\anoop\\Softwares\\win\\FastReportEditor\\FRCE\\Viewer.exe" at 0x400000: native
-	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\advapi32.dll" at 0x7ece0000: builtin
 	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\dbghelp.dll" at 0x7ec60000: builtin
-	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\msvcrt.dll" at 0x7eb80000: builtin
-	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\gdi32.dll" at 0x7ea20000: builtin
-	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\rpcrt4.dll" at 0x6fdc0000: PE builtin
-	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\version.dll" at 0x65980000: PE builtin
-	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\user32.dll" at 0x7e7f0000: builtin
-	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\ole32.dll" at 0x65200000: PE builtin
-	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shlwapi.dll" at 0x68c40000: PE builtin
-	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\shcore.dll" at 0x64b40000: PE builtin
-	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\shell32.dll" at 0x7dde0000: builtin
 	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\mscoree.dll" at 0x643c0000: PE builtin
-	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\imm32.dll" at 0x6c0c0000: PE builtin
 	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\bcrypt.dll" at 0xf7c00000: builtin
-	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\OLEAUT32.dll" at 0x6a300000: PE builtin
 	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\PSAPI.DLL" at 0x6aec0000: PE builtin
 	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\msacm32.dll" at 0x66640000: PE builtin
 	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\WINMM.DLL" at 0x639c0000: PE builtin
@@ -140,8 +63,6 @@ WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 WINEDEBUG=+seh,loaddll wine FRC
 	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\bin\\libmono-2.0-x86.dll" at 0x6c540000: native
 	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\Microsoft.NET\\Framework\\v2.0.50727\\fusion.dll" at 0x6fcc0000: PE builtin
 	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\4.5\\mscorlib.dll" at 0x2530000: native
-	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\setupapi.dll" at 0x6a900000: PE builtin
-	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\winex11.drv" at 0xf7810000: builtin
 	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Windows.Forms\\4.0.0.0__b77a5c561934e089\\System.Windows.Forms.dll" at 0x10000000: native
 	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System\\4.0.0.0__b77a5c561934e089\\System.dll" at 0x2b60000: native
 	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Core\\4.0.0.0__b77a5c561934e089\\System.Core.dll" at 0x2df0000: native
@@ -153,8 +74,6 @@ WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 WINEDEBUG=+seh,loaddll wine FRC
 	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Data\\4.0.0.0__b77a5c561934e089\\System.Data.dll" at 0xd500000: native
 	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\ucrtbase.dll" at 0xf74e0000: builtin
 	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Drawing\\4.0.0.0__b03f5f7f11d50a3a\\gdiplus.dll" at 0x6f680000: PE builtin
-	0009:trace:loaddll:load_native_dll Loaded L"C:\\windows\\system32\\propsys.dll" at 0x69e80000: PE builtin
-	0009:trace:loaddll:load_so_dll Loaded L"C:\\windows\\system32\\windowscodecs.dll" at 0xf73f0000: builtin
 
 	Unhandled Exception:
 	System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.TypeInitializationException: The type initializer for 'FastReport.Utils.Config' threw an exception. ---> System.ComponentModel.Win32Exception: No valid icon entry were found.
@@ -191,12 +110,6 @@ WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 WINEDEBUG=+seh,loaddll wine FRC
 	  at System.Reflection.RuntimePropertyInfo.SetValue (System.Object obj, System.Object value, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] index, System.Globalization.CultureInfo culture) [0x0005d] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
 	  at System.Reflection.PropertyInfo.SetValue (System.Object obj, System.Object value, System.Object[] index) [0x00000] in <6cc67c6253564d2282cafa9c7a2b691e>:0 
 	  at Viewer.Program.Main (System.String[] args) [0x001b6] in <5f27ab38054e4571815112dfdb4de29f>:0 
-	0009:trace:loaddll:free_modref Unloaded module L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Xml\\4.0.0.0__b77a5c561934e089\\System.Xml.dll" : native
-	0009:trace:loaddll:free_modref Unloaded module L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Windows.Forms.DataVisualization\\4.0.0.0__31bf3856ad364e35\\System.Windows.Forms.DataVisualization.dll" : native
-	0009:trace:loaddll:free_modref Unloaded module L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Data\\4.0.0.0__b77a5c561934e089\\System.Data.dll" : native
-	0009:trace:loaddll:free_modref Unloaded module L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Drawing\\4.0.0.0__b03f5f7f11d50a3a\\gdiplus.dll" : builtin
-	0009:trace:loaddll:free_modref Unloaded module L"C:\\windows\\system32\\ucrtbase.dll" : builtin
-	0009:trace:loaddll:free_modref Unloaded module L"C:\\windows\\mono\\mono-2.0\\lib\\mono\\gac\\System.Windows.Forms\\4.0.0.0__b77a5c561934e089\\uxtheme.dll" : builtin
 errwarnlogs___
 
 WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks vcrun6 vcrun6sp6
@@ -223,14 +136,6 @@ WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 WINEDEBUG=+warn,+err,+msgbox wi
 	002f:fixme:service:QueryServiceConfig2W Level 6 not implemented
 	0034:err:ole:CoReleaseMarshalData StdMarshal ReleaseMarshalData failed with error 0x8001011d
 	0034:fixme:msvcrt:__clean_type_info_names_internal (0x7a3c5ca4) stub
-	0045:err:ole:CoReleaseMarshalData StdMarshal ReleaseMarshalData failed with error 0x8001011d
-	0045:fixme:msvcrt:__clean_type_info_names_internal (0x7a3c5ca4) stub
-	0053:err:ole:CoReleaseMarshalData StdMarshal ReleaseMarshalData failed with error 0x8001011d
-	0061:err:ole:CoReleaseMarshalData StdMarshal ReleaseMarshalData failed with error 0x8001011d
-	0061:fixme:msvcrt:__clean_type_info_names_internal (0x7a3c5ca4) stub
-	006f:err:ole:CoReleaseMarshalData StdMarshal ReleaseMarshalData failed with error 0x8001011d
-	006f:fixme:msvcrt:__clean_type_info_names_internal (0x7a3c5ca4) stub
-	002f:fixme:service:QueryServiceConfig2W Level 6 not implemented
 errwarnlogs___
 
 WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks corefonts
@@ -240,8 +145,6 @@ WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine "c:\\windows\\Microsoft.NE
 
 << errwarnlogs___
 	0009:fixme:ntdll:EtwEventRegister ({e13c0d23-ccbc-4e12-931b-d9cc2eee27e4}, 0x7932a40c, 0x797293b0, 0x79764880) stub.
-	0009:fixme:ntdll:EtwEventRegister ({763fd754-7086-4dfe-95eb-c01a46faf4ca}, 0x7932a40c, 0x797292f0, 0x79729998) stub.
-	0009:fixme:ntdll:EtwEventRegister ({a669021c-c450-4609-a035-5af59af4df18}, 0x7932a40c, 0x79764890, 0x79764888) stub.
 	0009:fixme:wer:WerRegisterRuntimeExceptionModule (L"C:\\windows\\Microsoft.NET\\Framework\\v4.0.30319\\mscordacwks.dll", 0x79140000) stub!
 	002d:err:ole:CoGetContextToken apartment not initialised
 	0009:fixme:nls:LocaleNameToLCID unsupported flags 8000000
@@ -252,58 +155,25 @@ WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine "c:\\windows\\Microsoft.NE
 	0009:fixme:process:FlushProcessWriteBuffers : stub
 	0009:fixme:path:parse_url failed to parse L"System.Xml"
 	0009:fixme:path:parse_url failed to parse L"FastReport.Bars"
-	0009:fixme:nls:LCIDToLocaleName unsupported flags 8000000
 	0009:fixme:nls:get_dummy_preferred_ui_language (0x0 0x3298b4 (nil) 0x3298b0) returning a dummy value (current locale)
 	0009:fixme:nls:get_dummy_preferred_ui_language (0x0 0x3298b4 0x16fe38 0x3298b0) returning a dummy value (current locale)
 	0009:fixme:path:parse_url failed to parse L"System.Windows.Forms.DataVisualization"
 	0009:fixme:path:parse_url failed to parse L"System.Data"
 	0009:fixme:ntdll:EtwEventRegister ({8e9f5090-2d75-4d03-8a81-e5afbf85daf1}, 0x1750612, (nil), 0x1ad74bc) stub.
 	0009:fixme:path:parse_url failed to parse L"Viewer.resources"
-	0009:fixme:path:parse_url failed to parse L"Viewer.resources"
 	0009:fixme:path:parse_url failed to parse L"Accessibility"
 	0009:fixme:gdiplus:GdipCreateHalftonePalette stub
 	0009:fixme:gdiplus:GdipGetFamilyName No support for handling of multiple languages!
 	0009:fixme:gdiplus:GdipGetNearestColor (06A109C0, 0032E2C8): Passing color unmodified
-	0009:fixme:gdiplus:GdipGetNearestColor (06A0F878, 0032E3A4): Passing color unmodified
-	0009:fixme:gdiplus:GdipGetNearestColor (06A18450, 0032E7C4): Passing color unmodified
 	0009:fixme:olepicture:OLEPictureImpl_QueryInterface () : asking for unsupported interface {c3fcc19e-a970-11d2-8b5a-00a0c9b7c9c4}
-	0009:fixme:olepicture:OLEPictureImpl_QueryInterface () : asking for unsupported interface {b196b283-bab4-101a-b69c-00aa00341d07}
-	0009:fixme:olepicture:OLEPictureImpl_QueryInterface () : asking for unsupported interface {00000003-0000-0000-c000-000000000046}
-	0009:fixme:gdiplus:GdipGetNearestColor (06A2D880, 0032E610): Passing color unmodified
-	0009:fixme:gdiplus:GdipGetNearestColor (06A2D880, 0032E610): Passing color unmodified
-	0009:fixme:gdiplus:GdipGetNearestColor (06A2D880, 0032E610): Passing color unmodified
-	0009:fixme:olepicture:OLEPictureImpl_QueryInterface () : asking for unsupported interface {c3fcc19e-a970-11d2-8b5a-00a0c9b7c9c4}
-	0009:fixme:olepicture:OLEPictureImpl_QueryInterface () : asking for unsupported interface {b196b283-bab4-101a-b69c-00aa00341d07}
-	0009:fixme:olepicture:OLEPictureImpl_QueryInterface () : asking for unsupported interface {00000003-0000-0000-c000-000000000046}
-	0009:fixme:gdiplus:GdipGetNearestColor (06AE9408, 0032C860): Passing color unmodified
-	0009:fixme:gdiplus:GdipGetNearestColor (06AF19D8, 0032CD60): Passing color unmodified
 	0009:fixme:path:parse_url failed to parse L"FastReport.Bars.resources"
-	0009:fixme:path:parse_url failed to parse L"FastReport.Bars.resources"
-	0009:fixme:path:parse_url failed to parse L"FastReport.Bars.resources"
-	0009:fixme:gdiplus:GdipGetNearestColor (069FA430, 0032C1B0): Passing color unmodified
-	0009:fixme:gdiplus:GdipGetNearestColor (06AF8A10, 0032C710): Passing color unmodified
-	0009:fixme:gdiplus:GdipGetNearestColor (06A4E3F0, 0032E2E0): Passing color unmodified
-	0009:fixme:path:parse_url failed to parse L"FastReport.Bars.resources"
-	0009:fixme:path:parse_url failed to parse L"FastReport.Bars.resources"
-	0009:fixme:path:parse_url failed to parse L"FastReport.Bars.resources"
-	0009:fixme:gdiplus:GdipGetNearestColor (06AFDE90, 0032B970): Passing color unmodified
-	0009:fixme:gdiplus:GdipGetNearestColor (001435E8, 0032B970): Passing color unmodified
-	0009:fixme:commdlg:IFileDialog2_fnQueryInterface Unknown interface requested: {c3fcc19e-a970-11d2-8b5a-00a0c9b7c9c4}.
 	0009:fixme:commdlg:IFileDialog2_fnQueryInterface Unknown interface requested: {00000003-0000-0000-c000-000000000046}.
-	0009:fixme:commdlg:IFileDialog2_fnQueryInterface Unknown interface requested: {00000144-0000-0000-c000-000000000046}.
-	0009:fixme:shell:ShellItem_QueryInterface not implemented for {c3fcc19e-a970-11d2-8b5a-00a0c9b7c9c4} (unknown)
-	0009:fixme:shell:ShellItem_QueryInterface not implemented for {b196b283-bab4-101a-b69c-00aa00341d07} (unknown)
 	0009:fixme:shell:ShellItem_QueryInterface not implemented for {00000003-0000-0000-c000-000000000046} (unknown)
 	0009:fixme:commdlg:IServiceProvider_fnQueryService Interface {e07010ec-bc17-44c0-97b0-46c7c95b9edc} requested from unknown service {e07010ec-bc17-44c0-97b0-46c7c95b9edc}
 	0009:fixme:shell:ViewModeToListStyle ViewMode 0 not implemented
 	0009:fixme:shell:IShellBrowser_fnSendControlMsg stub, 0x6a132e0 (2, 1026, a003, 0, 0x32d788)
-	0009:fixme:shell:IShellBrowser_fnSendControlMsg stub, 0x6a132e0 (2, 1025, a004, 1, 0x32d788)
 	0009:fixme:nstc:NSTC2_fnSetControlStyle2 mask & style (0x00000004) contains unsupported style(s): 0x00000004
-	0009:fixme:gdiplus:GdipGetNearestColor (07806478, 0032E2E0): Passing color unmodified
-	0009:fixme:gdiplus:GdipGetNearestColor (06904820, 0032E2E0): Passing color unmodified
 	002d:fixme:ntdll:EtwEventUnregister (deadbeef) stub.
-	002d:fixme:ole:Context_CC_ContextCallback (0021B190/0021B194)->(791C8272, 03C1CC98, {d7174f82-36b8-4aa8-800a-e963ab2dfab9}, 2, 00000000)
-	002d:fixme:ole:Context_CC_ContextCallback (0021B190/0021B194)->(791C8272, 03C1CC24, {d7174f82-36b8-4aa8-800a-e963ab2dfab9}, 2, 00000000)
 	002d:fixme:ole:Context_CC_ContextCallback (0021B190/0021B194)->(791C8272, 03C1CC24, {d7174f82-36b8-4aa8-800a-e963ab2dfab9}, 2, 00000000)
 errwarnlogs___
 
@@ -330,11 +200,9 @@ WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine "c:\\windows\\Microsoft.NE
 	0025:fixme:ole:NdrCorrelationFree (0068E590): stub
 	000d:fixme:reg:RegOpenUserClassesRoot (00000094, 0x0, 0x2000000, 0032F8C8) semi-stub
 	0009:fixme:heap:RtlSetHeapInformation (nil) 1 (nil) 0 stub
-	0009:fixme:heap:RtlSetHeapInformation (nil) 1 (nil) 0 stub
 	0009:fixme:service:QueryServiceConfig2W Level 6 not implemented
 	Microsoft (R) CLR Native Image Generator - Version 4.0.30319.1
 	Copyright (c) Microsoft Corporation.  All rights reserved.
-	002b:fixme:heap:RtlSetHeapInformation (nil) 1 (nil) 0 stub
 	002b:fixme:heap:RtlSetHeapInformation (nil) 1 (nil) 0 stub
 	002b:fixme:reg:RegOpenUserClassesRoot (00000080, 0x0, 0x2000000, 0032F7A4) semi-stub
 	002b:fixme:ole:NdrCorrelationInitialize (0032EAC0, 0032E59C, 1024, 0x0): semi-stub

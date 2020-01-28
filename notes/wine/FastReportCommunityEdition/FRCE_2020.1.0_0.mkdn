@@ -1,0 +1,104 @@
+
+# SUCCESS #
+
+20191219200022
+
+wine 5.0-rc1 devel / winetricks 20190912-next / ubuntu 16.04 lts (xenial xerus) / linux 4.15.0-72-generic x86_64
+
+```sh
+unzip FastReport_2020.1.0_CommunityEdition.zip
+mv FastReport.Community/ FRCE
+
+# OPTIONAL #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks annihilate
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 WINEARCH=win32 wineboot
+<< ___errwarnlog
+	wine: created the configuration directory '/home/anoop/.wine-tests/fastreporteditor-ce-x32'
+	000b:fixme:ntdll:find_reg_tz_info Can't find matching timezone information in the registry for WIB, bias -420, std (d/m/y): 0/00/0000, dlt (d/m/y): 0/00/0000
+	0012:err:ole:marshal_object couldn't get IPSFactory buffer for interface {00000131-0000-0000-c000-000000000046}
+	0012:err:ole:marshal_object couldn't get IPSFactory buffer for interface {6d5140c1-7436-11ce-8034-00aa006009fa}
+	0012:err:ole:StdMarshalImpl_MarshalInterface Failed to create ifstub, hres=0x80004002
+	0012:err:ole:CoMarshalInterface Failed to marshal the interface {6d5140c1-7436-11ce-8034-00aa006009fa}, 80004002
+	0012:err:ole:get_local_server_stream Failed: 80004002
+	0017:fixme:ntdll:NtLockFile I/O completion on lock not implemented yet
+	0017:fixme:ntdll:NtQuerySystemInformation info_class SYSTEM_PERFORMANCE_INFORMATION
+	0017:err:mscoree:LoadLibraryShim error reading registry key for installroot
+	0019:fixme:msi:internal_ui_handler internal UI not implemented for message 0x0b000000 (UI level = 5)
+	0017:fixme:msi:internal_ui_handler internal UI not implemented for message 0x0b000000 (UI level = 1)
+	0010:fixme:dwmapi:DwmIsCompositionEnabled 05A7DD14
+	001f:fixme:iphlpapi:NotifyIpInterfaceChange (family 0, callback 0x21ff537, context 0x2a3050, init_notify 0, handle 0x687fcd8): stub
+	wine: configuration in L"/home/anoop/.wine-tests/fastreporteditor-ce-x32" has been updated.
+___errwarnlog
+```
+
+<https://bugs.winehq.org/show_bug.cgi?id=45786>
+<https://bugs.winehq.org/show_bug.cgi?id=32916>
+
+<https://www.nuget.org/packages/FastReport.OpenSource/#show-dependency-groups>
+
+```sh
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks corefonts
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks dotnet20
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wineboot --restart
+
+# FAIL #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks dotnet20sp1
+# DONE #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine ~/.cache/winetricks/dotnet20sp1/NetFx20SP1_x86.exe
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wineboot --restart
+
+# DONE (~7min) #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks dotnet20sp2
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wineboot --restart
+
+# DONE (~19min) #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine "c:\\windows\\Microsoft.NET\\Framework\\v2.0.50727\\ngen.exe" update
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wineboot --restart
+```
+
+I accidentally click cancel when installing dotnet40. then i try to install it again,
+but it keep saying "Same or higher version of .NET Framework 4 has already been installed on this computer".
+<https://github.com/Winetricks/winetricks/issues/1245>
+<https://stackoverflow.com/a/46746054>
+
+```sh
+# OPTIONAL (if dotnet40 think its already installed) #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine regedit /D 'HKEY_LOCAL_MACHINE\Software\Microsoft\NET Framework Setup\NDP\v4'
+
+# DONE #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks dotnet40
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wineboot --restart
+
+# DONE (~23min) #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine "c:\\windows\\Microsoft.NET\\Framework\\v4.0.30319\\ngen.exe" update
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wineboot --restart
+```
+
+```sh
+# FAIL (missing gdi) #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine FRCE/Designer.exe
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks gdiplus_winxp
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks gdiplus
+
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine "c:\\windows\\Microsoft.NET\\Framework\\v4.0.30319\\ngen.exe" update
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wineboot --restart
+
+# DONE #
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wine FRCE/Designer.exe
+```
+
+**ADDITIONS (OPTIONAL)**
+
+```sh
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks riched20 riched30 richtx32
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks msxml3 msxml4 msxml6
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks ole32 oleaut32
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks ie8
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 winetricks ie8_kb2936068
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wineboot --kill
+WINEPREFIX=~/.wine-tests/fastreporteditor-ce-x32 wineserver --kill
+```
