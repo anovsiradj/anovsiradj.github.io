@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<script src="../webapp.js"></script>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<form id="form_apikey" class="container-fluid">
+		<div class="row">
+			<div class="form-group col-4">
+				<label>API KEY</label>
+				<input name="apikey" class="form-control">
+			</div>
+			<div class="form-group col-4">
+				<label>Playlist ID</label>
+				<input name="params[playlistId]" class="form-control">
+			</div>
+			<div class="form-group col-2">
+				<label>&nbsp;</label>
+				<div><button class="btn btn-primary">submit</button></div>
+			</div>
+		</div>
+	</form>
+
+	<div id="playlist_items">
+		<player_v1 ref="player_v1"></player_v1>
+
+		<div class="container-fluid" id="list">
+			<div class="row">
+				<div class="col">
+					<div class="form-group">
+						<input class="form-control" @input="search_event" placeholder="(fuzzy) search ...,">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			  <section class="col-6 col-md-3" v-for="i in filteredItems">
+			  	<div class="card">
+			  		<!-- <p v-if="i.snippet.thumbnails" v-text="(i.snippet.thumbnails.standard || i.snippet.thumbnails.default).url"></p> -->
+			  		<a @click="$refs.player_v1.show(i.snippet)">
+				  		<img v-if="i.snippet.thumbnails" v-lazy="(i.snippet.thumbnails.standard||i.snippet.thumbnails.default).url" class="card-img-top">
+			  		</a>
+			  		<div class="card-body p-1">
+			  			<p class="card-title text-truncate font-weight-bold m-0" v-text="i.snippet.title" v-bind:title="i.snippet.title"></p>
+			  			<!-- <pre class="card-text text-truncate text-break" v-text="i.snippet.description"></pre> -->
+			  		</div>
+			  	</div>
+			  </section>
+			</div>
+		</div>
+	</div>
+
+<script src="../cdn/stuk.require1k.js"></script>
+<script src="../js/extra/loader_v1.js"></script>
+
+<script src="https://apis.google.com/js/api.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-lazyload/1.3.3/vue-lazyload.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/http-vue-loader@1.4.2/src/httpVueLoader.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<script>((_) => {
+	_.src=`YTX.js?_=${timestamp}`; document.write(_.outerHTML);
+	_.src=`playlist_items.js?_=${timestamp}`; document.write(_.outerHTML);
+})(document.createElement('script'));</script>
+</body>
+</html>
