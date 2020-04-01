@@ -10,6 +10,26 @@ window.dump = function() {
 	return window.dump;
 };
 
+window.Date.prototype.toTGL = function(options) {
+	options = options||{};
+	options.year  = options.year  || 'numeric';
+	options.month = options.month || 'long';
+	options.day   = options.day   || 'numeric';
+
+	return this.toLocaleDateString('id-ID',options);
+};
+
+window.Date.prototype.toYMD = function(options) {
+	options = options || {};
+	options.his = options.his || false;
+	options.separator = ('separator' in options) ? options.separator : '-';
+
+	var m = this.getMonth()+1, d = this.getDate();
+	if (m < 10) m = String(m).padStart(2,'0');
+	if (d < 10) d = String(d).padStart(2,'0');
+	return [this.getFullYear(),m,d].join(options.separator);
+};
+
 window.datastore_tmp = {};
 window.datastore_isa = (function() {
 	try {
