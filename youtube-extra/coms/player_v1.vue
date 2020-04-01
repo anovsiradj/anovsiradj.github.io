@@ -1,7 +1,7 @@
 
 <template>
 	<div class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-dialog modal-xl" role="document">
 			<div class="modal-content">
 				<div class="modal-header px-2 py-1">
 				  <h5 v-if="$data.snippet" class="modal-title" v-text="$data.snippet.title"></h5>
@@ -12,7 +12,7 @@
 					<div class="embed-responsive embed-responsive-16by9">
 					  <iframe class="embed-responsive-item" v-bind:src="href_safe" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 					</div>
-					<pre class="text-break px-2 py-1 m-0" v-text="$data.snippet.description"></pre>
+					<pre v-if="$data.snippet.description.trim().length > 0" class="text-break px-2 py-1 m-0" v-text="$data.snippet.description"></pre>
 				</div>
 			</div>
 		</div>

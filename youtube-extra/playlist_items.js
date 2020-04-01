@@ -6,7 +6,6 @@ Vue.use(VueLazyload);
 
 	var data_params_re = /^.+\[(.+)\]$/;
 	var cache_id = () => `YTX_CACHE_ID_${JSON.stringify(ytx.data.params)}`;
-	var loop_delay = 150;
 
 	loader_v1.show();
 	var ytx = new YouTubeExtra(gapi,() => loader_v1.hide());
@@ -37,7 +36,7 @@ Vue.use(VueLazyload);
 			setTimeout(() => {
 				loader_v1.hide();
 				fetch({pageToken:result.nextPageToken});
-			},100);
+			},0);
 		}
 
 		// if (parse_ai < parse_min) return;
@@ -45,8 +44,13 @@ Vue.use(VueLazyload);
 		for (var i = result.items.length - 1; i >= 0; i--) {
 			if (result.items[i].status === unknown) continue;
 			if (result.items[i].status.privacyStatus !== 'public') continue;
+
+			if (result.items[i].snippet === unknown) continue;
 			if (result.items[i].snippet.title === 'Private video') continue;
-			playlist_items.$data.items.push(result.items[i]);
+
+			playlist_items.$data.items.push({
+				snippet: result.items[i].snippet,
+			});
 		}
 	}
 
@@ -87,15 +91,16 @@ Vue.use(VueLazyload);
 			filteredItems: function() {
 				if (this.$data.search && this.$data.search.length > 0) {
 					return (new Fuse(this.$data.items,{
-						// shouldSort: true,
-						// includeScore: true,
+						shouldSort: true,
+						// includeScore: true, // BROKEN //
 						tokenize: true,
 						matchAllTokens: true,
-						threshold: 0.49,
+						threshold: 0.51,
 						distance: 10,
 						keys: [
 						  'snippet.title',
 						  // 'snippet.description',
+						  'snippet.publishedAt',
 						]
 					})).search(this.$data.search);
 				}
@@ -109,10 +114,11 @@ Vue.use(VueLazyload);
 
 				if (search.length === 0) this.$set(this.$data,'search',null);
 				if (search.length >= 3) this.$set(this.$data,'search',search);
-			},666),
+			},1500),
 		},
 		components: {
 			'player_v1': httpVueLoader(`coms/player_v1.vue?_=${timestamp}`),
+			'thumb': httpVueLoader(`coms/thumb.vue?_=${timestamp}`),
 		},
 	});
 
