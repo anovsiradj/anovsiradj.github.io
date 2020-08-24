@@ -42,7 +42,7 @@
 			border-radius: 50%;
 			width: 60px;
 			height: 60px;
-			animation: 'loader_v1_animate_rotate' 0.9s linear infinite;
+			animation: loader_v1_animate_rotate 0.9s linear infinite;
 
 			position: absolute;
 			top: 33%;
