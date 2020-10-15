@@ -1,0 +1,107 @@
+
+@screen-xs-min: 480px;
+@screen-sm-min: 768px;
+@screen-md-min: 992px;
+@screen-lg-min: 1200px;
+@screen-xs-max: (@screen-sm-min - 1);
+@screen-sm-max: (@screen-md-min - 1);
+@screen-md-max: (@screen-lg-min - 1);
+@screen-lg-max: (@screen-lg-min - 1);
+
+body {
+	font-family: 'Ubuntu Mono', monospace;
+	vertical-align: baseline;
+	//font-size: 16px;
+}
+.header-title {
+	h1 {
+		margin: 0;
+		span {
+			padding: 1.1vw 2.2vw;
+			display: inline-block;
+			font-size: 4.4vw;
+		}
+	}
+}
+.content-item-title {
+	&, .content-subitem-title {
+		margin: 0;
+	}
+	~ ul + p {
+		margin-top: 0.75em; /* disamakan dengan p[style=margin-bottom] (default) supaya ada jarak */
+	}
+}
+.content-list-alt {
+	a {
+		color: #fff;
+	}
+	.label {
+		display: inline-block;
+	}
+}
+
+main {
+	margin: 0 auto;
+	margin-bottom: 20px;
+
+	> section {
+		> details {
+			> summary {
+			}
+		}
+	}
+
+	details {
+		margin-bottom: 15px;
+	}
+
+	details > summary {
+		cursor: s-resize;
+		margin-bottom: 3px;
+
+		h3,h4,p {
+			margin-bottom: 0;
+		}
+	}
+	details[open] > summary {
+		cursor: n-resize;
+	}
+
+	details > article > p {
+		margin-bottom: 0;
+	}
+}
+
+@media (max-width: @screen-md-max) {
+	main {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+}
+
+@media (min-width: @screen-md-min) {
+	main {
+		width: 75%;
+	}
+}
+@media (min-width: @screen-lg-min) {
+	main {
+		width: 66%;
+	}
+}
+
+
+@import (less) 'https://gist.githubusercontent.com/ohryan/b9593841c024c033783d/raw/eaae7694dac1de45717ce729b7d219936ca68af1/responsive-align.less';
+@import (less) 'https://gist.githubusercontent.com/anovsiradj/3de6c00e85480a2e8b4f4dd2db0887e6/raw/7b67df209ecd686fef65599868c5da979d2077a8/looper.less';
+
+.looper('.w-*', width, px, 0, 100, 5);
+.looper('.w-*p', width, %, 0, 100, 5);
+
+@looper-max: 100;
+@looper-step: 5;
+.looper('.mg-*', margin, px, 0, @looper-max, @looper-step);
+.looper('.mg-t-*', margin-top, px, 0, @looper-max, @looper-step);
+.looper('.mg-b-*', margin-bottom, px, 0, @looper-max, @looper-step);
+.looper('.pd-*', padding, px, 0, @looper-max, @looper-step);
+.looper('.pd-t-*', padding-top, px, 0, @looper-max, @looper-step);
+.looper('.pd-b-*', padding-bottom, px, 0, @looper-max, @looper-step);
