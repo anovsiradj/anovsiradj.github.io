@@ -25,7 +25,7 @@ module.exports = {
 	created: function() {
 		if (datastore_isa) {
 			var commits = localStorage.getItem('git-resume-revision');
-			if (commits === null) github_api_ajax();
+			if (commits === null) this.github_api_ajax();
 			else this.github_api_exec(JSON.parse(commits));
 		} else this.github_api_ajax();
 	},
