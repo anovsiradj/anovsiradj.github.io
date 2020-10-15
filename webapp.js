@@ -1,9 +1,19 @@
 
-/* 20200204 */
+/* 20200204,20201014 */
 
-window.WebAppData = window.WebAppData||{};
+window.WebAppData = window.WebAppData || {};
 
-window.timestamp = (ts => ts.toISOString())((new Date));
+if (window.WebAppData.debug === window.WebAppData.unknown) {
+	window.WebAppData.debug = location.host.includes('localhost');
+}
+if (window.Vue) {
+	Vue.config.devtools = window.WebAppData.debug;
+}
+if (window.less && window.less.env === window.WebAppData.unknown) {
+	window.less.env = window.WebAppData.debug ? 'development' : 'production';
+}
+
+window.WebAppData.ts = window.timestamp = (ts => ts.toISOString())((new Date));
 
 window.dump = function() {
 	Array.from(arguments).forEach(i => console.debug(i));
