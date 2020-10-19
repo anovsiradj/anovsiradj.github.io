@@ -3,15 +3,15 @@
 
 	<section>
 		<article class="random">
+			hiatus dulu dari ngoding,
 			koding 1% baca docs 99%,
 			baca hal-hal baru,
-			nonton film aksi/misteri/psikis,
-			denger lagu eurobeat/loona/edm,
+			nonton film aksi/misteri/psikis, denger lagu eurobeat/loona/edm,
 			punya bakat seniman,
 			malas,
 			vapor,
-			pengen nulis weblog tapi malas,
-			suka nulis di kertas, pilih capek dari pada santai,
+			pengen nulis weblog tapi malas, suka nulis di kertas,
+			pilih capek dari pada santai,
 			uang bukan prioritas tapi untuk nafsu ngoding,
 			ingin membuat startup,
 			cari cewe,
