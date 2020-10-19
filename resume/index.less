@@ -55,8 +55,13 @@ main {
 		margin-bottom: 15px;
 	}
 
+	details > summary::-webkit-details-marker {
+		display: none;
+	}
+
 	details > summary {
 		cursor: s-resize;
+		list-style: none;
 		margin-bottom: 3px;
 
 		h3,h4,p {

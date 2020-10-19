@@ -11,7 +11,7 @@
 						<a href="http://www.gi.co.id/" target="_blank">PT. Global Intermedia Nusantara (GIN)</a>
 					</span>
 					/
-					<span class='text-info'>Yogyakarta, Papua (Nabire, Yahukimo, Jayapura)</span>
+					<span class='text-info'>Yogyakarta, Papua (Nabire, Yahukimo, Jayapura), Jakarta</span>
 				</p>
 			</summary>
 		</details>
