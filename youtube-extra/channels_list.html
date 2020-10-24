@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g==" crossorigin="anonymous" />
+
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js" integrity="sha512-BKbSR+cfyxLdMAsE0naLReFSLg8/pjbgfxHh/k/kUC82Hy7r6HtR5hLhobaln2gcTvzkyyehrdREdjpsQwy2Jw==" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/http-vue-loader@1/src/httpVueLoader.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-lazyload/1.3.3/vue-lazyload.js" integrity="sha512-8og/U8wf/U8fOxGKr6Ewmw4X/QytwCrIBvCInYA4WNaSR7dSXaf4ZfsPJUVYVQSdx4rysOHFPdYint3I232AUg==" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vuejs-paginate/2.1.0/index.js" integrity="sha512-4+cTzuthboCP2b/N/uQrGFJUgKtwP6CQ/YGAUi/+NLI+fdDAzl/z7tPohUf1KHGoNJcOaziyitKdkj77J0dq9A==" crossorigin="anonymous"></script>
+	<script>
+	Vue.use(VueLazyload);
+	Vue.component('paginate', VuejsPaginate);
+	</script>
+
+	<script src="../webapp.js?1"></script>
+	<script>
+		if (window.WebAppData.debug) {
+			window.dump.type = 'log'; // gara2x chrome //
+		}
+	</script>
+</head>
+<body>
+
+
+<div id="channels_list" class="container-fluid">
+	<player_v1 ref="player_v1"></player_v1>
+
+	<div class="row">
+		<div class="col-md-10 col-lg-8">
+			<form_v1 type="channels_list"></form_v1>
+		</div>
+	</div>
+
+	<details data-open class="mb-3">
+		<summary>Channels</summary>
+		<div class="row">
+			<div class="col-6">
+				<chan_v1 v-for="chan in $data.chans" :chan="chan"></chan_v1>
+			</div>
+		</div>
+	</details>
+
+	<div class="row mb-3">
+		<div class="col-md-6">
+			<input type="search" class="form-control" @input="search_handler" placeholder="...">
+		</div>
+		<div class="col-md-6 text-center">
+			<paginate
+				v-model="page_curr"
+				:page-count="page_counter()"
+				container-class="pagination justify-content-center"
+				prev-class="page-item"
+				next-class="page-item"
+				page-class="page-item"
+				prev-link-class="page-link"
+				next-link-class="page-link"
+				page-link-class="page-link"
+				:click-handler="page_handler"
+			></paginate>
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<div class="col-sm-6 col-md-3" v-for="i in videos_result()">
+			<thumb :snippet="i.snippet" @cover_click="$refs.player_v1.show(i.snippet)"></thumb>
+		</div>
+	</div>
+</div>
+
+<script src="https://apis.google.com/js/api.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.2/fuse.min.js" integrity="sha512-qGO3y1EldSviAn5+LseUnWVZxSMamsVrlW29bgyeZ6k9hLelzmMXkkLXHJ33fO3mfh4bbQOv+cRf/GWN/oj8LQ==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js" integrity="sha512-iceXjjbmB2rwoX93Ka6HAHP+B76IY1z0o3h+N1PeDtRSsyeetU3/0QKJqGyPJcX63zysNehggFwMC/bi7dvMig==" crossorigin="anonymous"></script>
+
+<script src="../js/extra/loader_v1.js"></script>
+<script src="../cdn/lib/xhrget.js"></script>
+
+<script>((_) => {
+	_.src=`YTX.js?_=${timestamp}`; document.write(_.outerHTML);
+	_.src=`channels_list.js?_=${timestamp}`; document.write(_.outerHTML);
+})(document.createElement('script'));</script>
+</body>
+</html>

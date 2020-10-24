@@ -1,4 +1,4 @@
-/* @version: 20200204; @author: anovsiradj (mayendra costanov) <anov.siradj22@gmail.com>; */
+/* @version: 20200204, 20201024; @author: anovsiradj (mayendra costanov) <anov.siradj22@gmail.com>; */
 
 'use strict';
 
@@ -16,8 +16,17 @@ function YouTubeExtra(gapi,callback) {
 }
 
 YouTubeExtra.defaults = {
+	kind: {
+		playlist_items: {
+			part: 'snippet,status',
+		},
+		channels_list: {
+			part: 'contentDetails,snippet',
+			pageToken: null,
+		}
+	},
 	params: {
-		part: 'snippet,status',
+		part: 'snippet',
 		pageToken: null,
 		maxResults: 50, // free usage max limit //
 	},
@@ -57,6 +66,7 @@ YouTubeExtra.prototype.init = function(callback) {
 	return this;
 };
 
+/*  */
 YouTubeExtra.prototype.load_playlist_items = function(params,callback) {
 	params = params || {};
 	params = Object.assign({},this.data.params,params);
@@ -71,6 +81,21 @@ YouTubeExtra.prototype.load_playlist_items = function(params,callback) {
 		function() {
 			console.error("Error execute GAPI",arguments);
 			if (callback) callback(false,arguments);
+		}
+	);
+};
+
+YouTubeExtra.prototype.load_channels_list = function(params,callback) {
+	params = params || {};
+	params = Object.assign({},this.data.params,params);
+
+	gapi.client.youtube.channels.list(params).then(
+		result => {
+			if (callback) callback(true, result?.result?.items || []);
+		},
+		() => {
+			console.error("Error GAPI", arguments);
+			if (callback) callback(false, arguments);
 		}
 	);
 };

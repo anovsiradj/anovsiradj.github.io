@@ -16,9 +16,11 @@ if (window.less && window.less.env === window.WebAppData.unknown) {
 window.WebAppData.ts = window.timestamp = (ts => ts.toISOString())((new Date));
 
 window.dump = function() {
-	Array.from(arguments).forEach(i => console.debug(i));
+	let type = window.dump.type || 'debug';
+	Array.from(arguments).forEach(i => console[type](i));
 	return window.dump;
 };
+window.dump.type = 'debug';
 
 window.Date.prototype.toTGL = function(options) {
 	options = options||{};
@@ -84,3 +86,22 @@ window.debounce = (func,wait,immediate) => {
 		if (callNow) func.apply(context, args);
 	};
 };
+
+// https://stackoverflow.com/q/23305000
+// https://github.com/bevacqua/fuzzysearch/blob/master/index.js
+function fuzzysearch (needle, haystack) {
+  var hlen = haystack.length;
+  var nlen = needle.length;
+  if (nlen > hlen) return false;
+  if (nlen === hlen) return needle === haystack;
+  outer: for (var i = 0, j = 0; i < nlen; i++) {
+    var nch = needle.charCodeAt(i);
+    while (j < hlen) {
+      if (haystack.charCodeAt(j++) === nch) {
+        continue outer;
+      }
+    }
+    return false;
+  }
+  return true;
+}
