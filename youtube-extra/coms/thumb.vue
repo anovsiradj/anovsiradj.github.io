@@ -1,7 +1,7 @@
 <template>
 	<section class="card">
-		<a v-if="snippet.thumbnails" href="#" @click.prevent="$emit('cover_click')" :title="snippet.publishedAt">
-			<img v-lazy="(snippet.thumbnails.high||snippet.thumbnails.standard||snippet.thumbnails.default).url" class="card-img-top">
+		<a v-if="cover()" href="#" @click.prevent="$emit('cover_click')" :title="snippet.publishedAt">
+			<img v-lazy="cover()" class="card-img-top">
 		</a>
 
 		<div v-if="snippet.title.trim().length > 0" class="card-body p-1">
@@ -18,6 +18,11 @@ module.exports = {
 		snippet: {
 			type: Object,
 			"default": {},
+		},
+	},
+	methods: {
+		cover: function() {
+			return (i => i?.high||i?.standard||i?.default)(this.snippet?.thumbnails)?.url;
 		},
 	},
 };
