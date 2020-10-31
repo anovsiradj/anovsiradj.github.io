@@ -87,21 +87,16 @@ window.debounce = (func,wait,immediate) => {
 	};
 };
 
-// https://stackoverflow.com/q/23305000
-// https://github.com/bevacqua/fuzzysearch/blob/master/index.js
-function fuzzysearch (needle, haystack) {
-  var hlen = haystack.length;
-  var nlen = needle.length;
-  if (nlen > hlen) return false;
-  if (nlen === hlen) return needle === haystack;
-  outer: for (var i = 0, j = 0; i < nlen; i++) {
-    var nch = needle.charCodeAt(i);
-    while (j < hlen) {
-      if (haystack.charCodeAt(j++) === nch) {
-        continue outer;
-      }
-    }
-    return false;
-  }
-  return true;
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+RegExp.escape = string => {
+	return string.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+};
+
+function fuzzymatch(needle, haystack, distance=3) {
+	haystack = haystack.toLowerCase();
+
+	needle = needle.replace(/\s/g,'').toLowerCase();
+	needle = needle.split('').map(i => RegExp.escape(i)).join(`.{0,${distance}}`);
+
+	return (new RegExp(needle)).test(haystack);
 }
