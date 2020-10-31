@@ -1,0 +1,5 @@
+
+clear by uuid
+```js
+Object.keys(localStorage).filter(i => /^YTX/.test(i) && i.indexOf(tmp) >=0).forEach(i => localStorage.removeItem(i));
+```

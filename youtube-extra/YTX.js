@@ -10,12 +10,40 @@ function YouTubeExtra(gapi,callback) {
 	this.params(YouTubeExtra.defaults.params);
 
 	this.gapi.load('client',() => {
-		this.init();
-		if (callback) callback(this);
+		this.init((is) => {
+			if (callback) callback(is);
+		});
 	});
 }
 
 YouTubeExtra.defaults = {
+	href: {
+		playlist: list => `https://www.youtube.com/playlist?list=${i}`,
+		video: v => `https://www.youtube.com/watch?v=${v}`,
+		channel_by_id: channel => `https://www.youtube.com/channel/${channel}`,
+		channel_by_name: channel => `https://www.youtube.com/user/${channel}`,
+	},
+	predefined: {
+		params: {
+			safeSearch: ['none','moderate','strict'],
+			videoCaption: ['any','none','closedCaption'],
+			videoDuration: ['any','short','medium','long'],
+			videoDimension: ['any','2d','3d'],
+			videoDefinition: ['any','standard','high'],
+			type: ['channel','playlist','video'],
+			part: [
+				'contentOwnerDetails',
+				'contentDetails',
+				'auditDetails',
+				'topicDetails',
+				'snippet',
+				'status',
+				'id',
+			],
+			order: ['date','rating','relevance','title','videoCount','viewCount'],
+			order_default: 'relevance',
+		}
+	},
 	kind: {
 		playlist_items: {
 			part: 'snippet,status',
@@ -27,60 +55,49 @@ YouTubeExtra.defaults = {
 	},
 	params: {
 		part: 'snippet',
-		pageToken: null,
-		maxResults: 50, // free usage max limit //
+		maxResults: 50,
 	},
 };
 
 YouTubeExtra.prototype.params = function() {
-	if (arguments[0] && typeof arguments[0] === 'string' && arguments[1]) {
-		this.data.params[arguments[0]] = arguments[1];
-	}
 	if (arguments[0] && typeof arguments[0] === 'object') {
-		this.data.params = Object.assign({},this.data.params,arguments[0]);
+		this.data.params = Object.assign({}, this.data.params, arguments[0]);
+	}
+	if (arguments[0] && typeof arguments[0] === 'string' && typeof arguments[1] !== 'undefined') {
+		this.data.params[arguments[0]] = arguments[1];
 	}
 };
 
 YouTubeExtra.prototype.apikey = function(apikey) {
-	apikey = apikey||null;
-
-	if (apikey===null) return this.data.apikey;
-
 	this.data.apikey = apikey;
 	this.gapi.client.setApiKey(apikey);
 };
 
 YouTubeExtra.prototype.init = function(callback) {
-	var that = this;
-
 	this.gapi.client
 	.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
 	.then(
-		() => (callback && callback(true)),
-		function() {
-			console.error("Error loading GAPI client for API",arguments);
+		() => {
+			if (callback) callback(true);
+		},
+		() => {
+			console.error("Error loading GAPI client for API", arguments);
 			if (callback) callback(false);
 		}
 	);
-
-	return this;
 };
 
-/*  */
 YouTubeExtra.prototype.load_playlist_items = function(params,callback) {
 	params = params || {};
 	params = Object.assign({},this.data.params,params);
-	// dump(params);
 
-	gapi.client.youtube.playlistItems
-	.list(params)
-	.then(
+	gapi.client.youtube.playlistItems.list(params).then(
 		result => {
-			if(callback) callback(true,result.result);
+			if(callback) callback(true, result?.result || []);
 		},
-		function() {
-			console.error("Error execute GAPI",arguments);
-			if (callback) callback(false,arguments);
+		() => {
+			console.error("Error GAPI", arguments);
+			if (callback) callback(false, arguments);
 		}
 	);
 };
