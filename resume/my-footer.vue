@@ -2,16 +2,14 @@
 <template>
 <footer class="container-fluid">
 	<div class="row text-muted">
-		<div class="col-md-6">
-			Font <a href="https://fonts.google.com/specimen/Ubuntu+Mono" target="_blank">Ubuntu Mono</a>.
-			Tema
-			<a href="https://getbootstrap.com/docs/3.3/" target="_blank">Bootstrap v3</a>
-			&amp;
-			<a href="https://web.archive.org/web/20171011213844/http://design.ubuntu.com/web-style-guide/" target="_blank">Ubuntu Web Style</a>
-			(<a href="https://vanillaframework.io/" target="_blank">Vanilla</a>).
-			<br>
+		<div class="col-md-6 mb-1">
+			Diberdayakan oleh GitHub,
+			<a href="https://fonts.google.com/specimen/Yusei+Magic" target="_blank">Yusei Magic</a>,
+			<a href="https://getbootstrap.com/docs/3.3/" target="_blank">Twitter-Bootstrap v3</a>,
+			<a href="https://lesscss.org/" target="_blank">Less</a>,
+			<a href="https://vuejs.org/" target="_blank">Vue</a>.
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-6 mb-1">
 			Revisi Ke <code v-text="revision_count"></code> Kali. <br>
 			Terakhir diubah <code v-text="revision_last.toTGL()"></code>. <br>
 			Pertama dibuat <code v-text="revision_first.toTGL()"></code>. <br>

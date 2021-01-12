@@ -1,7 +1,7 @@
 
 <template>
-<header class="container-fluid mg-b-20">
-	<div class="row pd-t-20">
+<header class="container-fluid mt-1 mb-1">
+	<div class="row p-1">
 		<div class="header-title col-md-6 text-xs-center text-md-left">
 			<h1 title="Anov Siradj">
 				<span class="btn-warning text-info">Mayendra Costanov</span>

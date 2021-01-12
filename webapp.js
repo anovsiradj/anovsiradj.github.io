@@ -13,7 +13,7 @@ if (window.less && window.less.env === window.WebAppData.unknown) {
 	window.less.env = window.WebAppData.debug ? 'development' : 'production';
 }
 
-window.WebAppData.ts = window.timestamp = (ts => ts.toISOString())((new Date));
+window.WebAppData.ts = window.timestamp = (new Date).toISOString();
 
 window.dump = function() {
 	let type = window.dump.type || 'debug';
