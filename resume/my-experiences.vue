@@ -1,6 +1,5 @@
 <template>
 	<section>
-
 		<details>
 			<summary>
 				<h3 class="content-item-title">Web Programmer</h3>
@@ -14,6 +13,17 @@
 					<span class='text-info'>Yogyakarta, Papua (Nabire, Yahukimo, Jayapura), Jakarta</span>
 				</p>
 			</summary>
+
+			<p class="font-weight-bold">Portofolio</p>
+			<ul>
+				<li>
+					Saya ikut berkontribusi kepada semua sistem aplikasi website yang ada selama saya bekerja disini.
+					Untuk portofolio tidak ada, karena saya belum pernah menciptakan aplikasi baru, hanya melanjutkan/meningkatkan aplikasi yang sudah ada.
+				</li>
+				<li><a href="https://ppr.papua.go.id/" target="_blank">Papua Pu Rencana / EPlanning Provinsi Papua</a></li>
+				<li><a href="https://nabirekab.go.id/">Eplanning,Ebudgeting,Kasda kabupaten Nabire</a></li>
+				<li><a href="https://www.gi.co.id/" target="_blank">Perusahaan</a></li>
+			</ul>
 		</details>
 
 		<details>
@@ -22,7 +32,9 @@
 				<p class="text-muted">
 					<span class='text-info'>Agt 2015 - Jan 2016</span>
 					/
-					<span class='text-info'>NextIn Indonesia</span>
+					<span class='text-info'>
+						<a href="https://nextin-indonesia.com/" target="_blank">NextIn Indonesia</a>
+					</span>
 					/
 					<span class='text-info'>Yogyakarta</span>
 				</p>
@@ -34,6 +46,11 @@
 					yaitu <a href="http://nbpcenter.com/" target="_blank">NBPCenter</a> (Neuro-Development, Behavior &amp; Pediatrics Learning Center) bagian <i>Keanggotaan (Member)</i>.<br/>
 					Saya membuat website aplikasi tersebut secara individual dari nol.
 				</p>
+
+				<p class="font-weight-bold">Portofolio</p>
+				<ul>
+					<li><a href="http://nbpcenter.com/" target="_blank">NBPCenter</a></li>
+				</ul>
 			</article>
 		</details>
 
@@ -119,6 +136,13 @@
 					Disana saya membuat berbagai macam jenis website dan aplikasi. Mulai dari company profile, sekolah, sampai pemerintah.
 				</p>
 				<p>Pada semester 1 kelas 12 (3) SMK, saya resign untuk mempersiapkan UN (ujian nasional) dan beberapa alasan lainnya.</p>
+				<p class="font-weight-bold">Portofolio</p>
+				<ul>
+					<li><a href="https://smamardisiswa.com/" target="_blank">SMA Mardisiswa (Sistem Management Sekolah)</a></li>
+					<li><a href="https://suarademak.com/" target="_blank">Suara Demak (Sistem Informasi dan Portal Berita)</a></li>
+					<li><a href="https://indogator.com/" target="_blank">IndoGator (Server Hosting)</a></li>
+					<li><a href="https://djk.esdm.go.id/" target="_blank">DJK ESDM (Sistem Informasi)</a></li>
+				</ul>
 			</article>
 		</details>
 	</section>

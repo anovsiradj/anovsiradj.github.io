@@ -9,6 +9,7 @@
 		<ul class="list-canonical">
 			<li><a href="https://www.python.org/" target="_blank">Python</a> v3</li>
 			<li><a href="https://pip.pypa.io/" target="_blank">pip</a> v#</li>
+			<li>Flask</li>
 			<li><a href="https://www.djangoproject.com/" target="_blank">Django</a> v2,v3</li>
 		</ul>
 	</details>
@@ -19,13 +20,13 @@
 		</summary>
 		<article>
 			<ul class="list-canonical">
-				<li><a href="https://secure.php.net/" target="_blank">PHP</a> v5.6,v7</li>
+				<li><a href="https://secure.php.net/" target="_blank">PHP</a> v5.6,v7,v8</li>
 				<li><a href="https://getcomposer.org/" target="_blank">Composer</a></li>
 				<li><a href="https://www.codeigniter.com/" target="_blank">CodeIgniter</a> v3</li>
-				<li><a href="https://laravel.com/" target="_blank">Laravel</a> v5</li>
+				<li><a href="https://laravel.com/" target="_blank">Laravel</a> v8</li>
+				<li><a href="https://www.slimframework.com/" target="_blank">Slim</a> v4</li>
 				<li><a href="https://phpunit.de/" target="_blank">PHPUnit</a></li>
 			</ul>
-			<p>Saya sendiri jarang menggunakan Framework atau CMS. Tapi jika diperlukan, saya bisa mempelajarinya.</p>
 		</article>
 	</details>
 
@@ -60,7 +61,7 @@
 
 	<details>
 		<summary>
-			<h3 class="content-item-title">Database</h3>
+			<h3 class="content-item-title">Database (Structured Query Language & NoSQL)</h3>
 		</summary>
 		<ul class="list-canonical">
 			<li><a href="https://www.sqlite.org/" target="_blank">SQLite</a> v3</li>
