@@ -6,7 +6,7 @@ window.WebAppData = window.WebAppData || {};
 if (window.WebAppData.debug === window.WebAppData.unknown) {
 	window.WebAppData.debug = location.host.includes('localhost');
 }
-if (window.Vue) {
+if (Vue && Vue.version.indexOf('2.') === 0) {
 	Vue.config.devtools = window.WebAppData.debug;
 }
 if (window.less && window.less.env === window.WebAppData.unknown) {

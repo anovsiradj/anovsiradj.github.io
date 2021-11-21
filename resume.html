@@ -8,8 +8,8 @@
 	<title>Resume — anovsiradj</title>
 	<link rel='image_src' href='cdn/img/anovsiradj-markup-style.png'/>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/http-vue-loader@1/src/httpVueLoader.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0/dist/vue3-sfc-loader.js"></script>
 
 	<link rel="stylesheet/less" href="resume/index.less">
 	<script>
@@ -19,21 +19,20 @@
 		};
 	</script>
 	<script src="webapp.js"></script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.12.2/less.min.js"></script>
+	<script src="https://unpkg.com/less@4/dist/less.min.js"></script>
 </head>
 
 <body>
 <div id="index">
 	<my-header></my-header>
 
-	<main>
-		<h1>Pengalaman</h1>
+	<main class="container-fluid">
+		<h2>Pengalaman</h2>
 		<my-experiences></my-experiences>
 	</main>
 
-	<main>
-		<h1>Kompetensi</h1>
+	<main class="container-fluid">
+		<h2>Kompetensi</h2>
 		<p>
 			Portofolio sebagian besar saya publikasikan melalui
 			<a href="https://github.com/anovsiradj" target="_blank">GitHub</a>,
@@ -44,26 +43,17 @@
 		<my-competences></my-competences>
 	</main>
 
-	<main>
-		<h1>Hobbies &amp; Interests</h1>
+	<main class="container-fluid">
+		<h2>Hobbies &amp; Interests</h2>
 		<my-random></my-random>
 	</main>
 
 	<my-footer></my-footer>
 </div>
 
+<script src="https://unpkg.com/bootstrap@5/dist/js/bootstrap.min.js"></script>
 <script src="cdn/lib/xhrget.js"></script>
-<script>
-new window.Vue({
-	el: document.getElementById('index'),
-	components: {
-		'my-header': httpVueLoader(`resume/my-header.vue?_=${window.WebAppData.ts}`),
-		'my-experiences': httpVueLoader(`resume/my-experiences.vue?_=${window.WebAppData.ts}`),
-		'my-competences': httpVueLoader(`resume/my-competences.vue?_=${window.WebAppData.ts}`),
-		'my-random': httpVueLoader(`resume/my-random.vue?_=${window.WebAppData.ts}`),
-		'my-footer': httpVueLoader(`resume/my-footer.vue?_=${window.WebAppData.ts}`),
-	},
-});
-</script>
+<script src="resume/index.js"></script>
+<script></script>
 </body>
 </html>

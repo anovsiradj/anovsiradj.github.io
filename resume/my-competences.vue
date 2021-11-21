@@ -1,10 +1,24 @@
 
 <template>
 <section>
+	<details>
+		<summary>
+			<h3>PHP: Hypertext Preprocessor</h3>
+		</summary>
+		<article>
+			<ul class="list-canonical">
+				<li><a href="https://secure.php.net/" target="_blank">PHP</a> v7,v8</li>
+				<li><a href="https://getcomposer.org/" target="_blank">Composer</a></li>
+				<li><a href="https://www.codeigniter.com/" target="_blank">CodeIgniter</a> v3</li>
+				<li><a href="https://laravel.com/" target="_blank">Laravel</a> v8</li>
+				<li><a href="https://www.yiiframework.com/" target="_blank">Yii</a> v2,v3</li>
+			</ul>
+		</article>
+	</details>
 
 	<details>
 		<summary>
-			<h3 class="content-item-title">Python</h3>
+			<h3>Python (Programming Language)</h3>
 		</summary>
 		<ul class="list-canonical">
 			<li><a href="https://www.python.org/" target="_blank">Python</a> v3</li>
@@ -16,27 +30,11 @@
 
 	<details>
 		<summary>
-			<h3 class="content-item-title">PHP: Hypertext Preprocessor</h3>
-		</summary>
-		<article>
-			<ul class="list-canonical">
-				<li><a href="https://secure.php.net/" target="_blank">PHP</a> v5.6,v7,v8</li>
-				<li><a href="https://getcomposer.org/" target="_blank">Composer</a></li>
-				<li><a href="https://www.codeigniter.com/" target="_blank">CodeIgniter</a> v3</li>
-				<li><a href="https://laravel.com/" target="_blank">Laravel</a> v8</li>
-				<li><a href="https://www.slimframework.com/" target="_blank">Slim</a> v4</li>
-				<li><a href="https://phpunit.de/" target="_blank">PHPUnit</a></li>
-			</ul>
-		</article>
-	</details>
-
-	<details>
-		<summary>
-			<h3 class="content-item-title">JavaScript / Node.js (ECMAScript)</h3>
+			<h3>JavaScript / Node.js (ECMAScript)</h3>
 		</summary>
 		<ul class="list-canonical">
 			<li>JavaScript (ECMAScript) ECMA-262</li>
-			<li><a href="https://nodejs.org" target="_blank">Node.js</a> v6,8,v10</li>
+			<li><a href="https://nodejs.org" target="_blank">Node.js</a></li>
 			<li>
 				<a href="https://jquery.com/" target="_blank">jQuery</a>,
 				<a href="https://jqueryui.com/" target="_blank">jQuery UI</a>
@@ -46,36 +44,35 @@
 				<a href="https://www.npmjs.com/" target="_blank">NPM</a>,
 				<a href="https://yarnpkg.com/en/" target="_blank">Yarn</a>
 			</li>
-			<li><a href="https://vuejs.org/" target="_blank">Vue.js</a> v2</li>
+			<li><a href="https://vuejs.org/" target="_blank">Vue.js</a> v2,v3</li>
 		</ul>
-		<p class="content-list-alt">
-			<span class="label label-default">NW.js</span>
-			<span class="label label-default">Electron.js</span>
-			<span class="label label-default">Browserify</span>
-			<span class="label label-default">Grunt</span>
-			<span class="label label-default">LoDash</span>
-			<span class="label label-default">Moment.js</span>
-			<span class="label label-default">datatables.net</span>
-		</p>
+
+		<ul class="list-inline">
+		  <li class="list-inline-item badge bg-dark">NW.js</li>
+		  <li class="list-inline-item badge bg-dark">Electron.js</li>
+		  <li class="list-inline-item badge bg-dark">Browserify</li>
+		  <li class="list-inline-item badge bg-dark">Moment.js</li>
+		  <li class="list-inline-item badge bg-dark">datatables.net</li>
+		</ul>
 	</details>
 
 	<details>
 		<summary>
-			<h3 class="content-item-title">Database (Structured Query Language & NoSQL)</h3>
+			<h3>SQL (Structured Query Language) & NoSQL</h3>
 		</summary>
 		<ul class="list-canonical">
 			<li><a href="https://www.sqlite.org/" target="_blank">SQLite</a> v3</li>
 			<li><a href="https://www.firebirdsql.org/" target="_blank">FireBirdSQL</a> v2,v3</li>
-			<li><a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a> v9,v10,v11,v12</li>
-			<li><a href="https://www.mysql.com/" target="_blank">MySQL</a> v5</li>
-			<li><a href="https://www.mysql.com/" target="_blank">MariaDB</a> v10</li>
+			<li><a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a></li>
+			<li><a href="https://www.mysql.com/" target="_blank">MySQL</a></li>
+			<li><a href="https://www.mysql.com/" target="_blank">MariaDB</a></li>
 			<li><a href="https://couchdb.apache.org/" target="_blank">CouchDB</a> v2</li>
 		</ul>
 	</details>
 
 	<details>
 		<summary>
-			<h3 class="content-item-title">HTML</h3>
+			<h3>HTML</h3>
 		</summary>
 		<ul class="list-canonical">
 			<li>XML,XSL</li>
@@ -86,21 +83,20 @@
 
 	<details>
 		<summary>
-			<h3 class="content-item-title">CSS</h3>
+			<h3>CSS</h3>
 		</summary>
 		<ul class="list-canonical">
 			<li>CSS2,CSS3</li>
-			<li><a href="http://lesscss.org/" target="_blank">LESS</a> v3</li>
-			<li><a href="https://sass-lang.com/" target="_blank">SASS</a> v3</li>
-			<li><a href="http://getbootstrap.com/" target="_blank">Twitter-Bootstrap</a> v3,v4</li>
+			<li><a href="http://lesscss.org/" target="_blank">LESS</a></li>
+			<li><a href="https://sass-lang.com/" target="_blank">SASS</a></li>
+			<li><a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> v3,v4,v5</li>
 			<li><a href="http://purecss.io/" target="_blank">PureCSS</a> v1</li>
 		</ul>
 	</details>
 
-
 	<details>
 		<summary>
-			<h3 class="content-item-title">Lainnya</h3>
+			<h3>Lainnya</h3>
 		</summary>
 		<ul class="list-ubuntu">
 			<li title="Sistem Operasi">Linux (Debian, Ubuntu, Mint), Windows</li>

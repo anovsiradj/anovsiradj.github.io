@@ -1,5 +1,18 @@
 <template>
 	<section>
+		<div>
+			<h3 class="content-item-title">Junior Programmer</h3>
+			<p class="text-muted">
+				<span class='text-info'>Feb 2021 - Sekarang</span>
+				/
+				<span class='text-info'>
+					<a href="https://www.jmc.co.id/" target="_blank">JMC IT Consultant</a>
+				</span>
+				/
+				<span class='text-info'>Yogyakarta</span>
+			</p>
+		</div>
+
 		<details>
 			<summary>
 				<h3 class="content-item-title">Web Programmer</h3>
@@ -15,14 +28,16 @@
 			</summary>
 
 			<p class="font-weight-bold">Portofolio</p>
+			<p>
+				Saya ikut berkontribusi kepada semua sistem aplikasi website yang ada selama saya bekerja disini.
+				Untuk portofolio tidak ada, karena saya belum pernah menciptakan aplikasi baru, hanya melanjutkan/meningkatkan aplikasi yang sudah ada.
+			</p>
 			<ul>
-				<li>
-					Saya ikut berkontribusi kepada semua sistem aplikasi website yang ada selama saya bekerja disini.
-					Untuk portofolio tidak ada, karena saya belum pernah menciptakan aplikasi baru, hanya melanjutkan/meningkatkan aplikasi yang sudah ada.
-				</li>
-				<li><a href="https://ppr.papua.go.id/" target="_blank">Papua Pu Rencana / EPlanning Provinsi Papua</a></li>
-				<li><a href="https://nabirekab.go.id/">Eplanning,Ebudgeting,Kasda kabupaten Nabire</a></li>
-				<li><a href="https://www.gi.co.id/" target="_blank">Perusahaan</a></li>
+				<li><a data-href="https://ppr.papua.go.id/" target="_blank">Aplikasi Eplanning Provinsi Papua (Papua Pu Rencana)</a></li>
+				<li>Aplikasi Eplanning, Aplikasi Ebudgeting, Aplikasi Kasda. (Kabupaten Nabire, Kabupaten Yahukimo)</li>
+				<li>Aplikasi Pengadaan Daerah (Kabupaten Gunung Kidul, Kabupaten Pegunungan Bintang)</li>
+				<li><a data-href="https://www.gi.co.id/" target="_blank">Perusahaan</a></li>
+				<li>Aplikasi Aset Daerah (Lupa)</li>
 			</ul>
 		</details>
 
@@ -43,13 +58,13 @@
 				<p>
 					NextIn adalah sebuah perusahaan startup TI dengan misi untuk memecahkan masalah pendidikan &amp; sosial.
 					Disana saya bekerja kontrak untuk membuat sebuah aplikasi website berskala nasional
-					yaitu <a href="http://nbpcenter.com/" target="_blank">NBPCenter</a> (Neuro-Development, Behavior &amp; Pediatrics Learning Center) bagian <i>Keanggotaan (Member)</i>.<br/>
+					yaitu NBPCenter (Neuro-Development, Behavior &amp; Pediatrics Learning Center) bagian <i>Keanggotaan (Membership)</i>.<br/>
 					Saya membuat website aplikasi tersebut secara individual dari nol.
 				</p>
 
 				<p class="font-weight-bold">Portofolio</p>
 				<ul>
-					<li><a href="http://nbpcenter.com/" target="_blank">NBPCenter</a></li>
+					<li><a data-href="http://nbpcenter.com/" target="_blank">NBPCenter</a></li>
 				</ul>
 			</article>
 		</details>
@@ -63,6 +78,7 @@
 					<span class="text-info">Yogyakarta</span>
 				</p>
 			</summary>
+
 			<article>
 				<p>
 					Selama bekerja di CV. Solusi Dunia Digital, saya tidak hanya membuat website pesanan.
@@ -72,7 +88,7 @@
 				<p class="mg-b-10">Berikut beberapa diantaranya:</p>
 				<details>
 					<summary>
-						<h4 class="content-subitem-title">Magenda Futsal</h4>
+						<h4>Magenda Futsal</h4>
 						<p class="text-muted">
 							<span class='text-info'>2014</span>
 							/
@@ -100,10 +116,9 @@
 						-->
 					</article>
 				</details>
-
 				<details>
 					<summary>
-						<h4 class="content-subitem-title">KSP Bintang Harapan</h4>
+						<h4>KSP Bintang Harapan</h4>
 						<p class="text-muted">
 							<span class='text-info'>2013</span>
 							/
@@ -138,10 +153,10 @@
 				<p>Pada semester 1 kelas 12 (3) SMK, saya resign untuk mempersiapkan UN (ujian nasional) dan beberapa alasan lainnya.</p>
 				<p class="font-weight-bold">Portofolio</p>
 				<ul>
-					<li><a href="https://smamardisiswa.com/" target="_blank">SMA Mardisiswa (Sistem Management Sekolah)</a></li>
-					<li><a href="https://suarademak.com/" target="_blank">Suara Demak (Sistem Informasi dan Portal Berita)</a></li>
-					<li><a href="https://indogator.com/" target="_blank">IndoGator (Server Hosting)</a></li>
-					<li><a href="https://djk.esdm.go.id/" target="_blank">DJK ESDM (Sistem Informasi)</a></li>
+					<li><a data-href="https://smamardisiswa.com/" target="_blank">SMA Mardisiswa (Sistem Management Sekolah)</a></li>
+					<li><a data-href="https://suarademak.com/" target="_blank">Suara Demak (Sistem Informasi dan Portal Berita)</a></li>
+					<li><a data-href="https://indogator.com/" target="_blank">IndoGator (Server Hosting)</a></li>
+					<li><a data-href="https://djk.esdm.go.id/" target="_blank">DJK ESDM (Sistem Informasi)</a></li>
 				</ul>
 			</article>
 		</details>
