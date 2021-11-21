@@ -1,19 +1,18 @@
 
 <template>
-<footer class="container-fluid">
-	<div class="row text-muted">
-		<div class="col-md-6 mb-1">
-			Diberdayakan oleh GitHub,
-			<a href="https://fonts.google.com/specimen/Yusei+Magic" target="_blank">Yusei Magic</a>,
-			<a href="https://getbootstrap.com/docs/3.3/" target="_blank">Twitter-Bootstrap v3</a>,
-			<a href="https://lesscss.org/" target="_blank">Less</a>,
-			<a href="https://vuejs.org/" target="_blank">Vue</a>.
-		</div>
-		<div class="col-md-6 mb-1">
-			Revisi Ke <code v-text="revision_count"></code> Kali. <br>
-			Terakhir diubah <code v-text="revision_last.toTGL()"></code>. <br>
-			Pertama dibuat <code v-text="revision_first.toTGL()"></code>. <br>
-		</div>
+<footer class="container-fluid my-5 text-muted text-center">
+	<div>
+		Diberdayakan oleh
+		<a href="https://github.com/" target="_blank">GitHub</a>,
+		<a href="https://fonts.google.com/" target="_blank">Google Fonts</a>,
+		<a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>,
+		<a href="https://lesscss.org/" target="_blank">Less</a>,
+		<a href="https://vuejs.org/" target="_blank">Vue</a>.
+	</div>
+	<div>
+		Revisi Ke <code v-text="revision_count"></code> Kali.
+		Terakhir diubah <code v-text="revision_last.toTGL()"></code>.
+		Pertama dibuat <code v-text="revision_first.toTGL()"></code>.
 	</div>
 </footer>
 </template>
