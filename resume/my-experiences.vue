@@ -5,6 +5,8 @@
 			<p class="text-muted">
 				<span class='text-info'>Feb 2021 - Sekarang</span>
 				/
+				<span class='text-info'>Research & Development</span>
+				/
 				<span class='text-info'>
 					<a href="https://www.jmc.co.id/" target="_blank">JMC IT Consultant</a>
 				</span>
@@ -37,7 +39,7 @@
 				<li>Aplikasi Eplanning, Aplikasi Ebudgeting, Aplikasi Kasda. (Kabupaten Nabire, Kabupaten Yahukimo)</li>
 				<li>Aplikasi Pengadaan Daerah (Kabupaten Gunung Kidul, Kabupaten Pegunungan Bintang)</li>
 				<li><a data-href="https://www.gi.co.id/" target="_blank">Perusahaan</a></li>
-				<li>Aplikasi Aset Daerah (Lupa)</li>
+				<li>Aplikasi Aset Daerah (digunakan dibeberapa Kabupaten dan Provinsi)</li>
 			</ul>
 		</details>
 
@@ -64,7 +66,9 @@
 
 				<p class="font-weight-bold">Portofolio</p>
 				<ul>
-					<li><a data-href="http://nbpcenter.com/" target="_blank">NBPCenter</a></li>
+					<li>
+						<a data-href="http://nbpcenter.com/" target="_blank">NBPCenter</a>
+					</li>
 				</ul>
 			</article>
 		</details>
@@ -85,7 +89,9 @@
 					Saya juga meng-kursus-kan/membuatkan orang kuliahan website yang mereka buat sebagai skripsi.
 					Konsep, aset, rancangan dan data dari/permintaan mereka, sedangkan coding (penulisan code/script) adalah saya dari nol.
 				</p>
-				<p class="mg-b-10">Berikut beberapa diantaranya:</p>
+
+				<p class="mb-1">berikut:</p>
+
 				<details>
 					<summary>
 						<h4>Magenda Futsal</h4>
