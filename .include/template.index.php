@@ -4,12 +4,14 @@ require __DIR__ . '/fn_dirtree.php';
 $index_development = false;
 $index_output_path = __DIR__ . '/../index.html';
 
-$tree_contents_target = __DIR__ . '/../';
+$tree_contents_target = realpath(__DIR__ . '/..');
 $tree_contents = [];
-fn_dirtree($tree_contents_target, $tree_contents, function(&$entry) {
-	$end2back = (strlen($entry['rawpath'])-strlen($GLOBALS['tree_contents_target']))*-1;
-	$entry['staticpath'] = ltrim(str_replace('//', '/', substr($entry['rawpath'], $end2back)), '/');
-	unset($entry['realpath']); unset($entry['rawpath']);
+fn_dirtree($tree_contents_target, $tree_contents, function(&$entry) use ($tree_contents_target) {
+	$entry['staticpath'] = str_replace($tree_contents_target, '', $entry['realpath']);
+	$entry['staticpath'] = str_replace('\\', '/', $entry['staticpath']);
+	$entry['staticpath'] = '.' . $entry['staticpath'];
+	unset($entry['realpath']);
+	unset($entry['rawpath']);
 });
 
 // header('content-type: text/plain');
