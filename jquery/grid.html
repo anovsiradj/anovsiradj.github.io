@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Jquery Table Pagin</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+	<h1>
+		<script>document.write(document.title)</script>
+	</h1>
+
+	<main id="grid">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody class="grid-table-wrapper">
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td colspan="2">Larry the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<nav>
+			<ul class="pagination grid-pager-wrapper">
+				<li class="page-item">
+					<a class="page-link grid-pager-content" href="#"></a>
+				</li>
+			</ul>
+		</nav>
+
+		<!-- <nav>
+			<ul class="pagination grid-pager-wrapper">
+				<li class="grid-pager-prev">
+					<a class="page-link" href="#">Prev</a>
+				</li>
+				<li class="page-item">
+					<a class="page-link grid-pager-content" href="#"></a>
+				</li>
+				<li class="grid-pager-next">
+					<a class="page-link" href="#">Next</a>
+				</li>
+			</ul>
+		</nav> -->
+	</main>
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="../webapp.js"></script>
+	<script src="./grid.js"></script>
+
+	<!-- PLAIN -->
+	<!-- <script>
+		let grid = new AnoopGrid('#grid', {
+			limit: 1,
+			changeCallback(current) {
+				// toggle active pager number
+				$(this.pagerContents).removeClass('active');
+				let element = this.pagerContents.get(current - 1);
+				$(element).find(this.options.pagerContentSelector).parent().addClass('active');
+
+				// toggle display pager when not needed
+				let toggle = this.tableCount >= this.limit || this.pagerCount >= 2;
+				$(this.pagerWrapper).parent()[toggle ? 'show' : 'hide']();
+			},
+		});
+	</script> -->
+
+	<!-- JQUERY -->
+	<script>
+		$('#grid').anoopGrid({
+			limit: 1,
+			changeCallback(current) {
+				// toggle active pager number
+				$(this.pagerContents).removeClass('active');
+				let element = this.pagerContents.get(current - 1);
+				$(element).find(this.options.pagerContentSelector).parent().addClass('active');
+
+				// toggle display pager when not needed
+				let toggle = this.tableCount >= this.limit || this.pagerCount >= 2;
+				$(this.pagerWrapper).parent()[toggle ? 'show' : 'hide']();
+			},
+		});
+	</script>
+</body>
+</html>

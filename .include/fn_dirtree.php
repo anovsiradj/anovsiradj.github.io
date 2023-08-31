@@ -33,7 +33,7 @@ function fn_dirtree($target, &$root, $callback = null) {
 				$root[$i]['type'] = 'file';
 			} else {
 				$root[$i]['type'] = 'dir';
-				$root[$i]['node'] = array();
+				$root[$i]['node'] = [];
 			}
 
 			$callback($root[$i]);
