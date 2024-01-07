@@ -118,3 +118,40 @@ function fuzzymatch(needle, haystack, distance = 3) {
 
 	return (new RegExp(needle)).test(haystack);
 }
+
+/**
+ * Compares the similarity between two strings using an n-gram comparison method. 
+ * The grams default to length 2.
+ * @param str1 The first string to compare.
+ * @param str2 The second string to compare.
+ * @param gramSize The size of the grams. Defaults to length 2.
+ * @author [MgSam](https://stackoverflow.com/users/1195036/mgsam)
+ * 
+ * @link https://stackoverflow.com/a/62216738/3036312
+ */
+function stringSimilar(str1, str2, gramSize = 2) {
+	function _NGrams(s, len) {
+		s = ' '.repeat(len - 1) + s.toLowerCase() + ' '.repeat(len - 1);
+		let v = new Array(s.length - len + 1);
+		for (let i = 0; i < v.length; i++) {
+			v[i] = s.slice(i, i + len);
+		}
+		return v;
+	}
+	if (!(str1 === null || str1 === void 0 ? void 0 : str1.length) || !(str2 === null || str2 === void 0 ? void 0 : str2.length)) {
+		return 0.0;
+	}
+	let s1 = str1.length < str2.length ? str1 : str2;
+	let s2 = str1.length < str2.length ? str2 : str1;
+	let pairs1 = _NGrams(s1, gramSize);
+	let pairs2 = _NGrams(s2, gramSize);
+	let set = new Set(pairs1);
+	let total = pairs2.length;
+	let hits = 0;
+	for (let item of pairs2) {
+		if (set.delete(item)) {
+			hits++;
+		}
+	}
+	return hits / total;
+}
