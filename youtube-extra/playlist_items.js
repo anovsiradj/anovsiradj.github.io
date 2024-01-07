@@ -18,13 +18,13 @@ WebAppData.ytx_parse_result_max = Number.MAX_SAFE_INTEGER;
 	var finder = new SearchQueryParser;
 
 	loader_v1.show();
-	var ytx = new YouTubeExtra(gapi,() => loader_v1.hide());
+	var ytx = new YouTubeExtra(gapi, () => loader_v1.hide());
 
 	ytx.params({
 		part: 'snippet,status',
 	});
 	if (WebAppData.debug) {
-		ytx.params('order','date');
+		ytx.params('order', 'date');
 		// ytx.params('q','loona'); // ignored //
 	}
 
@@ -68,23 +68,23 @@ WebAppData.ytx_parse_result_max = Number.MAX_SAFE_INTEGER;
 
 				ytx.params('pageToken', result.nextPageToken);
 				fetch();
-			},0);
+			}, 0);
 		}
 	}
 
-	$(form_apikey).on('submit',event => {
+	$(form_apikey).on('submit', event => {
 		event.preventDefault();
 
 		fetch_ai = parse_ai = 0;
 		playlist_items.$data.page_curr = 1;
-		playlist_items.$set(playlist_items.$data,'items',[]);
+		playlist_items.$set(playlist_items.$data, 'items', []);
 
-		$(form_apikey).find('[name]').each(function() {
+		$(form_apikey).find('[name]').each(function () {
 			if (this.name === 'apikey') {
 				return ytx.apikey(this.value);
 			}
 			if (data_params_re.test(this.name)) {
-				return ytx.params(this.name.match(data_params_re)[1],this.value);
+				return ytx.params(this.name.match(data_params_re)[1], this.value);
 			}
 		});
 
@@ -98,39 +98,35 @@ WebAppData.ytx_parse_result_max = Number.MAX_SAFE_INTEGER;
 			search: null,
 			search_ok: [],
 			search_no: [],
-			items:[],
+			items: [],
 
 			page_curr: 1,
 			page_each: 12,
 		},
 		computed: {
-			videos_filter: function() {
+			videos_filter: function () {
 				return this.$data.items.filter(i => {
 					if (this.$data.search) {
-						// let needle = this.$data.search.toLowerCase();
-						let haystack = [i.snippet.title, i.snippet.description].join(' ').toLowerCase();
-
-						// if (haystack.indexOf(needle) >= 0) return true;
-						// if (fuzzymatch(needle, haystack)) return true;
 						if (
-							this.$data.search_ok.every(needle => fuzzymatch(needle,haystack)) &&
-							this.$data.search_no.every(needle => fuzzymatch(needle,haystack) === false) &&
-							true
-						) return true;
+								stringSimilar(this.$data.search, i.snippet.title, 5) >= 0.09 ||
+								stringSimilar(this.$data.search, i.snippet.description, 5) >= 0.09
+						) {
+							return true;
+						}
 
 						return false;
 					}
 					return true;
 				});
 			},
-			videos_pager: function() {
+			videos_pager: function () {
 				let curr = this.$data.page_curr * this.$data.page_each;
 				let index = curr - this.$data.page_each;
 				return this.videos_filter.slice(index, curr);
 			},
 		},
 		methods: {
-			search_event: debounce(function(event) {
+			search_event: debounce(function (event) {
 				var search = event.target.value.trim();
 				if (search === this.$data.search) return;
 
@@ -153,13 +149,15 @@ WebAppData.ytx_parse_result_max = Number.MAX_SAFE_INTEGER;
 							this.$data.search_no.push(i.term);
 						}
 					});
-				}
-			},1500),
 
-			page_handler: function(curr) {
+					dump(finder, this.$data.search_ok, this.$data.search_no);
+				}
+			}, 1500),
+
+			page_handler: function (curr) {
 				this.$data.page_curr = curr;
 			},
-			page_counter: function() {
+			page_counter: function () {
 				let page_counter = Math.ceil(this.videos_filter.length / this.$data.page_each);
 				if (page_counter > 0 && this.$data.page_curr > page_counter) this.page_handler(page_counter);
 				return page_counter;
@@ -172,9 +170,9 @@ WebAppData.ytx_parse_result_max = Number.MAX_SAFE_INTEGER;
 	});
 
 	if (WebAppData.debug) {
-		$.get(`data.json?_=${timestamp}`,result => {
-			$(form_apikey).find('[name=apikey]').prop('value',result.apikey);
-			$(form_apikey).find('[name^=params]').each(function() {
+		$.get(`data.json?_=${timestamp}`, result => {
+			$(form_apikey).find('[name=apikey]').prop('value', result.apikey);
+			$(form_apikey).find('[name^=params]').each(function () {
 				var name = this.name.match(data_params_re)[1];
 				if (name === 'playlistId') this.value = result.samples.playlist[1];
 			});
