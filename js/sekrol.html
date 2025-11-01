@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>sekrol</title>
+
+	<style>
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			height: 300vh;
+		}
+
+		body {
+			background-image: linear-gradient(to bottom, #000000, #230c15, #3c0e27, #550b3c, #6e0556, #82045e, #970264, #ac006a, #bd0058, #c90042, #cf0028, #cf1b00);
+		}
+	</style>
+</head>
+
+<body>
+	<script src="./pencet.js?1"></script>
+	<script src="./sekrol.js?2"></script>
+	<script>
+		pencetOn('KeyW', 1, function() {
+			window.scrollTo({ top: 0 })
+		})
+
+		pencetOn('KeyS', 1, function() {
+			sekrolAutoDown(800, 100)
+		})
+
+		document.addEventListener('DOMContentLoaded', function () {
+			sekrolAutoDown(800, 100)
+		})
+
+	</script>
+
+</body>
+
+</html>
