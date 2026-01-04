@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>sekrol</title>
+	<title>Sekrol (dan Pencet)</title>
 
 	<style>
 		html,
@@ -12,32 +12,68 @@
 			margin: 0;
 			padding: 0;
 			height: 300vh;
+			color: white;
+			font-family: 'Courier New', Courier, monospace;
 		}
 
 		body {
 			background-image: linear-gradient(to bottom, #000000, #230c15, #3c0e27, #550b3c, #6e0556, #82045e, #970264, #ac006a, #bd0058, #c90042, #cf0028, #cf1b00);
 		}
+
+		main {
+			position: fixed;
+		}
 	</style>
 </head>
 
 <body>
-	<script src="./pencet.js?1"></script>
-	<script src="./sekrol.js?2"></script>
-	<script>
-		pencetOn('KeyW', 1, function() {
-			window.scrollTo({ top: 0 })
-		})
+	<main>
+		<h1>Pencet Y(1): langsung sekrol atas</h1>
+		<h1>Pencet Y(>=3): otomatis sekrol bawah</h1>
 
-		pencetOn('KeyS', 1, function() {
-			sekrolAutoDown(800, 100)
-		})
+		<h1>Pencet X(1): otomatis sekrol bawah</h1>
 
-		document.addEventListener('DOMContentLoaded', function () {
-			sekrolAutoDown(800, 100)
-		})
+		<!--
+		<h3>
+			atas(<span id="atas">0</span>)
+		</h3>
+		-->
 
-	</script>
+		<h3>
+			bawah(<span id="bawah">0</span>)
+		</h3>
 
+	</main>
 </body>
+
+<script src="./pencet.js?2"></script>
+<script src="./sekrol.js?2"></script>
+<script>
+	pencetMain()
+	sekrolMain()
+
+	pencetOn('KeyY', 1, function() {
+		window.scrollTo({ top: 0 })
+	})
+
+	pencetOn('KeyY', 3, function() {
+		sekrolAutoDown(699, 100)
+	})
+
+	pencetOn('KeyX', 1, function() {
+		sekrolOff()
+	})
+
+	pencetOn('KeyX', 3, function() {
+		sekrolOn(function() {
+			if (sekrolIsBot()) {
+				let elem = document.querySelector('#bawah')
+				let text = Number(elem.textContent) + 1
+
+				elem.textContent = text
+			}
+		})
+	})
+</script>
 
 </html>
