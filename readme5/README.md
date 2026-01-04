@@ -2,7 +2,7 @@
 
 Why called `Readme5` ? Because `HTML5` :)
 
-Readme source [README.md](README.md).
+Readme source [./README.md](./README.md).
 
 ---
 
@@ -26,13 +26,13 @@ Add before `init(...)`:
 
 Add Style:
 
-```javascript
+```js
 readme.config.style.push('body {background-color:red;}');
 ```
 
 Add Style Content:
 
-```javascript
+```js
 readme.config.style.push('#[content] {background-color:red;}');
 ```
 Result: `#my_awesome_readme {background-color:red;}`.
@@ -40,13 +40,19 @@ Result: `#my_awesome_readme {background-color:red;}`.
 
 Add Style Table Of Content:
 
-```javascript
+```js
 readme.config.style.push('#[toc] {background-color:red;}');
 ```
 
 Result: `#my_awesome_readme_toc {background-color:red;}`.
 
 ---
+
+### Todos
+
+- relative container for ToC
+- large image overflow, current workaround `readme.config.style.push('#[content] img {max-width: 70%}');`
+- subfolder image broken
 
 ### Credit
 
