@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Mocking SpongeBob</title>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.rtl.min.css"
+		integrity="sha512-4W9f7EnJgM33kD11Ux2XNF9DSpJ7LoQXCvBNhzKTorRSyjPHmjXhHMZMafIYqYvTNWahUk2ulNsarMMLDEv4zA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<style type="text/css">
+		/* opendyslexic-latin-400-normal */
+		@font-face {
+			font-family: 'OpenDyslexic';
+			font-style: normal;
+			font-display: swap;
+			font-weight: 400;
+			src: url(https://cdn.jsdelivr.net/fontsource/fonts/opendyslexic@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/opendyslexic@latest/latin-400-normal.woff) format('woff');
+		}
+
+		html,
+		body {
+			font-family: OpenDyslexic;
+		}
+
+		body {
+			padding: 10px 20px;
+			background-color: var(--bs-body-bg);
+			color: var(--bs-body-color);
+		}
+
+		textarea {
+			display: block;
+			resize: none;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: auto;
+			min-height: 40vh;
+			font-size: large;
+			background-color: var(--bs-body-bg);
+			color: var(--bs-body-color);
+			border: 1px solid var(--bs-border-color);
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1></h1>
+
+	<form id="content">
+		<div class="row g-3 align-items-stretch">
+			<div class="col-12 col-md-6"><textarea></textarea></div>
+			<div class="col-12 col-md-6"><textarea readonly="true"></textarea></div>
+		</div>
+	</form>
+
+	<p>
+		<img src="mocking-spongebob.png" class="img-thumbnail w-100">
+	</p>
+	<p style="text-align: right;">
+		<a href="https://www.reddit.com/r/spongebob/comments/19dnqxk/mocking_spongebob_and_patrick/">(source)</a>
+	</p>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+		integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script type="text/javascript">
+		'use strict';
+
+		var f = document.getElementById('content');
+
+		var plotMap;
+
+		(function() {
+			var mql = window.matchMedia('(prefers-color-scheme: dark)');
+			function updateTheme(e) {
+				document.documentElement.setAttribute('data-bs-theme', (e.matches ? 'dark' : 'light'));
+			}
+			updateTheme(mql);
+			mql.addEventListener('change', updateTheme);
+		})();
+
+		function parsePlot(text) {
+			const map = {};
+			text.split(/\r?\n/).forEach(function(line) {
+				line = line.trim();
+				if (!line) return;
+				if (line.indexOf('|') !== -1) {
+					const tokens = line.split('|');
+					const vals = Array.from(new Set(tokens));
+					vals.forEach(function(tok) { map[tok] = vals; });
+				} else if (line.indexOf('=') !== -1) {
+					const i = line.indexOf('=');
+					const left = line.slice(0, i);
+					const right = line.slice(i + 1);
+					map[left] = [right];
+				}
+			});
+			return map;
+		}
+
+		function applyPlot(str, map) {
+			if (!map) return str;
+			const keys = Object.keys(map).sort(function(a, b) { return b.length - a.length; });
+			if (keys.length === 0) return str;
+			const esc = function(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); };
+			const wordKeys = keys.filter(function(k) { return k.length > 1; });
+			const charKeys = keys.filter(function(k) { return k.length === 1; });
+			if (wordKeys.length) {
+				const reWords = new RegExp('(?<!\\w)(?:' + wordKeys.map(esc).join('|') + ')(?!\\w)', 'g');
+				str = str.replace(reWords, function(m) {
+					const arr = map[m];
+					if (!arr || arr.length === 0) return m;
+					return arr[_.random(arr.length - 1)];
+				});
+			}
+			if (charKeys.length) {
+				const reChars = new RegExp(charKeys.map(esc).join('|'), 'g');
+				str = str.replace(reChars, function(m) {
+					const arr = map[m];
+					if (!arr || arr.length === 0) return m;
+					return arr[_.random(arr.length - 1)];
+				});
+			}
+			return str;
+		}
+
+		function transform(str) {
+			return t(applyPlot(str, plotMap));
+		}
+
+		fetch('mocking-spongebob.plot').then(function(r) { return r.text(); }).then(function(txt) {
+			plotMap = parsePlot(txt);
+		}).catch(function() {});
+
+		f.elements[0].addEventListener('input', _.debounce(function() {
+			f.elements[1].value = transform(this.value);
+		}, 500));
+
+		window.addEventListener('load', () => {
+			var v = location.hash.substring(1);
+			f.elements[0].value = v;
+			f.elements[1].value = transform(v);
+		}, { once: true });
+
+		function t(str) {
+			return str.split('').map((s, i) => i % 2 == 0 ? s.toLowerCase() : s.toUpperCase()).join('');
+		}
+
+		$('h1').text(transform(document.title))
+
+			; (function autoChangeTitle(scaleDelay) {
+				setTimeout(function() {
+					$('h1').text(transform(document.title))
+					autoChangeTitle(scaleDelay + 1)
+				}, scaleDelay)
+			})(1000)
+	</script>
+</body>
+
+</html>
