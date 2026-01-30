@@ -1,0 +1,79 @@
+<!--
+author     : anovsiradj
+version    : 20190809
+origin_link: https://anovsiradj.github.io/aL4y/mocking-spongebob.xhtml
+origin_repo: https://github.com/anovsiradj/aL4y/blob/master/mocking-spongebob.xhtml
+-->
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="UTF-8" />
+	<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default,es5,es6"></script>
+	<title>mocking-spongebob</title>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/grd/1.2.3/grd.css" />
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+	<style type="text/css">
+		html {
+			font-family: sans-serif;
+		}
+
+		body {
+			padding: 10px 20px;
+		}
+
+		#content .Grid {
+			height: 300px;
+		}
+
+		textarea {
+			display: block;
+			resize: none;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			font-size: large;
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1 class="transform">Mocking SpongeBob</h1>
+
+	<form id="content">
+		<div class="Grid">
+			<div class="Cell -fill"><textarea></textarea></div>
+			<div class="Cell -fill"><textarea readonly="true"></textarea></div>
+		</div>
+	</form>
+
+	<script type="text/javascript">
+		'use strict';
+
+		var f = document.getElementById('content');
+
+		f.elements[0].addEventListener('keyup', _.debounce(function() {
+			f.elements[1].value = t(this.value);
+		}, 500));
+
+		window.addEventListener('load', () => {
+			var v = location.hash.substring(1);
+			f.elements[0].value = v;
+			f.elements[1].value = t(v);
+		}, { once: true });
+
+		function t(str) {
+			return str.split('').map((s, i) => i % 2 == 0 ? s.toLowerCase() : s.toUpperCase()).join('');
+		}
+
+		_.each(document.querySelectorAll('.transform'), function(n) {
+			n.innerText = t(n.innerText);
+		});
+	</script>
+</body>
+
+</html>
