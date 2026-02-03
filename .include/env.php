@@ -1,5 +1,8 @@
 <?php
 return [
-	'whoami' => 'anovsiradj',
-	'mynameis' => 'Mayendra Costanov',
+	'nick' => 'anovsiradj',
+	'name' => 'Mayendra Costanov',
+
+	'whoami' => 'anovsiradj', /** @deprecated */
+	'mynameis' => 'Mayendra Costanov', /** @deprecated */
 ];

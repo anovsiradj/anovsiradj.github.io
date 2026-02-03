@@ -1,0 +1,22 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+		}
+	],
+	"settings":
+	{
+		"LSP":
+		{
+			"LSP-html":
+			{
+				"enabled": true,
+			},
+			"formatters":
+			{
+				"embedding.php": "LSP-intelephense"
+			},
+		},
+	},
+}

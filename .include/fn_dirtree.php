@@ -12,14 +12,15 @@ https://stackoverflow.com/a/34190742
 
 /*header('content-type: text/plain');*/
 
-function fn_dirtree($target, &$root, $callback = null) {
-	static $forbidden = ['bower_components','node_modules','vendor'];
+function fn_dirtree($target, &$root, $callback = null)
+{
+	static $forbidden = ['bower_components', 'node_modules', 'vendor'];
 
-	if(is_dir($target)) {
+	if (is_dir($target)) {
 		$target .= '/*';
 		$files = glob($target, GLOB_MARK | GLOB_NOSORT | GLOB_NOESCAPE);
 
-		foreach($files as $file) {
+		foreach ($files as $file) {
 			$entry = ['realpath' => realpath($file), 'rawpath' => $file, 'name' => basename($file)];
 
 			if ($entry['name'][0] === '.') continue;
@@ -27,7 +28,7 @@ function fn_dirtree($target, &$root, $callback = null) {
 
 			$root[] = $entry;
 
-			$i = count($root)-1;
+			$i = count($root) - 1;
 
 			if (is_file($file)) {
 				$root[$i]['type'] = 'file';
