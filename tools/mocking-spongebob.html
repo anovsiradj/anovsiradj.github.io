@@ -85,15 +85,26 @@
 			const map = {};
 			text.split(/\r?\n/).forEach(function(line) {
 				line = line.trim();
-				if (!line) return;
-				if (line.indexOf('|') !== -1) {
-					const tokens = line.split('|');
+				if (!line || line[0] === '#' || line.slice(0, 2) === '//') return;
+				var hasPipe = line.indexOf('|') !== -1;
+				var hasEq = line.indexOf('=') !== -1;
+				if (hasPipe && hasEq) {
+					console.warn('Ignoring malformed plot line (contains both "|" and "="):', line);
+					return;
+				}
+				if (hasPipe) {
+					const tokens = line.split('|').map(function(tok) { return tok.trim(); }).filter(Boolean);
+					if (!tokens.length) return;
 					const vals = Array.from(new Set(tokens));
 					vals.forEach(function(tok) { map[tok] = vals; });
-				} else if (line.indexOf('=') !== -1) {
+				} else if (hasEq) {
 					const i = line.indexOf('=');
-					const left = line.slice(0, i);
-					const right = line.slice(i + 1);
+					const left = line.slice(0, i).trim();
+					const right = line.slice(i + 1).trim();
+					if (!left || !right) {
+						console.warn('Ignoring malformed plot mapping:', line);
+						return;
+					}
 					map[left] = [right];
 				}
 			});
@@ -108,8 +119,11 @@
 			const wordKeys = keys.filter(function(k) { return k.length > 1; });
 			const charKeys = keys.filter(function(k) { return k.length === 1; });
 			if (wordKeys.length) {
-				const reWords = new RegExp('(?<!\\w)(?:' + wordKeys.map(esc).join('|') + ')(?!\\w)', 'g');
-				str = str.replace(reWords, function(m) {
+				const reWords = new RegExp(wordKeys.map(esc).join('|'), 'g');
+				str = str.replace(reWords, function(m, offset, whole) {
+					const before = offset > 0 ? whole.charAt(offset - 1) : '';
+					const after = offset + m.length < whole.length ? whole.charAt(offset + m.length) : '';
+					if (/\w/.test(before) || /\w/.test(after)) return m;
 					const arr = map[m];
 					if (!arr || arr.length === 0) return m;
 					return arr[_.random(arr.length - 1)];
