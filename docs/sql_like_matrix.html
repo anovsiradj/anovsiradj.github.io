@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL LIKE Operator: Vendor Comparison Matrix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4a6fa5;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #34495e;
+            font-size: 22px;
+            margin: 25px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        h3 {
+            color: #4a6fa5;
+            font-size: 18px;
+            margin: 20px 0 10px 0;
+        }
+
+        .legend {
+            background: #f8f9fa;
+            border-left: 4px solid #4a6fa5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .yes {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .no {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .partial {
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        .note {
+            color: #7f8c8d;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background-color: #4a6fa5;
+            color: white;
+            text-align: left;
+            padding: 12px 15px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #e1e1e1;
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tr:hover {
+            background-color: #e8f4f8;
+        }
+
+        .vendor-column {
+            background-color: #f0f7ff;
+            font-weight: 600;
+        }
+
+        .feature-column {
+            background-color: #f9f9f9;
+            font-weight: 600;
+            width: 25%;
+        }
+
+        .emoji {
+            font-size: 16px;
+            margin-right: 5px;
+        }
+
+        .print-button {
+            background-color: #4a6fa5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .print-button:hover {
+            background-color: #3a5a80;
+        }
+
+        .database-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .quick-reference {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .quick-reference h2 {
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .ref-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .ref-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 10px;
+            }
+
+            .print-button,
+            .quick-reference {
+                display: none;
+            }
+
+            table {
+                box-shadow: none;
+            }
+
+            th {
+                background-color: #ddd !important;
+                color: black !important;
+                -webkit-print-color-adjust: exact;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th,
+            td {
+                padding: 8px 10px;
+            }
+
+            .ref-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 SQL LIKE Operator: Vendor Comparison Matrix</h1>
+            <p class="note">Complete reference guide for SQL pattern matching across major database systems</p>
+        </header>
+
+        <div class="database-header">
+            <button class="print-button" onclick="window.print()">🖨️ Print / Save as PDF</button>
+            <div class="legend">
+                <strong>Legend:</strong>
+                <div class="legend-items">
+                    <div class="legend-item"><span class="yes">✅ = Supported/Native</span></div>
+                    <div class="legend-item"><span class="partial">⚠️ = Partial/Depends</span></div>
+                    <div class="legend-item"><span class="no">❌ = Not Supported</span></div>
+                    <div class="legend-item"><span class="note">(text) = How to achieve it</span></div>
+                </div>
+            </div>
+        </div>
+
+        <h2>📋 Basic Pattern Matching Features</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="feature-column">Feature / Rule</th>
+                    <th>SQL Standard</th>
+                    <th>PostgreSQL</th>
+                    <th>MySQL</th>
+                    <th>SQL Server</th>
+                    <th>Oracle</th>
+                    <th>SQLite</th>
+                    <th>Snowflake</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="feature-column">% wildcard</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">_ wildcard</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Escape clause</td>
+                    <td>ESCAPE '\'</td>
+                    <td class="partial">Optional</td>
+                    <td class="partial">Optional</td>
+                    <td class="yes">Required</td>
+                    <td class="yes">Required</td>
+                    <td class="partial">Optional</td>
+                    <td class="partial">Optional</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Default escape char</td>
+                    <td>Not specified</td>
+                    <td>\</td>
+                    <td>\</td>
+                    <td>None</td>
+                    <td>None</td>
+                    <td>\</td>
+                    <td>\</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Case-sensitive default</td>
+                    <td>Collation-dependent</td>
+                    <td class="yes">✅ Yes</td>
+                    <td>Collation-dependent</td>
+                    <td>Collation-dependent</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="no">❌ No (ASCII)</td>
+                    <td class="no">❌ No</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">NULL behavior</td>
+                    <td>Always NULL</td>
+                    <td>Always NULL</td>
+                    <td>Always NULL</td>
+                    <td>Always NULL</td>
+                    <td>Always NULL</td>
+                    <td>Always NULL</td>
+                    <td>Always NULL</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🚀 Extended Pattern Features</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="feature-column">Feature</th>
+                    <th>SQL Standard</th>
+                    <th>PostgreSQL</th>
+                    <th>MySQL</th>
+                    <th>SQL Server</th>
+                    <th>Oracle</th>
+                    <th>SQLite</th>
+                    <th>Snowflake</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="feature-column">Case-insensitive operator</td>
+                    <td class="no">❌ No</td>
+                    <td class="yes">✅ ILIKE</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="yes">✅ ILIKE</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Character classes [A-Z]</td>
+                    <td class="no">❌ No</td>
+                    <td class="partial">(SIMILAR TO)</td>
+                    <td class="partial">(REGEXP)</td>
+                    <td class="yes">✅ Native</td>
+                    <td class="partial">(regex)</td>
+                    <td class="partial">(GLOB)</td>
+                    <td class="partial">(RLIKE)</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Negation [^0-9]</td>
+                    <td class="no">❌ No</td>
+                    <td class="partial">(SIMILAR TO)</td>
+                    <td class="partial">(REGEXP)</td>
+                    <td class="yes">✅ Native</td>
+                    <td class="partial">(regex)</td>
+                    <td class="partial">(GLOB)</td>
+                    <td class="partial">(RLIKE)</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Regex operator</td>
+                    <td class="no">❌ No</td>
+                    <td class="yes">✅ ~, SIMILAR TO</td>
+                    <td class="yes">✅ REGEXP/RLIKE</td>
+                    <td class="no">❌ No</td>
+                    <td class="partial">REGEXP_LIKE()</td>
+                    <td class="no">❌ No (extension)</td>
+                    <td class="yes">✅ RLIKE</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Multiple patterns</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="yes">✅ LIKE ANY/ALL</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Unix-style patterns</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="yes">✅ GLOB</td>
+                    <td class="no">❌ No</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🎭 Case Handling Matrix</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="feature-column">Method</th>
+                    <th>SQL Standard</th>
+                    <th>PostgreSQL</th>
+                    <th>MySQL</th>
+                    <th>SQL Server</th>
+                    <th>Oracle</th>
+                    <th>SQLite</th>
+                    <th>Snowflake</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="feature-column">Force case-sensitive</td>
+                    <td>Collation</td>
+                    <td>Default LIKE</td>
+                    <td>LIKE BINARY</td>
+                    <td>_CS collation</td>
+                    <td>Default LIKE</td>
+                    <td>COLLATE BINARY</td>
+                    <td>Binary collation</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Force case-insensitive</td>
+                    <td>Collation</td>
+                    <td>ILIKE</td>
+                    <td>CI collation</td>
+                    <td>_CI collation</td>
+                    <td>UPPER()/LOWER()</td>
+                    <td>Default/NOCASE</td>
+                    <td>ILIKE/Default</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Common workaround</td>
+                    <td>UPPER()/LOWER()</td>
+                    <td>ILIKE</td>
+                    <td>LOWER()</td>
+                    <td>LOWER()</td>
+                    <td>UPPER()</td>
+                    <td>Default works</td>
+                    <td>Default works</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🔍 Escape Character Matrix</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="feature-column">Scenario</th>
+                    <th>SQL Standard</th>
+                    <th>PostgreSQL</th>
+                    <th>MySQL</th>
+                    <th>SQL Server</th>
+                    <th>Oracle</th>
+                    <th>SQLite</th>
+                    <th>Snowflake</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="feature-column">Find % literal</td>
+                    <td>LIKE '%\%%' ESCAPE '\'</td>
+                    <td>LIKE '%\%%'</td>
+                    <td>LIKE '%\%%'</td>
+                    <td>LIKE '%[%]' or LIKE '%!%' ESCAPE '!'</td>
+                    <td>LIKE '%\%%' ESCAPE '\'</td>
+                    <td>LIKE '%\%%'</td>
+                    <td>LIKE '%\%%'</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Find _ literal</td>
+                    <td>LIKE '%\_%' ESCAPE '\'</td>
+                    <td>LIKE '%\_%'</td>
+                    <td>LIKE '%\_%'</td>
+                    <td>LIKE '%[_]' or LIKE '%!_%' ESCAPE '!'</td>
+                    <td>LIKE '%\_%' ESCAPE '\'</td>
+                    <td>LIKE '%\_%'</td>
+                    <td>LIKE '%\_%'</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Find \ literal</td>
+                    <td>LIKE '%\\%' ESCAPE '\'</td>
+                    <td>LIKE '%\\%'</td>
+                    <td>LIKE '%\\%'</td>
+                    <td>LIKE '%[\]' or LIKE '%!\%' ESCAPE '!'</td>
+                    <td>LIKE '%\\%' ESCAPE '\'</td>
+                    <td>LIKE '%\\%'</td>
+                    <td>LIKE '%\\%'</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>⚡ Performance - Index Usage Patterns</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="feature-column">Pattern</th>
+                    <th>SQL Standard</th>
+                    <th>PostgreSQL</th>
+                    <th>MySQL</th>
+                    <th>SQL Server</th>
+                    <th>Oracle</th>
+                    <th>SQLite</th>
+                    <th>Snowflake</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="feature-column">LIKE 'prefix%'</td>
+                    <td class="yes">✅ Usually</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                    <td class="yes">✅ Yes</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">LIKE '%suffix'</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">LIKE '%infix%'</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                    <td class="no">❌ No</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">LIKE '_single'</td>
+                    <td class="partial">⚠️ Partial</td>
+                    <td class="partial">⚠️ Partial</td>
+                    <td class="partial">⚠️ Partial</td>
+                    <td class="partial">⚠️ Partial</td>
+                    <td class="partial">⚠️ Partial</td>
+                    <td class="partial">⚠️ Partial</td>
+                    <td class="partial">⚠️ Partial</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">LIKE 'pre%fix'</td>
+                    <td class="partial">⚠️ Partial</td>
+                    <td class="partial">⚠️ Partial</td>
+                    <td class="partial">⚠️ Partial</td>
+                    <td class="partial">⚠️ Partial</td>
+                    <td class="partial">⚠️ Partial</td>
+                    <td class="partial">⚠️ Partial</td>
+                    <td class="partial">⚠️ Partial</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🛠️ Alternative Functions Matrix</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="feature-column">Function</th>
+                    <th>SQL Standard</th>
+                    <th>PostgreSQL</th>
+                    <th>MySQL</th>
+                    <th>SQL Server</th>
+                    <th>Oracle</th>
+                    <th>SQLite</th>
+                    <th>Snowflake</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="feature-column">Substring match</td>
+                    <td>SUBSTRING()</td>
+                    <td>SUBSTRING()</td>
+                    <td>SUBSTRING()</td>
+                    <td>SUBSTRING()</td>
+                    <td>SUBSTR()</td>
+                    <td>SUBSTR()</td>
+                    <td>SUBSTRING()</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Position search</td>
+                    <td>POSITION()</td>
+                    <td>POSITION()</td>
+                    <td>LOCATE()</td>
+                    <td>CHARINDEX()</td>
+                    <td>INSTR()</td>
+                    <td>INSTR()</td>
+                    <td>POSITION()</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Regex match</td>
+                    <td class="no">❌ No</td>
+                    <td class="yes">✅ ~, SIMILAR TO</td>
+                    <td class="yes">✅ REGEXP</td>
+                    <td class="no">❌ No</td>
+                    <td class="yes">✅ REGEXP_LIKE()</td>
+                    <td class="no">❌ No</td>
+                    <td class="yes">✅ RLIKE</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Soundex</td>
+                    <td class="no">❌ No</td>
+                    <td class="partial">SOUNDEX() (extension)</td>
+                    <td class="yes">✅ SOUNDEX()</td>
+                    <td class="yes">✅ SOUNDEX()</td>
+                    <td class="yes">✅ SOUNDEX()</td>
+                    <td class="no">❌ No</td>
+                    <td class="yes">✅ SOUNDEX()</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="quick-reference">
+            <h2>🎯 Quick Reference Guide</h2>
+            <div class="ref-grid">
+                <div class="ref-item">
+                    <h3>Case-insensitive search</h3>
+                    <p><strong>Recommended:</strong> Snowflake/PostgreSQL</p>
+                    <p><code>ILIKE 'john%'</code></p>
+                    <p class="note">Built-in operator</p>
+                </div>
+                <div class="ref-item">
+                    <h3>Character ranges</h3>
+                    <p><strong>Recommended:</strong> SQL Server</p>
+                    <p><code>LIKE '[A-Z]%'</code></p>
+                    <p class="note">Native support</p>
+                </div>
+                <div class="ref-item">
+                    <h3>Regex patterns</h3>
+                    <p><strong>Recommended:</strong> PostgreSQL</p>
+                    <p><code>~ '^[A-Z].*$'</code></p>
+                    <p class="note">Most robust regex</p>
+                </div>
+                <div class="ref-item">
+                    <h3>Unix-style patterns</h3>
+                    <p><strong>Recommended:</strong> SQLite</p>
+                    <p><code>GLOB '[Jj]*'</code></p>
+                    <p class="note">Native Unix patterns</p>
+                </div>
+                <div class="ref-item">
+                    <h3>Multiple patterns</h3>
+                    <p><strong>Recommended:</strong> Snowflake</p>
+                    <p><code>LIKE ANY ('A%','B%')</code></p>
+                    <p class="note">Single query, multiple patterns</p>
+                </div>
+                <div class="ref-item">
+                    <h3>Portable code</h3>
+                    <p><strong>Recommended:</strong> Standard SQL</p>
+                    <p><code>UPPER(col) LIKE 'JOHN%'</code></p>
+                    <p class="note">Works everywhere</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>📝 Special Notes Matrix</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="feature-column">Consideration</th>
+                    <th>PostgreSQL</th>
+                    <th>MySQL</th>
+                    <th>SQL Server</th>
+                    <th>Oracle</th>
+                    <th>SQLite</th>
+                    <th>Snowflake</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="feature-column">Backslash as literal</td>
+                    <td>Escape needed</td>
+                    <td>Escape needed</td>
+                    <td>[\] or escape</td>
+                    <td>Escape needed</td>
+                    <td>Escape needed</td>
+                    <td>Escape needed</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Collation precedence</td>
+                    <td>Column > Database</td>
+                    <td>Column > Database</td>
+                    <td>Column > Database</td>
+                    <td>Column > Database</td>
+                    <td>Query > Column</td>
+                    <td>Column > Database</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Trailing spaces</td>
+                    <td>Significant</td>
+                    <td>Significant</td>
+                    <td>Significant</td>
+                    <td>Significant</td>
+                    <td>Significant</td>
+                    <td>Significant</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Unicode support</td>
+                    <td>Full</td>
+                    <td>Configurable</td>
+                    <td>Collation-dependent</td>
+                    <td>Full</td>
+                    <td>Limited</td>
+                    <td>Full</td>
+                </tr>
+                <tr>
+                    <td class="feature-column">Multi-byte chars</td>
+                    <td>Counts as 1 char</td>
+                    <td>Depends on charset</td>
+                    <td>Depends on collation</td>
+                    <td>Counts as 1 char</td>
+                    <td>1 byte = 1 char</td>
+                    <td>Counts as 1 char</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="legend">
+            <strong>💡 Best Practices Summary:</strong>
+            <ul style="margin-top: 10px; padding-left: 20px;">
+                <li>Use left-anchored patterns (<code>LIKE 'J%'</code>) for index usage</li>
+                <li>Be explicit about case sensitivity to avoid collation issues</li>
+                <li>Use ESCAPE clause for better portability across databases</li>
+                <li>Consider full-text search for <code>%infix%</code> patterns</li>
+                <li>Always test patterns with your actual data and collation settings</li>
+                <li>Use parameterized queries to prevent SQL injection</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>SQL LIKE Operator Vendor Comparison Matrix | Generated for reference purposes</p>
+            <p class="note">Note: Always consult your specific database version documentation as implementations may vary</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add print functionality
+        document.querySelector('.print-button').addEventListener('click', function() {
+            window.print();
+        });
+
+        // Add hover effects to table rows
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = '#e8f4f8';
+            });
+            row.addEventListener('mouseleave', function() {
+                if (this.rowIndex % 2 === 0) {
+                    this.style.backgroundColor = '#f8f9fa';
+                } else {
+                    this.style.backgroundColor = 'white';
+                }
+            });
+        });
+
+        // Add click to copy for code snippets
+        document.querySelectorAll('code').forEach(code => {
+            code.addEventListener('click', function() {
+                const text = this.textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    const original = this.textContent;
+                    this.textContent = 'Copied!';
+                    setTimeout(() => {
+                        this.textContent = original;
+                    }, 1000);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
