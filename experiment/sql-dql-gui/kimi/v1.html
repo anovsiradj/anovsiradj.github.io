@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Query Builder</title>
+    
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <!-- CodeMirror for SQL editing -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/sql/sql.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        #app {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        .header {
+            background: #16213e;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #0f3460;
+        }
+        
+        .header h1 {
+            font-size: 18px;
+            color: #e94560;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #e94560;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #c73e54;
+        }
+        
+        .btn-secondary {
+            background: #0f3460;
+            color: #eee;
+        }
+        
+        .btn-secondary:hover {
+            background: #1a4a7a;
+        }
+        
+        .btn.active {
+            background: #e94560;
+        }
+        
+        /* Main Layout */
+        .main-container {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        
+        /* Schema Panel */
+        .schema-panel {
+            width: 250px;
+            background: #16213e;
+            border-right: 1px solid #0f3460;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .panel-header {
+            padding: 12px;
+            background: #0f3460;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .schema-search {
+            padding: 10px;
+        }
+        
+        .schema-search input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #0f3460;
+            background: #1a1a2e;
+            color: #eee;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .table-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 10px 10px;
+        }
+        
+        .table-item {
+            padding: 10px;
+            margin-bottom: 4px;
+            background: #1a1a2e;
+            border-radius: 4px;
+            cursor: grab;
+            font-size: 13px;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        
+        .table-item:hover {
+            background: #0f3460;
+            border-left-color: #e94560;
+        }
+        
+        .table-item.dragging {
+            opacity: 0.5;
+        }
+        
+        .table-name {
+            font-weight: 500;
+            color: #fff;
+        }
+        
+        .table-meta {
+            font-size: 11px;
+            color: #888;
+            margin-top: 2px;
+        }
+        
+        /* Canvas Area */
+        .canvas-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #1a1a2e;
+        }
+        
+        /* Toolbar */
+        .toolbar {
+            padding: 10px 15px;
+            background: #16213e;
+            border-bottom: 1px solid #0f3460;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .toolbar-section {
+            display: flex;
+            gap: 5px;
+            padding-right: 15px;
+            border-right: 1px solid #0f3460;
+        }
+        
+        .toolbar-section:last-child {
+            border-right: none;
+        }
+        
+        .tool-btn {
+            padding: 6px 12px;
+            background: #0f3460;
+            border: none;
+            color: #eee;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .tool-btn:hover {
+            background: #1a4a7a;
+        }
+        
+        /* Query Canvas */
+        .query-canvas {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .canvas-content {
+            min-height: 100%;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: #666;
+        }
+        
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        /* Table Nodes */
+        .table-nodes-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        
+        .table-node {
+            background: #16213e;
+            border: 2px solid #0f3460;
+            border-radius: 8px;
+            min-width: 200px;
+            max-width: 280px;
+        }
+        
+        .table-node-header {
+            padding: 12px;
+            background: #0f3460;
+            border-radius: 6px 6px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .table-node-title {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .table-node-alias {
+            font-size: 11px;
+            color: #e94560;
+            background: #1a1a2e;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        
+        .table-node-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .node-btn {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 2px;
+        }
+        
+        .node-btn:hover {
+            color: #e94560;
+        }
+        
+        .table-columns {
+            padding: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .column-item {
+            padding: 6px 8px;
+            margin-bottom: 2px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+        
+        .column-item:hover {
+            background: #0f3460;
+        }
+        
+        .column-item.selected {
+            background: #e94560;
+            color: white;
+        }
+        
+        .column-type {
+            font-size: 10px;
+            color: #888;
+        }
+        
+        .column-item.selected .column-type {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        /* Join Editor */
+        .join-editor {
+            margin: 15px;
+            padding: 15px;
+            background: #1a1a2e;
+            border-radius: 6px;
+        }
+        
+        .join-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+        
+        .join-type {
+            padding: 4px 8px;
+            background: #0f3460;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        
+        .join-clause {
+            flex: 1;
+            font-family: monospace;
+            color: #4ecca3;
+        }
+        
+        /* Clause Panels */
+        .clauses-panel {
+            width: 350px;
+            background: #16213e;
+            border-left: 1px solid #0f3460;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .clauses-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+        
+        .clause-section {
+            margin-bottom: 20px;
+        }
+        
+        .clause-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .clause-items {
+            background: #1a1a2e;
+            border-radius: 6px;
+            min-height: 40px;
+            padding: 8px;
+        }
+        
+        .clause-item {
+            background: #0f3460;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            position: relative;
+        }
+        
+        .clause-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .clause-item-expr {
+            font-family: monospace;
+            color: #4ecca3;
+            font-size: 11px;
+        }
+        
+        .clause-config {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .clause-config select, .clause-config input {
+            background: #16213e;
+            border: 1px solid #0f3460;
+            color: #eee;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+        
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #e94560;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        /* Pivot Config */
+        .pivot-section {
+            background: #1a1a2e;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        
+        .pivot-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: #0f3460;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .toggle-switch.active {
+            background: #e94560;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(20px);
+        }
+        
+        .pivot-config {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .pivot-values {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .pivot-value-tag {
+            background: #0f3460;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .pivot-value-tag button {
+            background: none;
+            border: none;
+            color: #e94560;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        /* Output Panel */
+        .output-panel {
+            height: 300px;
+            background: #16213e;
+            border-top: 2px solid #0f3460;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .output-tabs {
+            display: flex;
+            background: #0f3460;
+        }
+        
+        .output-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 13px;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .output-tab.active {
+            background: #16213e;
+            border-bottom-color: #e94560;
+        }
+        
+        .output-content {
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .sql-preview {
+            height: 100%;
+            padding: 15px;
+            overflow: auto;
+        }
+        
+        .sql-code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #4ecca3;
+            white-space: pre-wrap;
+        }
+        
+        .results-preview {
+            height: 100%;
+            padding: 15px;
+            overflow: auto;
+        }
+        
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        
+        .results-table th {
+            background: #0f3460;
+            padding: 10px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        .results-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #0f3460;
+        }
+        
+        .results-table tr:hover {
+            background: #1a1a2e;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal {
+            background: #16213e;
+            border-radius: 8px;
+            min-width: 500px;
+            max-width: 800px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #0f3460;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #0f3460;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        /* Where Builder */
+        .where-builder {
+            background: #1a1a2e;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        
+        .where-group {
+            border-left: 2px solid #0f3460;
+            padding-left: 15px;
+            margin-left: 10px;
+        }
+        
+        .where-condition {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .where-condition select, .where-condition input {
+            background: #16213e;
+            border: 1px solid #0f3460;
+            color: #eee;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .where-condition input {
+            flex: 1;
+        }
+        
+        .where-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #0f3460;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1a4a7a;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <div class="header">
+            <h1>🔍 SQL Query Builder</h1>
+            <div class="header-actions">
+                <button 
+                    class="btn" 
+                    :class="{active: !rawSqlMode}"
+                    @click="rawSqlMode = false"
+                >
+                    GUI Mode
+                </button>
+                <button 
+                    class="btn" 
+                    :class="{active: rawSqlMode}"
+                    @click="rawSqlMode = true"
+                >
+                    Raw SQL
+                </button>
+                <button class="btn btn-primary" @click="executeQuery">
+                    ▶ Run Query
+                </button>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-container" v-if="!rawSqlMode">
+            <!-- Schema Panel -->
+            <div class="schema-panel">
+                <div class="panel-header">Database Schema</div>
+                <div class="schema-search">
+                    <input 
+                        type="text" 
+                        v-model="tableSearch"
+                        placeholder="Search tables..."
+                    >
+                </div>
+                <div class="table-list">
+                    <div 
+                        v-for="table in filteredTables"
+                        :key="table.name"
+                        class="table-item"
+                        draggable="true"
+                        @dragstart="handleDragStart($event, table)"
+                        :class="{dragging: draggedTable === table}"
+                    >
+                        <div class="table-name">{{ table.name }}</div>
+                        <div class="table-meta">{{ table.columns.length }} cols • {{ table.rowCount }} rows</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Canvas Area -->
+            <div class="canvas-area">
+                <div class="toolbar">
+                    <div class="toolbar-section">
+                        <button class="tool-btn" @click="clearAll">Clear All</button>
+                        <button class="tool-btn" @click="showWhereModal">+ Where</button>
+                    </div>
+                    <div class="toolbar-section">
+                        <button class="tool-btn" @click="addGroupBy">+ Group By</button>
+                        <button class="tool-btn" @click="addOrderBy">+ Order By</button>
+                    </div>
+                    <div class="toolbar-section">
+                        <button class="tool-btn" @click="togglePivot">
+                            {{ pivot.enabled ? '✓ Pivot' : 'Pivot' }}
+                        </button>
+                    </div>
+                </div>
+                
+                <div 
+                    class="query-canvas"
+                    @dragover.prevent
+                    @drop="handleDrop"
+                >
+                    <div class="canvas-content">
+                        <div v-if="selectedTables.length === 0" class="empty-state">
+                            <div class="empty-state-icon">📊</div>
+                            <p>Drag tables from the left to start building your query</p>
+                        </div>
+                        
+                        <div v-else>
+                            <div class="table-nodes-container">
+                                <div 
+                                    v-for="(table, index) in selectedTables"
+                                    :key="table.uuid"
+                                    class="table-node"
+                                >
+                                    <div class="table-node-header">
+                                        <div>
+                                            <span class="table-node-title">{{ table.name }}</span>
+                                            <span class="table-node-alias">{{ table.alias }}</span>
+                                        </div>
+                                        <div class="table-node-actions">
+                                            <button class="node-btn" @click="removeTable(index)">×</button>
+                                        </div>
+                                    </div>
+                                    <div class="table-columns">
+                                        <div 
+                                            v-for="col in table.columns"
+                                            :key="col.name"
+                                            class="column-item"
+                                            :class="{selected: isColumnSelected(table.alias, col.name)}"
+                                            @click="toggleColumnSelection(table, col)"
+                                        >
+                                            <span>{{ col.name }}</span>
+                                            <span class="column-type">{{ col.type }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Join Editor -->
+                            <div v-if="selectedTables.length > 1" class="join-editor">
+                                <div 
+                                    v-for="(join, idx) in joins"
+                                    :key="idx"
+                                    class="join-row"
+                                >
+                                    <span class="join-type">{{ join.type }}</span>
+                                    <span>{{ join.leftTable }} ⟷ {{ join.rightTable }}</span>
+                                    <input 
+                                        type="text" 
+                                        v-model="join.onClause"
+                                        class="join-clause"
+                                        placeholder="e.g., a.id = b.user_id"
+                                    >
+                                    <button class="node-btn" @click="removeJoin(idx)">×</button>
+                                </div>
+                                <button class="btn btn-secondary" @click="addJoin" style="margin-top: 10px;">
+                                    + Add Join
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Clauses Panel -->
+            <div class="clauses-panel">
+                <div class="panel-header">Query Configuration</div>
+                <div class="clauses-content">
+                    <!-- Pivot Section -->
+                    <div class="pivot-section" v-if="pivot.enabled">
+                        <div class="pivot-toggle">
+                            <div 
+                                class="toggle-switch"
+                                :class="{active: pivot.enabled}"
+                                @click="togglePivot"
+                            >
+                                <div class="toggle-slider"></div>
+                            </div>
+                            <span>Pivot Mode</span>
+                        </div>
+                        <div class="pivot-config" v-if="pivot.enabled">
+                            <div>
+                                <label>Pivot Column:</label>
+                                <select v-model="pivot.column">
+                                    <option value="">Select column...</option>
+                                    <option 
+                                        v-for="col in availableColumns"
+                                        :key="col.fullName"
+                                        :value="col.fullName"
+                                    >
+                                        {{ col.fullName }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Values:</label>
+                                <input 
+                                    type="text" 
+                                    v-model="pivot.newValue"
+                                    @keyup.enter="addPivotValue"
+                                    placeholder="Enter value and press Enter"
+                                >
+                                <div class="pivot-values">
+                                    <span 
+                                        v-for="(val, idx) in pivot.values"
+                                        :key="idx"
+                                        class="pivot-value-tag"
+                                    >
+                                        {{ val }}
+                                        <button @click="removePivotValue(idx)">×</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Aggregate:</label>
+                                <select v-model="pivot.aggFunction">
+                                    <option value="SUM">SUM</option>
+                                    <option value="COUNT">COUNT</option>
+                                    <option value="AVG">AVG</option>
+                                    <option value="MAX">MAX</option>
+                                    <option value="MIN">MIN</option>
+                                </select>
+                                <select v-model="pivot.aggColumn">
+                                    <option value="">Select column...</option>
+                                    <option 
+                                        v-for="col in availableColumns"
+                                        :key="col.fullName"
+                                        :value="col.fullName"
+                                    >
+                                        {{ col.fullName }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Selected Columns -->
+                    <div class="clause-section">
+                        <div class="clause-title">
+                            Selected Columns ({{ selectedColumns.length }})
+                            <button class="tool-btn" @click="clearColumns">Clear</button>
+                        </div>
+                        <div class="clause-items">
+                            <div 
+                                v-for="(col, idx) in selectedColumns"
+                                :key="col.id"
+                                class="clause-item"
+                            >
+                                <div class="clause-item-header">
+                                    <span>{{ col.alias || col.column }}</span>
+                                    <button class="remove-btn" @click="removeColumn(idx)">×</button>
+                                </div>
+                                <div class="clause-item-expr">
+                                    {{ col.tableAlias }}.{{ col.column }}
+                                </div>
+                                <div class="clause-config">
+                                    <select v-model="col.agg" @change="updateAlias(col)">
+                                        <option value="">No Aggregate</option>
+                                        <option value="SUM">SUM</option>
+                                        <option value="COUNT">COUNT</option>
+                                        <option value="AVG">AVG</option>
+                                        <option value="MAX">MAX</option>
+                                        <option value="MIN">MIN</option>
+                                        <option value="CONCAT">CONCAT</option>
+                                    </select>
+                                    <select v-model="col.transform">
+                                        <option value="">No Transform</option>
+                                        <option value="YEAR">YEAR()</option>
+                                        <option value="MONTH">MONTH()</option>
+                                        <option value="DAY">DAY()</option>
+                                        <option value="UPPER">UPPER()</option>
+                                        <option value="LOWER">LOWER()</option>
+                                    </select>
+                                    <input 
+                                        type="text" 
+                                        v-model="col.alias"
+                                        placeholder="Alias"
+                                        style="width: 80px;"
+                                    >
+                                </div>
+                            </div>
+                            <div v-if="selectedColumns.length === 0" style="color: #666; text-align: center; padding: 20px;">
+                                Click columns from tables to select
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Group By -->
+                    <div class="clause-section" v-if="groupBy.length > 0">
+                        <div class="clause-title">Group By</div>
+                        <div class="clause-items">
+                            <div 
+                                v-for="(col, idx) in groupBy"
+                                :key="idx"
+                                class="clause-item"
+                            >
+                                <div class="clause-item-header">
+                                    <span>{{ col }}</span>
+                                    <button class="remove-btn" @click="removeGroupBy(idx)">×</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order By -->
+                    <div class="clause-section" v-if="orderBy.length > 0">
+                        <div class="clause-title">Order By</div>
+                        <div class="clause-items">
+                            <div 
+                                v-for="(item, idx) in orderBy"
+                                :key="idx"
+                                class="clause-item"
+                            >
+                                <div class="clause-item-header">
+                                    <span>{{ item.column }}</span>
+                                    <select v-model="item.direction" style="width: 70px;">
+                                        <option value="ASC">ASC</option>
+                                        <option value="DESC">DESC</option>
+                                    </select>
+                                    <button class="remove-btn" @click="removeOrderBy(idx)">×</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Raw SQL Mode -->
+        <div v-else style="flex: 1; display: flex; flex-direction: column;">
+            <div style="padding: 15px; background: #16213e; border-bottom: 1px solid #0f3460;">
+                <button class="btn btn-secondary" @click="parseSqlToGui" style="margin-right: 10px;">
+                    ← Parse to GUI
+                </button>
+                <span style="color: #888; font-size: 13px;">Edit SQL manually. Click "Parse to GUI" to convert back.</span>
+            </div>
+            <div style="flex: 1; padding: 20px;">
+                <textarea id="raw-sql-editor" style="width: 100%; height: 100%; background: #1a1a2e; color: #4ecca3; border: 1px solid #0f3460; padding: 15px; font-family: monospace; font-size: 14px; resize: none;">{{ generatedSql }}</textarea>
+            </div>
+        </div>
+        
+        <!-- Output Panel -->
+        <div class="output-panel">
+            <div class="output-tabs">
+                <div 
+                    class="output-tab"
+                    :class="{active: activeTab === 'sql'}"
+                    @click="activeTab = 'sql'"
+                >
+                    Generated SQL
+                </div>
+                <div 
+                    class="output-tab"
+                    :class="{active: activeTab === 'results'}"
+                    @click="activeTab = 'results'"
+                >
+                    Results ({{ results.length }} rows)
+                </div>
+            </div>
+            <div class="output-content">
+                <div v-show="activeTab === 'sql'" class="sql-preview">
+                    <pre class="sql-code">{{ generatedSql }}</pre>
+                </div>
+                <div v-show="activeTab === 'results'" class="results-preview">
+                    <table v-if="results.length > 0" class="results-table">
+                        <thead>
+                            <tr>
+                                <th v-for="key in resultKeys" :key="key">{{ key }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(row, idx) in results" :key="idx">
+                                <td v-for="key in resultKeys" :key="key">{{ row[key] }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div v-else style="color: #666; text-align: center; padding: 40px;">
+                        Run query to see results
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Where Modal -->
+        <div v-if="showWhereBuilder" class="modal-overlay" @click.self="showWhereBuilder = false">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Where Conditions</h3>
+                    <button class="node-btn" @click="showWhereBuilder = false">×</button>
+                </div>
+                <div class="modal-body">
+                    <where-builder 
+                        :node="whereRoot"
+                        :columns="availableColumns"
+                    ></where-builder>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" @click="showWhereBuilder = false">Cancel</button>
+                    <button class="btn btn-primary" @click="showWhereBuilder = false">Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, computed, watch, onMounted } = Vue;
+        
+        // Where Builder Component
+        const WhereBuilder = {
+            name: 'WhereBuilder',
+            props: ['node', 'columns', 'depth'],
+            setup(props) {
+                const addCondition = () => {
+                    props.node.conditions.push({
+                        type: 'condition',
+                        left: '',
+                        op: '=',
+                        right: '',
+                        rightType: 'value'
+                    });
+                };
+                
+                const addGroup = () => {
+                    props.node.conditions.push({
+                        type: 'AND',
+                        conditions: []
+                    });
+                };
+                
+                const removeItem = (idx) => {
+                    props.node.conditions.splice(idx, 1);
+                };
+                
+                const operators = ['=', '!=', '<', '>', '<=', '>=', 'LIKE', 'NOT LIKE', 'IN', 'NOT IN', 'IS NULL', 'IS NOT NULL'];
+                
+                return { addCondition, addGroup, removeItem, operators };
+            },
+            template: `
+                <div class="where-builder" :style="{marginLeft: (depth || 0) * 20 + 'px'}">
+                    <div style="margin-bottom: 10px;">
+                        <select v-model="node.type" style="background: #16213e; border: 1px solid #0f3460; color: #eee; padding: 5px 10px; border-radius: 4px;">
+                            <option value="AND">AND</option>
+                            <option value="OR">OR</option>
+                        </select>
+                    </div>
+                    
+                    <div v-for="(cond, i) in node.conditions" :key="i" style="margin-bottom: 10px;">
+                        <where-builder 
+                            v-if="cond.type === 'AND' || cond.type === 'OR'"
+                            :node="cond"
+                            :columns="columns"
+                            :depth="(depth || 0) + 1"
+                        ></where-builder>
+                        
+                        <div v-else class="where-condition">
+                            <select v-model="cond.left">
+                                <option value="">Select column...</option>
+                                <option v-for="col in columns" :key="col.fullName" :value="col.fullName">
+                                    {{ col.fullName }}
+                                </option>
+                            </select>
+                            
+                            <select v-model="cond.op">
+                                <option v-for="op in operators" :key="op" :value="op">{{ op }}</option>
+                            </select>
+                            
+                            <input 
+                                v-if="!['IS NULL', 'IS NOT NULL'].includes(cond.op)"
+                                v-model="cond.right"
+                                placeholder="Value"
+                            >
+                            
+                            <div class="where-actions">
+                                <button class="node-btn" @click="removeItem(i)">×</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <button class="tool-btn" @click="addCondition">+ Condition</button>
+                        <button class="tool-btn" @click="addGroup">+ Group</button>
+                    </div>
+                </div>
+            `
+        };
+        
+        createApp({
+            components: {
+                WhereBuilder
+            },
+            setup() {
+                // State
+                const tableSearch = ref('');
+                const draggedTable = ref(null);
+                const rawSqlMode = ref(false);
+                const activeTab = ref('sql');
+                const showWhereBuilder = ref(false);
+                
+                // Mock schema - Replace with your API call
+                const tables = ref([
+                    {
+                        name: 'regions',
+                        rowCount: 700,
+                        columns: [
+                            { name: 'id', type: 'int' },
+                            { name: 'province_name', type: 'varchar' },
+                            { name: 'district_name', type: 'varchar' },
+                            { name: 'geometry', type: 'geometry' },
+                            { name: 'area_km2', type: 'decimal' }
+                        ]
+                    },
+                    {
+                        name: 'forests',
+                        rowCount: 999882,
+                        columns: [
+                            { name: 'id', type: 'int' },
+                            { name: 'region_id', type: 'int' },
+                            { name: 'forest_type', type: 'varchar' },
+                            { name: 'area_ha', type: 'decimal' },
+                            { name: 'created_at', type: 'timestamp' },
+                            { name: 'geometry', type: 'geometry' }
+                        ]
+                    },
+                    {
+                        name: 'roads',
+                        rowCount: 450000,
+                        columns: [
+                            { name: 'id', type: 'int' },
+                            { name: 'region_id', type: 'int' },
+                            { name: 'road_type', type: 'varchar' },
+                            { name: 'length_km', type: 'decimal' },
+                            { name: 'geometry', type: 'geometry' }
+                        ]
+                    },
+                    {
+                        name: 'rivers',
+                        rowCount: 120000,
+                        columns: [
+                            { name: 'id', type: 'int' },
+                            { name: 'region_id', type: 'int' },
+                            { name: 'river_name', type: 'varchar' },
+                            { name: 'length_km', type: 'decimal' },
+                            { name: 'geometry', type: 'geometry' }
+                        ]
+                    }
+                ]);
+                
+                const selectedTables = ref([]);
+                const joins = ref([]);
+                const selectedColumns = ref([]);
+                const groupBy = ref([]);
+                const orderBy = ref([]);
+                
+                const whereRoot = ref({
+                    type: 'AND',
+                    conditions: []
+                });
+                
+                const pivot = ref({
+                    enabled: false,
+                    column: '',
+                    values: [],
+                    newValue: '',
+                    aggFunction: 'SUM',
+                    aggColumn: ''
+                });
+                
+                const results = ref([]);
+                
+                // Computed
+                const filteredTables = computed(() => {
+                    if (!tableSearch.value) return tables.value;
+                    return tables.value.filter(t => 
+                        t.name.toLowerCase().includes(tableSearch.value.toLowerCase())
+                    );
+                });
+                
+                const availableColumns = computed(() => {
+                    const cols = [];
+                    selectedTables.value.forEach(t => {
+                        t.columns.forEach(c => {
+                            cols.push({
+                                table: t.name,
+                                tableAlias: t.alias,
+                                column: c.name,
+                                fullName: `${t.alias}.${c.name}`,
+                                type: c.type
+                            });
+                        });
+                    });
+                    return cols;
+                });
+                
+                const resultKeys = computed(() => {
+                    if (results.value.length === 0) return [];
+                    return Object.keys(results.value[0]);
+                });
+                
+                // SQL Generation
+                const generatedSql = computed(() => {
+                    if (selectedTables.value.length === 0) return '-- Drag tables to start';
+                    
+                    let sql = '';
+                    
+                    // SELECT
+                    const selectParts = [];
+                    
+                    if (pivot.value.enabled && pivot.value.column && pivot.value.values.length > 0) {
+                        // Pivot mode: generate CASE WHEN for each value
+                        pivot.value.values.forEach(val => {
+                            const cleanVal = val.replace(/[^a-zA-Z0-9_]/g, '_');
+                            const agg = pivot.value.aggFunction;
+                            const col = pivot.value.aggColumn;
+                            if (col) {
+                                selectParts.push(`${agg}(CASE WHEN ${pivot.value.column} = '${val}' THEN ${col} ELSE 0 END) as ${cleanVal}`);
+                            }
+                        });
+                        
+                        // Add non-pivot columns
+                        selectedColumns.value.forEach(col => {
+                            if (!col.isPivot) {
+                                selectParts.push(`${col.tableAlias}.${col.column}`);
+                            }
+                        });
+                    } else {
+                        // Normal mode
+                        selectedColumns.value.forEach(col => {
+                            let expr = `${col.tableAlias}.${col.column}`;
+                            
+                            if (col.transform) {
+                                expr = `${col.transform}(${expr})`;
+                            }
+                            
+                            if (col.agg) {
+                                expr = `${col.agg}(${expr})`;
+                            }
+                            
+                            const alias = col.alias || col.column;
+                            if (col.agg || col.transform || col.alias) {
+                                expr += ` as ${alias}`;
+                            }
+                            
+                            selectParts.push(expr);
+                        });
+                    }
+                    
+                    if (selectParts.length === 0) {
+                        selectParts.push('*');
+                    }
+                    
+                    sql += 'SELECT\n    ' + selectParts.join(',\n    ') + '\n';
+                    
+                    // FROM and JOINs
+                    if (selectedTables.value.length > 0) {
+                        sql += `FROM ${selectedTables.value[0].name} as ${selectedTables.value[0].alias}\n`;
+                        
+                        for (let i = 1; i < selectedTables.value.length; i++) {
+                            const table = selectedTables.value[i];
+                            const join = joins.value[i - 1];
+                            const joinType = join ? join.type : 'LEFT JOIN';
+                            const onClause = join ? join.onClause : '1=1';
+                            sql += `${joinType} ${table.name} as ${table.alias} ON ${onClause}\n`;
+                        }
+                    }
+                    
+                    // WHERE
+                    const whereSql = buildWhereSql(whereRoot.value);
+                    if (whereSql) {
+                        sql += `WHERE ${whereSql}\n`;
+                    }
+                    
+                    // GROUP BY
+                    if (groupBy.value.length > 0) {
+                        sql += `GROUP BY ${groupBy.value.join(', ')}\n`;
+                    }
+                    
+                    // ORDER BY
+                    if (orderBy.value.length > 0) {
+                        const orderParts = orderBy.value.map(o => `${o.column} ${o.direction}`);
+                        sql += `ORDER BY ${orderParts.join(', ')}\n`;
+                    }
+                    
+                    // Add flags for your engine
+                    sql += generateFlags();
+                    
+                    return sql;
+                });
+                
+                function buildWhereSql(node) {
+                    if (!node.conditions || node.conditions.length === 0) return '';
+                    
+                    const parts = node.conditions.map(cond => {
+                        if (cond.type === 'AND' || cond.type === 'OR') {
+                            const sub = buildWhereSql(cond);
+                            return sub ? `(${sub})` : '';
+                        }
+                        
+                        if (!cond.left) return '';
+                        
+                        if (cond.op === 'IS NULL') return `${cond.left} IS NULL`;
+                        if (cond.op === 'IS NOT NULL') return `${cond.left} IS NOT NULL`;
+                        
+                        let right = cond.right;
+                        if (cond.rightType === 'value' && isNaN(right)) {
+                            right = `'${right}'`;
+                        }
+                        
+                        return `${cond.left} ${cond.op} ${right}`;
+                    }).filter(p => p);
+                    
+                    return parts.join(` ${node.type} `);
+                }
+                
+                function generateFlags() {
+                    const flags = [];
+                    
+                    // Detect axes for charting
+                    const xCol = selectedColumns.value.find(c => !c.agg && c.alias?.toLowerCase().includes('name'));
+                    const yCols = selectedColumns.value.filter(c => c.agg);
+                    
+                    if (xCol) flags.push(`x=${xCol.alias || xCol.column}`);
+                    if (yCols.length > 0) {
+                        flags.push(`y=${yCols.map(c => c.alias || c.column).join(',')}`);
+                    }
+                    
+                    // Formats
+                    const formats = selectedColumns.value
+                        .filter(c => c.alias?.includes('(') || c.column.includes('area') || c.column.includes('length'))
+                        .map(c => {
+                            if (c.column.includes('area')) return `${c.alias || c.column}=ha`;
+                            if (c.column.includes('length')) return `${c.alias || c.column}=km`;
+                            return null;
+                        })
+                        .filter(f => f);
+                    
+                    if (formats.length > 0) {
+                        flags.push(`formats=${formats.join('|')}`);
+                    }
+                    
+                    return flags.length > 0 ? `\n-- FLAGS: ${flags.join('|')}` : '';
+                }
+                
+                // Methods
+                let aliasCounter = 0;
+                const usedAliases = new Set();
+                
+                function generateAlias(tableName) {
+                    const base = tableName.substring(0, 1).toLowerCase();
+                    let alias = base;
+                    let counter = 1;
+                    
+                    while (usedAliases.has(alias)) {
+                        alias = base + counter;
+                        counter++;
+                    }
+                    
+                    usedAliases.add(alias);
+                    return alias;
+                }
+                
+                function handleDragStart(e, table) {
+                    draggedTable.value = table;
+                    e.dataTransfer.setData('table', JSON.stringify(table));
+                }
+                
+                function handleDrop(e) {
+                    const tableData = JSON.parse(e.dataTransfer.getData('table'));
+                    const alias = generateAlias(tableData.name);
+                    
+                    const newTable = {
+                        ...tableData,
+                        alias,
+                        uuid: crypto.randomUUID()
+                    };
+                    
+                    selectedTables.value.push(newTable);
+                    
+                    // Auto-suggest join if possible
+                    if (selectedTables.value.length > 1) {
+                        const prevTable = selectedTables.value[selectedTables.value.length - 2];
+                        const fkGuess = guessForeignKey(prevTable, newTable);
+                        
+                        joins.value.push({
+                            type: 'LEFT JOIN',
+                            leftTable: prevTable.alias,
+                            rightTable: newTable.alias,
+                            onClause: fkGuess
+                        });
+                    }
+                    
+                    draggedTable.value = null;
+                }
+                
+                function guessForeignKey(table1, table2) {
+                    // Simple heuristic: look for region_id or table_name_id
+                    const t1Name = table1.name.toLowerCase();
+                    const t2Name = table2.name.toLowerCase();
+                    
+                    const t1HasT2Id = table1.columns.find(c => 
+                        c.name === `${t2Name}_id` || c.name === 'region_id'
+                    );
+                    const t2HasT1Id = table2.columns.find(c => 
+                        c.name === `${t1Name}_id` || c.name === 'region_id'
+                    );
+                    
+                    if (t1HasT2Id) return `${table1.alias}.${t1HasT2Id.name} = ${table2.alias}.id`;
+                    if (t2HasT1Id) return `${table1.alias}.id = ${table2.alias}.${t2HasT1Id.name}`;
+                    
+                    return '';
+                }
+                
+                function removeTable(idx) {
+                    const removed = selectedTables.value[idx];
+                    usedAliases.delete(removed.alias);
+                    selectedTables.value.splice(idx, 1);
+                    
+                    // Remove related joins
+                    joins.value = joins.value.filter(j => 
+                        j.leftTable !== removed.alias && j.rightTable !== removed.alias
+                    );
+                    
+                    // Remove columns from this table
+                    selectedColumns.value = selectedColumns.value.filter(c => 
+                        c.tableAlias !== removed.alias
+                    );
+                }
+                
+                function isColumnSelected(alias, colName) {
+                    return selectedColumns.value.some(c => 
+                        c.tableAlias === alias && c.column === colName
+                    );
+                }
+                
+                function toggleColumnSelection(table, col) {
+                    const existingIdx = selectedColumns.value.findIndex(c => 
+                        c.tableAlias === table.alias && c.column === col.name
+                    );
+                    
+                    if (existingIdx > -1) {
+                        selectedColumns.value.splice(existingIdx, 1);
+                    } else {
+                        selectedColumns.value.push({
+                            id: crypto.randomUUID(),
+                            tableAlias: table.alias,
+                            table: table.name,
+                            column: col.name,
+                            alias: '',
+                            agg: '',
+                            transform: '',
+                            isPivot: false
+                        });
+                    }
+                }
+                
+                function removeColumn(idx) {
+                    const removed = selectedColumns.value[idx];
+                    selectedColumns.value.splice(idx, 1);
+                    
+                    // Remove from group/order if present
+                    groupBy.value = groupBy.value.filter(g => g !== `${removed.tableAlias}.${removed.column}`);
+                    orderBy.value = orderBy.value.filter(o => o.column !== `${removed.tableAlias}.${removed.column}`);
+                }
+                
+                function clearColumns() {
+                    selectedColumns.value = [];
+                    groupBy.value = [];
+                    orderBy.value = [];
+                }
+                
+                function updateAlias(col) {
+                    if (col.agg && !col.alias) {
+                        col.alias = `${col.agg.toLowerCase()}_${col.column}`;
+                    }
+                }
+                
+                function addJoin() {
+                    if (selectedTables.value.length < 2) return;
+                    
+                    joins.value.push({
+                        type: 'LEFT JOIN',
+                        leftTable: selectedTables.value[0].alias,
+                        rightTable: selectedTables.value[selectedTables.value.length - 1].alias,
+                        onClause: ''
+                    });
+                }
+                
+                function removeJoin(idx) {
+                    joins.value.splice(idx, 1);
+                }
+                
+                function showWhereModal() {
+                    showWhereBuilder.value = true;
+                }
+                
+                function addGroupBy() {
+                    const nonAgg = selectedColumns.value.filter(c => !c.agg);
+                    if (nonAgg.length === 0) return;
+                    
+                    const col = nonAgg[0];
+                    const fullName = `${col.tableAlias}.${col.column}`;
+                    
+                    if (!groupBy.value.includes(fullName)) {
+                        groupBy.value.push(fullName);
+                    }
+                }
+                
+                function removeGroupBy(idx) {
+                    groupBy.value.splice(idx, 1);
+                }
+                
+                function addOrderBy() {
+                    if (selectedColumns.value.length === 0) return;
+                    
+                    const col = selectedColumns.value[0];
+                    orderBy.value.push({
+                        column: `${col.tableAlias}.${col.column}`,
+                        direction: 'ASC'
+                    });
+                }
+                
+                function removeOrderBy(idx) {
+                    orderBy.value.splice(idx, 1);
+                }
+                
+                function togglePivot() {
+                    pivot.value.enabled = !pivot.value.enabled;
+                }
+                
+                function addPivotValue() {
+                    if (pivot.value.newValue && !pivot.value.values.includes(pivot.value.newValue)) {
+                        pivot.value.values.push(pivot.value.newValue);
+                        pivot.value.newValue = '';
+                    }
+                }
+                
+                function removePivotValue(idx) {
+                    pivot.value.values.splice(idx, 1);
+                }
+                
+                function clearAll() {
+                    selectedTables.value = [];
+                    joins.value = [];
+                    selectedColumns.value = [];
+                    groupBy.value = [];
+                    orderBy.value = [];
+                    whereRoot.value = { type: 'AND', conditions: [] };
+                    pivot.value.enabled = false;
+                    pivot.value.values = [];
+                    usedAliases.clear();
+                    aliasCounter = 0;
+                }
+                
+                function executeQuery() {
+                    // Mock execution - replace with your API
+                    console.log('Executing:', generatedSql.value);
+                    
+                    // Simulate results
+                    results.value = [
+                        { province: 'Aceh', Tropical: 5000, Mangrove: 1200, road_size: 450 },
+                        { province: 'Sumatra', Tropical: 8000, Mangrove: 800, road_size: 1200 },
+                        { province: 'Kalimantan', Tropical: 12000, Mangrove: 2000, road_size: 800 }
+                    ];
+                    
+                    activeTab.value = 'results';
+                }
+                
+                function parseSqlToGui() {
+                    // Best-effort parser from raw SQL back to GUI state
+                    alert('Parse SQL to GUI: Implement based on your SQL grammar needs');
+                }
+                
+                // Initialize CodeMirror when switching to raw mode
+                watch(rawSqlMode, (isRaw) => {
+                    if (isRaw) {
+                        setTimeout(() => {
+                            const textarea = document.getElementById('raw-sql-editor');
+                            if (textarea && !textarea.classList.contains('cm-loaded')) {
+                                CodeMirror.fromTextArea(textarea, {
+                                    mode: 'text/x-sql',
+                                    theme: 'monokai',
+                                    lineNumbers: true,
+                                    readOnly: false
+                                });
+                                textarea.classList.add('cm-loaded');
+                            }
+                        }, 100);
+                    }
+                });
+                
+                return {
+                    // State
+                    tableSearch,
+                    draggedTable,
+                    rawSqlMode,
+                    activeTab,
+                    showWhereBuilder,
+                    tables,
+                    selectedTables,
+                    joins,
+                    selectedColumns,
+                    groupBy,
+                    orderBy,
+                    whereRoot,
+                    pivot,
+                    results,
+                    
+                    // Computed
+                    filteredTables,
+                    availableColumns,
+                    generatedSql,
+                    resultKeys,
+                    
+                    // Methods
+                    handleDragStart,
+                    handleDrop,
+                    removeTable,
+                    isColumnSelected,
+                    toggleColumnSelection,
+                    removeColumn,
+                    clearColumns,
+                    updateAlias,
+                    addJoin,
+                    removeJoin,
+                    showWhereModal,
+                    addGroupBy,
+                    removeGroupBy,
+                    addOrderBy,
+                    removeOrderBy,
+                    togglePivot,
+                    addPivotValue,
+                    removePivotValue,
+                    clearAll,
+                    executeQuery,
+                    parseSqlToGui
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

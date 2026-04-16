@@ -1,0 +1,170 @@
+<!--
+@agent: gemini (google)
+@versi: 20260412
+-->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>exFAT vs NTFS</title>
+</head>
+
+<body>
+	<table>
+		<tbody>
+			<tr>
+				<th colspan="undefined">Feature&nbsp;</th>
+				<th colspan="undefined">
+					<strong>exFAT</strong>
+					(Extended File Allocation Table)
+				</th>
+				<th colspan="undefined">
+					<strong>NTFS</strong>
+					(New Technology File System)
+				</th>
+			</tr>
+			<tr>
+				<td colspan="undefined"><strong>Primary Intent</strong></td>
+				<td colspan="undefined">Flash storage &amp; SD cards.</td>
+				<td colspan="undefined">Internal Windows system drives.</td>
+			</tr>
+			<tr>
+				<td colspan="undefined"><strong>Speed (Small Files)</strong></td>
+				<td colspan="undefined">
+					<strong>Slower.</strong>
+					High overhead when managing thousands of tiny files.
+				</td>
+				<td colspan="undefined">
+					<strong>Fast.</strong>
+					Optimized for system operations and heavy multitasking.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="undefined"><strong>Speed (Large Files)</strong></td>
+				<td colspan="undefined">
+					<strong>Fast.</strong>
+					Simple structure allows for high-speed sequential transfers.
+				</td>
+				<td colspan="undefined">
+					<strong>Fast.</strong>
+					Excellent performance for high-capacity storage.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="undefined"><strong>Max File Size</strong></td>
+				<td colspan="undefined">16 Exabytes (Virtually unlimited).</td>
+				<td colspan="undefined">8–256 Terabytes (depending on implementation).</td>
+			</tr>
+			<tr>
+				<td colspan="undefined"><strong>Max Partition Size</strong></td>
+				<td colspan="undefined">128 Petabytes.</td>
+				<td colspan="undefined">8 Petabytes to 256 Terabytes.</td>
+			</tr>
+			<tr>
+				<td colspan="undefined"><strong>Windows Compatibility</strong></td>
+				<td colspan="undefined">Full Read/Write (Windows XP SP3 and newer).</td>
+				<td colspan="undefined">Full Read/Write (Native Windows system format).</td>
+			</tr>
+			<tr>
+				<td colspan="undefined"><strong>Linux Compatibility</strong></td>
+				<td colspan="undefined">
+					<strong>Excellent.</strong>
+					Supported natively since Kernel 5.4; older kernels use
+					<code>exfat-utils</code>
+					.
+				</td>
+				<td colspan="undefined">
+					<strong>Good.</strong>
+					Supported via
+					<code>ntfs-3g</code>
+					or modern
+					<code>ntfs3</code>
+					driver, but permissions can be finicky.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="undefined"><strong>Windows-to-Linux Portability</strong></td>
+				<td colspan="undefined">
+					<strong>Seamless.</strong>
+					Best "middle ground" for moving data between these OSs without permission errors.
+				</td>
+				<td colspan="undefined">
+					<strong>Complicated.</strong>
+					Linux often mounts NTFS with "Root" ownership, making user-level editing annoying.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="undefined"><strong>Data Safety (Journaling)</strong></td>
+				<td colspan="undefined">
+					<strong>None.</strong>
+					If you unplug the drive while it's writing, you risk "orphaned" files or a corrupted partition.
+				</td>
+				<td colspan="undefined">
+					<strong>High.</strong>
+					Uses a log (journal) to track changes. If power cuts, it can usually repair itself automatically.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="undefined"><strong>Storage Efficiency</strong></td>
+				<td colspan="undefined">
+					<strong>Lower.</strong>
+					Uses larger "cluster sizes," which wastes space if storing many tiny files ("Slack space").
+				</td>
+				<td colspan="undefined">
+					<strong>Higher.</strong>
+					Uses small clusters and supports native file compression to save disk space.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="undefined"><strong>Key "Quirks"</strong></td>
+				<td colspan="undefined">
+					<strong>Case-insensitive.</strong>
+					It doesn't care if a file is named
+					<code>DATA.txt</code>
+					or
+					<code>data.txt</code>
+					.
+				</td>
+				<td colspan="undefined">
+					<strong>Feature Heavy.</strong>
+					Supports Symlinks, Hard links, Disk Quotas, and File Encryption (EFS).
+				</td>
+			</tr>
+			<tr>
+				<td colspan="undefined"><strong>Permission Support</strong></td>
+				<td colspan="undefined">
+					<strong>None.</strong>
+					Anyone with physical access to the drive can read every file on it.
+				</td>
+				<td colspan="undefined">
+					<strong>Advanced.</strong>
+					Supports ACLs (Access Control Lists) to lock specific folders to specific users.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<strong>The "Linux &amp; Windows" Decision</strong>
+	&nbsp; If you are dual-booting or moving a drive between Windows and Linux:&nbsp;
+
+	<ul>
+		<li>
+			<strong>Choose exFAT</strong>
+			if the drive is a "shuttle" for movies, installers, or project files. It "just works" on both without you
+			needing to touch the terminal to fix permissions.
+		</li>
+		<li>
+			<strong>Choose NTFS</strong>
+			if the drive is a permanent secondary internal hard drive. It is safer for long-term storage, but you may need
+			to edit your
+			<code>/etc/fstab</code>
+			file in Linux to ensure it mounts with the correct user permissions.&nbsp;
+		</li>
+	</ul>
+</body>
+
+</html>

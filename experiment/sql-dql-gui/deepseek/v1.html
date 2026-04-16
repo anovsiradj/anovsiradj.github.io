@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual SQL Builder for PostgreSQL (No External Store)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Vue 3 CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    .sql-preview {
+      font-family: 'Monaco', monospace;
+      font-size: 0.8rem;
+      background: #1e1e2f;
+      color: #f8f8f2;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+    }
+    .section-card {
+      transition: all 0.2s;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 p-6">
+  <div id="app">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="text-3xl font-bold mb-6 text-gray-800">PostgreSQL Query Builder (GUI)</h1>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Left 2/3: Configuration panels -->
+        <div class="lg:col-span-2 space-y-6">
+          <!-- Tables & Joins -->
+          <div class="bg-white rounded-lg shadow p-4 section-card">
+            <h2 class="text-xl font-semibold mb-3">1. Tables & Joins</h2>
+            <div class="mb-3">
+              <button @click="addTable" class="bg-blue-600 text-white px-3 py-1 rounded text-sm">+ Add Table</button>
+            </div>
+            <div v-for="(tbl, idx) in state.tables" :key="idx" class="border p-2 rounded mb-2 flex items-center gap-2">
+              <span class="font-mono text-sm">Table:</span>
+              <select v-model="tbl.name" class="border rounded p-1 text-sm">
+                <option v-for="t in availableTables" :value="t.name">{{ t.schema }}.{{ t.name }}</option>
+              </select>
+              <span class="font-mono text-sm">AS</span>
+              <input v-model="tbl.alias" class="border rounded p-1 text-sm w-24" placeholder="alias">
+              <button @click="removeTable(idx)" class="text-red-500 text-sm ml-auto">✖</button>
+            </div>
+            
+            <div v-if="state.tables.length >= 2" class="mt-4">
+              <h3 class="font-medium mb-2">Join Conditions</h3>
+              <div v-for="(join, jIdx) in state.joins" :key="jIdx" class="border-l-4 border-blue-300 bg-gray-50 p-2 mb-2 rounded">
+                <div class="flex flex-wrap gap-2 items-center">
+                  <select v-model="join.leftTableAlias" class="border rounded p-1 text-sm">
+                    <option v-for="t in state.tables" :value="t.alias">{{ t.alias }} ({{ t.name }})</option>
+                  </select>
+                  <span>.</span>
+                  <select v-model="join.leftColumn" class="border rounded p-1 text-sm">
+                    <option v-for="col in getColumnsForTable(join.leftTableAlias)" :value="col">{{ col }}</option>
+                  </select>
+                  <span class="font-bold">=</span>
+                  <select v-model="join.rightTableAlias" class="border rounded p-1 text-sm">
+                    <option v-for="t in state.tables" :value="t.alias">{{ t.alias }} ({{ t.name }})</option>
+                  </select>
+                  <span>.</span>
+                  <select v-model="join.rightColumn" class="border rounded p-1 text-sm">
+                    <option v-for="col in getColumnsForTable(join.rightTableAlias)" :value="col">{{ col }}</option>
+                  </select>
+                  <select v-model="join.type" class="border rounded p-1 text-sm">
+                    <option>INNER</option><option>LEFT</option><option>RIGHT</option>
+                  </select>
+                  <button @click="removeJoin(jIdx)" class="text-red-500 ml-auto">✖</button>
+                </div>
+              </div>
+              <button @click="addJoin" class="text-sm text-blue-600">+ Add Join</button>
+            </div>
+          </div>
+
+          <!-- Output Columns (or Pivot) -->
+          <div class="bg-white rounded-lg shadow p-4 section-card">
+            <div class="flex justify-between items-center mb-3">
+              <h2 class="text-xl font-semibold">2. Output Columns</h2>
+              <label class="flex items-center gap-2 text-sm">
+                <input type="checkbox" v-model="state.usePivot"> Enable Pivot Mode
+              </label>
+            </div>
+            
+            <!-- Normal Column Builder -->
+            <div v-if="!state.usePivot">
+              <div v-for="(col, cIdx) in state.columns" :key="cIdx" class="border p-2 rounded mb-2">
+                <div class="flex flex-wrap gap-2 items-center">
+                  <select v-model="col.sourceColumn" class="border rounded p-1 text-sm w-48">
+                    <option value="">-- Select column --</option>
+                    <option v-for="t in state.tables" :value="`${t.alias}.${getFirstColumn(t.alias)}`" disabled class="font-bold">{{ t.alias }}.*</option>
+                    <option v-for="t in state.tables" v-for="colName in getColumnsForTable(t.alias)" :value="`${t.alias}.${colName}`">{{ t.alias }}.{{ colName }}</option>
+                  </select>
+                  <select v-model="col.aggregate" class="border rounded p-1 text-sm">
+                    <option value="">None</option>
+                    <option>SUM</option><option>COUNT</option><option>AVG</option><option>MIN</option><option>MAX</option>
+                    <option>STRING_AGG</option>
+                  </select>
+                  <select v-model="col.dateFunc" class="border rounded p-1 text-sm">
+                    <option value="">No date func</option>
+                    <option>YEAR</option><option>MONTH</option><option>DAY</option><option>EXTRACT(YEAR)</option>
+                  </select>
+                  <input v-model="col.alias" placeholder="alias" class="border rounded p-1 text-sm w-28">
+                  <button @click="removeColumn(cIdx)" class="text-red-500">✖</button>
+                </div>
+                <div v-if="col.aggregate === 'STRING_AGG'" class="mt-1 ml-2">
+                  <input v-model="col.stringAggDelim" placeholder="Delimiter (default ',')" class="border rounded p-1 text-sm w-32">
+                </div>
+              </div>
+              <button @click="addColumn" class="text-blue-600 text-sm">+ Add Column</button>
+            </div>
+
+            <!-- Pivot Builder -->
+            <div v-else>
+              <div class="bg-gray-50 p-3 rounded space-y-3">
+                <div><label class="font-medium">Source Table Alias:</label>
+                  <select v-model="state.pivotConfig.sourceTableAlias" class="border rounded p-1 ml-2">
+                    <option v-for="t in state.tables" :value="t.alias">{{ t.alias }}</option>
+                  </select>
+                </div>
+                <div><label class="font-medium">Row Category Column:</label>
+                  <select v-model="state.pivotConfig.rowCategoryColumn" class="border rounded p-1 ml-2">
+                    <option v-for="col in getColumnsForTable(state.pivotConfig.sourceTableAlias)" :value="col">{{ col }}</option>
+                  </select>
+                </div>
+                <div><label class="font-medium">Column Category Column:</label>
+                  <select v-model="state.pivotConfig.columnCategoryColumn" class="border rounded p-1 ml-2">
+                    <option v-for="col in getColumnsForTable(state.pivotConfig.sourceTableAlias)" :value="col">{{ col }}</option>
+                  </select>
+                </div>
+                <div><label class="font-medium">Value Column:</label>
+                  <select v-model="state.pivotConfig.valueColumn" class="border rounded p-1 ml-2">
+                    <option v-for="col in getColumnsForTable(state.pivotConfig.sourceTableAlias)" :value="col">{{ col }}</option>
+                  </select>
+                </div>
+                <div><label class="font-medium">Aggregation:</label>
+                  <select v-model="state.pivotConfig.aggregation" class="border rounded p-1 ml-2">
+                    <option>SUM</option><option>COUNT</option><option>AVG</option>
+                  </select>
+                </div>
+                <div><label class="font-medium">Extra Group By Columns (comma):</label>
+                  <input v-model="state.pivotConfig.extraGroupBy" placeholder="col1,col2" class="border rounded p-1 w-full">
+                </div>
+                <div class="text-sm text-gray-600">Note: Pivot uses crosstab. You need to provide distinct column values (semi-dynamic). For demo, we hardcode sample values.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filters (WHERE / HAVING) -->
+          <div class="bg-white rounded-lg shadow p-4 section-card">
+            <h2 class="text-xl font-semibold mb-3">3. Filters</h2>
+            <div class="mb-2">
+              <label class="font-medium">WHERE (before aggregation)</label>
+              <filter-builder :filter-group="state.whereGroup" :available-columns="allAvailableColumns" @update="forceUpdate" />
+            </div>
+            <div class="mt-4">
+              <label class="font-medium">HAVING (after aggregation, only aggregate columns)</label>
+              <filter-builder :filter-group="state.havingGroup" :available-columns="aggregateOnlyColumns" @update="forceUpdate" />
+            </div>
+          </div>
+
+          <!-- Group By & Order By -->
+          <div class="bg-white rounded-lg shadow p-4 section-card">
+            <h2 class="text-xl font-semibold mb-3">4. Grouping & Ordering</h2>
+            <div class="mb-3">
+              <label class="font-medium">Group By (columns):</label>
+              <div class="flex flex-wrap gap-2 mt-1">
+                <span v-for="(g, idx) in state.groupBy" :key="idx" class="bg-gray-200 px-2 py-1 rounded text-sm flex items-center gap-1">
+                  {{ g }}
+                  <button @click="removeGroupBy(idx)" class="text-red-500">✖</button>
+                </span>
+              </div>
+              <div class="flex gap-2 mt-1">
+                <select v-model="newGroupByColumn" class="border rounded p-1 text-sm">
+                  <option value="">-- add column --</option>
+                  <option v-for="col in allAvailableColumns" :value="col">{{ col }}</option>
+                </select>
+                <button @click="addGroupBy" class="bg-gray-500 text-white px-2 py-1 rounded text-sm">Add</button>
+              </div>
+            </div>
+            <div>
+              <label class="font-medium">Order By:</label>
+              <div v-for="(ord, idx) in state.orderBy" :key="idx" class="flex gap-2 items-center mt-1">
+                <select v-model="ord.column" class="border rounded p-1 text-sm">
+                  <option v-for="col in allAvailableColumns" :value="col">{{ col }}</option>
+                </select>
+                <select v-model="ord.direction" class="border rounded p-1 text-sm">
+                  <option>ASC</option><option>DESC</option>
+                </select>
+                <button @click="removeOrderBy(idx)" class="text-red-500">✖</button>
+              </div>
+              <button @click="addOrderBy" class="text-blue-600 text-sm mt-1">+ Add Order</button>
+            </div>
+          </div>
+
+          <!-- Row Numbering -->
+          <div class="bg-white rounded-lg shadow p-4 section-card">
+            <h2 class="text-xl font-semibold mb-3">5. Row Numbering / Ranking</h2>
+            <label class="flex items-center gap-2">
+              <input type="checkbox" v-model="state.rowNumbering.enabled"> Enable
+            </label>
+            <div v-if="state.rowNumbering.enabled" class="mt-2 space-y-2 ml-4">
+              <select v-model="state.rowNumbering.type" class="border rounded p-1">
+                <option>ROW_NUMBER</option><option>RANK</option>
+              </select>
+              <div><label class="text-sm">Partition By (columns):</label>
+                <input v-model="state.rowNumbering.partitionByStr" placeholder="col1,col2" class="border rounded p-1 w-full text-sm">
+              </div>
+              <div><label class="text-sm">Order By inside window:</label>
+                <input v-model="state.rowNumbering.orderByStr" placeholder="col1 ASC, col2 DESC" class="border rounded p-1 w-full text-sm">
+              </div>
+              <div><label class="text-sm">Alias:</label> <input v-model="state.rowNumbering.alias" class="border rounded p-1"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right side: SQL preview and run -->
+        <div class="lg:col-span-1 space-y-6">
+          <div class="bg-gray-800 rounded-lg shadow p-4">
+            <h2 class="text-white text-xl font-semibold mb-2">Generated SQL</h2>
+            <pre class="sql-preview text-sm overflow-auto max-h-96">{{ generatedSQL }}</pre>
+            <button @click="runQuery" class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded">▶ Run Query (console.log)</button>
+            <p class="text-xs text-gray-400 mt-2">(In real app, POST this SQL to your engine)</p>
+          </div>
+          <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 text-sm">
+            <strong>Mock data note:</strong> Tables: regional, forests, measurements. Columns are mocked. Adjust availableTables and columnsForTable in code.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- MOCK DATA (replace with API calls) ----------
+    const availableTables = [
+      { schema: 'public', name: 'regional', columns: ['id', 'province_name', 'area_km2', 'population'] },
+      { schema: 'public', name: 'forests', columns: ['id', 'region_id', 'forest_name', 'area_ha', 'forest_type'] },
+      { schema: 'public', name: 'measurements', columns: ['id', 'forest_id', 'measure_date', 'carbon_stock'] }
+    ];
+
+    function getColumnsForTableName(tableName) {
+      const tbl = availableTables.find(t => t.name === tableName);
+      return tbl ? tbl.columns : [];
+    }
+
+    // ---------- Filter Builder Component (recursive) ----------
+    const FilterBuilder = {
+      props: ['filterGroup', 'availableColumns'],
+      emits: ['update'],
+      template: `
+        <div class="border p-2 rounded bg-gray-50 mt-1">
+          <div class="flex gap-2 mb-2">
+            <select v-model="filterGroup.logic" class="border rounded text-sm p-1">
+              <option>AND</option><option>OR</option>
+            </select>
+            <button @click="addCondition" class="text-xs bg-blue-500 text-white px-2 rounded">+ Condition</button>
+            <button @click="addGroup" class="text-xs bg-gray-500 text-white px-2 rounded">+ Group</button>
+          </div>
+          <div v-for="(item, idx) in filterGroup.children" :key="idx" class="ml-4 mb-2">
+            <div v-if="item.logic" class="border-l-2 border-gray-300 pl-2">
+              <FilterBuilder :filter-group="item" :available-columns="availableColumns" @update="$emit('update')" />
+              <button @click="removeChild(idx)" class="text-red-500 text-xs mt-1">Remove Group</button>
+            </div>
+            <div v-else class="flex flex-wrap gap-2 items-center">
+              <select v-model="item.column" class="border rounded p-1 text-sm">
+                <option value="">-- column --</option>
+                <option v-for="col in availableColumns" :value="col">{{ col }}</option>
+              </select>
+              <select v-model="item.operator" class="border rounded p-1 text-sm">
+                <option>=</option><option>!=</option><option>></option><option><</option><option>LIKE</option><option>IN</option><option>IS NULL</option>
+              </select>
+              <input v-if="item.operator !== 'IS NULL'" v-model="item.value" placeholder="value" class="border rounded p-1 text-sm">
+              <button @click="removeChild(idx)" class="text-red-500">✖</button>
+            </div>
+          </div>
+        </div>
+      `,
+      methods: {
+        addCondition() {
+          this.filterGroup.children.push({ column: '', operator: '=', value: '' });
+          this.$emit('update');
+        },
+        addGroup() {
+          this.filterGroup.children.push({ logic: 'AND', children: [] });
+          this.$emit('update');
+        },
+        removeChild(idx) {
+          this.filterGroup.children.splice(idx, 1);
+          this.$emit('update');
+        }
+      }
+    };
+
+    // ---------- Vue App (Reactive State without Pinia) ----------
+    const { createApp, reactive, computed, toRefs } = Vue;
+
+    createApp({
+      components: { FilterBuilder },
+      setup() {
+        // Reactive state
+        const state = reactive({
+          tables: [
+            { name: 'regional', alias: 'r', schema: 'public' },
+            { name: 'forests', alias: 'f', schema: 'public' }
+          ],
+          joins: [
+            { leftTableAlias: 'r', leftColumn: 'id', rightTableAlias: 'f', rightColumn: 'region_id', type: 'LEFT' }
+          ],
+          columns: [
+            { sourceColumn: 'r.province_name', aggregate: '', dateFunc: '', alias: 'province', stringAggDelim: ',' },
+            { sourceColumn: 'f.area_ha', aggregate: 'SUM', dateFunc: '', alias: 'total_area', stringAggDelim: ',' }
+          ],
+          usePivot: false,
+          pivotConfig: {
+            sourceTableAlias: 'f',
+            rowCategoryColumn: 'forest_type',
+            columnCategoryColumn: 'forest_name',
+            valueColumn: 'area_ha',
+            aggregation: 'SUM',
+            extraGroupBy: ''
+          },
+          whereGroup: { logic: 'AND', children: [] },
+          havingGroup: { logic: 'AND', children: [] },
+          groupBy: [],
+          orderBy: [],
+          rowNumbering: { enabled: false, type: 'ROW_NUMBER', partitionByStr: '', orderByStr: '', alias: 'row_num' }
+        });
+
+        // Helper functions
+        const getColumnsForTable = (alias) => {
+          const table = state.tables.find(t => t.alias === alias);
+          if (!table) return [];
+          const tblMeta = availableTables.find(t => t.name === table.name);
+          return tblMeta ? tblMeta.columns : [];
+        };
+
+        const getFirstColumn = (alias) => {
+          const cols = getColumnsForTable(alias);
+          return cols.length ? cols[0] : 'id';
+        };
+
+        const allAvailableColumns = computed(() => {
+          let cols = [];
+          for (let t of state.tables) {
+            const tableCols = getColumnsForTable(t.alias);
+            cols.push(...tableCols.map(c => `${t.alias}.${c}`));
+          }
+          return cols;
+        });
+
+        const aggregateOnlyColumns = computed(() => {
+          return state.columns.filter(c => c.aggregate && c.sourceColumn).map(c => `${c.aggregate}(${c.sourceColumn}) AS ${c.alias || c.sourceColumn}`);
+        });
+
+        // Actions
+        const addTable = () => {
+          state.tables.push({ name: 'regional', alias: `t${state.tables.length+1}`, schema: 'public' });
+        };
+        const removeTable = (idx) => {
+          const removedAlias = state.tables[idx].alias;
+          state.tables.splice(idx, 1);
+          state.joins = state.joins.filter(j => j.leftTableAlias !== removedAlias && j.rightTableAlias !== removedAlias);
+        };
+        const addJoin = () => {
+          if (state.tables.length >= 2) {
+            state.joins.push({ leftTableAlias: state.tables[0].alias, leftColumn: 'id', rightTableAlias: state.tables[1].alias, rightColumn: 'region_id', type: 'INNER' });
+          }
+        };
+        const removeJoin = (idx) => { state.joins.splice(idx, 1); };
+        const addColumn = () => { state.columns.push({ sourceColumn: '', aggregate: '', dateFunc: '', alias: '', stringAggDelim: ',' }); };
+        const removeColumn = (idx) => { state.columns.splice(idx, 1); };
+        const addGroupBy = () => { if (newGroupByColumn.value && !state.groupBy.includes(newGroupByColumn.value)) state.groupBy.push(newGroupByColumn.value); newGroupByColumn.value = ''; };
+        const removeGroupBy = (idx) => { state.groupBy.splice(idx, 1); };
+        const addOrderBy = () => { state.orderBy.push({ column: '', direction: 'ASC' }); };
+        const removeOrderBy = (idx) => { state.orderBy.splice(idx, 1); };
+        const forceUpdate = () => {}; // dummy to trigger reactivity when filter changes
+
+        // SQL Generation (same as before, but using the state)
+        const generateSQL = () => {
+          if (state.tables.length === 0) return '-- No tables selected';
+          
+          if (state.usePivot) {
+            const cfg = state.pivotConfig;
+            const sourceTable = state.tables.find(t => t.alias === cfg.sourceTableAlias);
+            if (!sourceTable) return '-- Invalid pivot source table';
+            const rowCol = cfg.rowCategoryColumn;
+            const catCol = cfg.columnCategoryColumn;
+            const valCol = cfg.valueColumn;
+            const agg = cfg.aggregation;
+            const extra = cfg.extraGroupBy ? cfg.extraGroupBy.split(',').map(s=>s.trim()).filter(s=>s) : [];
+            const groupCols = [rowCol, ...extra].join(', ');
+            const query = `SELECT ${rowCol}, ${catCol}, ${agg}(${valCol}) AS value FROM ${sourceTable.schema}.${sourceTable.name} AS ${cfg.sourceTableAlias} GROUP BY ${groupCols}, ${catCol} ORDER BY 1,2`;
+            return `-- PIVOT using crosstab (requires tablefunc extension)\nCREATE EXTENSION IF NOT EXISTS tablefunc;\nSELECT * FROM crosstab(\n  '${query.replace(/'/g, "''")}',\n  'SELECT DISTINCT ${catCol} FROM ${sourceTable.schema}.${sourceTable.name} ORDER BY 1'\n) AS ct(${rowCol} text, "Value1" numeric, "Value2" numeric);`;
+          }
+          
+          let selectClause = [];
+          if (state.rowNumbering.enabled) {
+            const rn = state.rowNumbering;
+            let over = '';
+            if (rn.partitionByStr) over += `PARTITION BY ${rn.partitionByStr}`;
+            if (rn.orderByStr) over += (over ? ' ' : '') + `ORDER BY ${rn.orderByStr}`;
+            selectClause.push(`${rn.type}() OVER (${over}) AS ${rn.alias || 'row_num'}`);
+          }
+          for (let col of state.columns) {
+            if (!col.sourceColumn) continue;
+            let expr = col.sourceColumn;
+            if (col.aggregate) {
+              if (col.aggregate === 'STRING_AGG') {
+                expr = `STRING_AGG(${expr}, '${col.stringAggDelim || ','}')`;
+              } else {
+                expr = `${col.aggregate}(${expr})`;
+              }
+            }
+            if (col.dateFunc) {
+              if (col.dateFunc === 'YEAR') expr = `EXTRACT(YEAR FROM ${expr})`;
+              else if (col.dateFunc === 'MONTH') expr = `EXTRACT(MONTH FROM ${expr})`;
+              else if (col.dateFunc === 'DAY') expr = `EXTRACT(DAY FROM ${expr})`;
+              else expr = `${col.dateFunc}(${expr})`;
+            }
+            const alias = col.alias ? ` AS "${col.alias}"` : '';
+            selectClause.push(`${expr}${alias}`);
+          }
+          if (selectClause.length === 0) selectClause.push('*');
+          
+          const mainTable = state.tables[0];
+          let from = `FROM ${mainTable.schema}.${mainTable.name} AS ${mainTable.alias}`;
+          for (let join of state.joins) {
+            const rightTable = state.tables.find(t => t.alias === join.rightTableAlias);
+            if (!rightTable) continue;
+            from += `\n${join.type} JOIN ${rightTable.schema}.${rightTable.name} AS ${join.rightTableAlias} ON ${join.leftTableAlias}.${join.leftColumn} = ${join.rightTableAlias}.${join.rightColumn}`;
+          }
+          
+          const buildFilter = (group) => {
+            if (!group.children || group.children.length === 0) return '';
+            const parts = [];
+            for (let child of group.children) {
+              if (child.logic) {
+                const sub = buildFilter(child);
+                if (sub) parts.push(`(${sub})`);
+              } else if (child.column && child.operator) {
+                if (child.operator === 'IS NULL') parts.push(`${child.column} IS NULL`);
+                else if (child.operator === 'IN') parts.push(`${child.column} IN (${child.value})`);
+                else parts.push(`${child.column} ${child.operator} ${escapeSqlValue(child.value)}`);
+              }
+            }
+            if (parts.length === 0) return '';
+            return parts.join(` ${group.logic} `);
+          };
+          const whereSql = buildFilter(state.whereGroup);
+          const havingSql = buildFilter(state.havingGroup);
+          
+          let groupBySql = '';
+          if (state.groupBy.length > 0) groupBySql = `GROUP BY ${state.groupBy.join(', ')}`;
+          else if (state.columns.some(c => c.aggregate) && !state.usePivot) {
+            const nonAgg = state.columns.filter(c => !c.aggregate && c.sourceColumn).map(c => c.sourceColumn);
+            if (nonAgg.length) groupBySql = `GROUP BY ${nonAgg.join(', ')}`;
+          }
+          
+          let orderSql = '';
+          if (state.orderBy.length) {
+            const orders = state.orderBy.map(o => `${o.column} ${o.direction}`);
+            orderSql = `ORDER BY ${orders.join(', ')}`;
+          }
+          
+          let sql = `SELECT ${selectClause.join(',\n  ')}\n${from}`;
+          if (whereSql) sql += `\nWHERE ${whereSql}`;
+          if (groupBySql) sql += `\n${groupBySql}`;
+          if (havingSql) sql += `\nHAVING ${havingSql}`;
+          if (orderSql) sql += `\n${orderSql}`;
+          sql += ';';
+          return sql;
+        };
+        
+        const escapeSqlValue = (val) => {
+          if (val === undefined || val === null) return 'NULL';
+          if (typeof val === 'string') return `'${val.replace(/'/g, "''")}'`;
+          return val;
+        };
+        
+        const generatedSQL = computed(() => generateSQL());
+        const newGroupByColumn = Vue.ref('');
+        
+        const runQuery = () => {
+          console.log('Executing SQL:\n', generatedSQL.value);
+          alert('SQL logged to console. Replace with POST to your engine.');
+        };
+        
+        return {
+          state,
+          generatedSQL,
+          getColumnsForTable,
+          getFirstColumn,
+          allAvailableColumns,
+          aggregateOnlyColumns,
+          addTable,
+          removeTable,
+          addJoin,
+          removeJoin,
+          addColumn,
+          removeColumn,
+          addGroupBy,
+          removeGroupBy,
+          addOrderBy,
+          removeOrderBy,
+          forceUpdate,
+          runQuery,
+          availableTables,
+          newGroupByColumn
+        };
+      }
+    }).mount('#app');
+    
+    function escapeSqlValue(val) { // fallback, but defined inside already
+      if (val === undefined || val === null) return 'NULL';
+      if (typeof val === 'string') return `'${val.replace(/'/g, "''")}'`;
+      return val;
+    }
+  </script>
+</body>
+</html>

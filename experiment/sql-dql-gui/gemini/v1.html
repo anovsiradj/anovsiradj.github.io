@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Visual Builder - Partner Edition</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .query-card { border-left: 4px solid #0d6efd; }
+        .sql-preview { background: #1e1e1e; color: #dcdcdc; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; min-height: 200px; white-space: pre-wrap; }
+        .clause-label { font-size: 0.8rem; font-weight: bold; color: #6c757d; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+<div id="app" class="container-fluid py-4">
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">Visual Query Configuration</div>
+                <div class="card-body">
+                    
+                    <div class="mb-4">
+                        <label class="clause-label">Source Tables</label>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">FROM</span>
+                            <select v-model="query.baseTable" class="form-select">
+                                <option v-for="table in schema.tables" :value="table.name">{{ table.name }}</option>
+                            </select>
+                        </div>
+
+                        <div v-for="(join, index) in query.joins" :key="index" class="input-group mb-2">
+                            <select v-model="join.type" class="form-select" style="max-width: 130px;">
+                                <option value="INNER JOIN">INNER JOIN</option>
+                                <option value="LEFT JOIN">LEFT JOIN</option>
+                            </select>
+                            <select v-model="join.table" class="form-select">
+                                <option v-for="table in schema.tables" :value="table.name">{{ table.name }}</option>
+                            </select>
+                            <span class="input-group-text">ON</span>
+                            <input v-model="join.on" class="form-control" placeholder="e.g. orders.user_id = users.id">
+                            <button @click="removeJoin(index)" class="btn btn-outline-danger">×</button>
+                        </div>
+                        <button @click="addJoin" class="btn btn-sm btn-link">+ Add Join Relationship</button>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="clause-label">Columns & Aggregations</label>
+                        <div v-for="(col, index) in query.columns" :key="index" class="card mb-2 query-card">
+                            <div class="card-body py-2">
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-md-4">
+                                        <input v-model="col.field" class="form-control form-control-sm" placeholder="table.column">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select v-model="col.func" class="form-select form-select-sm">
+                                            <option value="">No Function</option>
+                                            <optgroup label="Aggregates">
+                                                <option v-for="f in functions.aggregates" :value="f.value">{{ f.label }}</option>
+                                            </optgroup>
+                                            <optgroup label="Date/Time">
+                                                <option v-for="f in functions.datetime" :value="f.value">{{ f.label }}</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input v-model="col.alias" class="form-control form-control-sm" placeholder="Alias">
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox" v-model="col.isGroup" class="form-check-input" :id="'grp'+index">
+                                            <label class="form-check-label small" :for="'grp'+index">Group</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button @click="removeColumn(index)" class="btn btn-sm btn-danger w-100">×</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button @click="addColumn" class="btn btn-sm btn-success">+ Add Column</button>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="clause-label">Filters (WHERE)</label>
+                        <div v-for="(filter, index) in query.where" :key="index" class="input-group mb-2">
+                            <input v-model="filter.field" class="form-control form-control-sm" placeholder="Column">
+                            <select v-model="filter.operator" class="form-select form-select-sm" style="max-width: 100px;">
+                                <option v-for="op in operators" :value="op">{{ op }}</option>
+                            </select>
+                            <input v-model="filter.value" class="form-control form-control-sm" placeholder="Value">
+                            <button @click="removeFilter(index)" class="btn btn-sm btn-outline-danger">×</button>
+                        </div>
+                        <button @click="addFilter" class="btn btn-sm btn-secondary">+ Add Condition</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="sticky-top" style="top: 20px;">
+                <div class="card shadow-sm border-dark">
+                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                        <span>Generated PostgreSQL DQL</span>
+                        <button class="btn btn-sm btn-outline-light" @click="copyToClipboard">Copy</button>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="sql-preview">{{ formattedSQL }}</div>
+                    </div>
+                    <div class="card-footer small text-muted">
+                        Note: Aggregates automatically trigger GROUP BY logic.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const { createApp, ref, computed } = Vue;
+
+createApp({
+    setup() {
+        // --- Schema Metadata (Replace with API call) ---
+        const schema = ref({
+            tables: [
+                { name: 'users', columns: ['id', 'email', 'created_at'] },
+                { name: 'orders', columns: ['id', 'user_id', 'amount', 'status', 'order_date'] },
+                { name: 'products', columns: ['id', 'name', 'price', 'category'] }
+            ]
+        });
+
+        // --- Configuration Constants ---
+        const functions = {
+            aggregates: [
+                { label: 'SUM', value: 'SUM' },
+                { label: 'COUNT', value: 'COUNT' },
+                { label: 'AVG', value: 'AVG' },
+                { label: 'MIN/MAX', value: 'MAX' }
+            ],
+            datetime: [
+                { label: 'Year', value: "DATE_PART('year', $)" },
+                { label: 'Month', value: "DATE_PART('month', $)" },
+                { label: 'Day', value: "DATE_PART('day', $)" }
+            ]
+        };
+
+        const operators = ['=', '!=', '>', '<', 'LIKE', 'ILIKE', 'IN', 'IS NULL'];
+
+        // --- Application State ---
+        const query = ref({
+            baseTable: 'orders',
+            columns: [
+                { field: 'orders.order_date', func: "DATE_PART('year', $)", alias: 'order_year', isGroup: true },
+                { field: 'orders.amount', func: 'SUM', alias: 'total_revenue', isGroup: false }
+            ],
+            joins: [
+                { type: 'INNER JOIN', table: 'users', on: 'orders.user_id = users.id' }
+            ],
+            where: [
+                { field: 'orders.status', operator: '=', value: 'completed' }
+            ]
+        });
+
+        // --- Methods ---
+        const addColumn = () => query.value.columns.push({ field: '', func: '', alias: '', isGroup: false });
+        const removeColumn = (i) => query.value.columns.splice(i, 1);
+        const addJoin = () => query.value.joins.push({ type: 'INNER JOIN', table: '', on: '' });
+        const removeJoin = (i) => query.value.joins.splice(i, 1);
+        const addFilter = () => query.value.where.push({ field: '', operator: '=', value: '' });
+        const removeFilter = (i) => query.value.where.splice(i, 1);
+
+        // --- SQL Compilation Engine ---
+        const formattedSQL = computed(() => {
+            const q = query.value;
+            if (!q.baseTable) return "-- Select a base table to begin";
+
+            // 1. SELECT Builder
+            const selectLines = q.columns.map(c => {
+                if (!c.field) return null;
+                let segment = c.field;
+                if (c.func) {
+                    segment = c.func.includes('$') ? c.func.replace('$', c.field) : `${c.func}(${c.field})`;
+                }
+                return `  ${segment} AS "${c.alias || c.field.split('.').pop()}"`;
+            }).filter(Boolean);
+
+            const selectClause = selectLines.length ? `SELECT \n${selectLines.join(',\n')}` : `SELECT *`;
+
+            // 2. FROM & JOIN Builder
+            const fromClause = `FROM ${q.baseTable}`;
+            const joinClause = q.joins.map(j => (j.table && j.on) ? `${j.type} ${j.table} ON ${j.on}` : '').filter(Boolean).join('\n');
+
+            // 3. WHERE Builder
+            const whereLines = q.where.map(f => {
+                if (!f.field) return null;
+                let val = f.value;
+                if (f.operator === 'IS NULL') return `${f.field} IS NULL`;
+                // Simple quoting logic
+                const escapedVal = (isNaN(val) || val === '') ? `'${val}'` : val;
+                return `${f.field} ${f.operator} ${escapedVal}`;
+            }).filter(Boolean);
+            const whereClause = whereLines.length ? `WHERE ${whereLines.join('\n  AND ')}` : '';
+
+            // 4. GROUP BY Builder
+            const groupCols = q.columns.filter(c => c.isGroup && c.field).map(c => {
+                // If there's a date function, the group by needs the function too
+                if (c.func && c.func.includes('$')) return c.func.replace('$', c.field);
+                return c.field;
+            });
+            const groupClause = groupCols.length ? `GROUP BY ${groupCols.join(', ')}` : '';
+
+            // Assembly
+            return `${selectClause}\n${fromClause}\n${joinClause}\n${whereClause}\n${groupClause};`.replace(/\n+/g, '\n');
+        });
+
+        const copyToClipboard = () => {
+            navigator.clipboard.writeText(formattedSQL.value);
+            alert("SQL copied to clipboard!");
+        };
+
+        return { schema, query, functions, operators, addColumn, removeColumn, addJoin, removeJoin, addFilter, removeFilter, formattedSQL, copyToClipboard };
+    }
+}).mount('#app');
+</script>
+
+</body>
+</html>

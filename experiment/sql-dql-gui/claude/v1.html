@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual Query Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<style>
+  :root {
+    --bg-base: #0d1117;
+    --bg-surface: #161b22;
+    --bg-card: #1c2128;
+    --bg-hover: #222933;
+    --border: #30363d;
+    --border-muted: #21262d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --text-dim: #484f58;
+    --accent: #3fb950;
+    --accent-dim: #238636;
+    --accent-faint: #1a3326;
+    --blue: #58a6ff;
+    --blue-faint: #1a2840;
+    --orange: #e3b341;
+    --orange-faint: #2d2208;
+    --red: #f85149;
+    --red-faint: #2d1a1a;
+    --purple: #bc8cff;
+    --purple-faint: #1f1435;
+    --cyan: #39c5cf;
+    --cyan-faint: #0d2a2c;
+    --radius: 6px;
+    --radius-sm: 4px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg-base);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    margin: 0;
+    min-height: 100vh;
+  }
+  a { color: var(--blue); }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-base); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── Navbar ── */
+  .navbar {
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0.55rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+    white-space: nowrap;
+    margin-right: 0.5rem;
+  }
+  .brand-icon { color: var(--accent); font-size: 18px; }
+  .navbar-sep { width: 1px; height: 20px; background: var(--border); flex-shrink: 0; }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.65rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+  .btn-ghost { background: transparent; border-color: var(--border); color: var(--text-muted); }
+  .btn-ghost:hover { border-color: var(--text-muted); color: var(--text); background: var(--bg-hover); }
+  .btn-primary { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+  .btn-primary:hover { background: var(--accent); color: #000; }
+  .btn-danger { background: transparent; border-color: transparent; color: var(--text-dim); }
+  .btn-danger:hover { color: var(--red); background: var(--red-faint); }
+  .btn-run { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 600; }
+  .btn-run:hover { background: #4dcf61; }
+  .btn-sm { padding: 0.2rem 0.5rem; font-size: 11px; }
+  .btn-icon { padding: 0.25rem 0.35rem; }
+
+  /* ── Form controls ── */
+  .form-control, .form-select {
+    background: var(--bg-base);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    border-radius: var(--radius-sm);
+    padding: 0.3rem 0.5rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.15s;
+    -webkit-appearance: none;
+  }
+  .form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%238b949e' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 10px;
+    padding-right: 1.6rem;
+    cursor: pointer;
+  }
+  .form-control:focus, .form-select:focus { border-color: var(--blue); }
+  .form-control::placeholder { color: var(--text-dim); }
+  .form-select option, .form-select optgroup { background: var(--bg-card); color: var(--text); }
+  textarea.form-control { resize: vertical; font-family: 'IBM Plex Mono', monospace; }
+
+  .form-check { display: flex; align-items: center; gap: 0.4rem; }
+  .form-check-input {
+    width: 14px; height: 14px;
+    background: var(--bg-base);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    cursor: pointer;
+    flex-shrink: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+  }
+  .form-check-input:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .form-check-input:checked::after {
+    content: '';
+    position: absolute;
+    left: 3px; top: 1px;
+    width: 5px; height: 8px;
+    border: 2px solid #000;
+    border-top: none; border-left: none;
+    transform: rotate(45deg);
+  }
+  .form-check-label { color: var(--text-muted); font-size: 12px; cursor: pointer; }
+
+  /* Toggle switch */
+  .switch { position: relative; display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer; }
+  .switch input { display: none; }
+  .switch-track {
+    width: 28px; height: 15px;
+    background: var(--border);
+    border-radius: 10px;
+    position: relative;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .switch-track::after {
+    content: '';
+    position: absolute;
+    width: 11px; height: 11px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    top: 2px; left: 2px;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .switch input:checked + .switch-track { background: var(--accent-faint); }
+  .switch input:checked + .switch-track::after { transform: translateX(13px); background: var(--accent); }
+  .switch-label { color: var(--text-muted); font-size: 12px; }
+
+  /* ── Section cards ── */
+  .section-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.1s;
+  }
+  .section-header:hover { background: var(--bg-hover); }
+  .section-icon { font-size: 14px; width: 18px; text-align: center; flex-shrink: 0; }
+  .section-title { font-weight: 600; font-size: 12.5px; flex: 1; }
+  .section-meta { display: flex; align-items: center; gap: 0.4rem; margin-left: auto; }
+  .section-chevron { color: var(--text-dim); font-size: 10px; transition: transform 0.2s; }
+  .section-chevron.open { transform: rotate(180deg); }
+  .section-body {
+    padding: 0.75rem 0.9rem;
+    border-top: 1px solid var(--border-muted);
+  }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .badge-count { background: var(--bg-surface); border: 1px solid var(--border); color: var(--text-muted); }
+  .badge-warn { background: var(--orange-faint); border: 1px solid var(--orange); color: var(--orange); }
+  .badge-danger { background: var(--red-faint); border: 1px solid var(--red); color: var(--red); }
+  .badge-active { background: var(--accent-faint); border: 1px solid var(--accent); color: var(--accent); }
+  .badge-blue { background: var(--blue-faint); border: 1px solid var(--blue); color: var(--blue); }
+  .badge-purple { background: var(--purple-faint); border: 1px solid var(--purple); color: var(--purple); }
+
+  /* ── Join chain ── */
+  .join-chain {
+    border-left: 2px solid var(--border);
+    margin-left: 0.5rem;
+    padding-left: 0.85rem;
+  }
+  .join-item { margin-bottom: 0.75rem; }
+
+  /* ── Column rows ── */
+  .col-row {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-muted);
+    border-radius: var(--radius-sm);
+    padding: 0.45rem 0.6rem;
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .col-row:hover { border-color: var(--border); }
+
+  /* ── Condition groups ── */
+  .cond-group {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem;
+    margin-bottom: 0.35rem;
+  }
+  .cond-group.and-group { border-left: 2px solid var(--blue); }
+  .cond-group.or-group  { border-left: 2px solid var(--orange); }
+  .op-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-width: 32px;
+    justify-content: center;
+  }
+  .op-and { background: var(--blue-faint); color: var(--blue); border: 1px solid var(--blue); }
+  .op-and:hover { background: var(--blue); color: #000; }
+  .op-or  { background: var(--orange-faint); color: var(--orange); border: 1px solid var(--orange); }
+  .op-or:hover  { background: var(--orange); color: #000; }
+  .cond-row { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
+
+  /* ── SQL Preview ── */
+  .sql-panel {
+    background: #010409;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.85rem 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    line-height: 1.65;
+    white-space: pre;
+    overflow-x: auto;
+    max-height: 380px;
+    overflow-y: auto;
+    color: #adbac7;
+  }
+  .sk  { color: #6cb6ff; font-weight: 600; }  /* keyword */
+  .sf  { color: #8ddb8c; }                     /* function */
+  .ss  { color: #f69d50; }                     /* string */
+  .sc  { color: #8b949e; font-style: italic; } /* comment */
+  .sn  { color: #b392f0; }                     /* number */
+
+  /* ── Results ── */
+  .results-table { font-size: 11.5px; font-family: 'IBM Plex Mono', monospace; width: 100%; }
+  .results-table th {
+    background: var(--bg-surface);
+    color: var(--text-muted);
+    padding: 0.35rem 0.6rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+  }
+  .results-table td {
+    padding: 0.3rem 0.6rem;
+    border-bottom: 1px solid var(--border-muted);
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .results-table tr:hover td { background: var(--bg-hover); }
+  .results-wrap { border: 1px solid var(--border); border-radius: var(--radius); overflow: auto; max-height: 280px; }
+
+  /* ── Warnings ── */
+  .warn-box {
+    background: var(--orange-faint);
+    border: 1px solid var(--orange);
+    color: var(--orange);
+    border-radius: var(--radius-sm);
+    padding: 0.4rem 0.65rem;
+    font-size: 11.5px;
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  /* ── Misc ── */
+  .label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; display: block; }
+  .divider { border: none; border-top: 1px solid var(--border-muted); margin: 0.75rem 0; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .tag {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .tag .remove { cursor: pointer; color: var(--text-dim); font-size: 13px; line-height: 1; }
+  .tag .remove:hover { color: var(--red); }
+  .empty-hint { color: var(--text-dim); font-size: 12px; font-style: italic; padding: 0.35rem 0; }
+  .sticky-panel { position: sticky; top: 52px; max-height: calc(100vh - 60px); overflow-y: auto; padding-bottom: 2rem; }
+  .flex { display: flex; }
+  .gap-1 { gap: 0.25rem; }
+  .gap-2 { gap: 0.5rem; }
+  .gap-3 { gap: 0.75rem; }
+  .items-center { align-items: center; }
+  .flex-wrap { flex-wrap: wrap; }
+  .ms-auto { margin-left: auto; }
+  .mb-1 { margin-bottom: 0.25rem; }
+  .mb-2 { margin-bottom: 0.5rem; }
+  .mb-3 { margin-bottom: 0.75rem; }
+  .mt-1 { margin-top: 0.25rem; }
+  .mt-2 { margin-top: 0.5rem; }
+  .w100 { width: 100%; }
+  .font-mono { font-family: 'IBM Plex Mono', monospace; }
+
+  /* ── Toast ── */
+  .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.4rem; }
+  .toast {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: var(--radius);
+    padding: 0.5rem 0.9rem;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    animation: fadeInUp 0.2s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .toast.success { border-color: var(--accent); }
+  .toast.warning { border-color: var(--orange); }
+  @keyframes fadeInUp { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
+
+  /* widths for inline inputs */
+  .w-80  { width: 80px; }
+  .w-100 { width: 100px; }
+  .w-110 { width: 110px; }
+  .w-120 { width: 120px; }
+  .w-140 { width: 140px; }
+  .w-160 { width: 160px; }
+  .w-180 { width: 180px; }
+  .w-200 { width: 200px; }
+  .w-220 { width: 220px; }
+  .min-w-32 { min-width: 32px; }
+
+  .main-grid { display: grid; grid-template-columns: 1fr 420px; gap: 0.75rem; padding: 0.75rem; max-width: 1600px; margin: 0 auto; }
+  @media (max-width: 1100px) { .main-grid { grid-template-columns: 1fr; } .sticky-panel { position: static; } }
+
+  .panel-title { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-brand">
+      <i class="bi bi-tree-fill brand-icon"></i>
+      Visual Query Builder
+    </div>
+    <div class="navbar-sep"></div>
+    <label class="switch" title="SELECT DISTINCT">
+      <input type="checkbox" v-model="state.distinct">
+      <span class="switch-track"></span>
+      <span class="switch-label">DISTINCT</span>
+    </label>
+    <div class="navbar-sep"></div>
+    <input type="file" ref="fileInputRef" accept=".json" style="display:none" @change="onFileLoad">
+    <button class="btn btn-ghost" @click="$refs.fileInputRef.click()"><i class="bi bi-folder2-open"></i> Load</button>
+    <button class="btn btn-ghost" @click="saveJSON"><i class="bi bi-download"></i> Save</button>
+    <button class="btn btn-ghost" @click="showSQL = !showSQL">
+      <i class="bi bi-code-slash"></i> {{ showSQL ? 'Hide SQL' : 'SQL' }}
+    </button>
+    <button class="btn btn-ghost" @click="copySQL"><i class="bi bi-clipboard"></i> Copy</button>
+    <div class="navbar-sep"></div>
+    <button class="btn btn-run" @click="runQuery"><i class="bi bi-play-fill"></i> Run</button>
+  </div>
+
+  <div class="main-grid">
+
+    <!-- ── Left: Builder ── -->
+    <div>
+
+      <!-- 1. Sources -->
+      <div class="section-card">
+        <div class="section-header" @click="toggleSection('sources')">
+          <i class="bi bi-database section-icon" style="color:var(--blue)"></i>
+          <span class="section-title">Sources</span>
+          <div class="section-meta">
+            <span class="badge badge-count">{{ state.sources.length }}</span>
+            <i class="bi bi-chevron-down section-chevron" :class="{ open: openSections.sources }"></i>
+          </div>
+        </div>
+        <div class="section-body" v-if="openSections.sources">
+          <span class="label">FROM (Primary Table)</span>
+          <div class="flex gap-2 items-center mb-3">
+            <select class="form-select w-220" v-model="primaryTable" @change="setPrimaryTable">
+              <option value="">— select table —</option>
+              <option v-for="(t,k) in SCHEMA" :key="k" :value="k">{{ t.label }}</option>
+            </select>
+            <template v-if="state.sources.length > 0">
+              <span style="color:var(--text-dim);font-size:11px">AS</span>
+              <input type="text" class="form-control w-100 font-mono" v-model="state.sources[0].alias" placeholder="alias">
+            </template>
+          </div>
+
+          <template v-if="state.sources.length > 0">
+            <span class="label">JOINs</span>
+            <div class="join-chain">
+              <div v-for="(src, i) in state.sources.slice(1)" :key="src.id" class="join-item">
+                <div class="flex gap-2 items-center flex-wrap mb-1">
+                  <select class="form-select w-140" v-model="src.joinType">
+                    <option>INNER JOIN</option>
+                    <option>LEFT JOIN</option>
+                    <option>RIGHT JOIN</option>
+                    <option>FULL JOIN</option>
+                    <option>CROSS JOIN</option>
+                  </select>
+                  <select class="form-select w-180" v-model="src.table" @change="onJoinTableChange(src)">
+                    <option value="">— table —</option>
+                    <option v-for="(t,k) in SCHEMA" :key="k" :value="k">{{ t.label }}</option>
+                  </select>
+                  <span style="color:var(--text-dim);font-size:11px">AS</span>
+                  <input type="text" class="form-control w-80 font-mono" v-model="src.alias" placeholder="alias">
+                  <button class="btn btn-danger btn-icon ms-auto" @click="removeSource(src.id)"><i class="bi bi-x-lg"></i></button>
+                </div>
+                <div v-if="src.joinType !== 'CROSS JOIN'" class="flex gap-2 items-center flex-wrap" style="padding-left:0.25rem">
+                  <span style="color:var(--text-dim);font-size:11px;width:16px">ON</span>
+                  <select class="form-select w-200" v-model="src.onLeft">
+                    <option value="">— left col —</option>
+                    <optgroup v-for="s in state.sources" :key="s.id" :label="s.alias || s.table">
+                      <option v-for="c in getTableCols(s.table)" :key="c.name" :value="(s.alias||s.table)+'.'+c.name">
+                        {{ (s.alias||s.table) }}.{{ c.name }}
+                      </option>
+                    </optgroup>
+                  </select>
+                  <span style="color:var(--text-dim)">=</span>
+                  <select class="form-select w-200" v-model="src.onRight">
+                    <option value="">— right col —</option>
+                    <optgroup v-for="s in state.sources" :key="s.id" :label="s.alias || s.table">
+                      <option v-for="c in getTableCols(s.table)" :key="c.name" :value="(s.alias||s.table)+'.'+c.name">
+                        {{ (s.alias||s.table) }}.{{ c.name }}
+                      </option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-ghost btn-sm mt-1" @click="addJoin"><i class="bi bi-plus"></i> Add Join</button>
+          </template>
+          <div v-else class="empty-hint">Select a primary table to begin.</div>
+        </div>
+      </div>
+
+      <!-- 2. Columns -->
+      <div class="section-card">
+        <div class="section-header" @click="toggleSection('columns')">
+          <i class="bi bi-table section-icon" style="color:var(--accent)"></i>
+          <span class="section-title">Columns</span>
+          <div class="section-meta">
+            <span v-if="groupByMismatch" class="badge badge-warn"><i class="bi bi-exclamation-triangle"></i> GROUP mismatch</span>
+            <span class="badge badge-count">{{ state.columns.length }}</span>
+            <i class="bi bi-chevron-down section-chevron" :class="{ open: openSections.columns }"></i>
+          </div>
+        </div>
+        <div class="section-body" v-if="openSections.columns">
+          <div v-if="state.sources.length === 0" class="empty-hint">Add a source table first.</div>
+          <div v-else>
+            <div v-for="col in state.columns" :key="col.id" class="col-row">
+              <!-- Column ref -->
+              <select class="form-select w-220" v-model="col.ref">
+                <option value="">— column —</option>
+                <optgroup v-for="s in state.sources" :key="s.id" :label="s.alias||s.table">
+                  <option v-for="c in getTableCols(s.table)" :key="c.name" :value="(s.alias||s.table)+'.'+c.name">
+                    {{ (s.alias||s.table) }}.{{ c.name }}
+                  </option>
+                </optgroup>
+                <option value="*">* (all)</option>
+              </select>
+
+              <!-- Function -->
+              <select class="form-select w-160" v-model="col.fn" @change="onFnChange(col)">
+                <option value="">— fn —</option>
+                <optgroup label="Aggregate">
+                  <option v-for="f in FUNCTIONS.aggregate" :key="f" :value="f">{{ f }}</option>
+                </optgroup>
+                <optgroup label="Date / Time">
+                  <option v-for="f in FUNCTIONS.datetime" :key="f" :value="f">{{ f }}</option>
+                </optgroup>
+                <optgroup label="String">
+                  <option v-for="f in FUNCTIONS.string" :key="f" :value="f">{{ f }}</option>
+                </optgroup>
+                <optgroup label="Math">
+                  <option v-for="f in FUNCTIONS.math" :key="f" :value="f">{{ f }}</option>
+                </optgroup>
+                <optgroup label="Window">
+                  <option v-for="f in FUNCTIONS.window" :key="f" :value="f">{{ f }}</option>
+                </optgroup>
+              </select>
+
+              <!-- Extra args per function -->
+              <select v-if="col.fn === 'DATE_TRUNC'" class="form-select w-110" v-model="col.fnArg1">
+                <option v-for="p in ['year','quarter','month','week','day','hour']" :key="p" :value="p">{{ p }}</option>
+              </select>
+              <input v-if="col.fn === 'TO_CHAR'" type="text" class="form-control w-120 font-mono" v-model="col.fnArg1" placeholder="YYYY-MM">
+              <input v-if="col.fn === 'ROUND'" type="number" class="form-control w-80" v-model="col.fnArg1" placeholder="decimals" min="0">
+              <input v-if="col.fn === 'STRING_AGG'" type="text" class="form-control w-80 font-mono" v-model="col.fnArg1" placeholder="sep">
+              <input v-if="col.fn === 'COALESCE'" type="text" class="form-control w-100 font-mono" v-model="col.fnArg1" placeholder="default">
+              <template v-if="isWindowFn(col.fn)">
+                <select class="form-select w-180" v-model="col.partitionBy">
+                  <option value="">PARTITION BY…</option>
+                  <option v-for="ac in allCols" :key="ac.ref" :value="ac.ref">{{ ac.ref }}</option>
+                </select>
+                <select class="form-select w-160" v-model="col.orderByCol">
+                  <option value="">ORDER BY…</option>
+                  <option v-for="ac in allCols" :key="ac.ref" :value="ac.ref">{{ ac.ref }}</option>
+                </select>
+              </template>
+
+              <!-- Alias -->
+              <input type="text" class="form-control w-120 font-mono" v-model="col.alias" placeholder="alias">
+
+              <!-- Group By toggle -->
+              <label v-if="!isAggregateFn(col.fn) && !isWindowFn(col.fn)" class="form-check" style="white-space:nowrap">
+                <input type="checkbox" class="form-check-input" v-model="col.groupBy">
+                <span class="form-check-label">GROUP</span>
+              </label>
+              <span v-else-if="isAggregateFn(col.fn)" class="badge badge-active" style="white-space:nowrap">AGG</span>
+              <span v-else-if="isWindowFn(col.fn)" class="badge badge-purple" style="white-space:nowrap">WIN</span>
+
+              <button class="btn btn-danger btn-icon ms-auto" @click="removeColumn(col.id)"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <button class="btn btn-ghost btn-sm mt-1" @click="addColumn"><i class="bi bi-plus"></i> Add Column</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. WHERE -->
+      <div class="section-card">
+        <div class="section-header" @click="toggleSection('where')">
+          <i class="bi bi-funnel section-icon" style="color:var(--orange)"></i>
+          <span class="section-title">WHERE</span>
+          <div class="section-meta">
+            <span class="badge badge-count">{{ countConds(state.where) }}</span>
+            <i class="bi bi-chevron-down section-chevron" :class="{ open: openSections.where }"></i>
+          </div>
+        </div>
+        <div class="section-body" v-if="openSections.where">
+          <condition-group :group="state.where" :cols="allCols" :depth="0"></condition-group>
+        </div>
+      </div>
+
+      <!-- 4. GROUP BY / ORDER BY -->
+      <div class="section-card">
+        <div class="section-header" @click="toggleSection('grouporder')">
+          <i class="bi bi-sort-down-alt section-icon" style="color:var(--cyan)"></i>
+          <span class="section-title">GROUP BY / ORDER BY</span>
+          <div class="section-meta">
+            <i class="bi bi-chevron-down section-chevron" :class="{ open: openSections.grouporder }"></i>
+          </div>
+        </div>
+        <div class="section-body" v-if="openSections.grouporder">
+          <!-- Group By -->
+          <span class="label">GROUP BY <span style="font-weight:400;text-transform:none;letter-spacing:0">(auto from columns marked GROUP)</span></span>
+          <div v-if="groupByCols.length === 0" class="empty-hint mb-3">No columns marked for grouping.</div>
+          <div v-else class="tag-list mb-3">
+            <span v-for="g in groupByCols" :key="g" class="tag" style="color:var(--cyan);border-color:var(--cyan)">{{ g }}</span>
+          </div>
+          <hr class="divider">
+          <!-- Order By -->
+          <span class="label">ORDER BY</span>
+          <div v-for="ob in state.orderBy" :key="ob.id" class="flex gap-2 items-center flex-wrap mb-2">
+            <select class="form-select w-200" v-model="ob.column">
+              <option value="">— column or alias —</option>
+              <option v-for="c in orderByCols" :key="c" :value="c">{{ c }}</option>
+            </select>
+            <select class="form-select w-80" v-model="ob.direction">
+              <option>ASC</option>
+              <option>DESC</option>
+            </select>
+            <select class="form-select w-120" v-model="ob.nulls">
+              <option value="">NULLS DEFAULT</option>
+              <option value="NULLS FIRST">NULLS FIRST</option>
+              <option value="NULLS LAST">NULLS LAST</option>
+            </select>
+            <button class="btn btn-danger btn-icon ms-auto" @click="removeOrderBy(ob.id)"><i class="bi bi-x-lg"></i></button>
+          </div>
+          <button class="btn btn-ghost btn-sm" @click="addOrderBy"><i class="bi bi-plus"></i> Add Ordering</button>
+        </div>
+      </div>
+
+      <!-- 5. HAVING -->
+      <div class="section-card">
+        <div class="section-header" @click="toggleSection('having')">
+          <i class="bi bi-filter-circle section-icon" style="color:var(--red)"></i>
+          <span class="section-title">HAVING</span>
+          <div class="section-meta">
+            <span class="badge badge-count">{{ countConds(state.having) }}</span>
+            <i class="bi bi-chevron-down section-chevron" :class="{ open: openSections.having }"></i>
+          </div>
+        </div>
+        <div class="section-body" v-if="openSections.having">
+          <div v-if="aggCols.length === 0" class="empty-hint">Add aggregate functions (SUM, COUNT, etc.) in Columns first.</div>
+          <div v-else>
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:0.5rem">Filters applied <em>after</em> GROUP BY — operates on aggregated expressions.</div>
+            <condition-group :group="state.having" :cols="havingCols" :depth="0"></condition-group>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. PIVOT -->
+      <div class="section-card">
+        <div class="section-header" @click="toggleSection('pivot')">
+          <i class="bi bi-layout-three-columns section-icon" style="color:var(--purple)"></i>
+          <span class="section-title">PIVOT</span>
+          <div class="section-meta">
+            <span v-if="state.pivot.enabled" class="badge badge-active">ACTIVE</span>
+            <i class="bi bi-chevron-down section-chevron" :class="{ open: openSections.pivot }"></i>
+          </div>
+        </div>
+        <div class="section-body" v-if="openSections.pivot">
+          <label class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" v-model="state.pivot.enabled">
+            <span class="form-check-label" style="color:var(--text)">Enable PIVOT (rows → columns via <code style="font-size:11px;color:var(--purple)">CASE WHEN</code>)</span>
+          </label>
+          <div v-if="state.pivot.enabled">
+            <div class="flex gap-3 flex-wrap mb-3">
+              <div>
+                <span class="label">Row Key Column</span>
+                <select class="form-select w-180" v-model="state.pivot.rowKey">
+                  <option value="">— select —</option>
+                  <option v-for="c in allCols" :key="c.ref" :value="c.ref">{{ c.ref }}</option>
+                </select>
+              </div>
+              <div>
+                <span class="label">Pivot Column</span>
+                <select class="form-select w-180" v-model="state.pivot.pivotCol">
+                  <option value="">— select —</option>
+                  <option v-for="c in allCols" :key="c.ref" :value="c.ref">{{ c.ref }}</option>
+                </select>
+              </div>
+              <div>
+                <span class="label">Value Column</span>
+                <select class="form-select w-180" v-model="state.pivot.valueCol">
+                  <option value="">— select —</option>
+                  <option v-for="c in allCols" :key="c.ref" :value="c.ref">{{ c.ref }}</option>
+                </select>
+              </div>
+              <div>
+                <span class="label">Aggregate Fn</span>
+                <select class="form-select w-100" v-model="state.pivot.aggFn">
+                  <option>SUM</option><option>COUNT</option><option>AVG</option><option>MIN</option><option>MAX</option>
+                </select>
+              </div>
+            </div>
+            <span class="label">Pivot Values <span style="font-weight:400;text-transform:none;letter-spacing:0">(distinct values → column headers)</span></span>
+            <div class="flex gap-2 items-center mb-2">
+              <input type="text" class="form-control w-180 font-mono" v-model="newPivotVal" placeholder="add value…" @keyup.enter="addPivotVal">
+              <button class="btn btn-ghost btn-sm" @click="addPivotVal"><i class="bi bi-plus"></i> Add</button>
+            </div>
+            <div v-if="state.pivot.values.length === 0" class="empty-hint">No pivot values yet.</div>
+            <div class="tag-list">
+              <span v-for="(v,i) in state.pivot.values" :key="i" class="tag" style="color:var(--purple);border-color:var(--purple)">
+                {{ v }}
+                <span class="remove" @click="state.pivot.values.splice(i,1)">×</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Advanced -->
+      <div class="section-card">
+        <div class="section-header" @click="toggleSection('advanced')">
+          <i class="bi bi-gear section-icon" style="color:var(--text-muted)"></i>
+          <span class="section-title">Advanced</span>
+          <div class="section-meta">
+            <span v-if="state.ctes.length || state.setOps.length" class="badge badge-count">{{ state.ctes.length + state.setOps.length }}</span>
+            <i class="bi bi-chevron-down section-chevron" :class="{ open: openSections.advanced }"></i>
+          </div>
+        </div>
+        <div class="section-body" v-if="openSections.advanced">
+
+          <!-- CTEs -->
+          <div class="flex items-center gap-2 mb-2">
+            <span class="label" style="margin-bottom:0">WITH (CTEs)</span>
+            <button class="btn btn-ghost btn-sm ms-auto" @click="addCTE"><i class="bi bi-plus"></i> Add CTE</button>
+          </div>
+          <div v-for="(cte,i) in state.ctes" :key="cte.id" class="section-card mb-2" style="background:var(--bg-base)">
+            <div class="flex gap-2 items-center" style="padding:0.45rem 0.6rem">
+              <input type="text" class="form-control w-160 font-mono" v-model="cte.name" placeholder="cte_name">
+              <span style="color:var(--text-dim);font-size:11px">AS (…)</span>
+              <button class="btn btn-danger btn-icon ms-auto" @click="state.ctes.splice(i,1)"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <div style="padding:0 0.6rem 0.6rem">
+              <textarea class="form-control font-mono" rows="4" v-model="cte.sql" placeholder="SELECT ..."></textarea>
+            </div>
+          </div>
+          <div v-if="state.ctes.length === 0" class="empty-hint mb-3">No CTEs defined.</div>
+
+          <hr class="divider">
+
+          <!-- SET OPS -->
+          <div class="flex items-center gap-2 mb-2">
+            <span class="label" style="margin-bottom:0">Set Operations</span>
+            <button class="btn btn-ghost btn-sm ms-auto" @click="addSetOp"><i class="bi bi-plus"></i> Add</button>
+          </div>
+          <div v-for="(op,i) in state.setOps" :key="op.id" class="section-card mb-2" style="background:var(--bg-base)">
+            <div class="flex gap-2 items-center" style="padding:0.45rem 0.6rem">
+              <select class="form-select w-160" v-model="op.type">
+                <option>UNION</option><option>UNION ALL</option>
+                <option>INTERSECT</option><option>INTERSECT ALL</option>
+                <option>EXCEPT</option><option>EXCEPT ALL</option>
+              </select>
+              <button class="btn btn-danger btn-icon ms-auto" @click="state.setOps.splice(i,1)"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <div style="padding:0 0.6rem 0.6rem">
+              <textarea class="form-control font-mono" rows="4" v-model="op.sql" placeholder="SELECT ..."></textarea>
+            </div>
+          </div>
+          <div v-if="state.setOps.length === 0" class="empty-hint mb-3">No set operations defined.</div>
+
+          <hr class="divider">
+
+          <!-- LIMIT / OFFSET -->
+          <span class="label">LIMIT / OFFSET</span>
+          <div class="flex gap-2">
+            <input type="number" class="form-control w-120" v-model="state.limit" placeholder="LIMIT">
+            <input type="number" class="form-control w-120" v-model="state.offset" placeholder="OFFSET">
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end left -->
+
+    <!-- ── Right: SQL + Results ── -->
+    <div class="sticky-panel">
+
+      <!-- SQL Preview -->
+      <div v-if="showSQL" class="mb-3">
+        <div class="panel-title">
+          <i class="bi bi-code-slash"></i> Generated SQL
+          <span class="ms-auto" style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-dim)">live preview</span>
+        </div>
+        <div class="sql-panel" v-html="highlightedSQL"></div>
+      </div>
+
+      <!-- Warnings -->
+      <div v-if="warnings.length" class="mb-3">
+        <div v-for="w in warnings" :key="w" class="warn-box">
+          <i class="bi bi-exclamation-triangle" style="flex-shrink:0;margin-top:1px"></i>
+          <span>{{ w }}</span>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div v-if="results !== null">
+        <div class="panel-title">
+          <i class="bi bi-table"></i> Results
+          <span class="badge badge-count ms-1">{{ results.rows.length }} rows (preview)</span>
+        </div>
+        <div v-if="results.rows.length === 0" class="empty-hint">No rows returned.</div>
+        <div v-else class="results-wrap">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th v-for="col in results.columns" :key="col">{{ col }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(row,i) in results.rows" :key="i">
+                <td v-for="col in results.columns" :key="col">{{ row[col] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- end right -->
+  </div><!-- end grid -->
+
+  <!-- Toasts -->
+  <div class="toast-container">
+    <div v-for="t in toasts" :key="t.id" :class="['toast', t.type]">
+      <i :class="t.icon"></i> {{ t.msg }}
+    </div>
+  </div>
+
+</div><!-- end app -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+const { createApp, reactive, computed, ref, watch } = Vue
+
+// ─────────────────────────────────────────────────────────
+//  DUMMY SCHEMA  (replace with API calls)
+// ─────────────────────────────────────────────────────────
+const SCHEMA = {
+  wilayah: {
+    label: 'Wilayah (Regional)',
+    columns: [
+      { name: 'id',           type: 'integer' },
+      { name: 'kode_wilayah', type: 'varchar' },
+      { name: 'nama_wilayah', type: 'varchar' },
+      { name: 'level',        type: 'varchar' },
+      { name: 'parent_id',    type: 'integer' },
+      { name: 'luas_ha',      type: 'numeric' },
+    ]
+  },
+  deforestasi: {
+    label: 'Deforestasi',
+    columns: [
+      { name: 'id',              type: 'integer' },
+      { name: 'wilayah_id',      type: 'integer' },
+      { name: 'tahun',           type: 'integer' },
+      { name: 'luas_ha',         type: 'numeric' },
+      { name: 'penyebab',        type: 'varchar' },
+      { name: 'tanggal_deteksi', type: 'date'    },
+      { name: 'terverifikasi',   type: 'boolean' },
+    ]
+  },
+  tutupan_lahan: {
+    label: 'Tutupan Lahan',
+    columns: [
+      { name: 'id',           type: 'integer' },
+      { name: 'wilayah_id',   type: 'integer' },
+      { name: 'tahun',        type: 'integer' },
+      { name: 'jenis_tutupan',type: 'varchar' },
+      { name: 'luas_ha',      type: 'numeric' },
+      { name: 'persentase',   type: 'numeric' },
+    ]
+  },
+  kawasan_hutan: {
+    label: 'Kawasan Hutan',
+    columns: [
+      { name: 'id',              type: 'integer' },
+      { name: 'wilayah_id',      type: 'integer' },
+      { name: 'nama_kawasan',    type: 'varchar' },
+      { name: 'fungsi',          type: 'varchar' },
+      { name: 'luas_ha',         type: 'numeric' },
+      { name: 'tahun_penetapan', type: 'integer' },
+      { name: 'status',          type: 'varchar' },
+    ]
+  },
+  jalan: {
+    label: 'Jaringan Jalan',
+    columns: [
+      { name: 'id',          type: 'integer' },
+      { name: 'wilayah_id',  type: 'integer' },
+      { name: 'nama_jalan',  type: 'varchar' },
+      { name: 'kelas_jalan', type: 'varchar' },
+      { name: 'panjang_km',  type: 'numeric' },
+      { name: 'kondisi',     type: 'varchar' },
+      { name: 'tahun_survei',type: 'integer' },
+    ]
+  },
+  sungai: {
+    label: 'Sungai & DAS',
+    columns: [
+      { name: 'id',         type: 'integer' },
+      { name: 'wilayah_id', type: 'integer' },
+      { name: 'nama_sungai',type: 'varchar' },
+      { name: 'panjang_km', type: 'numeric' },
+      { name: 'luas_das_ha',type: 'numeric' },
+      { name: 'ordo',       type: 'integer' },
+    ]
+  },
+}
+
+const FUNCTIONS = {
+  aggregate: ['SUM','COUNT','COUNT DISTINCT','AVG','MIN','MAX','STRING_AGG'],
+  datetime:  ['DATE_TRUNC','EXTRACT YEAR','EXTRACT MONTH','EXTRACT DOY','TO_CHAR'],
+  string:    ['CONCAT','UPPER','LOWER','TRIM','COALESCE','INITCAP'],
+  math:      ['ROUND','CEIL','FLOOR','ABS'],
+  window:    ['ROW_NUMBER','RANK','DENSE_RANK'],
+}
+
+const AGG_FNS = new Set(FUNCTIONS.aggregate)
+const WIN_FNS = new Set(FUNCTIONS.window)
+
+// ─────────────────────────────────────────────────────────
+//  HELPERS
+// ─────────────────────────────────────────────────────────
+let _uid = 1
+function uid() { return String(_uid++) }
+
+function autoAlias(t) {
+  if (!t) return ''
+  return t.split('_').map(p => p[0]).join('').toLowerCase() || t.slice(0,3)
+}
+
+function getTableCols(table) {
+  return (SCHEMA[table] && SCHEMA[table].columns) || []
+}
+
+function isAggregateFn(fn) { return AGG_FNS.has(fn) }
+function isWindowFn(fn)    { return WIN_FNS.has(fn) }
+
+function colExpr(col, noAlias) {
+  const ref = col.ref || ''
+  if (!ref) return ''
+  if (ref === '*' && !col.fn) return '*'
+
+  let expr = ref
+  switch (col.fn) {
+    case '': case undefined: case null: break
+    case 'SUM':              expr = `SUM(${ref})`; break
+    case 'COUNT':            expr = `COUNT(${ref})`; break
+    case 'COUNT DISTINCT':   expr = `COUNT(DISTINCT ${ref})`; break
+    case 'AVG':              expr = `AVG(${ref})`; break
+    case 'MIN':              expr = `MIN(${ref})`; break
+    case 'MAX':              expr = `MAX(${ref})`; break
+    case 'STRING_AGG':       expr = `STRING_AGG(${ref}, '${col.fnArg1 || ','}')`; break
+    case 'DATE_TRUNC':       expr = `DATE_TRUNC('${col.fnArg1 || 'month'}', ${ref})`; break
+    case 'EXTRACT YEAR':     expr = `EXTRACT(YEAR FROM ${ref})`; break
+    case 'EXTRACT MONTH':    expr = `EXTRACT(MONTH FROM ${ref})`; break
+    case 'EXTRACT DOY':      expr = `EXTRACT(DOY FROM ${ref})`; break
+    case 'TO_CHAR':          expr = `TO_CHAR(${ref}, '${col.fnArg1 || 'YYYY-MM-DD'}')`; break
+    case 'CONCAT':           expr = `CONCAT(${ref})`; break
+    case 'UPPER':            expr = `UPPER(${ref})`; break
+    case 'LOWER':            expr = `LOWER(${ref})`; break
+    case 'TRIM':             expr = `TRIM(${ref})`; break
+    case 'COALESCE':         expr = `COALESCE(${ref}, ${col.fnArg1 != null && col.fnArg1 !== '' ? `'${col.fnArg1}'` : 'NULL'})`; break
+    case 'INITCAP':          expr = `INITCAP(${ref})`; break
+    case 'ROUND':            expr = `ROUND(${ref}${col.fnArg1 != null && col.fnArg1 !== '' ? `, ${col.fnArg1}` : ''})`; break
+    case 'CEIL':             expr = `CEIL(${ref})`; break
+    case 'FLOOR':            expr = `FLOOR(${ref})`; break
+    case 'ABS':              expr = `ABS(${ref})`; break
+    case 'ROW_NUMBER':
+    case 'RANK':
+    case 'DENSE_RANK': {
+      let over = `OVER (`
+      const parts = []
+      if (col.partitionBy) parts.push(`PARTITION BY ${col.partitionBy}`)
+      if (col.orderByCol)  parts.push(`ORDER BY ${col.orderByCol}`)
+      over += parts.join(' ') + ')'
+      expr = `${col.fn}() ${over}`
+      break
+    }
+    default: expr = ref
+  }
+  if (!noAlias && col.alias) expr += ` AS ${col.alias}`
+  return expr
+}
+
+function buildConditionGroup(group) {
+  if (!group || !group.conditions || group.conditions.length === 0) return ''
+  const parts = []
+  for (const c of group.conditions) {
+    if (c.type === 'group') {
+      const sub = buildConditionGroup(c)
+      if (sub) parts.push(`(\n    ${sub.replace(/\n/g, '\n    ')}\n  )`)
+    } else {
+      const s = buildSingleCond(c)
+      if (s) parts.push(s)
+    }
+  }
+  if (!parts.length) return ''
+  return parts.join(`\n  ${group.op} `)
+}
+
+function buildSingleCond(c) {
+  if (!c.column || !c.operator) return ''
+  const col = c.column, op = c.operator
+  if (['IS NULL','IS NOT NULL','IS TRUE','IS FALSE'].includes(op)) return `${col} ${op}`
+  const v = c.value
+  if (v === undefined || v === null || v === '') return ''
+  if (op === 'BETWEEN') return `${col} BETWEEN ${qv(v)} AND ${qv(c.value2 || '')}`
+  if (op === 'IN' || op === 'NOT IN') {
+    const vals = String(v).split(',').map(x => qv(x.trim())).join(', ')
+    return `${col} ${op} (${vals})`
+  }
+  if (op === 'LIKE' || op === 'ILIKE') return `${col} ${op} '${v}'`
+  return `${col} ${op} ${qv(v)}`
+}
+
+function qv(v) {
+  return (!isNaN(v) && String(v).trim() !== '') ? String(v) : `'${v}'`
+}
+
+function buildFromClause(sources) {
+  if (!sources.length) return ''
+  const p = sources[0]
+  let sql = `FROM ${p.table}${p.alias ? ' AS ' + p.alias : ''}`
+  for (const s of sources.slice(1)) {
+    if (!s.table) continue
+    const tr = `${s.table}${s.alias ? ' AS ' + s.alias : ''}`
+    if (s.joinType === 'CROSS JOIN') { sql += `\nCROSS JOIN ${tr}`; continue }
+    const on = s.onLeft && s.onRight ? `${s.onLeft} = ${s.onRight}` : '/* TODO */'
+    sql += `\n${s.joinType} ${tr} ON ${on}`
+  }
+  return sql
+}
+
+function generateSQL(state) {
+  if (!state.sources.length) return '-- Add a source table to begin'
+
+  const fromClause  = buildFromClause(state.sources)
+  const whereClause = buildConditionGroup(state.where)
+
+  // ── PIVOT mode ──────────────────────────────────────────────────────────
+  if (state.pivot.enabled && state.pivot.rowKey && state.pivot.pivotCol && state.pivot.valueCol && state.pivot.values.length) {
+    let base = `SELECT *\n${fromClause}`
+    if (whereClause) base += `\nWHERE ${whereClause}`
+    const pivotCols = state.pivot.values
+      .map(v => `  ${state.pivot.aggFn}(CASE WHEN ${state.pivot.pivotCol} = '${v}' THEN ${state.pivot.valueCol} END) AS "${v}"`)
+      .join(',\n')
+    let sql = `SELECT\n  ${state.pivot.rowKey},\n${pivotCols}\nFROM (\n  ${base.replace(/\n/g, '\n  ')}\n) AS _pivot\nGROUP BY ${state.pivot.rowKey}`
+    for (const op of (state.setOps || [])) {
+      if (op.sql && op.type) sql += `\n${op.type}\n${op.sql.trim()}`
+    }
+    return sql
+  }
+
+  // ── Normal mode ─────────────────────────────────────────────────────────
+  const parts = []
+
+  // CTEs
+  const cteLines = (state.ctes || []).filter(c => c.name && c.sql)
+    .map(c => `  ${c.name} AS (\n    ${c.sql.trim().replace(/\n/g, '\n    ')}\n  )`)
+  if (cteLines.length) parts.push(`WITH\n${cteLines.join(',\n')}`)
+
+  // SELECT
+  const selCols = state.columns.map(c => colExpr(c)).filter(Boolean)
+  const selectList = selCols.length
+    ? selCols.join(',\n  ')
+    : `${state.sources[0].alias || state.sources[0].table}.*`
+  parts.push(`SELECT${state.distinct ? ' DISTINCT' : ''}\n  ${selectList}`)
+
+  // FROM + JOINs
+  parts.push(fromClause)
+
+  // WHERE
+  if (whereClause) parts.push(`WHERE ${whereClause}`)
+
+  // GROUP BY
+  const gbCols = state.columns
+    .filter(c => c.groupBy && !isAggregateFn(c.fn) && !isWindowFn(c.fn) && c.ref)
+    .map(c => c.fn ? colExpr(c, true) : c.ref)
+  if (gbCols.length) parts.push(`GROUP BY\n  ${gbCols.join(',\n  ')}`)
+
+  // HAVING
+  const havingClause = buildConditionGroup(state.having)
+  if (havingClause) parts.push(`HAVING ${havingClause}`)
+
+  // ORDER BY
+  const obParts = (state.orderBy || []).filter(o => o.column)
+    .map(o => `${o.column} ${o.direction}${o.nulls ? ' ' + o.nulls : ''}`)
+  if (obParts.length) parts.push(`ORDER BY\n  ${obParts.join(',\n  ')}`)
+
+  // LIMIT / OFFSET
+  if (state.limit)  parts.push(`LIMIT ${state.limit}`)
+  if (state.offset) parts.push(`OFFSET ${state.offset}`)
+
+  let sql = parts.join('\n')
+
+  for (const op of (state.setOps || [])) {
+    if (op.sql && op.type) sql += `\n${op.type}\n${op.sql.trim()}`
+  }
+
+  return sql
+}
+
+// ─────────────────────────────────────────────────────────
+//  SQL SYNTAX HIGHLIGHTER
+// ─────────────────────────────────────────────────────────
+function highlightSQL(raw) {
+  let s = raw
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+
+  // strings first (protect them)
+  const strMap = {}
+  let si = 0
+  s = s.replace(/'([^']*)'/g, (m) => {
+    const k = `\x00S${si++}\x00`
+    strMap[k] = `<span class="ss">'${m.slice(1,-1)}'</span>`
+    return k
+  })
+
+  // keywords
+  const kws = ['WITH','SELECT','DISTINCT','FROM','WHERE','AND','OR','NOT','INNER JOIN','LEFT JOIN','RIGHT JOIN','FULL JOIN','CROSS JOIN','ON','GROUP BY','ORDER BY','HAVING','LIMIT','OFFSET','AS','UNION ALL','UNION','INTERSECT ALL','INTERSECT','EXCEPT ALL','EXCEPT','IN','NOT IN','BETWEEN','IS NULL','IS NOT NULL','IS TRUE','IS FALSE','LIKE','ILIKE','CASE','WHEN','THEN','ELSE','END','OVER','PARTITION BY','NULLS FIRST','NULLS LAST','ASC','DESC']
+  kws.sort((a,b) => b.length - a.length)
+  kws.forEach(kw => {
+    const re = new RegExp(`(?<![\\w])${kw.replace(/ /g,'\\s+')}(?![\\w])`, 'gi')
+    s = s.replace(re, m => `<span class="sk">${m}</span>`)
+  })
+
+  // functions
+  s = s.replace(/\b(SUM|COUNT|AVG|MIN|MAX|STRING_AGG|DATE_TRUNC|EXTRACT|TO_CHAR|CONCAT|UPPER|LOWER|TRIM|COALESCE|INITCAP|ROUND|CEIL|FLOOR|ABS|ROW_NUMBER|RANK|DENSE_RANK)\b/gi,
+    '<span class="sf">$1</span>')
+
+  // numbers
+  s = s.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="sn">$1</span>')
+
+  // comments
+  s = s.replace(/(\/\*[^*]*\*\/)/g, '<span class="sc">$1</span>')
+
+  // restore strings
+  Object.entries(strMap).forEach(([k,v]) => { s = s.replace(k, v) })
+
+  return s
+}
+
+// ─────────────────────────────────────────────────────────
+//  CONDITION GROUP COMPONENT (recursive)
+// ─────────────────────────────────────────────────────────
+const ConditionGroup = {
+  name: 'ConditionGroup',
+  props: {
+    group: { type: Object, required: true },
+    cols:  { type: Array, default: () => [] },
+    depth: { type: Number, default: 0 },
+  },
+  setup(props) {
+    function addCond() {
+      props.group.conditions.push({ id: uid(), type: 'condition', column: '', operator: '=', value: '', value2: '' })
+    }
+    function addGroup() {
+      props.group.conditions.push({ id: uid(), type: 'group', op: props.group.op === 'AND' ? 'OR' : 'AND', conditions: [] })
+    }
+    function removeItem(id) {
+      const idx = props.group.conditions.findIndex(c => c.id === id)
+      if (idx > -1) props.group.conditions.splice(idx, 1)
+    }
+    function toggleOp() { props.group.op = props.group.op === 'AND' ? 'OR' : 'AND' }
+
+    function getOps(ref) {
+      const found = props.cols.find(c => c.ref === ref)
+      const t = found ? found.type : 'varchar'
+      if (t === 'integer' || t === 'numeric')
+        return ['=','!=','<','>','<=','>=','BETWEEN','IN','NOT IN','IS NULL','IS NOT NULL']
+      if (t === 'date' || t === 'timestamp')
+        return ['=','!=','<','>','<=','>=','BETWEEN','IS NULL','IS NOT NULL']
+      if (t === 'boolean')
+        return ['IS TRUE','IS FALSE','IS NULL','IS NOT NULL']
+      return ['=','!=','LIKE','ILIKE','IN','NOT IN','IS NULL','IS NOT NULL']
+    }
+    function needsVal(op)   { return !['IS NULL','IS NOT NULL','IS TRUE','IS FALSE'].includes(op) }
+    function isBetween(op)  { return op === 'BETWEEN' }
+    function isIn(op)       { return op === 'IN' || op === 'NOT IN' }
+    function onColChange(c) { c.operator = getOps(c.column)[0]; c.value = ''; c.value2 = '' }
+
+    return { addCond, addGroup, removeItem, toggleOp, getOps, needsVal, isBetween, isIn, onColChange }
+  },
+  template: `
+<div :class="['cond-group', depth > 0 ? (group.op === 'AND' ? 'and-group' : 'or-group') : '']">
+  <div class="flex items-center gap-2 mb-2">
+    <span :class="['op-pill', group.op === 'AND' ? 'op-and' : 'op-or']" @click="toggleOp()">{{ group.op }}</span>
+    <span style="color:var(--text-dim);font-size:11px">{{ group.conditions.length ? group.conditions.length + ' condition(s)' : 'empty group' }}</span>
+  </div>
+
+  <div v-for="(cond, i) in group.conditions" :key="cond.id">
+    <!-- Nested group -->
+    <div v-if="cond.type === 'group'" style="margin-bottom:0.4rem">
+      <condition-group :group="cond" :cols="cols" :depth="depth + 1"></condition-group>
+      <div style="text-align:right;margin-top:2px">
+        <button class="btn btn-danger btn-sm" @click="removeItem(cond.id)">Remove group</button>
+      </div>
+    </div>
+
+    <!-- Single condition -->
+    <div v-else class="cond-row">
+      <span v-if="i > 0" :class="['op-pill', group.op === 'AND' ? 'op-and' : 'op-or']" style="font-size:9px">{{ group.op }}</span>
+      <span v-else style="min-width:32px;display:inline-block"></span>
+
+      <select class="form-select w-200" v-model="cond.column" @change="onColChange(cond)">
+        <option value="">— column —</option>
+        <option v-for="c in cols" :key="c.ref" :value="c.ref">{{ c.ref }}</option>
+      </select>
+
+      <select class="form-select w-140" v-model="cond.operator">
+        <option v-for="op in getOps(cond.column)" :key="op" :value="op">{{ op }}</option>
+      </select>
+
+      <template v-if="needsVal(cond.operator)">
+        <template v-if="isBetween(cond.operator)">
+          <input type="text" class="form-control w-100 font-mono" v-model="cond.value" placeholder="from">
+          <span style="color:var(--text-dim);font-size:11px">AND</span>
+          <input type="text" class="form-control w-100 font-mono" v-model="cond.value2" placeholder="to">
+        </template>
+        <template v-else-if="isIn(cond.operator)">
+          <input type="text" class="form-control w-180 font-mono" v-model="cond.value" placeholder="val1, val2, …">
+        </template>
+        <template v-else>
+          <input type="text" class="form-control w-140 font-mono" v-model="cond.value" placeholder="value">
+        </template>
+      </template>
+
+      <button class="btn btn-danger btn-icon ms-auto" @click="removeItem(cond.id)"><i class="bi bi-x-lg"></i></button>
+    </div>
+  </div>
+
+  <div class="flex gap-2 mt-1">
+    <button class="btn btn-ghost btn-sm" @click="addCond"><i class="bi bi-plus"></i> Condition</button>
+    <button v-if="depth < 3" class="btn btn-ghost btn-sm" @click="addGroup"><i class="bi bi-plus"></i> Group</button>
+  </div>
+</div>`
+}
+
+// ─────────────────────────────────────────────────────────
+//  MAIN APP
+// ─────────────────────────────────────────────────────────
+const app = createApp({
+  components: { ConditionGroup },
+
+  setup() {
+    // ── State ──────────────────────────────────────────────────────────────
+    const state = reactive({
+      sources:  [],
+      columns:  [],
+      where:    { op: 'AND', conditions: [] },
+      having:   { op: 'AND', conditions: [] },
+      orderBy:  [],
+      pivot: { enabled: false, rowKey: '', pivotCol: '', valueCol: '', aggFn: 'SUM', values: [] },
+      ctes:     [],
+      setOps:   [],
+      distinct: false,
+      limit:    null,
+      offset:   null,
+    })
+
+    const showSQL      = ref(true)
+    const results      = ref(null)
+    const primaryTable = ref('')
+    const newPivotVal  = ref('')
+    const fileInputRef = ref(null)
+    const toasts       = ref([])
+
+    const openSections = reactive({
+      sources: true, columns: true,
+      where: false, grouporder: false,
+      having: false, pivot: false, advanced: false,
+    })
+
+    function toggleSection(k) { openSections[k] = !openSections[k] }
+
+    // ── Toast ──────────────────────────────────────────────────────────────
+    function toast(msg, type = 'success', icon = 'bi bi-check-circle') {
+      const t = { id: uid(), msg, type, icon }
+      toasts.value.push(t)
+      setTimeout(() => { toasts.value = toasts.value.filter(x => x.id !== t.id) }, 2400)
+    }
+
+    // ── Computed ───────────────────────────────────────────────────────────
+    const allCols = computed(() => {
+      const cols = []
+      for (const src of state.sources) {
+        if (!src.table) continue
+        const alias = src.alias || src.table
+        for (const c of getTableCols(src.table)) {
+          cols.push({ ref: `${alias}.${c.name}`, type: c.type })
+        }
+      }
+      return cols
+    })
+
+    const aggCols = computed(() => state.columns.filter(c => isAggregateFn(c.fn)))
+
+    const havingCols = computed(() =>
+      aggCols.value.map(c => ({ ref: c.alias || colExpr(c, true), type: 'numeric' }))
+    )
+
+    const groupByCols = computed(() =>
+      state.columns
+        .filter(c => c.groupBy && !isAggregateFn(c.fn) && !isWindowFn(c.fn) && c.ref)
+        .map(c => c.fn ? colExpr(c, true) : c.ref)
+    )
+
+    const groupByMismatch = computed(() => {
+      if (!state.columns.some(c => isAggregateFn(c.fn))) return false
+      return state.columns.some(c => !isAggregateFn(c.fn) && !isWindowFn(c.fn) && c.ref && c.ref !== '*' && !c.groupBy)
+    })
+
+    const orderByCols = computed(() => {
+      if (state.columns.length) {
+        return state.columns.map(c => c.alias || (c.fn ? colExpr(c, true) : c.ref)).filter(Boolean)
+      }
+      return allCols.value.map(c => c.ref)
+    })
+
+    const sql = computed(() => generateSQL(state))
+
+    const highlightedSQL = computed(() => highlightSQL(sql.value))
+
+    const warnings = computed(() => {
+      const w = []
+      if (state.sources.length && !countConds(state.where)) {
+        const big = state.sources.filter(s => s.table && s.table !== 'wilayah')
+        if (big.length) w.push('No WHERE filter — query may return millions of rows on large thematic tables.')
+      }
+      if (groupByMismatch.value) w.push('GROUP BY mismatch: some non-aggregated columns are not marked GROUP.')
+      if (state.pivot.enabled && !state.pivot.values.length) w.push('Pivot enabled but no pivot values defined.')
+      return w
+    })
+
+    // ── Sources ────────────────────────────────────────────────────────────
+    function setPrimaryTable() {
+      if (!primaryTable.value) { state.sources = []; return }
+      if (!state.sources.length) {
+        state.sources.push({ id: uid(), table: primaryTable.value, alias: autoAlias(primaryTable.value), joinType: null, onLeft: '', onRight: '' })
+      } else {
+        state.sources[0].table = primaryTable.value
+        state.sources[0].alias = autoAlias(primaryTable.value)
+        // purge orphaned columns
+        cleanupOrphanCols()
+      }
+    }
+
+    function addJoin() {
+      state.sources.push({ id: uid(), table: '', alias: '', joinType: 'LEFT JOIN', onLeft: '', onRight: '' })
+    }
+
+    function removeSource(id) {
+      const src = state.sources.find(s => s.id === id)
+      if (!src) return
+      const alias = src.alias || src.table
+      state.sources.splice(state.sources.findIndex(s => s.id === id), 1)
+      const removed = state.columns.filter(c => c.ref && c.ref.startsWith(alias + '.')).length
+      state.columns = state.columns.filter(c => !c.ref || !c.ref.startsWith(alias + '.'))
+      if (removed) toast(`Removed ${removed} column(s) from detached table.`, 'warning', 'bi bi-exclamation-triangle')
+    }
+
+    function onJoinTableChange(src) { if (src.table) src.alias = autoAlias(src.table) }
+
+    function cleanupOrphanCols() {
+      const validAliases = new Set(state.sources.map(s => s.alias || s.table))
+      state.columns = state.columns.filter(c => {
+        if (!c.ref) return true
+        const prefix = c.ref.split('.')[0]
+        return validAliases.has(prefix)
+      })
+    }
+
+    // ── Columns ────────────────────────────────────────────────────────────
+    function addColumn() {
+      state.columns.push({ id: uid(), ref: '', fn: '', fnArg1: '', alias: '', groupBy: false, partitionBy: '', orderByCol: '' })
+    }
+    function removeColumn(id) {
+      state.columns.splice(state.columns.findIndex(c => c.id === id), 1)
+    }
+    function onFnChange(col) {
+      col.fnArg1 = ''
+      if (isAggregateFn(col.fn) || isWindowFn(col.fn)) col.groupBy = false
+    }
+
+    // ── Conditions helper ──────────────────────────────────────────────────
+    function countConds(group) {
+      if (!group || !group.conditions) return 0
+      return group.conditions.reduce((n, c) => n + (c.type === 'group' ? countConds(c) : 1), 0)
+    }
+
+    // ── Order By ───────────────────────────────────────────────────────────
+    function addOrderBy()      { state.orderBy.push({ id: uid(), column: '', direction: 'ASC', nulls: '' }) }
+    function removeOrderBy(id) { state.orderBy.splice(state.orderBy.findIndex(o => o.id === id), 1) }
+
+    // ── Pivot ──────────────────────────────────────────────────────────────
+    function addPivotVal() {
+      const v = newPivotVal.value.trim()
+      if (v) { state.pivot.values.push(v); newPivotVal.value = '' }
+    }
+
+    // ── Advanced ───────────────────────────────────────────────────────────
+    function addCTE()   { state.ctes.push({ id: uid(), name: `cte_${state.ctes.length + 1}`, sql: '' }) }
+    function addSetOp() { state.setOps.push({ id: uid(), type: 'UNION ALL', sql: '' }) }
+
+    // ── Run (dummy) ────────────────────────────────────────────────────────
+    function runQuery() {
+      const colNames = []
+
+      if (state.pivot.enabled && state.pivot.rowKey && state.pivot.values.length) {
+        // pivot output: rowKey + pivot value columns
+        colNames.push(state.pivot.rowKey.split('.').pop())
+        state.pivot.values.forEach(v => colNames.push(v))
+      } else {
+        state.columns.forEach(c => {
+          if (!c.ref) return
+          colNames.push(c.alias || (c.fn ? `${c.fn.toLowerCase().replace(/ /g,'_')}(${c.ref.split('.').pop()})` : c.ref.split('.').pop()))
+        })
+        if (!colNames.length && state.sources.length) colNames.push('*')
+      }
+
+      // dummy data generators by type
+      const DUMMY = {
+        integer: () => Math.floor(Math.random() * 9000 + 1000),
+        numeric: () => parseFloat((Math.random() * 10000).toFixed(2)),
+        varchar: () => ['Kalimantan Barat','Kalimantan Tengah','Sumatera Utara','Papua','Sulawesi Tengah','Riau','Jambi','Kalimantan Timur'][Math.floor(Math.random() * 8)],
+        date:    () => `202${Math.floor(Math.random()*4)}-${String(Math.floor(Math.random()*12)+1).padStart(2,'0')}-${String(Math.floor(Math.random()*28)+1).padStart(2,'0')}`,
+        boolean: () => Math.random() > 0.5 ? 'true' : 'false',
+      }
+
+      const getType = (name) => {
+        for (const src of state.sources) {
+          const c = getTableCols(src.table).find(c => c.name === name)
+          if (c) return c.type
+        }
+        return 'varchar'
+      }
+
+      const rows = Array.from({ length: 10 }, () => {
+        const row = {}
+        colNames.forEach(n => {
+          const baseName = n.split('(').pop().replace(')', '').split('.').pop()
+          const t = getType(baseName)
+          row[n] = (DUMMY[t] || DUMMY.varchar)()
+        })
+        return row
+      })
+
+      results.value = { columns: colNames, rows }
+      if (!openSections.columns) openSections.columns = false // keep state
+    }
+
+    // ── Save / Load ────────────────────────────────────────────────────────
+    function saveJSON() {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' })
+      const url  = URL.createObjectURL(blob)
+      const a    = document.createElement('a')
+      a.href = url
+      a.download = `query_${Date.now()}.json`
+      a.click()
+      URL.revokeObjectURL(url)
+      toast('Query saved as JSON')
+    }
+
+    function onFileLoad(e) {
+      const file = e.target.files[0]
+      if (!file) return
+      const reader = new FileReader()
+      reader.onload = ev => {
+        try {
+          const loaded = JSON.parse(ev.target.result)
+          Object.assign(state, loaded)
+          if (state.sources.length) primaryTable.value = state.sources[0].table
+          toast('Query loaded successfully')
+        } catch (err) {
+          toast('Failed to parse JSON: ' + err.message, 'warning', 'bi bi-x-circle')
+        }
+      }
+      reader.readAsText(file)
+    }
+
+    function copySQL() {
+      navigator.clipboard.writeText(sql.value).then(() => toast('SQL copied to clipboard'))
+    }
+
+    return {
+      SCHEMA, FUNCTIONS,
+      state, showSQL, results, primaryTable, newPivotVal, openSections,
+      fileInputRef, toasts,
+      // computed
+      allCols, aggCols, havingCols, groupByCols, groupByMismatch,
+      orderByCols, sql, highlightedSQL, warnings,
+      // methods
+      toggleSection,
+      setPrimaryTable, addJoin, removeSource, onJoinTableChange,
+      addColumn, removeColumn, onFnChange, isAggregateFn, isWindowFn,
+      countConds, addOrderBy, removeOrderBy,
+      addPivotVal, addCTE, addSetOp,
+      getTableCols,
+      runQuery, saveJSON, onFileLoad, copySQL,
+    }
+  }
+})
+
+app.mount('#app')
+</script>
+</body>
+</html>
