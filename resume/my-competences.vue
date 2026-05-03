@@ -1,122 +1,91 @@
-
 <template>
-<section>
-	<details>
-		<summary>
-			<h3>Mobile Application Development</h3>
-		</summary>
-		<ul class="list-canonical">
-			<li>
-				<a href="https://flutter.dev/" target="_blank">Flutter</a>
-				v2,v3
-			</li>
-		</ul>
-	</details>
+	<div class="content-card">
+		<div class="row g-4">
 
-	<details>
-		<summary>
-			<h3>PHP: Hypertext Preprocessor</h3>
-		</summary>
-		<article>
-			<ul class="list-canonical">
-				<li><a href="https://secure.php.net/" target="_blank">PHP</a> v7,v8</li>
-				<li><a href="https://getcomposer.org/" target="_blank">Composer</a></li>
-				<li><a href="https://www.yiiframework.com/" target="_blank">Yii</a> v2,v3</li>
-				<li><a href="https://laravel.com/" target="_blank">Laravel</a> v8,v9</li>
-				<li><a href="https://www.codeigniter.com/" target="_blank">CodeIgniter</a> v3</li>
-			</ul>
-		</article>
-	</details>
 
-	<details>
-		<summary>
-			<h3>Python (Programming Language)</h3>
-		</summary>
-		<ul class="list-canonical">
-			<li><a href="https://www.python.org/" target="_blank">Python</a> v3</li>
-			<li><a href="https://pip.pypa.io/" target="_blank">pip</a> v#</li>
-			<li>Flask</li>
-			<li><a href="https://www.djangoproject.com/" target="_blank">Django</a> v2,v3</li>
-		</ul>
-	</details>
+			
+			<!-- Skill Category 1 -->
+			<div class="col-md-6">
+				<h4 class="h6 fw-bold mb-3"><i class="bi bi-phone me-2 text-accent"></i> Mobile Development</h4>
+				<div class="d-flex flex-wrap gap-2">
+					<span class="badge-skill">Flutter v2, v3</span>
+				</div>
+			</div>
 
-	<details>
-		<summary>
-			<h3>JavaScript / Node.js (ECMAScript)</h3>
-		</summary>
-		<ul class="list-canonical">
-			<li>JavaScript (ECMAScript) ECMA-262</li>
-			<li><a href="https://nodejs.org/" target="_blank">Node.js</a></li>
-			<li><a href="https://nuxt.com/" target="_blank">Nuxt.js</a> v3</li>
-			<li>
-				<a href="https://jquery.com/" target="_blank">jQuery</a>,
-				<a href="https://jqueryui.com/" target="_blank">jQuery UI</a>
-			</li>
-			<li>
-				<a href="https://www.npmjs.com/" target="_blank">NPM</a>,
-				<a href="https://yarnpkg.com/en/" target="_blank">Yarn</a>
-				<a href="https://bower.io/" target="_blank">Bower</a>,
-			</li>
-			<li><a href="https://vuejs.org/" target="_blank">Vue.js</a> v2</li>
-		</ul>
-	</details>
+			<!-- Skill Category 2 -->
+			<div class="col-md-6">
+				<h4 class="h6 fw-bold mb-3"><i class="bi bi-filetype-php me-2 text-accent"></i> PHP Ecosystem</h4>
+				<div class="d-flex flex-wrap gap-2">
+					<span class="badge-skill">PHP v7, v8</span>
+					<span class="badge-skill">Composer</span>
+					<span class="badge-skill">Yii v2, v3</span>
+					<span class="badge-skill">Laravel v8, v9</span>
+					<span class="badge-skill">CodeIgniter v3</span>
+				</div>
+			</div>
 
-	<details>
-		<summary>
-			<h3>SQL (Structured Query Language) & NoSQL</h3>
-		</summary>
-		<ul class="list-canonical">
-			<li><a href="https://www.sqlite.org/" target="_blank">SQLite</a> v3</li>
-			<li><a href="https://www.firebirdsql.org/" target="_blank">FireBirdSQL</a> v2,v3</li>
-			<li><a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a></li>
-			<li>
-				<a href="https://www.mysql.com/" target="_blank">MariaDB</a>
-				<a href="https://www.mysql.com/" target="_blank">MySQL</a>
-			</li>
-			<li><a href="https://couchdb.apache.org/" target="_blank">CouchDB</a> v2</li>
-		</ul>
-	</details>
+			<!-- Skill Category 3 -->
+			<div class="col-md-6">
+				<h4 class="h6 fw-bold mb-3"><i class="bi bi-filetype-py me-2 text-accent"></i> Python</h4>
+				<div class="d-flex flex-wrap gap-2">
+					<span class="badge-skill">Python v3</span>
+					<span class="badge-skill">pip</span>
+					<span class="badge-skill">Flask</span>
+					<span class="badge-skill">Django v2, v3</span>
+				</div>
+			</div>
 
-	<details>
-		<summary>
-			<h3>HTML (HyperText Markup Language)</h3>
-		</summary>
-		<ul class="list-canonical">
-			<li>XML,XSL</li>
-			<li>XHTML5,HTML5</li>
-			<li>
-				<a href="https://www.blogger.com/" target="_blank">Blogger/Blogspot</a> Template (Formatted XML)
-			</li>
-		</ul>
-	</details>
+			<!-- Skill Category 4 -->
+			<div class="col-md-6">
+				<h4 class="h6 fw-bold mb-3"><i class="bi bi-filetype-js me-2 text-accent"></i> JavaScript & Node</h4>
+				<div class="d-flex flex-wrap gap-2">
+					<span class="badge-skill">JavaScript (ES262)</span>
+					<span class="badge-skill">Node.js</span>
+					<span class="badge-skill">Nuxt.js v3</span>
+					<span class="badge-skill">Vue.js v2/v3</span>
+					<span class="badge-skill">jQuery / UI</span>
+					<span class="badge-skill">NPM / Yarn</span>
+				</div>
+			</div>
 
-	<details>
-		<summary>
-			<h3>CSS (Cascading Style Sheets)</h3>
-		</summary>
-		<ul class="list-canonical">
-			<li>CSS2,CSS3</li>
-			<li><a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> v3,v5</li>
-			<li><a href="http://lesscss.org/" target="_blank">LESS</a></li>
-			<li><a href="https://sass-lang.com/" target="_blank">SASS</a></li>
-			<li><a href="http://purecss.io/" target="_blank">PureCSS</a> v1</li>
-		</ul>
-	</details>
+			<!-- Skill Category 5 -->
+			<div class="col-md-6">
+				<h4 class="h6 fw-bold mb-3"><i class="bi bi-database-fill me-2 text-accent"></i> Database</h4>
+				<div class="d-flex flex-wrap gap-2">
+					<span class="badge-skill">SQLite v3</span>
+					<span class="badge-skill">FireBirdSQL</span>
+					<span class="badge-skill">PostgreSQL</span>
+					<span class="badge-skill">MariaDB / MySQL</span>
+					<span class="badge-skill">CouchDB v2</span>
+				</div>
+			</div>
 
-	<details>
-		<summary>
-			<h3>Lainnya</h3>
-		</summary>
-		<ul class="list-ubuntu">
-			<li title="Sistem Operasi">Linux (Debian, Ubuntu, Mint), Windows</li>
-			<li title="Git">Github, GitLab, OpenShift, Heroku</li>
-			<li title="Pixel Graphic">
-				<span title="(O_o)">Paint</span>,
-				<span class="text-muted">Gimp, Adobe Photoshop</span>
-			</li>
-			<li title="Vector Graphic" class="text-muted">InkScape, CorelDraw</li>
-			<li title="3D" class="text-muted">Wings3D</li>
-		</ul>
-	</details>
-</section>
+			<!-- Skill Category 6 -->
+			<div class="col-md-6">
+				<h4 class="h6 fw-bold mb-3"><i class="bi bi-palette-fill me-2 text-accent"></i> Frontend & Design</h4>
+				<div class="d-flex flex-wrap gap-2">
+					<span class="badge-skill">HTML5 / XML</span>
+					<span class="badge-skill">CSS3</span>
+					<span class="badge-skill">Bootstrap v3, v5</span>
+					<span class="badge-skill">LESS / SASS</span>
+					<span class="badge-skill">PureCSS</span>
+				</div>
+			</div>
+			
+			<!-- Skill Category 7 -->
+			<div class="col-12">
+				<h4 class="h6 fw-bold mb-3"><i class="bi bi-tools me-2 text-accent"></i> Lainnya</h4>
+				<div class="d-flex flex-wrap gap-2">
+					<span class="badge-skill">Linux (Debian/Ubuntu/Mint)</span>
+					<span class="badge-skill">Windows</span>
+					<span class="badge-skill">Git (Hub/Lab)</span>
+					<span class="badge-skill">Docker / Heroku / OpenShift</span>
+					<span class="badge-skill">Gimp / Photoshop</span>
+					<span class="badge-skill">InkScape / CorelDraw</span>
+					<span class="badge-skill">Wings3D</span>
+				</div>
+			</div>
+
+		</div>
+	</div>
 </template>

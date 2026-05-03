@@ -1,18 +1,17 @@
-
 <template>
-<footer class="container-fluid my-5 text-muted text-center">
-	<div>
-		Diberdayakan oleh
-		<a href="https://github.com/" target="_blank">GitHub</a>,
-		<a href="https://fonts.google.com/" target="_blank">Google Fonts</a>,
-		<a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>,
-		<a href="https://lesscss.org/" target="_blank">Less</a>,
-		<a href="https://vuejs.org/" target="_blank">Vue</a>.
+<footer class="content-card text-center mt-5">
+	<div class="mb-3">
+		Diberdayakan oleh 
+		<a href="https://github.com/" target="_blank" class="fw-semibold mx-1"><i class="bi bi-github"></i> GitHub</a>,
+		<a href="https://fonts.google.com/" target="_blank" class="fw-semibold mx-1">Google Fonts</a>,
+		<a href="https://getbootstrap.com/" target="_blank" class="fw-semibold mx-1"><i class="bi bi-bootstrap-fill"></i> Bootstrap</a>,
+		<a href="https://lesscss.org/" target="_blank" class="fw-semibold mx-1">Less</a>,
+		<a href="https://vuejs.org/" target="_blank" class="fw-semibold mx-1">Vue 3</a>.
 	</div>
-	<div>
-		Revisi Ke <code v-text="revision_count"></code> Kali.
-		Terakhir diubah <code v-text="revision_last.toTGL()"></code>.
-		Pertama dibuat <code v-text="revision_first.toTGL()"></code>.
+	<div class="small text-muted">
+		Revisi Ke <code class="fw-bold bg-light bg-opacity-10 px-2 py-1 rounded" v-text="revision_count"></code> Kali.
+		Terakhir diubah <code class="bg-light bg-opacity-10 px-2 py-1 rounded" v-text="revision_last.toTGL()"></code>.
+		Pertama dibuat <code class="bg-light bg-opacity-10 px-2 py-1 rounded" v-text="revision_first.toTGL()"></code>.
 	</div>
 </footer>
 </template>

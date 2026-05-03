@@ -1,3 +1,4 @@
+if (typeof WebAppData === 'undefined') window.WebAppData = { debug: false };
 
 const { loadModule } = window['vue3-sfc-loader'];
 const options = {
@@ -21,6 +22,7 @@ const options = {
 Vue.createApp({
 	components: {
 		'my-header': Vue.defineAsyncComponent(() => loadModule('resume/my-header.vue', options)), 
+		'my-about': Vue.defineAsyncComponent(() => loadModule('resume/my-about.vue', options)), 
 		'my-experiences': Vue.defineAsyncComponent(() => loadModule('resume/my-experiences.vue', options)), 
 		'my-competences': Vue.defineAsyncComponent(() => loadModule('resume/my-competences.vue', options)), 
 		'my-random': Vue.defineAsyncComponent(() => loadModule('resume/my-random.vue', options)), 

@@ -1,36 +1,47 @@
-
 <template>
-	<section class="row">
-		<article class="col" style="text-align: justify;">
-			menulis 10% membaca 90%.
-			punya bakat seniman.
-			punya bakat ngajar.
-			mobile gaming.
+	<div class="row g-3">
+		
+		<div class="col-md-6 col-lg-4">
+			<div class="content-card h-100 mb-0 text-center">
+				<i class="bi bi-book text-accent display-4 mb-3 d-block"></i>
+				<p class="mb-0 fw-semibold">Menulis 10%<br>Membaca 90%</p>
+			</div>
+		</div>
+		
+		<div class="col-md-6 col-lg-4">
+			<div class="content-card h-100 mb-0 text-center">
+				<i class="bi bi-palette text-accent display-4 mb-3 d-block"></i>
+				<p class="mb-0 fw-semibold">Bakat Seniman &<br>Mengajar</p>
+			</div>
+		</div>
 
-			pengen kerja di rumah makan.
-			pengen kerja di hotel.
-			pengen jadi PNS.
+		<div class="col-md-6 col-lg-4">
+			<div class="content-card h-100 mb-0 text-center">
+				<i class="bi bi-controller text-accent display-4 mb-3 d-block"></i>
+				<p class="mb-0 fw-semibold">Mobile Gaming</p>
+			</div>
+		</div>
 
-			pilih capek dari pada santai,
-			pengen punya rumah dan tanah.
-			pengen punya startup.
+		<div class="col-md-6 col-lg-4">
+			<div class="content-card h-100 mb-0 text-center">
+				<i class="bi bi-shop text-accent display-4 mb-3 d-block"></i>
+				<p class="mb-0 fw-semibold">Tertarik Bisnis<br>Kuliner / Hotel</p>
+			</div>
+		</div>
 
-			pilih menyerah daripada memaksa orang.
-			susah fokus kalau tidak cocok.
-			bersepedaan (sudah tidak punya).
-			naik bis tanpa tujuan (hiatus karena covid).
+		<div class="col-md-6 col-lg-4">
+			<div class="content-card h-100 mb-0 text-center">
+				<i class="bi bi-rocket text-accent display-4 mb-3 d-block"></i>
+				<p class="mb-0 fw-semibold">Mimpi Membangun<br>Startup</p>
+			</div>
+		</div>
 
-			active smoking.
+		<div class="col-md-6 col-lg-4">
+			<div class="content-card h-100 mb-0 text-center">
+				<i class="bi bi-bicycle text-accent display-4 mb-3 d-block"></i>
+				<p class="mb-0 fw-semibold">Bersepeda &<br>Eksplorasi Rute Bis</p>
+			</div>
+		</div>
 
-			etc.
-		</article>
-	</section>
+	</div>
 </template>
-
-<style scoped>
-	@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
-	article {
-		font-size: large;
-		font-family: 'Handlee', cursive;
-	}
-</style>

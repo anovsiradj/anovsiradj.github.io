@@ -1,71 +1,112 @@
 <!DOCTYPE html>
+
 <html lang="id" dir="ltr">
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<title>Resume — anovsiradj</title>
-	<link rel='image_src' href='cdn/img/anovsiradj-markup-style.png'/>
 
-	<script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+	<!-- Bootstrap 5 & Bootstrap Icons -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+	<!-- Custom Less styling (runtime) -->
+	<link rel="stylesheet/less" href="resume/index.less">
+
+	<!-- Core Dependencies -->
+	<script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0/dist/vue3-sfc-loader.js"></script>
 
-	<link rel="stylesheet/less" href="resume/index.less">
+	<!-- Less compiler configuration -->
 	<script>
-		window.less = {
-			async: true,
-			fileAsync: true, 
-		};
+		window.less = { async: true, fileAsync: true };
 	</script>
+	<script src="https://cdn.jsdelivr.net/npm/less@4/dist/less.min.js"></script>
+
+	<!-- App scripts -->
 	<script src="webapp.js"></script>
-	<script src="https://unpkg.com/less@4/dist/less.min.js"></script>
+	<script src="cdn/lib/xhrget.js"></script>
 </head>
 
-<body>
-<div id="index">
-	<my-header></my-header>
+<body class="theme-transition">
+	<!-- Fixed Theme Toggle -->
+	<button id="theme-toggle" class="btn btn-theme-toggle rounded-circle shadow-lg" title="Toggle Dark Mode">
+		<i class="bi bi-moon-stars-fill"></i>
+	</button>
 
-	<main class="container-fluid">
-		<div class="row">
-			<div class="col-lg-6 offset-lg-3">
-				<h2>Pengalaman</h2>
-				<my-experiences></my-experiences>
+	<div id="index" class="container-fluid py-4 py-lg-5">
+		<div class="row justify-content-center">
+
+			<div class="col-lg-8 col-md-10">
+
+				<!-- Header / Profile -->
+				<div class="mb-5">
+					<my-header></my-header>
+				</div>
+
+				<!-- Content -->
+
+				<div class="mb-5">
+					<h2 class="section-title mb-4"><i class="bi bi-briefcase-fill me-2 text-accent"></i> Pengalaman</h2>
+					<my-experiences></my-experiences>
+				</div>
+
+				<div class="mb-5">
+					<h2 class="section-title mb-4"><i class="bi bi-lightning-charge-fill me-2 text-accent"></i> Kompetensi</h2>
+					<p class="text-muted mb-4 lead">
+						Portofolio sebagian besar saya publikasikan melalui
+						<a href="https://github.com/anovsiradj" target="_blank" rel="noopener noreferrer" class="social-link"><i class="bi bi-github"></i> GitHub</a>,
+						<a href="https://gitlab.com/anovsiradj" target="_blank" rel="noopener noreferrer" class="social-link"><i class="bi bi-git"></i> GitLab</a>,
+						<a href="https://jsfiddle.net/user/anovsiradj" target="_blank" rel="noopener noreferrer" class="social-link"><i class="bi bi-code-square"></i> JSFiddle</a>,
+						dan <a href="https://ne-a-r.blogspot.com/search/label/portofolio" target="_blank" rel="noopener noreferrer" class="social-link"><i class="bi bi-window-sidebar"></i> WebLog</a>.
+					</p>
+					<my-competences></my-competences>
+				</div>
+
+				<!-- <div class="mb-5">
+					<h2 class="section-title mb-4">
+						<i class="bi bi-person-lines-fill me-2 text-accent"></i>
+						Tentang
+					</h2>
+					<my-about></my-about>
+				</div> -->
+
+				<div class="mb-5">
+					<h2 class="section-title mb-4"><i class="bi bi-heart-fill me-2 text-accent"></i> Hobbies &amp; Interests</h2>
+					<my-random></my-random>
+				</div>
+
+				<my-footer></my-footer>
 			</div>
+
 		</div>
-	</main>
+	</div>
 
-	<main class="container-fluid">
-		<div class="row">
-			<div class="col-lg-6 offset-lg-3">
-				<h2>Kompetensi</h2>
-				<p>
-					Portofolio sebagian besar saya publikasikan melalui
-					<a href="https://github.com/anovsiradj" target="_blank">GitHub</a>,
-					<a href="https://gitlab.com/anovsiradj" target="_blank">GitLab</a>,
-					<a href="https://jsfiddle.net/user/anovsiradj" target="_blank">JSFiddle</a>
-					dan <a href="https://ne-a-r.blogspot.com/search/label/portofolio" target="_blank">WebLog</a>.
-				</p>
-				<my-competences></my-competences>
-			</div>
-		</div>
-	</main>
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-	<main class="container-fluid">
-		<div class="row">
-			<div class="col-lg-6 offset-lg-3">
-				<h2>Hobbies &amp; Interests</h2>
-				<my-random></my-random>
-			</div>
-		</div>
-	</main>
+	<!-- App Logic -->
+	<script src="resume/index.js"></script>
+	<script src="resume/darkmode.js"></script>
 
-	<my-footer></my-footer>
-</div>
+	<!-- PDF Export -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script src="resume/pdf-export.js"></script>
 
-<script src="https://unpkg.com/bootstrap@5/dist/js/bootstrap.min.js"></script>
-<script src="cdn/lib/xhrget.js"></script>
-<script src="resume/index.js"></script>
-<script></script>
+	<!-- Service Worker registration (enabled by default) -->
+	<script>
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('resume/worker.js')
+		}
+	</script>
 </body>
+
 </html>
