@@ -30,8 +30,21 @@
                     '#[content] { position: relative; font-family: Ubuntu,sans-serif; padding: 32px 72px; margin: 0px; }',
                     '#[content] h1, #[content] h2, #[content] h3, #[content] h4, #[content] h5, #[content] h6 {}',
                     '#[content] *:not(pre) code { color: #8C1C13;background-color: rgba(140,28,19,0.1); padding-left:4px; padding-right:4px; }',
-                    '#[toc] { font-family: Ubuntu, sans-serif; position:fixed; top:8px; right:8px; padding:8px; background-color:rgba(255,255,255,0.8); color:#333; border:1px solid #999; z-index:999; opacity:0.2; }',
-                    '#[toc]:hover { opacity:1; }',
+                    '#[toc] { font-family: Ubuntu, sans-serif; position:fixed; top:20px; right:20px; z-index:999; transition: all 0.3s; }',
+                    '#[toc] .toc-label { background: #0099ff; color: #fff; padding: 5px 10px; border-radius: 4px; cursor: pointer; text-align: center; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }',
+                    '#[toc] .toc-list { display: none; background: rgba(255,255,255,0.95); border: 1px solid #ddd; border-radius: 4px; padding: 10px; margin-top: 5px; max-height: 80vh; overflow-y: auto; min-width: 200px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }',
+                    '#[toc]:hover .toc-list { display: block; }',
+                    '#[toc] .toc-list a { display: block; padding: 3px 0; text-decoration: none; font-size: 0.9em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-bottom: 1px solid #f0f0f0; }',
+                    '#[toc] .toc-list a:hover { color: #007acc; background: #f8f8f8; }',
+                    '#[toc] .toc-list a.level-1 { font-weight: bold; padding-left: 0; }',
+                    '#[toc] .toc-list a.level-2 { padding-left: 15px; }',
+                    '#[toc] .toc-list a.level-3 { padding-left: 30px; }',
+                    '#[toc] .toc-list a.level-4 { padding-left: 45px; }',
+                    // Responsive TOC
+                    '@media (max-width: 768px) { #[toc] { top: auto; bottom: 80px; right: 20px; } #[toc] .toc-list { min-width: 150px; } }',
+                    // Back to Top styling
+                    '#[top] { position: fixed; bottom: 20px; right: 20px; width: 40px; height: 40px; line-height: 40px; background: #0099ff; color: #fff; text-align: center; border-radius: 50%; cursor: pointer; z-index: 998; box-shadow: 0 2px 5px rgba(0,0,0,0.2); display: none; font-size: 20px; }',
+                    '#[top]:hover { background: #007acc; }',
                     // Better table styling
                     '#[content] table { border-collapse: collapse; width: 100%; margin: 1em 0; }',
                     '#[content] th, #[content] td { border: 1px solid #bbb; padding: 0.4em 0.6em; }',
@@ -101,7 +114,9 @@
                 }
                 this.content.innerHTML = htmlContent;
                 this.toc_init();
+                this.top_init();
                 this.render_highlight();
+
                 // Render Mermaid diagrams if any
                 if (typeof mermaid !== 'undefined') {
                     mermaid.initialize({ startOnLoad: false });
@@ -163,9 +178,27 @@
             style.type = 'text/css';
             this.content.parentNode.insertBefore(style, this.content);
             for (var i = 0; i < this.config.style.length; i++) {
-                rule = this.config.style[i].replace(/\[content\]/g, this.content.id).replace(/\[toc\]/g, this.content.id + '_toc');
+                rule = this.config.style[i]
+                    .replace(/\[content\]/g, this.content.id)
+                    .replace(/\[toc\]/g, this.content.id + '_toc')
+                    .replace(/\[top\]/g, this.content.id + '_top');
                 style.appendChild(document.createTextNode(rule));
             }
+        }
+
+        top_init() {
+            const topId = this.content.id + '_top';
+            this.top_btn = document.createElement('div');
+            this.top_btn.id = topId;
+            this.top_btn.innerText = '▲';
+            this.top_btn.title = 'Back to Top';
+            this.top_btn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.body.appendChild(this.top_btn);
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) this.top_btn.style.display = 'block';
+                else this.top_btn.style.display = 'none';
+            });
         }
 
         toc_init() {
@@ -173,9 +206,18 @@
             this.toc.id = this.content.id + '_toc';
             this.content.appendChild(this.toc);
 
+            const label = document.createElement('div');
+            label.className = 'toc-label';
+            label.innerText = 'TOC';
+            this.toc.appendChild(label);
+
+            const list = document.createElement('div');
+            list.className = 'toc-list';
+            this.toc.appendChild(list);
+
             var hN = this.content.querySelectorAll('h1, h2, h3, h4, h5, h6');
             for (var i = 0; i < hN.length; i++) {
-                this.toc_make_anchor(hN[i]);
+                this.toc_make_anchor(hN[i], list);
             }
 
             // Resolve relative image sources based on the source URL
@@ -189,7 +231,7 @@
             });
         }
 
-        toc_make_anchor(h) {
+        toc_make_anchor(h, container) {
             var id, a;
             id = this.content.id + '_' + h.innerText.toLowerCase().replace(/[^\w]+/g, '').replace(/\s+/g, '-');
             h.id = id;
@@ -197,9 +239,9 @@
             a = document.createElement('a');
             a.href = '#' + id;
             a.innerText = h.innerText;
+            a.className = 'level-' + h.tagName.substring(1);
 
-            this.toc.appendChild(a);
-            this.toc.appendChild(document.createElement('br'));
+            container.appendChild(a);
         }
 
         init(srcurl) {

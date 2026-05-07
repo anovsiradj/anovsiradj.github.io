@@ -20,3 +20,12 @@ my responses for your "Suggestions for Immediate Improvement" review.
 
 help me implement mermaid.js, i have added it.
 add better table styling.
+
+##############################################################################
+##############################################################################
+
+adjustments for readme5:
+- rafactor TOC, make it better styling.
+- make TOC hidden by default, and popup on hover.
+- make TOC responsive better
+- add floating "Top" button at right-bottom 

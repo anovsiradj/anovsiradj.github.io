@@ -20,7 +20,7 @@ Readme source [./README.md](./README.md).
 
 ---
 
-# Style
+## Style
 
 Add before `init(...)`:
 
@@ -48,7 +48,7 @@ Result: `#my_awesome_readme_toc {background-color:red;}`.
 
 ---
 
-### table
+## table
 
 [sample1](https://commonmark.thephpleague.com/2.x/extensions/tables/)
 
@@ -56,7 +56,7 @@ th | th(center) | th(right)
 ---|:----------:|----------:
 td | td         | td
 
-### mermaid
+## mermaid
 
 ```mermaid
 erDiagram
@@ -84,21 +84,23 @@ erDiagram
     }
 ```
 
-### Todos
+# development
+
+## Todos
 
 - relative container for ToC
 - large image overflow, current workaround `readme.config.style.push('#[content] img {max-width: 70%}');`
 - subfolder image broken
 
-### Revisions
+## Revisions
 
 ```
 201606092158: first
 201606100155: second
-20260507: upgrade deps, mermaid, table.
+20260507: upgrade deps, mermaid, new table, new toc, add top.
 ```
 
-### Credit
+# Credit
 
 Powered by [`Markdown-It`](//markdown-it.github.io/) and [`highlight.js`](//highlightjs.org/).
 Using [`Ubuntu`](//www.google.com/fonts/specimen/Ubuntu) font.
