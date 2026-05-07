@@ -22,6 +22,16 @@ continue
 explain your suggestion for ...
 elaborate your suggestion for ...
 
+# thinking
+
+https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking
+Extended thinking adds latency and should only be used when it
+will meaningfully improve answer quality — typically for problems
+that require multi-step reasoning. When in doubt, respond directly.
+
+https://www.instagram.com/p/DM22s5xxHB8/
+When in doubt, prompt it out.
+
 # finishing
 
 validate and evaluate your own result,

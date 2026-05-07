@@ -1,0 +1,199 @@
+<div class="mZJni Dn7Fzd">
+	<div style="display: contents">
+		<div class="n6owBd awi2gc">
+			<span>
+				Laravel SSH tunnel MySQL connections drop because the tunnel times out due to inactivity, causing the "MySQL
+				server has gone away" error (2006). To fix this, ensure the tunnel is persistent using
+			</span>
+			<span>autossh</span>
+			to auto-restart it, and increase MySQL's
+			<code class="KDcb0c">wait_timeout</code>
+			or use
+			<code class="KDcb0c">PDO::ATTR_PERSISTENT =&gt; false</code>
+			.
+			<span class="uJ19be notranslate">
+				<span class="vKEkVd">
+					<span>&nbsp;</span>
+					<a class="muU3oe" target="_blank" href="https://laracasts.com/discuss/channels/general-discussion/mysql-connection-via-ssh-in-laravel"></a>
+					<div class="Fwa2Od">
+						<img class="lXbsme" alt="" />
+						<span class="wJwe6c">
+							<span class="iFMVXd">Laracasts</span>
+							<span class="IjM6od">&nbsp;+3</span>
+						</span>
+					</div>
+				</span>
+			</span>
+		</div>
+		<div style="display: none"></div>
+		<div style="display: none"></div>
+		<div style="display: none"></div>
+		<div style="display: none"></div>
+		<div class="Fsg96"></div>
+		<div class="otQkpb">
+			Common Solutions for Persistent Connections
+			<span class="txxDge notranslate">
+				<span class="vKEkVd">
+					<span>&nbsp;</span>
+					<span class="wiMplc ofC0Ud"></span>
+				</span>
+			</span>
+		</div>
+		<div>
+			<ul class="KsbFXc U6u95">
+				<li class="Z1qcYe">
+					<span class="T286Pc">
+						<strong class="Yjhzub">Use Autossh for Tunneling:</strong>
+						Instead of standard
+						<code class="KDcb0c">ssh -L</code>
+						, use
+						<code class="KDcb0c">autossh</code>
+						to keep the tunnel alive automatically if it dies.
+					</span>
+					<div class="r1PmQe">
+						<div>
+							<div class="pHpOfb">
+								<div class="z0e9Qd">
+									<div class="vVRw1d">bash</div>
+								</div>
+								<div class="pCTyYe">
+									<pre><code><span class="undefined">autossh -M </span><span class="tnfcCf">0</span><span class="undefined"> -f -N -L </span><span class="tnfcCf">33060</span><span class="undefined">:</span><span class="tnfcCf">127.0</span><span class="undefined">.</span><span class="tnfcCf">0.1</span><span class="undefined">:</span><span class="tnfcCf">3306</span><span class="undefined"> user@remote-server -o </span><span class="CS0cqb">"ServerAliveInterval 30"</span><span class="undefined"> -o </span><span class="CS0cqb">"ServerAliveCountMax 3"</span><span class="undefined">
+</span></code></pre>
+								</div>
+							</div>
+							<div class="LIBz9e">
+								<div class="P8PNlb">Use code with caution.</div>
+								<span>
+									<div>
+										<span class="XjoK4b kkxvEb"></span>
+										<span class="UTNHae"></span>
+										<span class="I36Cje"></span>
+										<div class="ypuoue"></div>
+									</div>
+								</span>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="Z1qcYe">
+					<span class="T286Pc">
+						<strong class="Yjhzub">Update Laravel DB Configuration:</strong>
+						Add
+						<code class="KDcb0c">PDO::ATTR_PERSISTENT =&gt; false</code>
+						to your
+						<code class="KDcb0c">config/database.php</code>
+						options to force a fresh connection if the old one breaks.
+					</span>
+				</li>
+				<li class="Z1qcYe">
+					<span class="T286Pc">
+						<strong class="Yjhzub">
+							Adjust MySQL
+							<code class="KDcb0c">wait_timeout</code>
+							:
+						</strong>
+						Increase the
+						<code class="KDcb0c">wait_timeout</code>
+						and
+						<code class="KDcb0c">interactive_timeout</code>
+						on your remote MySQL server (e.g., to 8 hours) to prevent it from closing idle connections.
+					</span>
+				</li>
+				<li class="Z1qcYe">
+					<span class="T286Pc">
+						<strong class="Yjhzub">Schedule Tunnel Health Check:</strong>
+						Use
+						<span>Laravel Scheduler</span>
+						to run a command that checks if the port is open and restarts the tunnel if needed.
+					</span>
+					<span class="uJ19be notranslate">
+						<span class="vKEkVd">
+							<span>&nbsp;</span>
+							<a class="muU3oe" target="_blank" href="https://laracasts.com/discuss/channels/vapor/general-error-2006-mysql-server-has-gone-away-vapor"></a>
+							<div class="Fwa2Od">
+								<img class="lXbsme" alt="" />
+								<span class="wJwe6c">
+									<span class="iFMVXd">Laracasts</span>
+									<span class="IjM6od">&nbsp;+4</span>
+								</span>
+							</div>
+						</span>
+					</span>
+				</li>
+			</ul>
+		</div>
+		<div style="display: none"></div>
+		<div style="display: none"></div>
+		<div style="display: none"></div>
+		<div style="display: none"></div>
+		<div class="Fsg96"></div>
+		<div>
+			<div class="otQkpb">
+				Why This Happens
+				<span class="txxDge notranslate">
+					<span class="vKEkVd">
+						<span>&nbsp;</span>
+						<span class="wiMplc ofC0Ud"></span>
+					</span>
+				</span>
+			</div>
+		</div>
+		<div>
+			<ul class="KsbFXc U6u95">
+				<li class="Z1qcYe">
+					<span class="T286Pc">
+						<strong class="Yjhzub">Idle Tunnels:</strong>
+						SSH tunnels die when inactive for a while, and Laravel does not automatically reconnect an established PDO
+						connection.
+					</span>
+				</li>
+				<li class="Z1qcYe">
+					<span class="T286Pc">
+						<strong class="Yjhzub">MySQL 8/Cloud Issues:</strong>
+						Remote DB servers (like AWS Aurora) often have low
+						<code class="KDcb0c">wait_timeout</code>
+						settings, dropping connections quickly.
+					</span>
+				</li>
+				<li class="Z1qcYe">
+					<span class="T286Pc">
+						<strong class="Yjhzub">Queue Workers:</strong>
+						Long-running
+						<code class="KDcb0c">queue:work</code>
+						processes often experience this because they keep a connection open for a long time.
+					</span>
+					<span class="uJ19be notranslate">
+						<span class="vKEkVd">
+							<span>&nbsp;</span>
+							<a class="muU3oe" target="_blank" href="https://github.com/laravel/framework/issues/19005"></a>
+							<div class="Fwa2Od">
+								<img class="lXbsme" alt="" />
+								<span class="wJwe6c">
+									<span class="iFMVXd">GitHub</span>
+									<span class="IjM6od">&nbsp;+3</span>
+								</span>
+							</div>
+						</span>
+					</span>
+				</li>
+			</ul>
+		</div>
+		<div style="display: none"></div>
+		<div style="display: none"></div>
+		<div style="display: none"></div>
+		<div class="Fsg96"></div>
+		<div></div>
+		<div>
+			<div class="Jd31eb">
+				<div class="cycAue"></div>
+			</div>
+		</div>
+		<div style="display: none"></div>
+		<div style="display: none"></div>
+	</div>
+	<div class="alk4p q4PqPb">
+		<div class="IWPZAd"></div>
+		<div class="vlFi2e"></div>
+		<div class="oNvZFf"></div>
+	</div>
+</div>

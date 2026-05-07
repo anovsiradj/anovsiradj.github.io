@@ -1,13 +1,46 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
-	<meta charset="UTF-8"/>
-	<title>begin:201606092158, first:201606100155</title>
+	<meta charset="UTF-8" />
+	<link rel="icon" href="favicon.svg" type="image/svg">
+	<title>Readme5</title>
 </head>
+
 <body>
 	<div id="readme"></div>
 
-	<script src="readme5.js?i"></script>
-	<script>(new Readme5('readme')).init('README.md?_=20180611-1')</script>
+	<script>
+		let cache = Date.now()
+		let route = 'README.md'
+
+		function readmeScript() {
+			let el = document.createElement('script');
+			el.src = `readme5.js?${cache}`
+			el.onload = readmeRender
+			document.body.appendChild(el)
+		}
+
+		function readmeRender() {
+			if (routeValid()) {
+				route = location.hash.replace('#/', '')
+			}
+
+			; (new Readme5('readme')).init(`${route}?${cache}`);
+		}
+
+		function routeValid() {
+			let valid = false
+			let route = location.hash
+			if (route.startsWith('#/') && route.endsWith('.md')) {
+				valid = true
+			}
+			return valid
+		}
+
+		readmeScript()
+	</script>
 </body>
+
 </html>
