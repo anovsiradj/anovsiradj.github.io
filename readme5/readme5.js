@@ -1,8 +1,8 @@
 ; (function () {
-
     class R5 {
         constructor(target, config) {
             this.toc = null;
+            this.currentFile = null;
 
             if (typeof target === 'string') this.content = document.getElementById(target);
             else this.content = target;
@@ -24,6 +24,10 @@
                 },
                 // default parser is markdown-it; can be overridden via config.parser = 'commonmark' or 'marked'
                 'parser': 'markdownit',
+                // Single Page App mode (hash-based navigation)
+                'spa': true,
+                // Append timestamp to .md requests to bypass cache
+                'cacheBust': true,
                 'style': [
                     '#[content] a, #[toc] a { color: #0099ff; }',
                     '#[content] { background-color: #eee; color: #222; }',
@@ -51,7 +55,10 @@
                     '#[content] th { background-color: #ddd; text-align: left; }',
                     '#[content] tr:nth-child(even) { background-color: #f9f9f9; }',
                     // mermaid container styling (optional)
-                    '#[content] .mermaid { background: #fff; margin: 1em 0; }'
+                    '#[content] .mermaid { background: #fff; margin: 1em 0; }',
+                    // Loading indicator styling
+                    '#[content].loading { opacity: 0.5; pointer-events: none; }',
+                    '#[content].loading::before { content: "Loading..."; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); color: #fff; padding: 10px 20px; border-radius: 4px; z-index: 1000; }'
                 ],
                 'args': {
                     'hljs': {
@@ -103,18 +110,22 @@
                 let htmlContent;
                 if (this.config.parser === 'commonmark' && typeof commonmark !== 'undefined') {
                     const parser = new commonmark.Parser();
-                    const renderer = new commonmark.HtmlRenderer();
+                    const renderer = new commonmark.HtmlRenderer({ safe: false });
                     const parsed = parser.parse(readme);
                     htmlContent = renderer.render(parsed);
                 } else if (this.config.parser === 'marked' && typeof marked !== 'undefined') {
                     htmlContent = marked.parse(readme);
                 } else {
                     // markdown-it (fallback)
-                    htmlContent = markdownit().render(readme);
+                    htmlContent = markdownit({ html: true }).render(readme);
                 }
                 this.content.innerHTML = htmlContent;
+                this.content.classList.remove('loading');
+                window.scrollTo({ top: 0, behavior: 'instant' });
+
                 this.toc_init();
                 this.top_init();
+                this.md_link_init();
                 this.render_highlight();
 
                 // Render Mermaid diagrams if any
@@ -130,17 +141,28 @@
                         mermaid.init(undefined, mermaidContainer);
                     });
                 }
-                // Resolve relative images (base path already set in init)
+                // Resolve relative assets (base path already set in init)
                 const base = this.basePath || '';
-                const imgs = this.content.querySelectorAll('img');
-                imgs.forEach(img => {
-                    const src = img.getAttribute('src');
+                const embeds = this.content.querySelectorAll('img, video, audio, source, iframe');
+                embeds.forEach(el => {
+                    const src = el.getAttribute('src');
                     if (src && !src.match(/^(https?:)?\/\//i) && !src.startsWith('/')) {
-                        img.setAttribute('src', base + src);
+                        el.setAttribute('src', base + src);
                     }
                 });
 
             }
+        }
+
+        md_link_init() {
+            if (!this.config.spa) return;
+            const links = this.content.querySelectorAll('a');
+            links.forEach(a => {
+                let href = a.getAttribute('href');
+                if (href && href.endsWith('.md') && !href.match(/^(https?:)?\/\//i) && !href.startsWith('#')) {
+                    a.setAttribute('href', '#/' + href);
+                }
+            });
         }
 
         render_highlight() {
@@ -169,7 +191,46 @@
             this.xhr_event = this.xhr.onreadystatechange = function () {
                 if (this.readyState === 4) _this_.compile();
             };
+        }
 
+        hash_init(initialTarget) {
+            if (!this.config.spa) return;
+            const handler = () => {
+                let hash = window.location.hash.substring(1); // e.g. "/about.md#section"
+                if (!hash) {
+                    if (initialTarget !== this.currentFile) this.load(initialTarget);
+                    return;
+                }
+
+                const parts = hash.split('#');
+                let path = parts[0];
+                let anchor = parts[1];
+
+                // Check if it's an SPA route (contains .md)
+                if (path.includes('.md')) {
+                    let filePath = path.startsWith('/') ? path.substring(1) : path;
+                    if (filePath !== this.currentFile) {
+                        this.load(filePath);
+                        // If there was an anchor, we might need to scroll after load
+                        if (anchor) {
+                            var _this_ = this;
+                            setTimeout(() => _this_.scroll_to(anchor), 500);
+                        }
+                    } else if (anchor) {
+                        this.scroll_to(anchor);
+                    }
+                } else {
+                    // Simple anchor without .md (fallback)
+                    this.scroll_to(path);
+                }
+            };
+            window.addEventListener('hashchange', handler);
+            window.addEventListener('popstate', handler);
+        }
+
+        scroll_to(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
         make_style() {
@@ -219,16 +280,6 @@
             for (var i = 0; i < hN.length; i++) {
                 this.toc_make_anchor(hN[i], list);
             }
-
-            // Resolve relative image sources based on the source URL
-            const base = this.basePath || '';
-            const imgs = this.content.querySelectorAll('img');
-            imgs.forEach(img => {
-                const src = img.getAttribute('src');
-                if (src && !src.match(/^(https?:)?\/\//i) && !src.startsWith('/')) {
-                    img.setAttribute('src', base + src);
-                }
-            });
         }
 
         toc_make_anchor(h, container) {
@@ -236,8 +287,14 @@
             id = this.content.id + '_' + h.innerText.toLowerCase().replace(/[^\w]+/g, '').replace(/\s+/g, '-');
             h.id = id;
 
+            // Generate path-aware hash link if in SPA mode
+            let href = '#' + id;
+            if (this.config.spa && this.currentFile) {
+                href = '#/' + this.currentFile + '#' + id;
+            }
+
             a = document.createElement('a');
-            a.href = '#' + id;
+            a.href = href;
             a.innerText = h.innerText;
             a.className = 'level-' + h.tagName.substring(1);
 
@@ -245,14 +302,50 @@
         }
 
         init(srcurl) {
+            this.plug_vendor();
+            this.make_style();
+            this.xhr_init();
+            this.hash_init(srcurl);
+
+            // Check if we should start from hash
+            let hash = window.location.hash.substring(1);
+            if (hash.startsWith('/')) hash = hash.substring(1);
+            const target = (this.config.spa && hash && hash.endsWith('.md')) ? hash : srcurl;
+
+            if (target) {
+                // Sync hash if in SPA mode and hash is missing
+                if (this.config.spa && !window.location.hash && !target.includes('?')) {
+                    window.location.hash = '/' + target;
+                    // hash_init will trigger load() via hashchange event
+                } else {
+                    this.load(target);
+                }
+            }
+        }
+
+        load(srcurl) {
+            // Abort previous request if still pending
+            if (this.xhr.readyState > 0 && this.xhr.readyState < 4) {
+                this.xhr.abort();
+            }
+
+            // Strip cache busting/query from internal tracker
+            this.currentFile = srcurl.split('?')[0];
+
+            this.content.classList.add('loading');
+
             // Compute base path for relative assets (used later in image handling)
             const urlObj = new URL(srcurl, window.location.href);
             this.basePath = urlObj.href.substring(0, urlObj.href.lastIndexOf('/') + 1);
 
-            this.plug_vendor();
-            this.make_style();
-            this.xhr_init();
-            this.xhr.open("GET", srcurl, true);
+            let finalUrl = srcurl;
+            if (this.config.cacheBust) {
+                const bust = (typeof this.config.cacheBust === 'string') ? this.config.cacheBust : new Date().getTime();
+                const sep = finalUrl.indexOf('?') > -1 ? '&' : '?';
+                finalUrl += sep + '_=' + bust;
+            }
+
+            this.xhr.open("GET", finalUrl, true);
             this.xhr.send();
         }
     }

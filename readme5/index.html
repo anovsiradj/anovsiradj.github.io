@@ -13,33 +13,23 @@
 
 	<script>
 		let cache = Date.now()
-		let route = 'README.md'
+		let readme = null
 
-		function readmeScript() {
+		function boot() {
 			let el = document.createElement('script');
 			el.src = `readme5.js?${cache}`
-			el.onload = readmeRender
+			el.onload = init
 			document.body.appendChild(el)
 		}
 
-		function readmeRender() {
-			if (routeValid()) {
-				route = location.hash.replace('#/', '')
-			}
-
-			; (new Readme5('readme')).init(`${route}?${cache}`);
+		function init() {
+			readme = new Readme5('readme', {
+				spa: true
+			})
+			readme.init(`README.md`)
 		}
 
-		function routeValid() {
-			let valid = false
-			let route = location.hash
-			if (route.startsWith('#/') && route.endsWith('.md')) {
-				valid = true
-			}
-			return valid
-		}
-
-		readmeScript()
+		window.addEventListener('DOMContentLoaded', boot, false)
 	</script>
 </body>
 
