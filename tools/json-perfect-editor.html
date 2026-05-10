@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Perfect Editor</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- jsTree Dark Theme CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default-dark/style.min.css" />
+
+    <style>
+        body {
+            padding: 1rem;
+        }
+        #json-tree {
+            height: calc(100vh - 440px);
+            min-height: 250px;
+            overflow: auto;
+            border: 1px solid #495057;
+            padding: 10px;
+            border-radius:.375rem;
+        }
+      .node-value {
+            color: #8cb4ff;
+            font-style: italic;
+        }
+      .jstree-search {
+            background-color: #f0ad4e;
+            color: #000!important;
+            border-radius: 3px;
+        }
+        #json-output-textarea {
+            height: 60vh;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <h1 class="text-center mb-4">JSON Perfect Editor</h1>
+
+        <div class="row g-3">
+            <!-- Left Panel -->
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Import</h5>
+                        <div class="mb-3">
+                            <textarea id="json-input" class="form-control" rows="5" placeholder="Paste your JSON here or load a file"></textarea>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <button id="load-text-btn" class="btn btn-primary">Load from Text</button>
+                            <button id="import-file-btn" class="btn btn-secondary">Import JSON file</button>
+                            <input type="file" id="load-file-input" class="d-none" accept=".json">
+                            <button id="export-json-btn" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#output-modal">Export</button>
+                        </div>
+
+                        <hr/>
+
+                        <div class="input-group mb-2">
+                             <input type="text" id="search-input" class="form-control" placeholder="Search key or value...">
+                             <button id="search-clear-btn" class="btn btn-outline-secondary" type="button">Clear</button>
+                        </div>
+
+                         <div class="d-flex flex-wrap gap-2 mb-3">
+                            <button id="expand-all-btn" class="btn btn-sm btn-outline-secondary">Expand All</button>
+                            <button id="collapse-all-btn" class="btn btn-sm btn-outline-secondary">Collapse All</button>
+                        </div>
+
+                        <h5 class="card-title mt-2">JSON Tree</h5>
+                        <div id="json-tree" class="flex-grow-1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Node Editor</h5>
+                        <div id="editor-form">
+                            <div id="no-selection" class="text-muted text-center mt-5">
+                                Select a node from the tree to edit.
+                            </div>
+                        </div>
+                        <div id="action-buttons" class="d-flex flex-wrap gap-2 mt-3" style="display:none;">
+                            <button id="add-prop-btn" class="btn btn-success"><i class="bi bi-plus-lg"></i> Add Child</button>
+                            <button id="null-value-btn" class="btn btn-warning"><i class="bi bi-x-circle"></i> Set to Null</button>
+                            <button id="convert-to-array-btn" class="btn btn-secondary"><i class="bi bi-list-ul"></i> To Array</button>
+                            <button id="convert-to-object-btn" class="btn btn-secondary"><i class="bi bi-braces"></i> To Object</button>
+                            <button id="delete-node-btn" class="btn btn-danger"><i class="bi bi-trash"></i> Delete Node</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Output Modal -->
+    <div class="modal fade" id="output-modal" tabindex="-1" aria-labelledby="outputModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="outputModalLabel">JSON Output</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <textarea id="json-output-textarea" class="form-control"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" id="copy-output-btn" class="btn btn-primary">Copy to Clipboard</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jsTree JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
+
+    <script>
+    $(document).ready(function () {
+        const tree = $('#json-tree');
+        const editorForm = $('#editor-form');
+        const noSelection = $('#no-selection');
+        const actionButtons = $('#action-buttons');
+
+        // --- jsTree Initialization ---
+        tree.jstree({
+            'core': {
+                'check_callback': true,
+                'data': [],
+                'themes': { 'name': 'default-dark', 'responsive': true, 'dots': true, 'icons': true }
+            },
+            'plugins': ['contextmenu', 'dnd', 'types', 'search'],
+            'types': {
+                "default" : { "icon" : "jstree-folder" },
+                "file" : { "icon" : "jstree-file" }
+            },
+            'search': { 'case_insensitive': true, 'show_only_matches' : true },
+            'contextmenu': {
+                'items': function (node) {
+                    const items = {};
+                    // **FIXED**: Disabled in-tree rename to prevent sync issues. All edits must go through the panel.
+                    if (node.type === 'default') {
+                         items.add = { 'label': 'Add Child', 'action': () => addPropertyOrItem(node) };
+                    }
+                    items.delete = {
+                        'label': 'Delete', 'action': () => {
+                            if (confirm('Are you sure you want to delete this node?')) {
+                                tree.jstree('delete_node', tree.jstree('get_selected'));
+                            }
+                        }
+                    };
+                    return items;
+                }
+            }
+        });
+
+        // --- JSON Processing and Tree Loading ---
+        function formatJsonForJsTree(key, value, isRoot = false) {
+            const type = $.type(value);
+            const node = {
+                text: key, data: { value: value }, state: { opened: isRoot }
+            };
+
+            if (type === 'object') {
+                node.type = 'default';
+                node.children = Object.keys(value).map(k => formatJsonForJsTree(k, value[k]));
+            } else if (type === 'array') {
+                node.type = 'default';
+                node.children = value.map((item, index) => formatJsonForJsTree(`[${index}]`, item));
+            } else {
+                node.type = 'file';
+                const displayValue = String(value).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                node.text += `: <span class='node-value'>${displayValue}</span>`;
+            }
+            return node;
+        }
+
+        function loadJson(json) {
+            try {
+                const data = $.type(json) === 'string'? JSON.parse(json) : json;
+                const rootKey = $.type(data) === 'array'? 'JSON (Array)' : 'JSON (Object)';
+                const treeData = formatJsonForJsTree(rootKey, data, true);
+                tree.jstree(true).settings.core.data = [treeData];
+                tree.jstree(true).refresh();
+            } catch (e) {
+                alert('Invalid JSON format: ' + e.message);
+            }
+        }
+
+        // --- UI Event Handlers ---
+        $('#load-text-btn').on('click', () => { if ($('#json-input').val()) loadJson($('#json-input').val()); });
+
+        $('#import-file-btn').on('click', () => $('#load-file-input').click());
+        $('#load-file-input').on('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                $('#json-input').val(event.target.result);
+                $('#load-text-btn').click();
+            };
+            reader.readAsText(file);
+            $(e.target).val('');
+        });
+
+        $('#expand-all-btn').on('click', () => tree.jstree('open_all'));
+        $('#collapse-all-btn').on('click', () => { tree.jstree('close_all'); tree.jstree('open_node', tree.jstree('get_json')[0].id); });
+
+        let searchTimeout;
+        $('#search-input').on('keyup', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => tree.jstree(true).search($('#search-input').val()), 250);
+        });
+        $('#search-clear-btn').on('click', () => $('#search-input').val('').trigger('keyup'));
+
+        tree.on('select_node.jstree', (e, data) => { noSelection.hide(); actionButtons.css('display', 'flex'); displayEditor(data.node); });
+        tree.on('deselect_all.jstree delete_node.jstree', () => { editorForm.empty(); noSelection.show(); actionButtons.hide(); });
+
+        // --- Editor Panel Logic ---
+        function displayEditor(node) {
+            editorForm.empty();
+            const key = node.original.text.split(':')[0].trim();
+            const value = node.data.value;
+            const type = $.type(value);
+            const parentNode = tree.jstree('get_node', node.parent);
+            const parentType = parentNode? $.type(parentNode.data?.value) : null;
+
+            if (node.parent!== '#' && parentType === 'object') {
+                editorForm.append(`<div class="mb-3"><label for="key-input" class="form-label">Key</label><input type="text" id="key-input" class="form-control" value="${key}"></div>`);
+            } else {
+                editorForm.append(`<p class="text-muted">Key: ${key}</p>`);
+            }
+
+            let valueEditorHtml = '<div class="mb-3"><label for="value-input" class="form-label">Value</label>';
+            if (type === 'string') valueEditorHtml += `<textarea id="value-input" class="form-control" rows="4">${value}</textarea>`;
+            else if (type === 'number') valueEditorHtml += `<input type="number" step="any" id="value-input" class="form-control" value="${value}">`;
+            else if (type === 'boolean') valueEditorHtml += `<select id="value-input" class="form-select"><option value="true" ${value? 'selected' : ''}>true</option><option value="false" ${!value? 'selected' : ''}>false</option></select>`;
+            else if (type === 'null') { // **FIXED**: Show a textarea for null values to allow changing them.
+                valueEditorHtml += `<textarea id="value-input" class="form-control" rows="4" placeholder="Value is null. Enter a new value."></textarea>`;
+            } else valueEditorHtml += `<p class="form-control-plaintext text-muted">(Container node - select children to edit)</p>`;
+            valueEditorHtml += '</div>';
+            editorForm.append(valueEditorHtml);
+
+            // **FIXED**: Show save button for any non-container type, including null.
+            if (type!== 'object' && type!== 'array') {
+                editorForm.append('<button id="save-btn" class="btn btn-info">Save Changes</button>');
+            }
+
+            const isContainer = type === 'object' || type === 'array';
+            $('#add-prop-btn').toggle(isContainer);
+            $('#null-value-btn, #convert-to-array-btn, #convert-to-object-btn').toggle(!isContainer);
+        }
+
+        // --- Action Button Click Handlers ---
+        $(document).on('click', '#save-btn', function () {
+            const node = tree.jstree('get_selected', true)[0];
+            if (!node) return;
+
+            const oldKey = node.original.text.split(':')[0].trim();
+            const newKey = $('#key-input').val() || oldKey;
+            let newValue;
+            const valueInput = $('#value-input');
+
+            // **FIXED**: Parse value intelligently instead of relying on original type
+            if (valueInput.is('select')) { // Boolean
+                newValue = valueInput.val() === 'true';
+            } else { // Handle string, number, null -> new value
+                const valStr = valueInput.val();
+                if (valStr === 'true' || valStr === 'false') {
+                    newValue = (valStr === 'true');
+                } else if (!isNaN(valStr) && valStr.trim()!== '') {
+                    newValue = Number(valStr);
+                } else {
+                    newValue = valStr;
+                }
+            }
+
+            node.data.value = newValue;
+            // Re-check type after potential conversion
+            const newType = $.type(newValue);
+            let newText = newKey;
+            if (newType!== 'object' && newType!== 'array') {
+                newText += `: <span class='node-value'>${String(newValue).replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>`;
+            }
+            tree.jstree('rename_node', node, newText);
+            // Refresh editor to show correct view based on new type
+            displayEditor(node);
+        });
+
+        function addPropertyOrItem(node) {
+            const targetNode = node || tree.jstree('get_selected', true)[0];
+            if (!targetNode) return;
+            const isArray = $.type(targetNode.data.value) === 'array';
+            const key = isArray? `[${targetNode.children.length}]` : prompt('Enter new property key:', 'new_key');
+            if (!key &&!isArray) return;
+            const valueStr = prompt('Enter a JSON value (e.g., "a string", 123, true, [], {})', '""');
+            if (valueStr === null) return;
+            let parsedValue;
+            try { parsedValue = JSON.parse(valueStr); }
+            catch (e) { parsedValue = valueStr; }
+            const newNodeData = formatJsonForJsTree(key, parsedValue);
+            tree.jstree('create_node', targetNode, newNodeData, 'last', (newNode) => {
+                 tree.jstree('open_node', targetNode);
+            });
+        }
+
+        $('#add-prop-btn').on('click', () => addPropertyOrItem(null));
+        $('#delete-node-btn').on('click', () => {
+            const sel = tree.jstree('get_selected');
+            if (sel.length && confirm('Are you sure you want to delete this node?')) tree.jstree('delete_node', sel);
+        });
+        $('#null-value-btn').on('click', () => {
+            const node = tree.jstree('get_selected', true)[0];
+            if (node && node.type === 'file') {
+                node.data.value = null;
+                tree.jstree('rename_node', node, node.text.split(':')[0].trim() + ": <span class='node-value'>null</span>");
+                displayEditor(node);
+            }
+        });
+
+        function convertNode(toType) {
+            const node = tree.jstree('get_selected', true)[0];
+            if (!node || node.type!== 'file') return;
+            node.data.value = toType === 'array'? [] : {};
+            tree.jstree('set_type', node, 'default');
+            tree.jstree('rename_node', node, node.text.split(':')[0].trim());
+            node.children = [];
+            tree.jstree(true).redraw_node(node.id, false, false, false);
+            displayEditor(node);
+        }
+
+        $('#convert-to-array-btn').on('click', () => convertNode('array'));
+        $('#convert-to-object-btn').on('click', () => convertNode('object'));
+
+        // --- JSON Output ---
+        function reconstructJsonFromNode(node) {
+            if (node.type === 'file') { return node.data.value; }
+            if (node.type === 'default') {
+                if ($.type(node.data.value) === 'array') {
+                    return node.children.map(childId => reconstructJsonFromNode(tree.jstree(true).get_node(childId)));
+                } else {
+                    const obj = {};
+                    node.children.forEach(childId => {
+                        const childNode = tree.jstree(true).get_node(childId);
+                        const key = childNode.text.split(':')[0].trim();
+                        obj[key] = reconstructJsonFromNode(childNode);
+                    });
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        $('#export-json-btn').on('click', function() {
+            const rootNode = tree.jstree(true).get_node('#').children[0];
+            if (!rootNode) {
+                $('#json-output-textarea').val('No JSON loaded.');
+                return;
+            }
+            const reconstructed = reconstructJsonFromNode(tree.jstree(true).get_node(rootNode));
+            $('#json-output-textarea').val(JSON.stringify(reconstructed, null, 4));
+        });
+
+        $('#copy-output-btn').on('click', function() {
+            const outputText = $('#json-output-textarea');
+            outputText.select();
+            navigator.clipboard.writeText(outputText.val()).then(() => {
+                const originalText = $(this).text();
+                $(this).text('Copied!');
+                setTimeout(() => $(this).text(originalText), 2000);
+            });
+        });
+    });
+    </script>
+</body>
+</html>

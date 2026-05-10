@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XML Editor - Dark Mode</title>
+
+  <!-- Bootstrap 5.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- jsTree -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.16/themes/default/style.min.css" />
+  
+  <style>
+    :root {
+      --bs-body-bg: #1e1e2e;
+      --bs-body-color: #cdd6f4;
+    }
+    body {
+      background-color: #1e1e2e;
+      color: #cdd6f4;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .panel {
+      background-color: #2a2b3d;
+      border: 1px solid #44475a;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    .jstree-default .jstree-node { color: #cdd6f4; }
+    .jstree-default .jstree-clicked { background: #6272a4 !important; }
+    textarea {
+      background-color: #1e1e2e;
+      color: #a6e3a1;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 14px;
+      border: 1px solid #44475a;
+    }
+    .attr-table td, .attr-table th {
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-light">XML Editor</h2>
+    <div>
+      <button class="btn btn-outline-primary me-2" id="btnImportFile">Import XML</button>
+      <input type="file" id="fileInput" accept=".xml" style="display:none">
+      <button class="btn btn-success" id="btnLoadTree">Load to Tree</button>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <!-- Left: Tree + Node Management -->
+    <div class="col-lg-7">
+      <div class="panel p-4 h-100">
+        <h5 class="mb-3 text-light">XML Structure</h5>
+        <div id="tree" style="height: 520px; overflow: auto;"></div>
+
+        <div class="mt-4">
+          <h6 class="text-light">Selected Node Actions</h6>
+          <div class="btn-group">
+            <button class="btn btn-sm btn-success" id="btnAddChild">Add Child Node</button>
+            <button class="btn btn-sm btn-warning" id="btnEditNode">Edit Node</button>
+            <button class="btn btn-sm btn-danger" id="btnDeleteNode">Delete Node</button>
+          </div>
+        </div>
+
+        <!-- Attributes Panel -->
+        <div class="mt-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="text-light mb-0">Attributes</h6>
+            <button class="btn btn-sm btn-primary" id="btnAddAttr">+ Add Attribute</button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-dark table-sm attr-table" id="attrTable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Value</th>
+                  <th width="80">Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: XML Source + Node Form -->
+    <div class="col-lg-5">
+      <div class="panel p-4">
+        <h5 class="mb-3 text-light">XML Source</h5>
+        <textarea id="xmlTextarea" class="form-control" rows="18" spellcheck="false"></textarea>
+
+        <div class="mt-4">
+          <h6 class="text-light">Node Editor</h6>
+          <form id="nodeForm">
+            <div class="row g-3">
+              <div class="col-12">
+                <label class="form-label text-light">Tag Name</label>
+                <input type="text" class="form-control" id="tagName" placeholder="e.g. person, book" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label text-light">Text Content</label>
+                <input type="text" class="form-control" id="nodeText" placeholder="Text inside tag (optional)">
+              </div>
+              <div class="col-12">
+                <button type="button" class="btn btn-primary w-100" id="btnSaveNode">Save Node</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Export -->
+      <div class="panel p-3 mt-3">
+        <button class="btn btn-success w-100 mb-2" id="btnDownloadXML">Download XML File</button>
+        <button class="btn btn-outline-info w-100" id="btnCopyXML">Copy XML to Clipboard</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modals -->
+<!-- Add Attribute Modal -->
+<div class="modal fade" id="attrModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header">
+        <h5 class="modal-title">Add / Edit Attribute</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Attribute Name</label>
+          <input type="text" class="form-control bg-dark text-light" id="attrName">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Attribute Value</label>
+          <input type="text" class="form-control bg-dark text-light" id="attrValue">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btnSaveAttr">Save Attribute</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.16/jstree.min.js"></script>
+
+<script>
+// Global variables
+let xmlDoc = null;
+let selectedNode = null;
+let currentTreeNodeId = null;
+const attrModal = new bootstrap.Modal('#attrModal');
+
+// Import XML File
+$('#btnImportFile').on('click', () => $('#fileInput').trigger('click'));
+
+$('#fileInput').on('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    $('#xmlTextarea').val(event.target.result);
+    alert('XML imported successfully! Click "Load to Tree".');
+  };
+  reader.readAsText(file);
+});
+
+// Load XML to Tree
+$('#btnLoadTree').on('click', function() {
+  const xmlText = $('#xmlTextarea').val().trim();
+  if (!xmlText) return alert("Please import or paste XML first!");
+
+  try {
+    const parser = new DOMParser();
+    xmlDoc = parser.parseFromString(xmlText, "text/xml");
+
+    if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
+      throw new Error("Invalid XML format");
+    }
+
+    renderTree();
+    alert("XML loaded into tree successfully!");
+  } catch (err) {
+    alert("Error parsing XML: " + err.message);
+  }
+});
+
+// Convert XML to jsTree data
+function xmlToTreeData(node) {
+  const children = [];
+  Array.from(node.children).forEach(child => {
+    children.push(xmlToTreeData(child));
+  });
+
+  const hasText = node.textContent.trim() && !node.children.length;
+  const displayText = node.nodeName + (hasText ? ` : ${node.textContent.trim().substring(0, 40)}${node.textContent.length > 40 ? '...' : ''}` : '');
+
+  return {
+    text: displayText,
+    icon: children.length ? "bi bi-folder-fill" : "bi bi-file-earmark-text",
+    data: {
+      tagName: node.nodeName,
+      textContent: node.textContent.trim(),
+      xmlNode: node,
+      attributes: Array.from(node.attributes).map(attr => ({
+        name: attr.name,
+        value: attr.value
+      }))
+    },
+    children: children,
+    state: { opened: true }
+  };
+}
+
+// Render Tree
+function renderTree() {
+  const rootData = xmlToTreeData(xmlDoc.documentElement);
+
+  $('#tree').jstree('destroy').jstree({
+    'core': {
+      'data': [rootData],
+      'check_callback': true,
+      'themes': { 'stripes': true }
+    },
+    'plugins': ['types']
+  });
+
+  // Node selection
+  $('#tree').on('select_node.jstree', function(e, data) {
+    currentTreeNodeId = data.node.id;
+    selectedNode = data.node.data.xmlNode;
+    updateNodeForm();
+    renderAttributes();
+  });
+}
+
+// Update form with selected node data
+function updateNodeForm() {
+  if (!selectedNode) return;
+  $('#tagName').val(selectedNode.nodeName);
+  $('#nodeText').val(selectedNode.textContent.trim());
+}
+
+// Render Attributes Table
+function renderAttributes() {
+  if (!selectedNode) return;
+
+  let html = '';
+  Array.from(selectedNode.attributes).forEach((attr, index) => {
+    html += `
+      <tr>
+        <td>${attr.name}</td>
+        <td>${attr.value}</td>
+        <td>
+          <button class="btn btn-sm btn-danger btn-delete-attr" data-index="${index}">Delete</button>
+        </td>
+      </tr>`;
+  });
+
+  $('#attrTable tbody').html(html || '<tr><td colspan="3" class="text-center text-muted">No attributes</td></tr>');
+
+  // Delete attribute handler
+  $('.btn-delete-attr').on('click', function() {
+    const index = $(this).data('index');
+    deleteAttribute(index);
+  });
+}
+
+// Delete Attribute
+function deleteAttribute(index) {
+  if (!selectedNode || !confirm("Delete this attribute?")) return;
+  
+  const attrName = selectedNode.attributes[index].name;
+  selectedNode.removeAttribute(attrName);
+  
+  updateXMLSource();
+  renderAttributes();
+}
+
+// Save / Update Node
+$('#btnSaveNode').on('click', function() {
+  if (!selectedNode) return alert("Please select a node from the tree first!");
+
+  const newTagName = $('#tagName').val().trim();
+  const newText = $('#nodeText').val().trim();
+
+  if (!newTagName) return alert("Tag name cannot be empty!");
+
+  // Rename tag (this is tricky in DOM, we replace the node)
+  if (newTagName !== selectedNode.nodeName) {
+    const newNode = xmlDoc.createElement(newTagName);
+    
+    // Copy attributes
+    Array.from(selectedNode.attributes).forEach(attr => {
+      newNode.setAttribute(attr.name, attr.value);
+    });
+
+    // Copy children
+    Array.from(selectedNode.childNodes).forEach(child => {
+      newNode.appendChild(child.cloneNode(true));
+    });
+
+    if (newText) newNode.textContent = newText;
+
+    selectedNode.parentNode.replaceChild(newNode, selectedNode);
+    selectedNode = newNode;
+  } else {
+    selectedNode.textContent = newText;
+  }
+
+  updateXMLSource();
+  renderTree(); // Refresh tree
+  alert("Node updated successfully!");
+});
+
+// Add Child Node
+$('#btnAddChild').on('click', function() {
+  if (!selectedNode) return alert("Please select a parent node!");
+
+  const tagName = prompt("Enter new tag name:", "item");
+  if (!tagName) return;
+
+  const newNode = xmlDoc.createElement(tagName);
+  selectedNode.appendChild(newNode);
+
+  updateXMLSource();
+  renderTree();
+  alert("Child node added!");
+});
+
+// Edit Node (same as Save)
+$('#btnEditNode').on('click', function() {
+  if (!selectedNode) return alert("Select a node to edit!");
+  // Form is already populated, just focus
+  $('#tagName').focus();
+});
+
+// Delete Node
+$('#btnDeleteNode').on('click', function() {
+  if (!selectedNode) return alert("Select a node to delete!");
+
+  if (confirm(`Delete node <${selectedNode.nodeName}> and all its children?`)) {
+    selectedNode.parentNode.removeChild(selectedNode);
+    selectedNode = null;
+    updateXMLSource();
+    renderTree();
+  }
+});
+
+// Add Attribute
+$('#btnAddAttr').on('click', function() {
+  if (!selectedNode) return alert("Please select a node first!");
+
+  $('#attrName').val('');
+  $('#attrValue').val('');
+  attrModal.show();
+});
+
+$('#btnSaveAttr').on('click', function() {
+  const name = $('#attrName').val().trim();
+  const value = $('#attrValue').val().trim();
+
+  if (!name) return alert("Attribute name is required!");
+
+  selectedNode.setAttribute(name, value);
+  attrModal.hide();
+
+  updateXMLSource();
+  renderAttributes();
+});
+
+// Update XML Textarea
+function updateXMLSource() {
+  const serializer = new XMLSerializer();
+  let xmlString = serializer.serializeToString(xmlDoc);
+
+  // Pretty print (basic)
+  xmlString = xmlString.replace(/></g, '>\n<');
+  $('#xmlTextarea').val(xmlString);
+}
+
+// Export Functions
+$('#btnDownloadXML').on('click', function() {
+  const xmlContent = $('#xmlTextarea').val().trim();
+  if (!xmlContent) return alert("No XML to download!");
+
+  const blob = new Blob([xmlContent], { type: 'text/xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'edited_document.xml';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+$('#btnCopyXML').on('click', function() {
+  const xmlContent = $('#xmlTextarea').val().trim();
+  if (!xmlContent) return alert("Nothing to copy!");
+
+  navigator.clipboard.writeText(xmlContent).then(() => {
+    alert("XML copied to clipboard!");
+  });
+});
+
+// Load Sample XML on start
+$(document).ready(function() {
+  const sampleXML = `<?xml version="1.0" encoding="UTF-8"?>
+<company>
+  <employee id="101" department="IT">
+    <name>Ahmad Fauzi</name>
+    <age>28</age>
+    <skills>
+      <skill>JavaScript</skill>
+      <skill>Python</skill>
+    </skills>
+  </employee>
+  <employee id="102" department="HR">
+    <name>Siti Aminah</name>
+    <age>32</age>
+  </employee>
+</company>`;
+
+  $('#xmlTextarea').val(sampleXML);
+  alert("Sample XML loaded.\n\nClick 'Load to Tree' to begin editing.");
+});
+</script>
+
+</body>
+</html>

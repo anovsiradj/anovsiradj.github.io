@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>XML Editor</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.4/themes/default/style.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.4/jstree.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+      background-color: #212529;
+      color: #f8f9fa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-4">XML Editor</h1>
+    <div class="mb-3">
+      <label for="xmlTextarea" class="form-label">XML Content</label>
+      <textarea class="form-control" id="xmlTextarea" rows="10"></textarea>
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-primary" id="loadXml">Load XML</button>
+      <button class="btn btn-success" id="exportXml">Export XML</button>
+    </div>
+    <div class="mb-3">
+      <label for="nodeName" class="form-label">Node Name</label>
+      <input type="text" class="form-control" id="nodeName">
+    </div>
+    <div class="mb-3">
+      <label for="nodeAttr" class="form-label">Node Attributes</label>
+      <input type="text" class="form-control" id="nodeAttr">
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-success" id="createNode">Create Node</button>
+      <button class="btn btn-warning" id="updateNode">Update Node</button>
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-danger" id="deleteNode">Delete Node</button>
+      <button class="btn btn-danger" id="deleteAttr">Delete Attribute</button>
+    </div>
+    <div class="mb-3">
+      <label for="xmlTree" class="form-label">XML Tree</label>
+      <div id="xmlTree"></div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      var tree = $('#xmlTree').jstree({
+        core: {
+          data: []
+        }
+      });
+
+      $('#loadXml').click(function() {
+        var xml = $('#xmlTextarea').val();
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(xml, "text/xml");
+        var nodes = xmlDoc.documentElement.childNodes;
+        var data = [];
+        for (var i = 0; i < nodes.length; i++) {
+          if (nodes[i].nodeType === 1) {
+            var node = {
+              id: nodes[i].nodeName,
+              text: nodes[i].nodeName
+            };
+            data.push(node);
+          }
+        }
+        tree.jstree('settings', 'core', 'data', data);
+        tree.jstree('refresh');
+      });
+
+      $('#exportXml').click(function() {
+        var xml = $('#xmlTextarea').val();
+        var blob = new Blob([xml], {type: "text/xml;charset=utf-8"});
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "output.xml";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      });
+
+      $('#createNode').click(function() {
+        var nodeName = $('#nodeName').val();
+        var nodeAttr = $('#nodeAttr').val();
+        var xml = $('#xmlTextarea').val();
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(xml, "text/xml");
+        var newNode = xmlDoc.createElement(nodeName);
+        if (nodeAttr) {
+          var attr = nodeAttr.split('=');
+          newNode.setAttribute(attr[0], attr[1]);
+        }
+        xmlDoc.documentElement.appendChild(newNode);
+        var serializer = new XMLSerializer();
+        var xml = serializer.serializeToString(xmlDoc);
+        $('#xmlTextarea').val(xml);
+        $('#loadXml').click();
+      });
+
+      $('#updateNode').click(function() {
+        var selectedNode = tree.jstree('get_selected', true)[0];
+        if (selectedNode) {
+          var nodeName = selectedNode.id;
+          var nodeAttr = $('#nodeAttr').val();
+          var xml = $('#xmlTextarea').val();
+          var parser = new DOMParser();
+          var xmlDoc = parser.parseFromString(xml, "text/xml");
+          var node = xmlDoc.getElementById(nodeName);
+          if (node) {
+            if (nodeAttr) {
+              var attr = nodeAttr.split('=');
+              node.setAttribute(attr[0], attr[1]);
+            }
+            var serializer = new XMLSerializer();
+            var xml = serializer.serializeToString(xmlDoc);
+            $('#xmlTextarea').val(xml);
+            $('#loadXml').click();
+          }
+        }
+      });
+
+      $('#deleteNode').click(function() {
+        var selectedNode = tree.jstree('get_selected', true)[0];
+        if (selectedNode) {
+          var nodeName = selectedNode.id;
+          var xml = $('#xmlTextarea').val();
+          var parser = new DOMParser();
+          var xmlDoc = parser.parseFromString(xml, "text/xml");
+          var node = xmlDoc.getElementById(nodeName);
+          if (node) {
+            node.parentNode.removeChild(node);
+            var serializer = new XMLSerializer();
+            var xml = serializer.serializeToString(xmlDoc);
+            $('#xmlTextarea').val(xml);
+            $('#loadXml').click();
+          }
+        }
+      });
+
+      $('#deleteAttr').click(function() {
+        var selectedNode = tree.jstree('get_selected', true)[0];
+        if (selectedNode) {
+          var nodeName = selectedNode.id;
+          var nodeAttr = $('#nodeAttr').val();
+          var xml = $('#xmlTextarea').val();
+          var parser = new DOMParser();
+          var xmlDoc = parser.parseFromString(xml, "text/xml");
+          var node = xmlDoc.getElementById(nodeName);
+          if (node) {
+            node.removeAttribute(nodeAttr);
+            var serializer = new XMLSerializer();
+            var xml = serializer.serializeToString(xmlDoc);
+            $('#xmlTextarea').val(xml);
+            $('#loadXml').click();
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

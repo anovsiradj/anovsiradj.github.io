@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>XML Editor Pro | Dark Mode | jQuery + jsTree</title>
+    <!-- Bootstrap 5 (dark mode) + Icons + jQuery + jsTree -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.16/themes/default/style.min.css" />
+    <style>
+        /* additional dark fine-tune */
+        body {
+            background-color: #0a0c10;
+            color: #e9ecef;
+        }
+        .card, .list-group-item, .modal-content, .dropdown-menu {
+            background-color: #1e1e2f;
+            border-color: #2c2c3a;
+        }
+        .card-header, .modal-header, .table thead th {
+            background-color: #151521;
+            border-bottom-color: #2c2c3a;
+            color: #eef2ff;
+        }
+        .btn-outline-secondary {
+            color: #ced4da;
+            border-color: #495057;
+        }
+        .btn-outline-secondary:hover {
+            background-color: #495057;
+            color: white;
+        }
+        .form-control, .form-select, .input-group-text {
+            background-color: #0f0f1a;
+            border-color: #2c2c3a;
+            color: #f1f3f5;
+        }
+        .form-control:focus {
+            background-color: #1a1a2a;
+            color: white;
+            border-color: #0d6efd;
+        }
+        .tree-panel {
+            background: #181822;
+            border-radius: 12px;
+            padding: 12px;
+            height: 460px;
+            overflow-y: auto;
+        }
+        .xml-textarea {
+            background: #0f0f1a;
+            color: #e0e0e0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            resize: vertical;
+        }
+        .attr-row {
+            background-color: #252536;
+            border-radius: 10px;
+            padding: 6px;
+            margin-bottom: 8px;
+            transition: 0.1s;
+        }
+        .attr-row:hover {
+            background-color: #32324b;
+        }
+        .badge-path {
+            font-family: monospace;
+            background: #2c2c3a;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+        }
+        .jstree-default .jstree-clicked {
+            background: #0d6efd !important;
+            color: white !important;
+            border-radius: 6px;
+        }
+        .jstree-default .jstree-hovered {
+            background: #2c2c4e !important;
+        }
+        .jstree-anchor {
+            color: #e2e8f0 !important;
+        }
+        .btn-icon {
+            padding: 4px 8px;
+        }
+    </style>
+</head>
+<body data-bs-theme="dark">
+<div class="container-fluid py-4">
+    <div class="row g-4">
+        <!-- HEADER -->
+        <div class="col-12">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <h2 class="text-light"><i class="bi bi-filetype-xml me-2 text-info"></i>XML Editor <span class="badge bg-secondary ms-2">jsTree + Dark Mode</span></h2>
+                <div class="d-flex gap-2">
+                    <button id="darkModeToggle" class="btn btn-outline-light btn-sm"><i class="bi bi-moon-stars"></i> Dark/Light</button>
+                </div>
+            </div>
+            <hr class="text-secondary">
+        </div>
+
+        <!-- LEFT COLUMN: Tree + Import/Export area -->
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark border-bottom">
+                    <i class="bi bi-diagram-3 me-2"></i> XML Structure Tree
+                    <button class="btn btn-sm btn-outline-info float-end" id="refreshTreeBtn" title="Refresh tree"><i class="bi bi-arrow-repeat"></i></button>
+                </div>
+                <div class="card-body p-2">
+                    <div class="tree-panel">
+                        <div id="xmlTree"></div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <button class="btn btn-sm btn-outline-light w-100" id="importFromTextareaBtn"><i class="bi bi-upload"></i> Load from Textarea</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-sm btn-outline-info w-100" id="uploadFileBtn"><i class="bi bi-file-earmark-arrow-up"></i> Upload XML</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-sm btn-outline-secondary w-100" id="syncTextareaFromTreeBtn"><i class="bi bi-arrow-down-up"></i> Sync Textarea</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-sm btn-outline-success w-100" id="downloadXmlBtn"><i class="bi bi-download"></i> Export XML</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- XML Textarea Panel -->
+            <div class="card mt-4 shadow-lg border-0">
+                <div class="card-header bg-dark"><i class="bi bi-code-square me-2"></i>XML Source Editor</div>
+                <div class="card-body p-2">
+                    <textarea id="xmlTextarea" class="form-control xml-textarea" rows="14" placeholder="<!-- XML content will appear here -->"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Node/Attribute FORM (dedicated CRUD) -->
+        <div class="col-lg-7">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark d-flex justify-content-between align-items-center">
+                    <span><i class="bi bi-pencil-square text-success me-2"></i> Node Editor & Attributes</span>
+                    <span id="selectedNodePathBadge" class="badge-path">📁 No node selected</span>
+                </div>
+                <div class="card-body">
+                    <!-- Node Basic Info -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold"><i class="bi bi-tag"></i> Element Name</label>
+                        <input type="text" id="nodeNameInput" class="form-control" placeholder="e.g., book, person, item">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold"><i class="bi bi-text-paragraph"></i> Text Content</label>
+                        <textarea id="nodeTextInput" rows="2" class="form-control" placeholder="Text inside element (plain text)"></textarea>
+                        <div class="form-text text-light-emphasis small">⚠️ Replaces all inner text but preserves child elements? No: sets text as a single text node (removes previous text).</div>
+                    </div>
+
+                    <!-- Attributes Manager (dynamic rows) -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold"><i class="bi bi-tags"></i> Attributes (Key-Value)</label>
+                        <div id="attributesContainer" class="mb-2">
+                            <div class="text-secondary small fst-italic" id="noAttrsPlaceholder">No attributes. Add new below.</div>
+                        </div>
+                        <div class="row g-2 mt-1">
+                            <div class="col-5">
+                                <input type="text" id="newAttrKey" class="form-control form-control-sm" placeholder="Attribute name">
+                            </div>
+                            <div class="col-5">
+                                <input type="text" id="newAttrValue" class="form-control form-control-sm" placeholder="Value">
+                            </div>
+                            <div class="col-2">
+                                <button id="addAttributeRowBtn" class="btn btn-sm btn-outline-primary w-100"><i class="bi bi-plus-lg"></i> Add</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons Group -->
+                    <div class="border-top pt-4 mt-2">
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <button id="updateNodeBtn" class="btn btn-primary w-100"><i class="bi bi-save"></i> Update Selected Node</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="deleteNodeBtn" class="btn btn-danger w-100"><i class="bi bi-trash3"></i> Delete Node</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="createChildBtn" class="btn btn-success w-100"><i class="bi bi-plus-circle"></i> Create Child</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="createSiblingBtn" class="btn btn-info w-100 text-dark"><i class="bi bi-files"></i> Create Sibling</button>
+                            </div>
+                            <div class="col-12">
+                                <button id="clearFormBtn" class="btn btn-outline-secondary w-100"><i class="bi bi-eraser"></i> Clear Form / Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="formStatusMsg" class="alert alert-warning small mt-3 mb-0" style="display: none;"></div>
+                </div>
+            </div>
+            <div class="card mt-3 border-0 bg-transparent">
+                <div class="card-body text-center small text-secondary">
+                    <i class="bi bi-info-circle-fill"></i> Workflow: <strong>Import XML</strong> → select node in tree → edit name/text/attributes → click <kbd>Update</kbd>. Create new nodes with form data using Child/Sibling. Delete attribute via ❌ icon.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.16/jstree.min.js"></script>
+
+<script>
+    // ---------- GLOBALS ----------
+    let currentXmlDoc = null;            // DOM Document
+    let currentSelectedDomNode = null;   // Element node selected
+    let currentSelectedPath = "";         // jsTree path "/0/1"
+
+    // --- Helper: serialize XML with declaration
+    function serializeXmlDocument(doc) {
+        const serializer = new XMLSerializer();
+        let xmlStr = serializer.serializeToString(doc);
+        if (!xmlStr.startsWith('<?xml')) {
+            xmlStr = '<?xml version="1.0" encoding="UTF-8"?>\n' + xmlStr;
+        }
+        return xmlStr;
+    }
+
+    // --- Parse XML string safely
+    function parseXmlSafely(xmlString) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(xmlString, "text/xml");
+        const parserError = doc.querySelector("parsererror");
+        if (parserError) throw new Error("Invalid XML: " + parserError.textContent);
+        return doc;
+    }
+
+    // --- update textarea from current DOM
+    function syncTextareaFromDom() {
+        if (currentXmlDoc) {
+            $("#xmlTextarea").val(serializeXmlDocument(currentXmlDoc));
+        } else {
+            $("#xmlTextarea").val("<!-- No XML document loaded -->");
+        }
+    }
+
+    // --- get element by path like "/0/2"
+    function getElementByPath(rootElement, path) {
+        if (!path || path === "/") return rootElement;
+        const parts = path.split("/").filter(p => p !== "");
+        let current = rootElement;
+        for (let idx of parts) {
+            let childIndex = parseInt(idx, 10);
+            if (isNaN(childIndex) || !current.children || childIndex >= current.children.length) return null;
+            current = current.children[childIndex];
+        }
+        return current;
+    }
+
+    // --- get path from root to target element (builds index-based path)
+    function getPathToElement(root, target, currentPath = "") {
+        if (root === target) return currentPath || "/";
+        for (let i = 0; i < root.children.length; i++) {
+            const child = root.children[i];
+            const newPath = currentPath === "" ? `/${i}` : `${currentPath}/${i}`;
+            if (child === target) return newPath;
+            const found = getPathToElement(child, target, newPath);
+            if (found) return found;
+        }
+        return null;
+    }
+
+    // --- Rebuild jsTree from currentXmlDoc (using index-based paths for stability)
+    function rebuildJsTree() {
+        if (!currentXmlDoc || !currentXmlDoc.documentElement) {
+            $("#xmlTree").html('<div class="text-center text-muted p-4">No XML loaded. Use import or upload.</div>');
+            return;
+        }
+        const rootElem = currentXmlDoc.documentElement;
+        function buildTreeJson(element, path) {
+            const children = Array.from(element.children);
+            const node = {
+                id: path,
+                text: element.nodeName,
+                li_attr: { "data-path": path },
+                children: []
+            };
+            for (let i = 0; i < children.length; i++) {
+                const childPath = path === "/" ? `/${i}` : `${path}/${i}`;
+                node.children.push(buildTreeJson(children[i], childPath));
+            }
+            return node;
+        }
+        const treeData = buildTreeJson(rootElem, "/");
+        if ($("#xmlTree").jstree(true)) $("#xmlTree").jstree("destroy");
+        $("#xmlTree").jstree({
+            core: {
+                data: [treeData],
+                themes: { variant: "large", dots: true, stripes: true },
+                check_callback: true
+            },
+            plugins: ["wholerow"]
+        });
+        // bind selection event
+        $("#xmlTree").off("changed.jstree").on("changed.jstree", function(e, data) {
+            if (data.selected && data.selected.length) {
+                const path = data.selected[0];
+                const node = getElementByPath(currentXmlDoc.documentElement, path);
+                if (node && node.nodeType === Node.ELEMENT_NODE) {
+                    currentSelectedDomNode = node;
+                    currentSelectedPath = path;
+                    $("#selectedNodePathBadge").text(path);
+                    loadNodeToForm(node);
+                } else {
+                    resetFormFields();
+                    clearAttributesContainer();
+                    currentSelectedDomNode = null;
+                    $("#selectedNodePathBadge").text("⚠️ Invalid node");
+                }
+            } else {
+                resetFormFields();
+                clearAttributesContainer();
+                currentSelectedDomNode = null;
+                $("#selectedNodePathBadge").text("📁 No node selected");
+            }
+        });
+        $("#xmlTree").on("ready.jstree", () => $("#xmlTree").jstree("open_all"));
+    }
+
+    // --- Form attribute UI management
+    function clearAttributesContainer() {
+        $("#attributesContainer").empty();
+        $("#attributesContainer").html('<div class="text-secondary small fst-italic" id="noAttrsPlaceholder">No attributes. Add new below.</div>');
+    }
+
+    function addAttrRowToUI(key = "", value = "") {
+        $("#noAttrsPlaceholder").remove();
+        const rowId = `attr_${Date.now()}_${Math.random().toString(36)}`;
+        const rowHtml = `
+            <div class="attr-row d-flex align-items-center gap-2" id="${rowId}">
+                <input type="text" class="form-control form-control-sm attr-key" value="${escapeHtml(key)}" placeholder="Name" style="flex:2">
+                <input type="text" class="form-control form-control-sm attr-val" value="${escapeHtml(value)}" placeholder="Value" style="flex:3">
+                <button class="btn btn-sm btn-outline-danger delete-attr-btn" type="button"><i class="bi bi-x-circle"></i></button>
+            </div>
+        `;
+        $("#attributesContainer").append(rowHtml);
+        $(`#${rowId} .delete-attr-btn`).on("click", function() {
+            $(`#${rowId}`).remove();
+            if ($("#attributesContainer .attr-row").length === 0) {
+                $("#attributesContainer").html('<div class="text-secondary small fst-italic" id="noAttrsPlaceholder">No attributes. Add new below.</div>');
+            }
+        });
+    }
+
+    function getCurrentAttributesFromUI() {
+        const attrs = {};
+        $(".attr-row").each(function() {
+            const key = $(this).find(".attr-key").val().trim();
+            const val = $(this).find(".attr-val").val();
+            if (key !== "") attrs[key] = val;
+        });
+        return attrs;
+    }
+
+    function resetFormFields() {
+        $("#nodeNameInput").val("");
+        $("#nodeTextInput").val("");
+        clearAttributesContainer();
+    }
+
+    function loadNodeToForm(domElement) {
+        if (!domElement || domElement.nodeType !== Node.ELEMENT_NODE) {
+            resetFormFields();
+            return;
+        }
+        $("#nodeNameInput").val(domElement.nodeName);
+        // extract text content (only direct text nodes)
+        let textContent = "";
+        for (let child of domElement.childNodes) {
+            if (child.nodeType === Node.TEXT_NODE) textContent += child.textContent;
+        }
+        $("#nodeTextInput").val(textContent);
+        // load attributes
+        clearAttributesContainer();
+        const attrs = domElement.attributes;
+        if (attrs.length === 0) {
+            $("#attributesContainer").html('<div class="text-secondary small fst-italic" id="noAttrsPlaceholder">No attributes. Add new below.</div>');
+        } else {
+            for (let i = 0; i < attrs.length; i++) {
+                addAttrRowToUI(attrs[i].name, attrs[i].value);
+            }
+        }
+    }
+
+    // --- apply form data to target element (rename, text, attributes)
+    function applyFormToElement(targetElement) {
+        if (!targetElement) return false;
+        const newName = $("#nodeNameInput").val().trim();
+        if (!newName) {
+            showStatus("Element name cannot be empty!", "danger");
+            return false;
+        }
+        const newText = $("#nodeTextInput").val();
+        const attrsMap = getCurrentAttributesFromUI();
+        // handle rename if needed
+        if (newName !== targetElement.nodeName) {
+            const newElem = currentXmlDoc.createElement(newName);
+            // copy child elements (preserve children)
+            while (targetElement.firstChild) {
+                newElem.appendChild(targetElement.firstChild);
+            }
+            // set text: override existing text nodes (remove old text but keep new text)
+            // Remove any leftover text nodes (rare because we moved children, but text nodes were moved as well)
+            // Better: after moving children, set final text content
+            // remove any direct text nodes from newElem if we want to apply proper text.
+            const textNodesToRemove = [];
+            for (let node of newElem.childNodes) {
+                if (node.nodeType === Node.TEXT_NODE) textNodesToRemove.push(node);
+            }
+            textNodesToRemove.forEach(t => t.remove());
+            if (newText !== "") newElem.appendChild(currentXmlDoc.createTextNode(newText));
+            // copy attributes
+            for (const [k, v] of Object.entries(attrsMap)) newElem.setAttribute(k, v);
+            targetElement.parentNode.replaceChild(newElem, targetElement);
+            currentSelectedDomNode = newElem;
+            currentSelectedPath = getPathToElement(currentXmlDoc.documentElement, newElem);
+            return true;
+        } else {
+            // same name: update text + attributes, preserve child elements
+            // remove all text nodes and re-add new text node
+            for (let i = targetElement.childNodes.length-1; i >= 0; i--) {
+                const child = targetElement.childNodes[i];
+                if (child.nodeType === Node.TEXT_NODE) targetElement.removeChild(child);
+            }
+            if (newText !== "") targetElement.appendChild(currentXmlDoc.createTextNode(newText));
+            // update attributes: clear and set new ones
+            while (targetElement.attributes.length > 0) {
+                targetElement.removeAttribute(targetElement.attributes[0].name);
+            }
+            for (const [k, v] of Object.entries(attrsMap)) targetElement.setAttribute(k, v);
+            return true;
+        }
+    }
+
+    // full sync: textarea, tree, form refresh
+    function fullSyncAndRefresh() {
+        if (!currentXmlDoc) return;
+        syncTextareaFromDom();
+        rebuildJsTree();
+        // re-select previously selected node if still exists
+        if (currentSelectedPath && currentXmlDoc.documentElement) {
+            const node = getElementByPath(currentXmlDoc.documentElement, currentSelectedPath);
+            if (node && node.nodeType === Node.ELEMENT_NODE) {
+                currentSelectedDomNode = node;
+                loadNodeToForm(node);
+                $("#xmlTree").jstree(true).select_node(currentSelectedPath);
+                $("#selectedNodePathBadge").text(currentSelectedPath);
+            } else {
+                currentSelectedDomNode = null;
+                resetFormFields();
+                $("#selectedNodePathBadge").text("(node removed)");
+            }
+        } else {
+            if (currentSelectedDomNode && currentXmlDoc.documentElement) {
+                const newPath = getPathToElement(currentXmlDoc.documentElement, currentSelectedDomNode);
+                if (newPath) {
+                    currentSelectedPath = newPath;
+                    $("#xmlTree").jstree(true).select_node(newPath);
+                }
+            }
+        }
+    }
+
+    function showStatus(msg, type = "info") {
+        const $status = $("#formStatusMsg");
+        $status.removeClass("alert-info alert-danger alert-success").addClass(`alert-${type}`).html(msg).fadeIn(200);
+        setTimeout(() => $status.fadeOut(1800), 2200);
+    }
+
+    // --- Node CRUD Actions ---
+    function updateNode() {
+        if (!currentSelectedDomNode) { showStatus("No node selected. Click on tree node.", "danger"); return; }
+        if (applyFormToElement(currentSelectedDomNode)) {
+            fullSyncAndRefresh();
+            showStatus("Node updated successfully!", "success");
+        } else showStatus("Update failed. Check name.", "danger");
+    }
+
+    function deleteNode() {
+        if (!currentSelectedDomNode) { showStatus("No node to delete.", "danger"); return; }
+        if (currentSelectedDomNode === currentXmlDoc.documentElement) {
+            showStatus("Cannot delete root element. Load another XML.", "danger");
+            return;
+        }
+        if (confirm(`Delete node "${currentSelectedDomNode.nodeName}" and its children?`)) {
+            const parent = currentSelectedDomNode.parentNode;
+            if (parent) parent.removeChild(currentSelectedDomNode);
+            currentSelectedDomNode = null;
+            currentSelectedPath = "";
+            fullSyncAndRefresh();
+            resetFormFields();
+            clearAttributesContainer();
+            showStatus("Node deleted.", "success");
+        }
+    }
+
+    function createChild() {
+        if (!currentSelectedDomNode) { showStatus("Select a parent node first.", "danger"); return; }
+        const name = $("#nodeNameInput").val().trim();
+        if (!name) { showStatus("Element name required in form.", "danger"); return; }
+        const text = $("#nodeTextInput").val();
+        const attrs = getCurrentAttributesFromUI();
+        const newElem = currentXmlDoc.createElement(name);
+        if (text) newElem.appendChild(currentXmlDoc.createTextNode(text));
+        for (const [k, v] of Object.entries(attrs)) newElem.setAttribute(k, v);
+        currentSelectedDomNode.appendChild(newElem);
+        fullSyncAndRefresh();
+        const newPath = getPathToElement(currentXmlDoc.documentElement, newElem);
+        if (newPath) {
+            $("#xmlTree").jstree(true).select_node(newPath);
+            currentSelectedDomNode = newElem;
+            currentSelectedPath = newPath;
+            loadNodeToForm(newElem);
+        }
+        showStatus(`Child <${name}> created.`, "success");
+    }
+
+    function createSibling() {
+        if (!currentSelectedDomNode) { showStatus("Select a node to add sibling.", "danger"); return; }
+        const parent = currentSelectedDomNode.parentNode;
+        if (!parent || currentSelectedDomNode === currentXmlDoc.documentElement) {
+            showStatus("Cannot add sibling to root.", "danger");
+            return;
+        }
+        const name = $("#nodeNameInput").val().trim();
+        if (!name) { showStatus("Element name required.", "danger"); return; }
+        const text = $("#nodeTextInput").val();
+        const attrs = getCurrentAttributesFromUI();
+        const newElem = currentXmlDoc.createElement(name);
+        if (text) newElem.appendChild(currentXmlDoc.createTextNode(text));
+        for (const [k, v] of Object.entries(attrs)) newElem.setAttribute(k, v);
+        const index = Array.from(parent.children).indexOf(currentSelectedDomNode);
+        if (index === parent.children.length - 1) parent.appendChild(newElem);
+        else parent.insertBefore(newElem, parent.children[index + 1]);
+        fullSyncAndRefresh();
+        const newPath = getPathToElement(currentXmlDoc.documentElement, newElem);
+        if (newPath) {
+            $("#xmlTree").jstree(true).select_node(newPath);
+            currentSelectedDomNode = newElem;
+            currentSelectedPath = newPath;
+            loadNodeToForm(newElem);
+        }
+        showStatus(`Sibling <${name}> added.`, "success");
+    }
+
+    function clearForm() {
+        resetFormFields();
+        if (currentSelectedDomNode) loadNodeToForm(currentSelectedDomNode);
+        else showStatus("Form cleared. Select a node to load data.", "info");
+    }
+
+    // --- IMPORT / EXPORT ---
+    function loadFromTextarea() {
+        const raw = $("#xmlTextarea").val();
+        if (!raw.trim()) { alert("Empty content"); return; }
+        try {
+            const doc = parseXmlSafely(raw);
+            currentXmlDoc = doc;
+            currentSelectedDomNode = null;
+            currentSelectedPath = "";
+            fullSyncAndRefresh();
+            showStatus("XML loaded from textarea successfully.", "success");
+        } catch(e) { alert("Parse error: " + e.message); }
+    }
+
+    function uploadXmlFile() {
+        const input = $('<input type="file" accept=".xml,.txt">');
+        input.on("change", function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    try {
+                        const doc = parseXmlSafely(ev.target.result);
+                        currentXmlDoc = doc;
+                        currentSelectedDomNode = null;
+                        fullSyncAndRefresh();
+                        showStatus(`File "${file.name}" loaded.`, "success");
+                    } catch(err) { alert("XML Error: " + err.message); }
+                };
+                reader.readAsText(file, "UTF-8");
+            }
+        });
+        input.click();
+    }
+
+    function syncTextareaFromTree() {
+        if (currentXmlDoc) syncTextareaFromDom();
+        else alert("No document loaded.");
+    }
+
+    function downloadXmlFile() {
+        if (!currentXmlDoc) { alert("No XML document to download."); return; }
+        const xmlStr = serializeXmlDocument(currentXmlDoc);
+        const blob = new Blob([xmlStr], { type: "application/xml" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "exported.xml";
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
+
+    // --- Dark mode toggle (manual override via body data attribute)
+    function toggleDarkMode() {
+        const current = $("body").attr("data-bs-theme");
+        if (current === "dark") $("body").attr("data-bs-theme", "light");
+        else $("body").attr("data-bs-theme", "dark");
+    }
+
+    // Helper escape
+    function escapeHtml(str) { return String(str).replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+    // --- INITIAL DEMO XML
+    function initDemo() {
+        const demo = `<?xml version="1.0" encoding="UTF-8"?>
+<library>
+    <book id="bk101" genre="fantasy">
+        <title>The Dark Bootstrap</title>
+        <author>Elena Code</author>
+        <year>2025</year>
+    </book>
+    <book id="bk102" genre="tech">
+        <title>jQuery & jsTree Mastery</title>
+        <author>Marcus Lane</author>
+    </book>
+</library>`;
+        try {
+            currentXmlDoc = parseXmlSafely(demo);
+            $("#xmlTextarea").val(demo);
+            fullSyncAndRefresh();
+        } catch(e) { console.error(e); }
+    }
+
+    $(function() {
+        initDemo();
+        // Event bindings
+        $("#refreshTreeBtn").on("click", () => { if(currentXmlDoc) rebuildJsTree(); });
+        $("#importFromTextareaBtn").on("click", loadFromTextarea);
+        $("#uploadFileBtn").on("click", uploadXmlFile);
+        $("#syncTextareaFromTreeBtn").on("click", syncTextareaFromTree);
+        $("#downloadXmlBtn").on("click", downloadXmlFile);
+        $("#updateNodeBtn").on("click", updateNode);
+        $("#deleteNodeBtn").on("click", deleteNode);
+        $("#createChildBtn").on("click", createChild);
+        $("#createSiblingBtn").on("click", createSibling);
+        $("#clearFormBtn").on("click", clearForm);
+        $("#addAttributeRowBtn").on("click", () => addAttrRowToUI("", ""));
+        $("#darkModeToggle").on("click", toggleDarkMode);
+    });
+</script>
+</body>
+</html>
