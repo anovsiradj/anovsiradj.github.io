@@ -1,4 +1,16 @@
 
+# tier list
+
+- trae
+- antigravity
+- cursor
+- kiro
+
+# opencode
+
+```sh
+npm install -g opencode-ai
+```
 
 # junie
 
