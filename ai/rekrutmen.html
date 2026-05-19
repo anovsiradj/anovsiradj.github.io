@@ -1,0 +1,223 @@
+<!doctype html>
+
+<html lang="id">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>FGD Rekrutmen Programmer</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/black.css">
+
+  <style>
+    :root {
+      --main-color: #00d084;
+      --danger-color: #ff4d4f;
+      --warning-color: #faad14;
+    }
+
+    .reveal {
+      font-size: 30px;
+    }
+
+    .reveal h1,
+    .reveal h2,
+    .reveal h3 {
+      color: var(--main-color);
+      text-transform: none;
+    }
+
+    .highlight {
+      color: var(--warning-color);
+      font-weight: bold;
+    }
+
+    .danger {
+      color: var(--danger-color);
+      font-weight: bold;
+    }
+
+    .box {
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    ul li {
+      margin-bottom: 12px;
+    }
+
+    .small {
+      font-size: 24px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="reveal">
+    <div class="slides">
+
+      <section>
+        <h1>Evaluasi Proses Rekrutmen Programmer</h1>
+        <h3>Focus Group Discussion (FGD)</h3>
+        <p class="small">Perbaikan Kualitas Talent Engineering</p>
+      </section>
+
+      <section>
+        <h2>Latar Belakang</h2>
+        <div class="box">
+          <ul>
+            <li>Perusahaan berkembang dari sektor pemerintahan ke swasta & industri</li>
+            <li>Kebutuhan kompetensi programmer semakin tinggi</li>
+            <li>Dalam 3 tahun terakhir terjadi banyak kegagalan rekrutmen</li>
+            <li>Dampak: technical debt, delivery lambat, kualitas software menurun</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Masalah yang Terjadi</h2>
+        <div class="box">
+          <ul>
+            <li>Tidak mau berkembang & belajar</li>
+            <li>Tidak memahami fundamental programming</li>
+            <li>Tidak memahami framework dasar</li>
+            <li>Terlalu bergantung pada AI</li>
+            <li>Tidak bisa mengikuti instruksi</li>
+            <li>Komunikasi teknis buruk</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Fakta Lapangan</h2>
+        <div class="box">
+          <ul>
+            <li>Perubahan validasi sederhana bisa memakan waktu 2–3 hari</li>
+            <li>Tidak bisa membaca & memahami code existing</li>
+            <li>Tidak bisa menjelaskan hasil kerja sendiri</li>
+            <li>Estimasi sering meleset jauh</li>
+            <li>Bug baru muncul setelah implementasi</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Pola Kegagalan</h2>
+        <div class="box">
+          <ul>
+            <li>Lolos take-home project ✅</li>
+            <li>Lolos interview ✅</li>
+            <li>Lolos live coding ✅</li>
+            <li class="danger">Gagal di pekerjaan nyata ❌</li>
+          </ul>
+        </div>
+
+        <p class="highlight">
+          False Positive tinggi dalam proses seleksi.
+        </p>
+      </section>
+
+      <section>
+        <h2>Contoh Kasus Nyata</h2>
+        <div class="box">
+          <ul>
+            <li>Estimasi 3 hari → realisasi hampir 3 minggu</li>
+            <li>Fitur dibuat tidak sesuai dokumen teknis</li>
+            <li>Perubahan kecil menyebabkan bug di modul lain</li>
+            <li>Take-home project bagus, tetapi gagal menjelaskan saat interview</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Akar Masalah</h2>
+        <div class="box">
+          <ul>
+            <li>Tidak ada hard technical gate</li>
+            <li>Tes belum mencerminkan pekerjaan nyata</li>
+            <li>Penilaian teknis belum menjadi faktor penentu</li>
+            <li>Probation belum efektif sebagai filter akhir</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Insight Kunci</h2>
+
+        <div class="box">
+          <p class="highlight">
+            “Saat ini kita belum punya sistem yang mampu membedakan kandidat yang benar-benar kompeten dengan kandidat yang hanya terlihat kompeten.”
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Dampak ke Perusahaan</h2>
+        <div class="box">
+          <ul>
+            <li>Technical debt meningkat</li>
+            <li>Produktivitas tim menurun</li>
+            <li>Beban mentoring tidak scalable</li>
+            <li>Delivery melambat</li>
+            <li>Risiko kualitas produk jangka panjang</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Arah Perbaikan</h2>
+        <div class="box">
+          <ul>
+            <li>Hard Technical Gate (auto reject)</li>
+            <li>Debugging real-case saat live coding</li>
+            <li>Validasi anti-AI (explain & modify)</li>
+            <li>Standar scoring minimum</li>
+            <li>Technical veto berbasis evaluasi</li>
+            <li>Probation sebagai filter nyata</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Tujuan FGD</h2>
+        <div class="box">
+          <ul>
+            <li>Menyepakati standar kompetensi minimum</li>
+            <li>Memperbaiki proses seleksi programmer</li>
+            <li>Mengurangi risiko salah rekrut</li>
+            <li>Membangun sistem rekrutmen yang lebih profesional</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h1>Terima Kasih</h1>
+
+        <p class="highlight">
+          “Kita tidak perlu kandidat yang terlihat pintar,
+          kita perlu sistem yang memastikan hanya kandidat yang benar-benar bisa bekerja yang lolos.”
+        </p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      transition: 'slide'
+    });
+  </script>
+
+</body>
+
+</html>
