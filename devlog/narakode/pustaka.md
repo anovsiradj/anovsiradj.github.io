@@ -1,4 +1,10 @@
 
+
+# tipe user website
+
+- ruser untuk pengunjung yang sudah login sebagai registered-user.
+- guest untuk pengunjung anonim.
+
 # jurnal
 
 - http://www.catb.org/~esr/writings/taoup/html/
