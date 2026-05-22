@@ -13,3 +13,7 @@ It is the workhorse model: it’s fast, highly capable, and significantly more c
 Claude Opus is best reserved for heavy-lifting scenarios,
 like architecting complex systems or refactoring large multi-file codebases,
 where maximum reasoning depth is required.
+
+# vscode gpt-oss-120b
+
+very slop, very dump, never use it again.
