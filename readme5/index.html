@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<div id="readme"></div>
+	<div id="elem"></div>
 
 	<script>
 		let cache = Date.now()
@@ -23,8 +23,9 @@
 		}
 
 		function init() {
-			readme = new Readme5('readme', {
-				spa: true
+			readme = new Readme5('elem', {
+				cache,
+				route: true,
 			})
 			readme.init(`README.md`)
 		}

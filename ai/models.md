@@ -1,4 +1,8 @@
 
+# dola-seed-2.0-code
+
+OMG, very GOAT, very SOTA.
+
 # kimi-k2-0905
 
 good analyze, bad memory.
@@ -14,6 +18,11 @@ Claude Opus is best reserved for heavy-lifting scenarios,
 like architecting complex systems or refactoring large multi-file codebases,
 where maximum reasoning depth is required.
 
-# vscode gpt-oss-120b
+# gpt-oss-120b
 
 very slop, very dump, never use it again.
+
+# minimax-m2.5
+
+very slop, very dump, never use it again.
+having hard time just to writing output to file.

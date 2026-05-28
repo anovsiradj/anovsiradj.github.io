@@ -1,5 +1,6 @@
 # Readme5
 
+[../README.md](../README.md)
 [./agent-antig-in.md](./agent-antig-in.md)
 [agent-antig-out.md](agent-antig-out.md)
 
@@ -91,9 +92,9 @@ erDiagram
 
 ## Todos
 
-- relative container for ToC
 - large image overflow, current workaround `readme.config.style.push('#[content] img {max-width: 70%}');`
 - subfolder image broken
+- dropdown for markdown for navigation
 
 ## Revisions
 
