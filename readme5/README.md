@@ -3,6 +3,7 @@
 [../README.md](../README.md)
 [./agent-antig-in.md](./agent-antig-in.md)
 [agent-antig-out.md](agent-antig-out.md)
+[./hljs.md](./hljs.md)
 
 Why called `Readme5` ? Because `HTML5` :)
 
@@ -60,33 +61,13 @@ th | th(center) | th(right)
 ---|:----------:|----------:
 td | td         | td
 
-## mermaid
+## hljs
 
-```mermaid
-erDiagram
-    CUSTOMER ||--o{ ORDER : places
-    ORDER ||--|{ ORDER_ITEM : contains
-    PRODUCT ||--o{ ORDER_ITEM : includes
-    CUSTOMER {
-        string id
-        string name
-        string email
-    }
-    ORDER {
-        string id
-        date orderDate
-        string status
-    }
-    PRODUCT {
-        string id
-        string name
-        float price
-    }
-    ORDER_ITEM {
-        int quantity
-        float price
-    }
-```
+[examples](./hljs.md).
+
+## mmjs
+
+[examples](./mmjs.md).
 
 # development
 
@@ -95,13 +76,15 @@ erDiagram
 - large image overflow, current workaround `readme.config.style.push('#[content] img {max-width: 70%}');`
 - subfolder image broken
 - dropdown for markdown for navigation
+- testing using other markdown packages.
 
-## Revisions
+## Versions
 
 ```
 201606092158: first
 201606100155: second
 20260507: upgrade deps, mermaid, new table, new toc, add top.
+20260528: navigation
 ```
 
 # Credit

@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<div id="elem"></div>
+	<main id="elem"></main>
 
 	<script>
 		let cache = Date.now()
@@ -23,11 +23,10 @@
 		}
 
 		function init() {
-			readme = new Readme5('elem', {
-				cache,
-				route: true,
-			})
-			readme.init(`README.md`)
+			readme = new Readme5('elem')
+			readme.vendor.js.highlight_dart = 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/languages/dart.min.js'
+
+			readme.init('README.md')
 		}
 
 		window.addEventListener('DOMContentLoaded', boot, false)
