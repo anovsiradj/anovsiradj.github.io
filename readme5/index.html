@@ -23,7 +23,9 @@
 		}
 
 		function init() {
-			readme = new Readme5('elem')
+			readme = new Readme5('elem', {
+				cache,
+			})
 			readme.vendor.js.highlight_dart = 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/languages/dart.min.js'
 
 			readme.init('README.md')

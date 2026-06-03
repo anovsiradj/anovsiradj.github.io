@@ -1,11 +1,11 @@
 # beginning
 
-Understand this project 99%, then explain to me what you know.
+Understand this project 100%, then explain to me what you know.
 - give honest reviews and reasons
 - provide criticism and suggestions
 - give ideas that you think are useful
 
-interogate me until you have 97% confident about what I actually want, not what I think I should want.
+interogate me until you have 100% confident about what I actually want, not what I think I should want.
 
 # broken
 
