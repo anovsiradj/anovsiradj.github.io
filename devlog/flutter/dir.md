@@ -1,0 +1,39 @@
+struktur didalam folder `./lib/`
+
+```
+helpers
+	config.dart
+	session.dart
+	database.dart
+	datetime.dart
+models
+	user.dart
+	config.dart
+	module1.dart
+	module2.dart
+screens
+	module1
+		list.dart
+		form.dart
+		view.dart
+		screen1.dart
+		screen2.dart
+	module2
+themes
+	dark.dart
+	main.dart
+vendors
+	package1
+	package2
+		custom1.dart
+		custom2.dart
+widgets
+	alert.dart
+	confirm.dart
+	prompt.dart
+	widget1.dart
+	widget2.dart
+main.dart
+cron.dart
+auth.dart
+```
