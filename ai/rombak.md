@@ -1,23 +1,32 @@
 you must Understand this project 100%.
 interogate me until you have 100% confident about what I actually want, not what I think I should want.
 
-# rombak
-
-help me find all flaws based on all flows and all types in this app.
-
-Write down everything you know about this app and then save it in the ./assets/docs/ folder.
-
 When in doubt, prompt it out.
+
+# flows
+visualize all flows based on App Flow, Task Flow, User Flow, Customer Journey.
+grouped each flows based on their respective types/features/modules.
 
 # flaws
 
-# flows
+audit and find all flaws based on their respective types/features/modules.
 
-visualize all flows based on all types and all moduls.
+# output
 
-to keep things small, separate .md files based on each flows and based on each moduls.
+to make things small and organized,
+separate files based on types/features/modules.
 
-you must Understand this project 100%.
-interogate me until you have 100% confident about what I actually want, not what I think I should want.
+write down everything you know about this app in `./dokum/`.
 
-Write down everything you know about this app and then save it in the ./dokum/ folder.
+# app to prd
+
+create PRD for q9t-v3 module that has been implemented.
+Explain each process in detail, from A to Z, from input to output, and repeating it.
+These include:
+- Backend workflow
+- Frontend workflow
+- Build steps description
+- SQL generation description
+- etc.
+
+save it in a file at `./sigap_forge/q9t-v3-prd.md`

@@ -13,3 +13,9 @@ Integrated Development Environment (IDE), Source Code Editor, Code Editor, Edito
 # zed
 
 # windsurf
+
+# opencode (CLI)
+
+# codex (CLI)
+
+# openrouter (CLI)
