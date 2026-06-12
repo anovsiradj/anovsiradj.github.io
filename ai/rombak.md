@@ -10,6 +10,14 @@ grouped each flows based on their respective types/features/modules.
 # flaws
 
 audit and find all flaws based on their respective types/features/modules.
+each flaws must includes:
+- file (use relative path)
+- line (line number for the file)
+- solution snippet
+for overall flaws give feedbacks:
+- give honest reviews with explicit reasons
+- give constructive/destructive criticisms
+- give ideas based on your audit result
 
 # output
 

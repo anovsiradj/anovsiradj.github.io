@@ -1,3 +1,0 @@
-
-## Terminologi
-- copas = copy paste
