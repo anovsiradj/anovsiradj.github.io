@@ -32,7 +32,7 @@
 					'commonmark': 'https://cdn.jsdelivr.net/npm/commonmark@0.31.2/dist/commonmark.min.js',
 					'marked': 'https://cdn.jsdelivr.net/npm/marked@18.0.3/lib/marked.umd.min.js',
 					'highlight': 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/highlight.min.js',
-					'mermaid': 'https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js',
+					'mermaid': 'https://cdn.jsdelivr.net/npm/mermaid@11.15.0/dist/mermaid.min.js',
 				}
 			}
 
