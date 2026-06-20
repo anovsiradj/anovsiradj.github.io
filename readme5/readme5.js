@@ -7,6 +7,9 @@
 			this.hash_current = null;
 			this.route_current = null
 
+			// for external link, default to _blank
+			this.link_external_target = '_blank'
+
 			this.file_options = []
 
 			if (typeof target === 'string') this.content = document.getElementById(target);
@@ -42,10 +45,10 @@
 			this.style = [
 				'#[content] a, #[toc] a { color: #0099ff; }',
 				'#[content] { background-color: #eee; color: #222; }',
-				'#[content] { position: relative; font-family: Ubuntu,sans-serif; padding: 32px 72px; margin: 0px; }',
+				'#[content] { position: relative; font-family: "JetBrains Mono",monospace; padding: 32px 72px; margin: 0px; }',
 				'#[content] h1, #[content] h2, #[content] h3, #[content] h4, #[content] h5, #[content] h6 {}',
 				'#[content] *:not(pre) code { color: #8C1C13;background-color: rgba(140,28,19,0.1); padding-left:4px; padding-right:4px; }',
-				'#[toc] { font-family: Ubuntu, sans-serif; position:fixed; top:20px; right:20px; z-index:999; transition: all 0.3s; }',
+				'#[toc] { font-family: "JetBrains Mono",monospace; position:fixed; top:20px; right:20px; z-index:999; transition: all 0.3s; }',
 				'#[toc] .toc-label { background: #0099ff; color: #fff; padding: 5px 10px; border-radius: 4px; cursor: pointer; text-align: center; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }',
 				'#[toc] .toc-list { display: none; background: rgba(255,255,255,0.95); border: 1px solid #ddd; border-radius: 4px; padding: 10px; margin-top: 5px; max-height: 80vh; overflow-y: auto; min-width: 200px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }',
 				'#[toc]:hover .toc-list { display: block; }',
@@ -203,11 +206,22 @@
 		}
 
 		link_init() {
-			if (!this.route) return;
-
 			const links = this.content.querySelectorAll('a');
 			links.forEach(a => {
 				let href = a.getAttribute('href');
+				if (!href) return;
+
+				// External link: http://, https://, or protocol-relative //
+				if (href.startsWith('http://') || href.startsWith('https://') || href.startsWith('//')) {
+					if (this.link_external_target) {
+						a.setAttribute('target', this.link_external_target);
+						a.setAttribute('rel', 'noopener noreferrer');
+					}
+					return;
+				}
+
+				if (!this.route) return;
+
 				let route = this.make_route(href)
 				if (route) {
 					a.setAttribute('href', route.link);

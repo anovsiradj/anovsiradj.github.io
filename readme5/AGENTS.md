@@ -24,3 +24,9 @@ if this value is not boolean, use it for value instead of using `Date.now()`.
 ## `{R5|config}.route`
 
 a boolean to define if navigation using `location.hash` as route is enable or disable.
+
+## `{R5|config}.link_external_target`
+
+controls the `target` attribute for external links (http://, https://, //).
+
+default `'_blank'`. set to `false` or empty string to disable.
