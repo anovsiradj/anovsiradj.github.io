@@ -72,7 +72,7 @@
 				'#[content] { background-color: #eee; color: #222; }',
 				'#[content] { position: relative; font-family: "JetBrains Mono",monospace; padding: 32px 72px; margin: 0px; }',
 				'#[content] *:not(pre) code { color: #8C1C13;background-color: rgba(140,28,19,0.1); padding-left:4px; padding-right:4px; }',
-				'#[toc] { font-family: "JetBrains Mono",monospace; position:fixed; top:5px; right:7px; z-index:999; transition: all 0.3s; }',
+				'#[toc] { font-family: "JetBrains Mono",monospace; position:fixed; top:6px; right:12px; z-index:999; transition: all 0.3s; }',
 				'#[toc] .toc-label { background: #0099ff; color: #fff; padding: 5px 10px; border-radius: 4px; cursor: pointer; text-align: center; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }',
 				'#[toc] .toc-list { display: none; background: rgba(255,255,255,0.95); border: 1px solid #ddd; border-radius: 4px; padding: 10px; margin-top: 5px; max-height: 70vh; overflow-y: auto; min-width: 200px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }',
 				'#[toc]:hover .toc-list { display: block; }',
@@ -82,11 +82,11 @@
 				'#[toc] .toc-list a.level-2 { padding-left: 15px; }',
 				'#[toc] .toc-list a.level-3 { padding-left: 30px; }',
 				'#[toc] .toc-list a.level-4 { padding-left: 45px; }',
-				'#[menu] { position:fixed; top:5px; left:7px; z-index:999; min-width:160px; }',
+				'#[menu] { position:fixed; top:6px; left:12px; z-index:999; min-width:160px; }',
 				// Responsive TOC
 				'@media (max-width: 768px) { #[toc] { top: auto; bottom: 80px; right: 20px; } #[toc] .toc-list { min-width: 150px; } }',
 				// Back to Top styling
-				'#[top] { position: fixed; bottom: 20px; right: 20px; width: 40px; height: 40px; line-height: 40px; background: #0099ff; color: #fff; text-align: center; border-radius: 50%; cursor: pointer; z-index: 998; box-shadow: 0 2px 5px rgba(0,0,0,0.2); font-size: 20px; }',
+				'#[top] { position: fixed; bottom: 12px; right: 12px; width: 40px; height: 40px; line-height: 40px; background: #0099ff; color: #fff; text-align: center; border-radius: 50%; cursor: pointer; z-index: 998; box-shadow: 0 2px 5px rgba(0,0,0,0.2); font-size: 20px; }',
 				'#[top]:hover { background: #007acc; }',
 				// Better table styling
 				'#[content] table { border-collapse: collapse; width: 100%; margin: 1em 0; }',
