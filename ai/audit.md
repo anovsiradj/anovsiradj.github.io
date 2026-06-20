@@ -12,21 +12,23 @@ When in doubt, prompt it out.
 # flows
 
 visualize all flows based on App Flow, Task Flow, User Flow, Customer Journey.
-grouped each flows based on their respective types/features/modules.
+grouped each flows based on their respective roles/types/features/modules.
 
 # flaws
 
-find all flaws based on their respective types/features/modules.
+find all flaws based on their respective roles/types/features/modules.
 each flaws must includes:
 - file (use relative path)
 - line (line number for the file)
 - working solution snippet
-for overall flaws give feedbacks:
 
 # output
 
+Use Indonesian as the main language,
+but do not translate source code and technical jargon and other terms that should not be translated.
+
 to make things small and organized,
-separate files based on types/features/modules.
+separate files based on roles/types/features/modules.
 
 write down everything you know about this app in `./dokum/`.
 

@@ -12,7 +12,7 @@
 			if (typeof target === 'string') this.content = document.getElementById(target);
 			else this.content = target;
 
-			// Append timestamp to .md requests to bypass cache
+			// Append timestamp to .md requests to bypass cache (cache buster)
 			this.cache = true
 
 			// Hash-based navigation routing
@@ -28,11 +28,12 @@
 					'highlight': 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/styles/base16/gruvbox-dark-soft.min.css',
 				},
 				'js': {
+					'mermaid': 'https://cdn.jsdelivr.net/npm/mermaid@11.15.0/dist/mermaid.min.js',
+					'highlight': 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/highlight.min.js',
+					'highlight_dart': 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/languages/dart.min.js',
 					'markdownit': 'https://cdn.jsdelivr.net/npm/markdown-it@14.1.1/dist/markdown-it.min.js',
 					'commonmark': 'https://cdn.jsdelivr.net/npm/commonmark@0.31.2/dist/commonmark.min.js',
 					'marked': 'https://cdn.jsdelivr.net/npm/marked@18.0.3/lib/marked.umd.min.js',
-					'highlight': 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/highlight.min.js',
-					'mermaid': 'https://cdn.jsdelivr.net/npm/mermaid@11.15.0/dist/mermaid.min.js',
 				}
 			}
 
@@ -137,16 +138,20 @@
 
 				// Render Mermaid diagrams if any
 				if (typeof mermaid !== 'undefined') {
-					mermaid.initialize({ startOnLoad: false });
+					mermaid.initialize({ startOnLoad: false, deterministicId: true });
 					const mermaidDivs = this.content.querySelectorAll('pre > code.language-mermaid');
+					const containers = [];
 					mermaidDivs.forEach(block => {
 						const parent = block.parentNode;
 						const mermaidContainer = document.createElement('div');
 						mermaidContainer.className = 'mermaid';
 						mermaidContainer.textContent = block.textContent;
 						parent.parentNode.replaceChild(mermaidContainer, parent);
-						mermaid.init(undefined, mermaidContainer);
+						containers.push(mermaidContainer);
 					});
+					if (containers.length) {
+						mermaid.run({ nodes: containers, suppressErrors: true });
+					}
 				}
 
 				// Resolve relative assets (base path already set in init)

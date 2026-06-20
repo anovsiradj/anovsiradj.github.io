@@ -1,9 +1,6 @@
 # Readme5
 
 [../README.md](../README.md)
-[./agent-antig-in.md](./agent-antig-in.md)
-[agent-antig-out.md](agent-antig-out.md)
-[./hljs.md](./hljs.md)
 
 Why called `Readme5` ? Because `HTML5` :)
 
@@ -61,13 +58,9 @@ th | th(center) | th(right)
 ---|:----------:|----------:
 td | td         | td
 
-## hljs
+## [./hljs.md](./hljs.md)
 
-[examples](./hljs.md).
-
-## mmjs
-
-[examples](./mmjs.md).
+## [./mmjs.md](./mmjs.md)
 
 # development
 
