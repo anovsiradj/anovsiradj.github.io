@@ -12,7 +12,7 @@ Provides reference and guidance for writing correct Mermaid diagram syntax. Focu
 
 | File | Scope |
 |---|---|
-| `general.md` | Universal rules, config, rendering gotchas |
+| `general.md` | Universal rules, config, rendering gotchas, plugin registration |
 | `diagrams-core.md` | Stable diagram types (flowchart, sequence, class, state, ER, journey, gantt, pie, quadrant, requirement, gitgraph, c4, mindmap, timeline) |
 | `diagrams-beta.md` | Beta/newer diagram types (sankey, xychart, block, packet, kanban, architecture, radar, eventmodeling, treemap, venn, ishikawa, wardley, treeview) |
-| `zenuml.md` | ZenUML (requires separate package) |
+| `zenuml.md` | ZenUML (requires separate package, non-obvious global name) |

@@ -376,21 +376,16 @@ timeline
 
 # 15. ZenUML
 
-> **Note**: ZenUML requires the separate `@mermaid-js/mermaid-zenuml` package. Example below shows equivalent using standard Sequence Diagram syntax.
-
 ```mermaid
-sequenceDiagram
-    participant Customer
-    participant OrderService
-    participant InventoryService
-    participant PaymentService
+zenuml
+    title Order Processing Flow
 
-    Customer->>OrderService: placeOrder(order)
-    OrderService->>InventoryService: checkStock(order)
-    InventoryService-->>OrderService: stockAvailable
-    OrderService->>PaymentService: processPayment(order)
-    PaymentService-->>OrderService: paymentSuccess
-    OrderService-->>Customer: orderConfirmed
+    Customer -> OrderService: placeOrder(order)
+    OrderService -> InventoryService: checkStock(order)
+    InventoryService --> OrderService: stockAvailable
+    OrderService -> PaymentService: processPayment(order)
+    PaymentService --> OrderService: paymentSuccess
+    OrderService --> Customer: orderConfirmed
 ```
 
 ---

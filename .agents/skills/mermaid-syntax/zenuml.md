@@ -28,8 +28,35 @@ Load both packages:
 <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mermaid-js/mermaid-zenuml@latest/dist/mermaid-zenuml.min.js"></script>
 <script>
-  mermaid.registerExternalDiagrams([window.ZenUML]).then(() => {
+  // The plugin exports as window["mermaid-zenuml"], NOT window.ZenUML
+  const mermaidZenUML = window['mermaid-zenuml'];
+  mermaid.registerExternalDiagrams([mermaidZenUML]).then(() => {
     mermaid.initialize({ startOnLoad: true });
   });
 </script>
 ```
+
+### Common Mistake
+
+```javascript
+// WRONG - ZenUML is NOT exported as window.ZenUML
+await mermaid.registerExternalDiagrams([ZenUML]); // ReferenceError
+
+// CORRECT - Use the string key
+const mermaidZenUML = window['mermaid-zenuml'];
+await mermaid.registerExternalDiagrams([mermaidZenUML]);
+```
+
+### Code Block Syntax
+
+Use `zenuml` as the first line inside a `mermaid` code block:
+
+````
+```mermaid
+zenuml
+    title My Diagram
+    A -> B: hello
+```
+````
+
+Do NOT use ` ```zenuml ` as the language identifier — the page must process `language-mermaid` code blocks.

@@ -69,3 +69,32 @@ flowchart TD
 ````
 
 **Warning:** Per-diagram init directives are only processed by `mermaid.run()`, not `mermaid.init()`.
+
+## Plugin Registration
+
+### External Diagram Plugins (e.g. ZenUML)
+
+External diagram plugins must be registered **before** `mermaid.initialize()`:
+
+```javascript
+// CORRECT ORDER:
+const plugin = window['mermaid-zenuml'];
+await mermaid.registerExternalDiagrams([plugin]);  // FIRST
+mermaid.initialize({ startOnLoad: false });         // THEN
+
+// WRONG - initialize before register:
+mermaid.initialize({ startOnLoad: false });
+await mermaid.registerExternalDiagrams([plugin]); // Too late, syntax errors
+```
+
+### Global Name
+
+External plugins do NOT use `window.ZenUML`. The `@mermaid-js/mermaid-zenuml` package exports as `window["mermaid-zenuml"]`:
+
+```javascript
+// WRONG
+typeof ZenUML !== 'undefined'  // false
+
+// CORRECT
+window['mermaid-zenuml']  // { id, detector, loader }
+```

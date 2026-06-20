@@ -23,12 +23,14 @@
 
 			this.vendor = {
 				'css': {
-					'font': 'https://fonts.googleapis.com/css?family=Ubuntu',
-					'normalize': 'https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css',
+					'ubuntu': 'https://fonts.googleapis.com/css?family=Ubuntu',
+					'jetbrains_mono': 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap',
+					'normalize': 'https://cdn.jsdelivr.net/npm/@csstools/normalize.css@12.1.1/normalize.min.css',
 					'highlight': 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/styles/base16/gruvbox-dark-soft.min.css',
 				},
 				'js': {
 					'mermaid': 'https://cdn.jsdelivr.net/npm/mermaid@11.15.0/dist/mermaid.min.js',
+					'mermaid_zenuml': 'https://cdn.jsdelivr.net/npm/@mermaid-js/mermaid-zenuml@0.2.3/dist/mermaid-zenuml.min.js',
 					'highlight': 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/highlight.min.js',
 					'highlight_dart': 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/languages/dart.min.js',
 					'markdownit': 'https://cdn.jsdelivr.net/npm/markdown-it@14.1.1/dist/markdown-it.min.js',
@@ -74,6 +76,11 @@
 				'hljs': {
 					'tabReplace': '   ' // 3 space
 				}
+			}
+
+			this.mermaid_config = {
+				startOnLoad: false,
+				deterministicId: true,
 			}
 
 			Object.assign(this, config)
@@ -134,25 +141,8 @@
 				this.toc_init();
 				this.top_init();
 				this.link_init();
-				this.render_highlight();
-
-				// Render Mermaid diagrams if any
-				if (typeof mermaid !== 'undefined') {
-					mermaid.initialize({ startOnLoad: false, deterministicId: true });
-					const mermaidDivs = this.content.querySelectorAll('pre > code.language-mermaid');
-					const containers = [];
-					mermaidDivs.forEach(block => {
-						const parent = block.parentNode;
-						const mermaidContainer = document.createElement('div');
-						mermaidContainer.className = 'mermaid';
-						mermaidContainer.textContent = block.textContent;
-						parent.parentNode.replaceChild(mermaidContainer, parent);
-						containers.push(mermaidContainer);
-					});
-					if (containers.length) {
-						mermaid.run({ nodes: containers, suppressErrors: true });
-					}
-				}
+				this.exec_highlight();
+				this.exec_mermaid();
 
 				// Resolve relative assets (base path already set in init)
 				const base = this.basePath || '';
@@ -163,6 +153,27 @@
 						el.setAttribute('src', base + src);
 					}
 				});
+			}
+		}
+
+		async exec_mermaid() {
+			const mermaidZenUML = window['mermaid-zenuml'];
+			if (mermaidZenUML) {
+				await mermaid.registerExternalDiagrams([mermaidZenUML]);
+			}
+			mermaid.initialize(this.mermaid_config);
+			const mermaidDivs = this.content.querySelectorAll('pre > code.language-mermaid');
+			const containers = [];
+			mermaidDivs.forEach(block => {
+				const parent = block.parentNode;
+				const mermaidContainer = document.createElement('div');
+				mermaidContainer.className = 'mermaid';
+				mermaidContainer.textContent = block.textContent;
+				parent.parentNode.replaceChild(mermaidContainer, parent);
+				containers.push(mermaidContainer);
+			});
+			if (containers.length) {
+				await mermaid.run({ nodes: containers, suppressErrors: true });
 			}
 		}
 
@@ -219,11 +230,11 @@
 			return false
 		}
 
-		render_highlight() {
+		exec_highlight() {
 			if (typeof hljs === 'undefined') {
 				var _this_ = this;
 				setTimeout(function () {
-					_this_.render_highlight();
+					_this_.exec_highlight();
 				}, 0);
 			} else {
 				hljs.configure(this.args.hljs);
