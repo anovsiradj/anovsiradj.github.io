@@ -25,6 +25,14 @@ if this value is not boolean, use it for value instead of using `Date.now()`.
 
 a boolean to define if navigation using `location.hash` as route is enable or disable.
 
+## `{R5|config}.menu`
+
+array of menu entries untuk navigation dropdown.
+setiap entry bisa string (`'#/file.md'`) atau object (`{text: 'Label', link: '#/file.md'}`).
+bisa juga langsung berupa element `<select>`.
+
+dropdown digenerate otomatis diatas konten. value berubah → `location.hash` diupdate.
+
 ## `{R5|config}.link_external_target`
 
 controls the `target` attribute for external links (http://, https://, //).

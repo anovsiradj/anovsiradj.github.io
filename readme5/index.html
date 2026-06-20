@@ -6,10 +6,22 @@
 	<meta charset="UTF-8">
 	<title>Readme5</title>
 	<link rel="icon" href="favicon.svg" type="image/svg">
+
+	<style>
+		html,
+		body {
+			margin: 0px;
+			padding: 0px;
+		}
+	</style>
 </head>
 
 <body>
-	<main id="elem"></main>
+	<select>
+		<option value="#/README.md">Readme5</option>
+		<option>#/hljs.md</option>
+		<option>#/mmjs.md</option>
+	</select>
 
 	<script>
 		let cache = Date.now()
@@ -23,8 +35,16 @@
 		}
 
 		function init() {
-			readme = new Readme5('elem', {
+			readme = new Readme5(null, {
 				cache,
+				menu: document.querySelector('select'),
+				/*
+				files: [
+					{ text: 'Readme5', link: '#/README.md' },
+					'#/hljs.md',
+					'#/mmjs.md',
+				],
+				*/
 			})
 			readme.init('README.md')
 		}

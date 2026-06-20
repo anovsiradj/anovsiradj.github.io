@@ -90,7 +90,7 @@ td | td         | td
 201606100155: second
 20260507: upgrade deps, mermaid, new table, new toc, add top.
 20260528: route
-20260620: add mmjs zenuml, change default font.
+20260620: add mmjs zenuml, change default font, add menu.
 ```
 
 # Credit

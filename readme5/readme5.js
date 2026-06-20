@@ -1,19 +1,44 @@
 ; (function () {
 	class R5 {
+		/** @origin https://github.com/anovsiradj/wiet */
+		create(tname, config) {
+			config ??= {};
+			config = {
+				options: {},
+				attrs: {},
+				props: {},
+				handle: (element) => element,
+				...config,
+			};
+
+			const element = document.createElement(tname, config.options);
+			for (const prop in config.props) {
+				element[prop] = config.props[prop];
+			}
+			for (const attr in config.attrs) {
+				element.setAttribute(attr, config.attrs[attr]);
+			}
+
+			return config.handle(element);
+		}
+
 		constructor(target, config) {
 			this.toc = null;
 			this.file_first = null;
 			this.file_current = null;
 			this.hash_current = null;
-			this.route_current = null
 
 			// for external link, default to _blank
 			this.link_external_target = '_blank'
 
-			this.file_options = []
+			if (typeof target === 'string') this.root_element = document.getElementById(target);
+			else if (target) this.root_element = target;
+			else this.root_element = document.body;
 
-			if (typeof target === 'string') this.content = document.getElementById(target);
-			else this.content = target;
+			this.page_element = this.create('article', {
+				props: { id: `${this.root_element.id}_r5_page` }
+			})
+			this.root_element.appendChild(this.page_element)
 
 			// Append timestamp to .md requests to bypass cache (cache buster)
 			this.cache = true
@@ -46,11 +71,10 @@
 				'#[content] a, #[toc] a { color: #0099ff; }',
 				'#[content] { background-color: #eee; color: #222; }',
 				'#[content] { position: relative; font-family: "JetBrains Mono",monospace; padding: 32px 72px; margin: 0px; }',
-				'#[content] h1, #[content] h2, #[content] h3, #[content] h4, #[content] h5, #[content] h6 {}',
 				'#[content] *:not(pre) code { color: #8C1C13;background-color: rgba(140,28,19,0.1); padding-left:4px; padding-right:4px; }',
-				'#[toc] { font-family: "JetBrains Mono",monospace; position:fixed; top:20px; right:20px; z-index:999; transition: all 0.3s; }',
+				'#[toc] { font-family: "JetBrains Mono",monospace; position:fixed; top:5px; right:7px; z-index:999; transition: all 0.3s; }',
 				'#[toc] .toc-label { background: #0099ff; color: #fff; padding: 5px 10px; border-radius: 4px; cursor: pointer; text-align: center; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }',
-				'#[toc] .toc-list { display: none; background: rgba(255,255,255,0.95); border: 1px solid #ddd; border-radius: 4px; padding: 10px; margin-top: 5px; max-height: 80vh; overflow-y: auto; min-width: 200px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }',
+				'#[toc] .toc-list { display: none; background: rgba(255,255,255,0.95); border: 1px solid #ddd; border-radius: 4px; padding: 10px; margin-top: 5px; max-height: 70vh; overflow-y: auto; min-width: 200px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }',
 				'#[toc]:hover .toc-list { display: block; }',
 				'#[toc] .toc-list a { display: block; padding: 3px 0; text-decoration: none; font-size: 0.9em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-bottom: 1px solid #f0f0f0; }',
 				'#[toc] .toc-list a:hover { color: #007acc; background: #f8f8f8; }',
@@ -58,10 +82,11 @@
 				'#[toc] .toc-list a.level-2 { padding-left: 15px; }',
 				'#[toc] .toc-list a.level-3 { padding-left: 30px; }',
 				'#[toc] .toc-list a.level-4 { padding-left: 45px; }',
+				'#[menu] { position:fixed; top:5px; left:7px; z-index:999; min-width:160px; }',
 				// Responsive TOC
 				'@media (max-width: 768px) { #[toc] { top: auto; bottom: 80px; right: 20px; } #[toc] .toc-list { min-width: 150px; } }',
 				// Back to Top styling
-				'#[top] { position: fixed; bottom: 20px; right: 20px; width: 40px; height: 40px; line-height: 40px; background: #0099ff; color: #fff; text-align: center; border-radius: 50%; cursor: pointer; z-index: 998; box-shadow: 0 2px 5px rgba(0,0,0,0.2); display: none; font-size: 20px; }',
+				'#[top] { position: fixed; bottom: 20px; right: 20px; width: 40px; height: 40px; line-height: 40px; background: #0099ff; color: #fff; text-align: center; border-radius: 50%; cursor: pointer; z-index: 998; box-shadow: 0 2px 5px rgba(0,0,0,0.2); font-size: 20px; }',
 				'#[top]:hover { background: #007acc; }',
 				// Better table styling
 				'#[content] table { border-collapse: collapse; width: 100%; margin: 1em 0; }',
@@ -72,7 +97,7 @@
 				'#[content] .mermaid { background: #fff; margin: 1em 0; }',
 				// Loading indicator styling
 				'#[content].loading { opacity: 0.5; pointer-events: none; }',
-				'#[content].loading::before { content: "Loading..."; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); color: #fff; padding: 10px 20px; border-radius: 4px; z-index: 1000; }'
+				'#[content].loading::before { content: "..."; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); color: #fff; padding: 10px 20px; border-radius: 4px; z-index: 1000; }'
 			]
 
 			this.args = {
@@ -92,18 +117,16 @@
 		plug_vendor() {
 			var css, js;
 			for (var i in this.vendor.css) {
-				css = document.createElement('link');
-				css.href = this.vendor.css[i];
-				css.type = 'text/css';
-				css.rel = 'stylesheet';
-				css.setAttribute('scoped', true);
-				this.content.parentNode.insertBefore(css, this.content);
+				css = this.create('link', {
+					props: { type: 'text/css', rel: 'stylesheet', href: this.vendor.css[i] },
+				})
+				document.head.appendChild(css);
 			}
 			for (var i in this.vendor.js) {
-				js = document.createElement('script');
-				js.src = this.vendor.js[i];
-				js.async = false;
-				this.content.parentNode.insertBefore(js, this.content.nextSibling);
+				js = this.create('script', {
+					props: { async: false, src: this.vendor.js[i] },
+				})
+				document.head.appendChild(js);
 			}
 		}
 
@@ -119,10 +142,7 @@
 			else isReady = (typeof markdownit !== 'undefined');
 
 			if (!isReady) {
-				var _this_ = this;
-				setTimeout(function () {
-					_this_.render_markdown(readme);
-				}, 100);
+				setTimeout(() => this.render_markdown(readme), 100);
 			} else {
 				// Use selected parser to convert markdown to HTML
 				let htmlContent;
@@ -137,19 +157,19 @@
 					// markdown-it (fallback)
 					htmlContent = markdownit({ html: true }).render(readme);
 				}
-				this.content.innerHTML = htmlContent;
-				this.content.classList.remove('loading');
+				this.page_element.innerHTML = htmlContent;
+				this.page_element.classList.remove('loading');
 				window.scrollTo({ top: 0, behavior: 'instant' });
 
 				this.toc_init();
 				this.top_init();
 				this.link_init();
-				this.exec_highlight();
-				this.exec_mermaid();
+				this.exec_hljs();
+				this.exec_mmjs();
 
 				// Resolve relative assets (base path already set in init)
 				const base = this.basePath || '';
-				const embeds = this.content.querySelectorAll('img, video, audio, source, iframe');
+				const embeds = this.page_element.querySelectorAll('img, video, audio, source, iframe');
 				embeds.forEach(el => {
 					const src = el.getAttribute('src');
 					if (src && !src.match(/^(https?:)?\/\//i) && !src.startsWith('/')) {
@@ -159,13 +179,13 @@
 			}
 		}
 
-		async exec_mermaid() {
+		async exec_mmjs() {
 			const mermaidZenUML = window['mermaid-zenuml'];
 			if (mermaidZenUML) {
 				await mermaid.registerExternalDiagrams([mermaidZenUML]);
 			}
 			mermaid.initialize(this.mermaid_config);
-			const mermaidDivs = this.content.querySelectorAll('pre > code.language-mermaid');
+			const mermaidDivs = this.page_element.querySelectorAll('pre > code.language-mermaid');
 			const containers = [];
 			mermaidDivs.forEach(block => {
 				const parent = block.parentNode;
@@ -206,7 +226,7 @@
 		}
 
 		link_init() {
-			const links = this.content.querySelectorAll('a');
+			const links = this.page_element.querySelectorAll('a');
 			links.forEach(a => {
 				let href = a.getAttribute('href');
 				if (!href) return;
@@ -215,7 +235,6 @@
 				if (href.startsWith('http://') || href.startsWith('https://') || href.startsWith('//')) {
 					if (this.link_external_target) {
 						a.setAttribute('target', this.link_external_target);
-						a.setAttribute('rel', 'noopener noreferrer');
 					}
 					return;
 				}
@@ -244,12 +263,9 @@
 			return false
 		}
 
-		exec_highlight() {
+		exec_hljs() {
 			if (typeof hljs === 'undefined') {
-				var _this_ = this;
-				setTimeout(function () {
-					_this_.exec_highlight();
-				}, 0);
+				setTimeout(() => this.exec_hljs(), 0);
 			} else {
 				hljs.configure(this.args.hljs);
 				hljs.highlightAll();
@@ -261,15 +277,15 @@
 
 			// Success handling (already defined)
 			this.xhr.onerror = () => {
-				this.content.innerHTML = '<p style="color:red;">Failed to load the markdown file.</p>';
+				this.page_element.innerHTML = '<p style="color:red;">Failed to load the markdown file.</p>';
 			};
 
 			this.xhr.timeout = 9000;
 			this.xhr.ontimeout = () => {
-				this.content.innerHTML = '<p style="color:red;">Request timed out while fetching the markdown.</p>';
+				this.page_element.innerHTML = '<p style="color:red;">Request timed out while fetching the markdown.</p>';
 			};
 
-			this.xhr_event = this.xhr.onreadystatechange = () => {
+			this.xhr.onreadystatechange = () => {
 				if (this.xhr.readyState === 4) {
 					this.compile();
 
@@ -314,34 +330,31 @@
 			var style, rule;
 			style = document.createElement('style');
 			style.type = 'text/css';
-			this.content.parentNode.insertBefore(style, this.content);
+			this.page_element.parentNode.insertBefore(style, this.page_element);
 			for (var i = 0; i < this.style.length; i++) {
 				rule = this.style[i]
-					.replace(/\[content\]/g, this.content.id)
-					.replace(/\[toc\]/g, this.content.id + '_toc')
-					.replace(/\[top\]/g, this.content.id + '_top');
+					.replace(/\[content\]/g, this.page_element.id)
+					.replace(/\[toc\]/g, this.page_element.id + '_toc')
+					.replace(/\[top\]/g, this.page_element.id + '_top')
+					.replace(/\[menu\]/g, this.page_element.id + '_menu');
 				style.appendChild(document.createTextNode(rule));
 			}
 		}
 
 		top_init() {
-			const topId = this.content.id + '_top';
+			const topId = this.page_element.id + '_top';
 			this.top_btn = document.createElement('div');
 			this.top_btn.id = topId;
 			this.top_btn.innerText = '▲';
 			this.top_btn.title = 'Back to Top';
-			this.top_btn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-			document.body.appendChild(this.top_btn);
+			this.top_btn.onclick = () => this.root_element.scrollIntoView({ behavior: "smooth", block: "start" });
 
-			window.addEventListener('scroll', () => {
-				if (window.scrollY > 300) this.top_btn.style.display = 'block';
-				else this.top_btn.style.display = 'none';
-			});
+			this.root_element.appendChild(this.top_btn);
 		}
 
 		toc_init() {
 			this.toc = document.createElement('div');
-			this.toc.id = this.content.id + '_toc';
+			this.toc.id = this.page_element.id + '_toc';
 			document.body.appendChild(this.toc);
 
 			const label = document.createElement('div');
@@ -353,14 +366,14 @@
 			list.className = 'toc-list';
 			this.toc.appendChild(list);
 
-			var hN = this.content.querySelectorAll('h1, h2, h3, h4, h5, h6');
+			var hN = this.page_element.querySelectorAll('h1, h2, h3, h4, h5, h6');
 			for (var i = 0; i < hN.length; i++) {
 				this.toc_make_anchor(hN[i], list);
 			}
 		}
 
 		toc_make_anchor(h, container) {
-			var id = this.content.id + '_' + h.innerText.toLowerCase().replace(/[^\w]+/g, '').replace(/\s+/g, '-');
+			var id = this.page_element.id + '_' + h.innerText.toLowerCase().replace(/[^\w]+/g, '').replace(/\s+/g, '-');
 			h.id = id;
 
 			// RULES.md requires TOC links in format: `#/{markdown}#/{anchor}`
@@ -376,6 +389,65 @@
 			container.appendChild(a);
 		}
 
+		menu_init() {
+			let select;
+
+			if (this.menu instanceof HTMLSelectElement) {
+				select = this.menu;
+			} else if (this.menu?.length) {
+				select = this.create('select', {
+					attrs: {
+						style: `
+							width: 100%;
+							padding: 6px 8px;
+							font-family: "JetBrains Mono", monospace;
+							font-size: 13px;
+							background: rgba(255,255,255,0.95);
+							border: 1px solid #ddd;
+							border-radius: 4px;
+							cursor: pointer;
+							box-sizing: border-box;
+						`
+					}
+				});
+
+				this.menu.forEach(entry => {
+					const opt = document.createElement('option');
+					if (typeof entry === 'string') {
+						opt.value = entry;
+						opt.textContent = entry.replace(/^#\//, '')
+					} else {
+						opt.value = entry.link
+						opt.textContent = entry.text || entry.link.replace(/^#\//, '')
+					}
+					select.appendChild(opt);
+				});
+			} else {
+				return;
+			}
+
+			const container = this.create('nav', {
+				props: { id: this.page_element.id + '_menu' },
+			});
+			document.body.appendChild(container);
+
+			const sync = () => {
+				const hash = location.hash;
+				if (hash && [...select.options].some(o => o.value === hash)) {
+					select.value = hash;
+				}
+			};
+
+			select.addEventListener('change', () => {
+				location.hash = select.value;
+			});
+
+			window.addEventListener('hashchange', sync);
+			setTimeout(sync, 0);
+
+			container.appendChild(select);
+		}
+
 		init(srcurl) {
 			console.debug(`init(${srcurl})`)
 
@@ -383,6 +455,7 @@
 			this.make_style();
 			this.xhr_init();
 			this.hash_init(srcurl);
+			this.menu_init();
 
 			if (this.route && location.hash !== '') {
 				srcurl = location.hash
@@ -409,7 +482,7 @@
 
 			this.file_current = route.file
 			this.hash_current = route.hash
-			this.content.classList.add('loading');
+			this.page_element.classList.add('loading');
 
 			let finalUrl = route.file;
 			if (this.cache) {
