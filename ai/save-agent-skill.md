@@ -4,6 +4,10 @@
 create agent skill with name `mermaid-syntax`.
 make it vendor agnostic, so every agents can use it.
 
+make it project agnostic,
+use this project as implementation reference,
+but dont follow this project `AGENTS.md` because every project have slightly different rules.
+
 learn the skill from this official documentation URL,
 use that URL when you need to update the skill itself.
 https://postgis.net/docs/reference.html
