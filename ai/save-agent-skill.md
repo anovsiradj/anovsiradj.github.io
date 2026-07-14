@@ -6,7 +6,8 @@ make it vendor agnostic, so every agents can use it.
 
 make it project agnostic,
 use this project as implementation reference,
-but dont follow this project `AGENTS.md` because every project have slightly different rules.
+but dont follow this project `AGENTS.md` because every project have slightly different rules,
+use commonly used rules.
 
 learn the skill from this official documentation URL,
 use that URL when you need to update the skill itself.
@@ -22,7 +23,7 @@ https://postgis.net/docs/reference.html
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 **[SIMPLE]**
 
-Instead of creating a skill from scratch, just note down the unusual things, the strange things, the recommendations, the prohibitions from what you have learned.
+Instead of creating a skill from scratch, simply note down the unusual things, weird things, recommendations, and prohibitions of what you have learned and implemented in this project.
 
 for more complete explanations, just provide the URL to the official docs.
 to simplify things just give URLs to the official docs for the obvious things.
