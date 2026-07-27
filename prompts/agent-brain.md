@@ -73,3 +73,33 @@ tidak perlu ada izin tertulis, terserah agent sesuka hari mau cek atau tidak, be
 untuk kalimat instruksi ini menurutku terlalu specific menyebutkan vite/jquery, dibuat lebih generic/general saja `(e.g., verifying if Vite is used, checking the specific icon library, or how jQuery is injected)`.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+setelah aku pikir2, perlu ada beberapa penyesuaian.
+
+ubah struktur dari `.agents/context-*.md` jadi `.agents/brains/*.md`,
+sehingga lingkupnya hanya di satu tempat, yaitu didalam folder `.agents/brains/`.
+
+aku gak nyangka isi AGENTS.md akan sebanyak itu, tapi gak masalah sih.
+gimana kalo bikin file khusus yang terpisah dari AGENTS.md dengan nama BRAINS.md.
+yang mana dari AGENTS.md untuk menginstruksikan selalu cek BRAINS.md.
+dengan demikian tidak masalah isi dari BRAINS.md banyak atau tidak dan instruksinya bisa lebih lengkap karena terpisah dari AGENTS.md.
+
+gimana menurut mu?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+untuk agent beri laporan singkat apa yang dicatat, menurutku tidak perlu.
+karena tujuannya dari BRAINS.md adalah untuk agent itu sendiri, bukan untuk orangnya.
+
+coba aku simpulkan:
+- 5W1H
+- tidak ada versioning atau chhangelog, harus selalu kondisi saat ini
+- bisa lintas agent
+- sebagai static context, static memory, knowledge, dst.
+- iterasi dan workloop sudah sangat jelas
+- bukan untuk manusia tapi untuk agent
+
+menurutmu apa yang bisa ditambahkan pada BRAINS.md supaya bisa sepurna.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+AgileCleanroomIncrementalPrototypingSpiralV modelWaterfall

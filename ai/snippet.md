@@ -1,4 +1,13 @@
+continue where you left.
+
+selesaikan proyek ini.
+jangan lupa baca ./AGENTS.md kalo belum.
+
+baca dulu ./AGENTS.md kalo belum.
+konversi `.agents/*.json` jadi `*.md` di `.agents/brains/`, untuk nama file .md bebas.
+
 # beginning
+sebelum kita mulai, jangan lupa selalu baca `./AGENTS.md` kalo belum.
 
 Understand this project 100%, then explain to me what you know.
 - give honest reviews and reasons

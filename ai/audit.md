@@ -16,9 +16,6 @@ update `./dokum/` for flaws and flows with current project state.
 
 cleanup and remove any unused/outdated/unrelated documentation.
 
-you must Understand this project 100%.
-interogate me until you have 100% confident about what I actually want, not what I think I should want.
-
 update flaws in `./dokum/`.
 Mark fixed flaws by adding prefix `**[FIXED]**` (bold),
 make sure marked flaws have been validated and verified.
