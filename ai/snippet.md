@@ -3,8 +3,10 @@ continue where you left.
 selesaikan proyek ini.
 jangan lupa baca ./AGENTS.md kalo belum.
 
-baca dulu ./AGENTS.md kalo belum.
-konversi `.agents/*.json` jadi `*.md` di `.agents/brains/`, untuk nama file .md bebas.
+baca ./AGENTS.md kalo belum.
+konversi `.agents/*.json` jadi `.agents/brains/*.md`, untuk banyak files dan nama files terserah kamu.
+
+masalah data/skema db kamu bebas ubah/tambah/hapus, karena masih dalam fase dev.
 
 # beginning
 sebelum kita mulai, jangan lupa selalu baca `./AGENTS.md` kalo belum.
