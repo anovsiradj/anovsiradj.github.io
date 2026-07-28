@@ -2,7 +2,7 @@
 ## Local Server
 - **DILARANG** menjalankan manual local server seperti `php -S localhost:8000` atau `python -m http.server` atau sejenisnya.
 - local server harus menggunakan apache/httpd.
-- local server sudah disediakan, untuk mengetahuinya URL nya, selalu cek `DEBUG_URL` di `.env`.
+- local server sudah disediakan, untuk mengetahuinya URL nya, pakai `DEBUG_URL` di `.env`.
 
 ## Environment & CLI
 - untuk menjalankan perintah PHP gunakan `php83`.

@@ -26,3 +26,8 @@ very slop, very dump, never use it again.
 
 very slop, very dump, never use it again.
 having hard time just to writing output to file.
+
+
+# Poolside: Laguna XS 2.1 (free)
+
+dump as fuck
