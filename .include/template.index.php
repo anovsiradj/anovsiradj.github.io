@@ -105,7 +105,7 @@ if (!$index_development) ob_start();
 		var vxtree = (new Vue({
 			el: '#v',
 			data: {
-				nodes: <?php echo json_encode($tree_contents) ?>
+				nodes: <?php echo json_encode($tree_contents, JSON_PRETTY_PRINT) ?>
 			}
 		}));
 	</script>
