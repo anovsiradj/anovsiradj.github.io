@@ -4,7 +4,17 @@
  */
 
 globalThis.sekrolAutoDownRecur = false
+globalThis.sekrolAutoDownHandle = null
 globalThis.sekrolHandles = []
+
+function sekrolAutoDownStop() {
+	sekrolAutoDownRecur = false
+
+	if (sekrolAutoDownHandle != null) {
+		clearTimeout(sekrolAutoDownHandle)
+		sekrolAutoDownHandle = null
+	}
+}
 
 function sekrolAutoDown(delay, pixel, elem, root) {
 	if (sekrolAutoDownRecur) {
@@ -14,17 +24,18 @@ function sekrolAutoDown(delay, pixel, elem, root) {
 	elem ??= document.documentElement
 	root ??= document.body
 
+	sekrolAutoDownRecur = true
+
 	let recur = function () {
-		sekrolAutoDownRecur = true
+		sekrolAutoDownHandle = setTimeout(recur, delay)
 
 		window.scrollBy({
 			top: pixel,
 			behavior: 'smooth',
 		});
-		setTimeout(recur, delay)
 	};
 
-	setTimeout(recur, delay)
+	recur()
 }
 
 function sekrolIsTop(elemen) {
@@ -48,14 +59,15 @@ function sekrolOn(handle) {
 	sekrolHandles.push(handle)
 }
 
-function sekrolOff() {
-	sekrolHandles = []
-}
-
 function sekrolHandle(event) {
 	sekrolHandles.forEach(handle => handle(event))
 }
 
 function sekrolMain() {
 	document.addEventListener('scrollend', sekrolHandle);
+}
+
+function sekrolOff() {
+	sekrolAutoDownStop()
+	sekrolHandles = []
 }

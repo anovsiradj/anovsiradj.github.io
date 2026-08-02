@@ -31,7 +31,8 @@
 		<h1>Pencet Y(1): langsung sekrol atas</h1>
 		<h1>Pencet Y(>=3): otomatis sekrol bawah</h1>
 
-		<h1>Pencet X(1): otomatis sekrol bawah</h1>
+		<h1>Pencet X(1): ...</h1>
+		<h1>Pencet X(>=3): ...</h1>
 
 		<!--
 		<h3>
@@ -47,25 +48,25 @@
 </body>
 
 <script src="./pencet.js?2"></script>
-<script src="./sekrol.js?2"></script>
+<script src="./sekrol.js?3"></script>
 <script>
 	pencetMain()
 	sekrolMain()
 
-	pencetOn('KeyY', 1, function() {
+	pencetOn('KeyY', 1, function () {
 		window.scrollTo({ top: 0 })
 	})
 
-	pencetOn('KeyY', 3, function() {
+	pencetOn('KeyY', 3, function () {
 		sekrolAutoDown(699, 100)
 	})
 
-	pencetOn('KeyX', 1, function() {
+	pencetOn('KeyX', 1, function () {
 		sekrolOff()
 	})
 
-	pencetOn('KeyX', 3, function() {
-		sekrolOn(function() {
+	pencetOn('KeyX', 3, function () {
+		sekrolOn(function () {
 			if (sekrolIsBot()) {
 				let elem = document.querySelector('#bawah')
 				let text = Number(elem.textContent) + 1
