@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Book Reader Simulation</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+			background:
+				linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(244, 236, 224, 0.97)),
+				linear-gradient(135deg, #7c5c48, #d8b18b);
+			min-height: 160vh;
+			color: #2f2419;
+		}
+
+		.container {
+			width: min(1180px, calc(100% - 32px));
+			margin: 0 auto;
+		}
+
+		.site-header {
+			background: linear-gradient(90deg, #2b1d12, #5b3a23);
+			color: #fff7ef;
+			padding: 18px 0;
+			box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+		}
+
+		.site-header .inner {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 16px;
+		}
+
+		.brand {
+			font-size: 1.8rem;
+			font-weight: 700;
+			margin: 0;
+			letter-spacing: 0.03em;
+		}
+
+		.subbrand {
+			margin: 4px 0 0;
+			color: rgba(255, 247, 239, 0.7);
+			font-size: 0.92rem;
+		}
+
+		.page-count {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			font-size: 0.95rem;
+			color: rgba(255, 247, 239, 0.85);
+		}
+
+		.book-shell {
+			background: #f9f0e2;
+			border: 1px solid rgba(67, 40, 18, 0.18);
+			border-radius: 24px;
+			box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+			padding: 20px;
+			margin: 40px 0 24px;
+		}
+
+		.book-stage {
+			background: linear-gradient(180deg, #f7ead6, #f4dcc4);
+			border-radius: 20px;
+			padding: 18px;
+			border: 1px solid rgba(88, 49, 20, 0.18);
+		}
+
+		.toolbar {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 12px;
+			margin-bottom: 16px;
+			flex-wrap: wrap;
+		}
+
+		.toolbar h2 {
+			font-size: 1.45rem;
+			margin: 0 0 4px;
+		}
+
+		.toolbar p {
+			margin: 0;
+			color: #6f5a47;
+		}
+
+		.page-caption {
+			display: inline-flex;
+			align-items: center;
+			background: rgba(50, 35, 13, 0.78);
+			color: #fff;
+			padding: 8px 14px;
+			border-radius: 999px;
+			font-size: 0.94rem;
+		}
+
+		.reader-grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 20px;
+			align-items: start;
+		}
+
+		.page-frame {
+			background: #ffffff;
+			border-radius: 16px;
+			padding: 10px;
+			box-shadow: inset 0 0 0 1px rgba(17, 24, 39, 0.05), 0 6px 20px rgba(0, 0, 0, 0.12);
+		}
+
+		.page-frame img {
+			display: block;
+			width: 100%;
+			aspect-ratio: 3 / 4;
+			object-fit: cover;
+			border-radius: 12px;
+			cursor: pointer;
+		}
+
+		.footer-bar {
+			background: #2b1d12;
+			color: #f4ddd0;
+			padding: 14px 0;
+		}
+
+		.footer-bar .inner {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 12px;
+			flex-wrap: wrap;
+		}
+
+		.footer-bar small {
+			color: rgba(244, 221, 208, 0.72);
+		}
+
+		@media (max-width: 900px) {
+			.reader-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<header class="site-header">
+		<div class="container inner">
+			<div>
+				<h1 class="brand">Book Reader Demo</h1>
+				<p class="subbrand">Simulasi halaman buku / manga style</p>
+			</div>
+			<div class="page-count">
+				<span>📘</span>
+				<span>10 pages</span>
+			</div>
+		</div>
+	</header>
+
+	<main class="container">
+		<section class="book-shell">
+			<div class="book-stage">
+				<div class="toolbar">
+					<div>
+						<h2>Story Reader</h2>
+						<p>Klik gambar untuk pindah ke halaman berikutnya.</p>
+					</div>
+					<div class="page-caption" id="pageCounter">Page 1 / 10</div>
+				</div>
+
+				<div class="reader-grid">
+					<div class="page-frame">
+						<img id="bookImage" alt="Book page placeholder">
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer-bar">
+		<div class="container inner">
+			<div>© 2026 Book Reader Simulation</div>
+			<small>Header + Footer + 10 placeholder pages</small>
+		</div>
+	</footer>
+
+	<script src="../js/pencet.js?2"></script>
+	<script src="../js/sekrol.js?3"></script>
+	<script>
+		const pages = [
+			{ title: 'Page 1', bg: '#2f1e15', text: '#fff7ef' },
+			{ title: 'Page 2', bg: '#4d2f1d', text: '#f8eee3' },
+			{ title: 'Page 3', bg: '#6f4a29', text: '#fff5e7' },
+			{ title: 'Page 4', bg: '#7a5a35', text: '#fff2de' },
+			{ title: 'Page 5', bg: '#60412a', text: '#f9efe5' },
+			{ title: 'Page 6', bg: '#8f6746', text: '#fff8f2' },
+			{ title: 'Page 7', bg: '#785844', text: '#fbf6f2' },
+			{ title: 'Page 8', bg: '#4b4437', text: '#f7f2eb' },
+			{ title: 'Page 9', bg: '#654d3d', text: '#fff4ee' },
+			{ title: 'Page 10', bg: '#3b3d4f', text: '#f7f6fb' }
+		];
+
+		const bookImage = document.getElementById('bookImage');
+		const pageCounter = document.getElementById('pageCounter');
+		let currentPage = 0;
+
+		function createPlaceholderSvg(label, bg, text, width, height) {
+			const svg = `
+				<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+					<defs>
+						<linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+							<stop offset="0%" stop-color="${bg}" />
+							<stop offset="100%" stop-color="#1b140f" />
+						</linearGradient>
+					</defs>
+					<rect width="100%" height="100%" fill="url(#g)" rx="24" />
+					<circle cx="${width * 0.5}" cy="${height * 0.3}" r="56" fill="${text}" opacity="0.12" />
+					<rect x="48" y="58" width="${width - 96}" height="6" rx="3" fill="${text}" opacity="0.48" />
+					<rect x="48" y="78" width="${width - 130}" height="6" rx="3" fill="${text}" opacity="0.28" />
+					<rect x="48" y="${height * 0.52}" width="${width - 96}" height="${height * 0.24}" rx="18" fill="${text}" opacity="0.12" />
+					<text x="50%" y="${height * 0.83}" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="${text}">${label}</text>
+				</svg>`;
+
+			return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+		}
+
+		function updatePage(index) {
+			currentPage = index;
+			const page = pages[index];
+			bookImage.src = createPlaceholderSvg(page.title, page.bg, page.text, 860, 1100);
+			bookImage.alt = page.title;
+			pageCounter.textContent = `Page ${index + 1} / ${pages.length}`;
+		}
+
+		function goNextPage() {
+			const nextPage = (currentPage + 1) % pages.length;
+			updatePage(nextPage);
+			window.scrollTo(0, 0);
+		}
+
+		function goPrevPage() {
+			const prevPage = (currentPage - 1 + pages.length) % pages.length;
+			updatePage(prevPage);
+			window.scrollTo(0, 0);
+		}
+
+		bookImage.addEventListener('click', function() {
+			goNextPage();
+		});
+
+		document.addEventListener('keydown', function(event) {
+			if (event.key === 'ArrowRight') {
+				goNextPage();
+			}
+			if (event.key === 'ArrowLeft') {
+				goPrevPage();
+			}
+		});
+
+		pencetMain();
+		sekrolMain();
+
+		pencetOn('KeyY', 1, function() {
+			window.scrollTo(0, 0);
+		});
+
+		pencetOn('KeyY', 3, function() {
+			sekrolAutoDown(699, 100);
+		});
+
+		pencetOn('KeyX', 1, function() {
+			sekrolOff();
+		});
+
+		pencetOn('KeyX', 3, function() {
+			sekrolOn(function() {
+				if (sekrolIsBot()) {
+					goNextPage();
+				}
+			});
+		});
+
+		updatePage(0);
+	</script>
+</body>
+
+</html>
