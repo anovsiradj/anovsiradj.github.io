@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pencet — Simulasi Deteksi Pencet</title>
+
+	<style>
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			color: #e8e8e8;
+			font-family: 'Courier New', Courier, monospace;
+			background: linear-gradient(180deg, #0a0a0a, #14213d, #0a0a0a);
+		}
+
+		.wrap {
+			max-width: 860px;
+			margin: 0 auto;
+			padding: 32px 20px;
+		}
+
+		h1 {
+			font-size: 1.5rem;
+			margin: 0 0 4px;
+			color: #ffd166;
+		}
+
+		.sub {
+			color: #8d99ae;
+			margin: 0 0 24px;
+			font-size: 0.9rem;
+		}
+
+		.kbd {
+			display: inline-block;
+			min-width: 26px;
+			text-align: center;
+			padding: 4px 8px;
+			border: 1px solid rgba(255, 255, 255, 0.3);
+			border-radius: 6px;
+			background: #1b2838;
+			box-shadow: 0 2px 0 #0d1321;
+			font-weight: 700;
+		}
+
+		.panel {
+			background: rgba(255, 255, 255, 0.04);
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 12px;
+			padding: 16px;
+			margin-bottom: 18px;
+		}
+
+		.panel h2 {
+			margin: 0 0 12px;
+			font-size: 1rem;
+			color: #adb5bd;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+		}
+
+		.action {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 10px 12px;
+			border-radius: 8px;
+			margin-bottom: 8px;
+			background: rgba(0, 0, 0, 0.25);
+			border: 1px solid transparent;
+			transition: all 0.15s;
+		}
+
+		.action.fired {
+			border-color: #ffd166;
+			background: rgba(255, 209, 102, 0.12);
+			transform: translateX(4px);
+		}
+
+		.action .target {
+			font-size: 0.82rem;
+			color: #adb5bd;
+			margin-left: auto;
+		}
+
+		.action .meter {
+			color: #ffd166;
+			font-weight: 700;
+			font-size: 1rem;
+		}
+
+		.log {
+			font-size: 0.85rem;
+			max-height: 220px;
+			overflow-y: auto;
+			line-height: 1.5;
+		}
+
+		.log .row {
+			padding: 2px 0;
+			border-bottom: 1px dotted rgba(255, 255, 255, 0.08);
+		}
+
+		.log .row b {
+			color: #ffd166;
+		}
+
+		.hint {
+			font-size: 0.95rem;
+			line-height: 1.7;
+		}
+
+		.hint code {
+			background: rgba(255, 255, 255, 0.08);
+			padding: 1px 5px;
+			border-radius: 4px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrap">
+		<h1>Pencet — Simulasi</h1>
+		<p class="sub">Deteksi pencetakan satuan vs berulang. Tekan tombol di keyboard, pantau "meter" tiap aksi.</p>
+
+		<div class="panel">
+			<h2>Aksi terdaftar</h2>
+			<div id="actions"></div>
+		</div>
+
+		<div class="panel">
+			<h2>Log event</h2>
+			<div class="log" id="log"></div>
+		</div>
+
+		<p class="hint">
+			Coba tekan <span class="kbd">Q</span> sekali → aksi <code>Q1</code>.
+			Tekan <span class="kbd">W</span> dua kali → aksi <code>W2</code> pada pencetan ke-2.
+			Tekan <span class="kbd">E</span> tiga kali → aksi <code>E3</code> pada pencetan ke-3.
+			Count di-reset ketika tombol dilepas (keyup).
+		</p>
+	</div>
+
+	<script src="./pencet.js?2"></script>
+	<script>
+		// ---- daftar aksi demo ----
+		const demoConfigs = [
+			{ value: 'KeyQ', count: 1, label: 'reset scroll ke atas' },
+			{ value: 'KeyW', count: 2, label: 'tambah +1 (double-tap)' },
+			{ value: 'KeyE', count: 3, label: 'auto scroll ke bawah' },
+		];
+
+		// ---- elemen ----
+		const actionsBox = document.getElementById('actions');
+		const logBox = document.getElementById('log');
+
+		let score = 0;
+
+		function buildActions() {
+			for (const c of demoConfigs) {
+				const el = document.createElement('div');
+				el.className = 'action';
+				el.id = 'act_' + c.value + c.count;
+				el.innerHTML =
+					'<span class="kbd">' + c.value.replace('Key', '') + '</span>' +
+					'<span>tekan <b>' + c.count + 'x</b> — ' + c.label + '</span>' +
+					'<span class="meter">0/' + c.count + '</span>' +
+					'<span class="target">' + c.value + c.count + '</span>';
+				actionsBox.appendChild(el);
+			}
+		}
+
+		function log(msg) {
+			const row = document.createElement('div');
+			row.className = 'row';
+			row.innerHTML = msg;
+			logBox.prepend(row);
+		}
+
+		// ---- update meter real-time dari pencetValueCounts ----
+		function tickMeter() {
+			for (const c of demoConfigs) {
+				const el = document.getElementById('act_' + c.value + c.count);
+				const cur = pencetValueCounts[c.value] || 0;
+				const meter = el.querySelector('.meter');
+				meter.textContent = Math.min(cur, c.count) + '/' + c.count;
+
+				el.classList.toggle('fired', cur >= c.count);
+			}
+		}
+
+		// ---- mendaftarkan aksi pencet ----
+		pencetOn('KeyQ', 1, function () {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+			log('🔥 <b>Q1</b> → scroll ke atas');
+			score = 0; tickMeter();
+		});
+
+		pencetOn('KeyW', 2, function () {
+			score += 1;
+			log('👏 <b>W2</b> → double-tap, skor=' + score);
+			tickMeter();
+		});
+
+		pencetOn('KeyE', 3, function () {
+			sekrolAutoDown(180, 480);
+			log('🌀 <b>E3</b> → auto scroll ke bawah');
+			tickMeter();
+		});
+
+		// ---- jalankan engine (dan panicle helppr dari pencetMain) ----
+		pencetMain();
+
+		// ---- pantau setiap keydown untuk update meter & log dasar ----
+		document.addEventListener('keydown', function (e) {
+			if (['KeyQ', 'KeyW', 'KeyE', 'Space'].includes(e.code)) {
+				log('⌨️ pencet <span class="kbd">' + e.code.replace('Key', '') + '</span> (ke-' +
+					(pencetValueCounts[e.code] || 0) + ')');
+				tickMeter();
+			}
+		});
+		document.addEventListener('keyup', function (e) {
+			if (['KeyQ', 'KeyW', 'KeyE'].includes(e.code)) {
+				log('↩️ lepas <span class="kbd">' + e.code.replace('Key', '') + '</span> — count di-reset');
+				tickMeter();
+			}
+		});
+
+		buildActions();
+		log('🟢 simulasi siap. Mulai pencet tombol.');
+		tickMeter();
+	</script>
+</body>
+
+</html>

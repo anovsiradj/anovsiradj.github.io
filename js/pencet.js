@@ -55,3 +55,16 @@ function pencetMain() {
 	document.addEventListener('keyup', pencetMainKeyup);
 	document.addEventListener('keydown', pencetMainKeydown);
 }
+
+/**
+ * Simulasi "pencet" tombol secara programatik (hold).
+ * value = kode tombol, mis. 'KeyY', 'KeyX', 'Space'.
+ * Memicu keydown sungguhan lewat pipeline pencetMainKeydown,
+ * jadi count naik & aksi terdaftar ikut terpancing.
+ * Catatan: pencetMain() harus sudah dipanggil agar listener keydown terpasang.
+ */
+function pencetFor(value) {
+	let event = new KeyboardEvent('keydown', { code: value })
+
+	document.dispatchEvent(event)
+}
