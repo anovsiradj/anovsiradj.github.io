@@ -27,3 +27,11 @@ unusable dan missing, pake opencode gak ada yang bisa.
 # cohere
 
 cuma ada 1 model yang relevan, North Mini Code. 
+
+# https://github.com/Alishahryar1/free-claude-code
+
+# inferx
+
+```
+provider: inferx
+```

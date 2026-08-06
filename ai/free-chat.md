@@ -8,3 +8,5 @@
 # https://chat.deepseek.com/
 
 # https://meta.ai/
+
+# https://chat.z.ai/

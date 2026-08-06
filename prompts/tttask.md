@@ -47,4 +47,15 @@ workflows [
 	}
 ]
 ```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+pindah panduan ./ENGINE.md ke `./docs/` sdan pecah sesuai saranmu.
 
+untuk `Terlalu Banyak "Future" State`, pelajari dan pahami `./PRD.md`.
+perihal saran mu untuk flagging, aku setuju.
+
+kalo sudah, kasih pendapatmu lagi.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+pindah saja `./ENGINE.md` ke dalam `./docs/` dan perbarui link.
+update catatan untuk engine di `./AGENTS.md`.
+
+audit ulang plan 01, karena kamu sudah mempelajari dan memahami PRD dan ENGINE.
