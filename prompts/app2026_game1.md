@@ -30,3 +30,41 @@ untuk masalah `Risiko Dimensi Sprite Sheet`, abaikan dulu, karena masih fase dev
 untuk untuk lainnya aku percayakan padamu.
 
 berarti kamu perlu menyesuaikan `.agents/plans/02.md` berdasarkan kritik dan saran darimu.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+bantu realisasi PRD ini `C:\works\games\2026c\.agents\prompts\02.md`.
+
+untuk semua assets (image/video/audit/model/dst),
+aku serahkan semua nya padamu untuk cari di internet atau bikin sendiri atau pake placeholder.
+
+semuanya aku percayakan padamu, berikan yang terbaik tapi sederhana.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+to be honest, i dont know at all how to add characters to the game.
+i have downloaded few of `.gltf` files (overall in zip) for the models in `C:\works\games\models`.
+
+can you implements it?
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+i have added/removed charecter models in `C:\works\games\models`.
+help import all, only if it is working/possible/compatible.
+
+instead naming it using the character name in `C:\works\games\2026c\assets\models\**`,
+use code name (like GC01,GC02,etc), what ever you like.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+bantu validasi dan evaluasi PRD dan GDD.
+- `C:\works\games\2026c\.agents\docs\PRD.md`
+- `C:\works\games\2026c\.agents\docs\GDD.md`
+
+untuk status development, saat ini sudah merealisasikan PRD.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+sinkron kedua dokumen, untuk single of truth adalah source code.
+tapi untuk menyempurnakan game ini, kamu bisa menentukan mana yg terbaik.
+semuanya aku percayakan padamu.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+bikin planning untuk menyesuaikan PRD terbaru, catat dan simpan ke `C:\works\games\2026c\.agents\works\001a-plan.md`.
+setelah itu akan aku tinjau dulu sebelum kamu eksekusi.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LGTM.
+
+untuk assets (image,video,audio,etc) kamu bisa cari dari internet atau bikin sendiri atau pakai placeholder.

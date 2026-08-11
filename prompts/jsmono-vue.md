@@ -11,8 +11,7 @@ hal yg harus kamu ingat dalam melakukan audit:
 metode/paradigma/prinsip ku dalam membuat vue packages tersebut:
 - Everything should be configurable using JSON files and/or JS Objects, while still having default settings.
 - Always use ES modules (web standards) rather than CommonJS.
-- For the Vue SFC (Single-File Component), let's just call it `widget`.
-- packages akan didistribusikan lewat NPM dan JSR.
+- packages akan didistribusikan lewat NPM.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 simpan hasil audit mu ke `.agents/works/001a-audit.md`.

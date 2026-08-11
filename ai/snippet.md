@@ -1,5 +1,7 @@
 continue where you left.
 
+git commit changes without push.
+
 selesaikan proyek ini.
 jangan lupa, selalu baca ./AGENTS.md.
 

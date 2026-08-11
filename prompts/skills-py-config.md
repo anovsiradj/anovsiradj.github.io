@@ -37,3 +37,9 @@ setiap eksekusi action create/update, untuk selalu set `item.commit` di json.
 karena sudah ada `item.commit`, untuk action create perlu disesuaikan.
 untuk handle commit tidak ketemu, langsung default HEAD (latest).
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+aku ubah property others di config.json jadi agents,
+bantu adjust config.py.
+
+bantu realisasi `agents.*.skills`.
+property item `agent.skills` berisi array yang setiap item ada input yang perlu di copy-paste dari `./tmp/{name}/{input}` ke `./{output}`.
