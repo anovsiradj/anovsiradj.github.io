@@ -27,25 +27,6 @@ interogate me until you have 100% confident about what I actually want, not what
 
 When in doubt, prompt it out.
 
-# CONTEXT
-
-untuk mengurangi beban context dan mempercepat indeks context,
-bikin catatan statis di `./.agents/` yang digunakan sebagai acuan.
-
-- ./.agents/context-memories.json
-- ./.agents/context-workflows.json
-- ./.agents/context-references.json
-- ./.agents/context-definitions.json
-
-jelaskan di `./AGENTS.md` supaya:
-- selalu muat catatan setiap prompt
-- selalu gunakan catatan sebagai acuan utama awal
-- selalu in-sync catatan dengan fakta source code
-- langsung perbarui catatan jika out-of-sync dengan fakta
-
-tidak perlu human readable, yang penting bisa dipahami semua agent secara generic.
-catatan tidak perlu ada changelog atau versioning, fokus pada kondisi sekarang.
-
 # FLOWS
 
 for flows visualize it based on App Flow, Task Flow, User Flow, Customer Journey.

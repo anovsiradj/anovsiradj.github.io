@@ -68,3 +68,23 @@ setelah itu akan aku tinjau dulu sebelum kamu eksekusi.
 LGTM.
 
 untuk assets (image,video,audio,etc) kamu bisa cari dari internet atau bikin sendiri atau pakai placeholder.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+untuk `scripts/dev_config.gd` jangan parsing manual, harus pakai ConfigFile.
+sudah aku sesuaikan dengan menambah `[app]` di `.cfg`, kira2 bisa gak?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ux nya kurang bagus, lakukan penyesuaian untuk model viewer:
+- occupy whole screen with exit button
+- layout for section: right sidebar, left content.
+- section content default empty
+- section sidebar active current selected
+- ada search dan filter
+
+rename jadi `Entity Viewer`, for future use.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+sebelum aku menjelaskan masalah ini, aku ingin kamu lihat files;
+- "C:\works\games\2026c\screenshots\home.png"
+- "C:\works\games\2026c\screenshots\entity_viewer.png"
+
+menurutmu apa yg salah dengan screenshot gambar itu?
