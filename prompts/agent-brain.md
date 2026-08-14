@@ -100,6 +100,32 @@ coba aku simpulkan:
 menurutmu apa yang bisa ditambahkan pada BRAINS.md supaya bisa sepurna.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+aku ada adjutsment untuk BRAINS.md dan AGENTS.md
+- path spesifik untuk BRAINS.md
+- 80 jadi hundreds, supaya relative.
 
+aku ada keluhan setelah aku coba dibeberapa projects dan beberapa agents.
 
-AgileCleanroomIncrementalPrototypingSpiralV modelWaterfall
+beberapa agents menganggap kalo batasan .md files itu untuk semua .md.
+jadi mereka salah tangkap, karena seharusnya batasan itu khusus .md files punya brains.
+
+agents masih sering tidak simpan knowledges di `.agents/brains/*`,
+jadi kadang aku harus manual minta secara dibuatkan,
+padahal itu seharusnya mereka otomatis bikin sendiri.
+ketika scanning/browsing/indexing source code.
+
+sebelum kamu kasih aku adjustment BRAINS.md dan AGENTS.md,
+kita diskusikan dulu, supaya konsep static context benar2 universal.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+untuk:
+- `Directory Scope Isolation`
+- `Explicit Scope Boundary`
+
+aku setuju untuk itu, jadi aturan untuk brains hanya digunakan untuk brains.
+
+untuk `Write-On-Discovery` ini bagus, menjadikan itu task nyata.
+
+aku coba dulu penyesuaian darimu,
+berikan BRAINS.md dan AGENTS.md terbaru yg lengkap.
