@@ -1,47 +1,33 @@
 <template>
 	<div class="row g-3">
-		
-		<div class="col-md-6 col-lg-4">
+		<div v-for="hobby in hobbies" :key="hobby.id" class="col-md-6 col-lg-4">
 			<div class="content-card h-100 mb-0 text-center">
-				<i class="bi bi-book text-accent display-4 mb-3 d-block"></i>
-				<p class="mb-0 fw-semibold">Menulis 10%<br>Membaca 90%</p>
+				<i :class="hobby.icon + ' text-accent display-4 mb-3 d-block'"></i>
+				<p class="mb-0 fw-semibold" v-html="getText(hobby)"></p>
 			</div>
 		</div>
-		
-		<div class="col-md-6 col-lg-4">
-			<div class="content-card h-100 mb-0 text-center">
-				<i class="bi bi-palette text-accent display-4 mb-3 d-block"></i>
-				<p class="mb-0 fw-semibold">Bakat Seniman &<br>Mengajar</p>
-			</div>
-		</div>
-
-		<div class="col-md-6 col-lg-4">
-			<div class="content-card h-100 mb-0 text-center">
-				<i class="bi bi-controller text-accent display-4 mb-3 d-block"></i>
-				<p class="mb-0 fw-semibold">Mobile Gaming</p>
-			</div>
-		</div>
-
-		<div class="col-md-6 col-lg-4">
-			<div class="content-card h-100 mb-0 text-center">
-				<i class="bi bi-shop text-accent display-4 mb-3 d-block"></i>
-				<p class="mb-0 fw-semibold">Tertarik Bisnis<br>Kuliner / Hotel</p>
-			</div>
-		</div>
-
-		<div class="col-md-6 col-lg-4">
-			<div class="content-card h-100 mb-0 text-center">
-				<i class="bi bi-rocket text-accent display-4 mb-3 d-block"></i>
-				<p class="mb-0 fw-semibold">Mimpi Membangun<br>Startup</p>
-			</div>
-		</div>
-
-		<div class="col-md-6 col-lg-4">
-			<div class="content-card h-100 mb-0 text-center">
-				<i class="bi bi-bicycle text-accent display-4 mb-3 d-block"></i>
-				<p class="mb-0 fw-semibold">Bersepeda &<br>Eksplorasi Rute Bis</p>
-			</div>
-		</div>
-
 	</div>
 </template>
+
+<script>
+	module.exports = {
+		data: () => {
+			return {
+				hobbies: [],
+				lang: 'id-ID'
+			}
+		},
+		created: function() {
+			const db = window.ResumeDB;
+			if (db.data) {
+				this.hobbies = db.getHobbies();
+				this.lang = db.getLocale();
+			}
+		},
+		methods: {
+			getText(hobby) {
+				return this.lang === 'en-US' && hobby.text_en ? hobby.text_en : hobby.text;
+			}
+		}
+	};
+</script>
