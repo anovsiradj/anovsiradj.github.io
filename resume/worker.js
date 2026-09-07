@@ -1,6 +1,6 @@
-const CACHE_NAME = 'resume-cache-v1';
+const CACHE_NAME = 'resume-cache-v3';
 const ASSETS = [
-    // './resume.html',
+    './db.json',
     './index.js',
     './index.less',
     './my-header.vue',
@@ -10,22 +10,39 @@ const ASSETS = [
     './my-random.vue',
     './my-footer.vue',
     './darkmode.js',
-    './pdf-export.js',
-    // './webapp.js'
 ];
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(ASSETS);
+        caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
+    );
+    self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((keys) => {
+            return Promise.all(
+                keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+            );
         })
     );
+    self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
     event.respondWith(
-        caches.match(event.request).then((cachedResponse) => {
-            return cachedResponse || fetch(event.request);
+        caches.open(CACHE_NAME).then((cache) => {
+            return cache.match(event.request).then((cached) => {
+                const fetched = fetch(event.request).then((response) => {
+                    if (response && response.status === 200) {
+                        cache.put(event.request, response.clone());
+                    }
+                    return response;
+                }).catch(() => cached);
+
+                return cached || fetched;
+            });
         })
     );
 });
