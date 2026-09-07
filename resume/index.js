@@ -4,7 +4,6 @@ const { loadModule } = window['vue3-sfc-loader'];
 
 window.ResumeDB = {
 	data: null,
-	lang: 'id-ID',
 
 	async init() {
 		if (this.data) return this.data;
@@ -12,29 +11,11 @@ window.ResumeDB = {
 			const url = 'resume/db.json' + (WebAppData.debug ? `?_=${Date.now()}` : '');
 			const res = await fetch(url);
 			this.data = await res.json();
-			this.lang = this.data.lang.default;
 			return this.data;
 		} catch (e) {
 			console.error('ResumeDB: failed to load db.json', e);
 			return null;
 		}
-	},
-
-	getLocale() {
-		return this.lang;
-	},
-
-	setLocale(lang) {
-		if (this.data && this.data.lang.supported.includes(lang)) {
-			this.lang = lang;
-			return true;
-		}
-		return false;
-	},
-
-	t(key) {
-		if (!this.data || !this.data.translations[this.lang]) return key;
-		return this.data.translations[this.lang][key] || key;
 	},
 
 	decode(encoded) {
@@ -53,9 +34,34 @@ window.ResumeDB = {
 			address: this.decode(p.address),
 			email: this.decode(p.email),
 			phone: this.decode(p.phone),
-			birthDate: this.decode(p.birth_date),
 			socials: p.socials
 		};
+	},
+
+	getWorkExperience() {
+		if (!this.data || !this.data.experience_start) return '';
+		const start = new Date(this.data.experience_start);
+		const now = new Date();
+
+		let years = now.getFullYear() - start.getFullYear();
+		let months = now.getMonth() - start.getMonth();
+
+		if (now.getDate() < start.getDate()) {
+			months--;
+		}
+
+		if (months < 0) {
+			years--;
+			months += 12;
+		}
+
+		if (years > 0 && months > 0) {
+			return `${years} Tahun ${months} Bulan`;
+		} else if (years > 0) {
+			return `${years} Tahun`;
+		} else {
+			return `${months} Bulan`;
+		}
 	},
 
 	getExperiences() {

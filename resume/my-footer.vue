@@ -1,7 +1,7 @@
 <template>
 <footer class="content-card text-center mt-5">
 	<div class="mb-3">
-		{{ t('powered_by') }}
+		Diberdayakan oleh
 		<template v-for="(credit, idx) in footerData.credits" :key="credit.label">
 			<a :href="credit.url" target="_blank" class="fw-semibold mx-1">
 				<i v-if="credit.icon" :class="credit.icon"></i> {{ credit.label }}
@@ -9,9 +9,9 @@
 		</template>.
 	</div>
 	<div class="small text-muted">
-		{{ t('revision_label') }} <code class="fw-bold bg-light bg-opacity-10 px-2 py-1 rounded" v-text="revision_count"></code> {{ t('times_label') }}.
-		{{ t('last_changed_label') }} <code class="bg-light bg-opacity-10 px-2 py-1 rounded" v-text="revision_last.toTGL()"></code>.
-		{{ t('first_created_label') }} <code class="bg-light bg-opacity-10 px-2 py-1 rounded" v-text="revision_first.toTGL()"></code>.
+		Revisi Ke <code class="fw-bold bg-light bg-opacity-10 px-2 py-1 rounded" v-text="revision_count"></code> Kali.
+		Terakhir diubah <code class="bg-light bg-opacity-10 px-2 py-1 rounded" v-text="revision_last.toTGL()"></code>.
+		Pertama dibuat <code class="bg-light bg-opacity-10 px-2 py-1 rounded" v-text="revision_first.toTGL()"></code>.
 	</div>
 </footer>
 </template>
@@ -30,9 +30,6 @@
 			} else this.github_api_ajax();
 		},
 		methods: {
-			t(key) {
-				return window.ResumeDB.t(key);
-			},
 			github_api_exec: function(commits) {
 				this.$data.revision_count = commits.length;
 				this.$data.revision_last = new Date(commits[0].commit.committer.date);

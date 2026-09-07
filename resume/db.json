@@ -1,47 +1,10 @@
 {
-	"version": "1.0.0",
-	"lang": {
-		"default": "id-ID",
-		"supported": ["id-ID", "en-US"]
-	},
-	"translations": {
-		"id-ID": {
-			"experiences_title": "Pengalaman",
-			"competences_title": "Kompetensi",
-			"competences_description": "Portofolio sebagian besar saya publikasikan melalui",
-			"hobbies_title": "Hobbies & Interests",
-			"about_title": "Tentang",
-			"current_label": "Sekarang",
-			"years_label": "Tahun",
-			"months_label": "Bulan",
-			"revision_label": "Revisi Ke",
-			"times_label": "Kali",
-			"last_changed_label": "Terakhir diubah",
-			"first_created_label": "Pertama dibuat",
-			"powered_by": "Diberdayakan oleh"
-		},
-		"en-US": {
-			"experiences_title": "Experiences",
-			"competences_title": "Competences",
-			"competences_description": "Most of my portfolio is published through",
-			"hobbies_title": "Hobbies & Interests",
-			"about_title": "About",
-			"current_label": "Present",
-			"years_label": "Years",
-			"months_label": "Months",
-			"revision_label": "Revision",
-			"times_label": "times",
-			"last_changed_label": "Last changed",
-			"first_created_label": "First created",
-			"powered_by": "Powered by"
-		}
-	},
+	"version": "2.0.0",
 	"profile": {
 		"name": "Mayendra Costanov",
 		"address": "WW9neWFrYXJ0YSwgSW5kb25lc2lh",
 		"email": "YW5vdi5zaXJhZGoyMkBnbWFpbC5jb20=",
 		"phone": "KCs2Mjg4MjEgOTgxMCAyNTI2",
-		"birth_date": "MTk5Ni0wNS0yMg==",
 		"socials": [
 			{
 				"id": "github",
@@ -69,11 +32,11 @@
 			}
 		]
 	},
+	"experience_start": "2013-11-01",
 	"experiences": [
 		{
 			"title": "Lead Programmer",
 			"period": "Feb 2021 - Sekarang",
-			"period_en": "Feb 2021 - Present",
 			"company": "Produksi / JMC IT Consultant",
 			"location": "Yogyakarta",
 			"details": null
@@ -81,80 +44,54 @@
 		{
 			"title": "Web Programmer",
 			"period": "Feb 2016 - Sep 2020",
-			"period_en": "Feb 2016 - Sep 2020",
 			"company": "PT. Global Intermedia Nusantara (GIN)",
 			"location": "Yogyakarta, Papua (Nabire, Yahukimo, Jayapura), Jakarta",
 			"details": {
 				"label": "Portofolio & Kontribusi",
-				"label_en": "Portfolio & Contributions",
 				"description": "Kontribusi pada sistem aplikasi website existing:",
-				"description_en": "Contributions to existing website application systems:",
 				"items": [
 					"Aplikasi Eplanning Provinsi Papua (Papua Pu Rencana)",
 					"Aplikasi Eplanning, Ebudgeting, Kasda (Nabire, Yahukimo)",
 					"Aplikasi Pengadaan Daerah (Gunung Kidul, Pegunungan Bintang)",
 					"Aplikasi Aset Daerah (berbagai Kabupaten dan Provinsi)"
-				],
-				"items_en": [
-					"Papua Province Eplanning Application (Papua Pu Rencana)",
-					"Eplanning, Ebudgeting, Kasda Application (Nabire, Yahukimo)",
-					"Regional Procurement Application (Gunung Kidul, Pegunungan Bintang)",
-					"Regional Asset Application (various Regencies and Provinces)"
 				]
 			}
 		},
 		{
 			"title": "Web Developer",
 			"period": "Agt 2015 - Jan 2016",
-			"period_en": "Aug 2015 - Jan 2016",
 			"company": "NextIn Indonesia",
 			"location": "Yogyakarta",
 			"details": {
 				"description": "Pengembangan aplikasi berskala nasional: NBPCenter (Neuro-Development, Behavior & Pediatrics Learning Center) bagian Membership. Dibangun dari nol secara individual.",
-				"description_en": "Development of national-scale application: NBPCenter (Neuro-Development, Behavior & Pediatrics Learning Center) Membership section. Built from scratch individually.",
 				"items": null
 			}
 		},
 		{
 			"title": "Pembimbing Skripsi / Freelance",
-			"title_en": "Thesis Supervisor / Freelance",
 			"period": "2013 - 2014",
-			"period_en": "2013 - 2014",
 			"company": "CV. Solusi Dunia Digital (SDD)",
 			"location": "Yogyakarta",
 			"details": {
 				"description": "Pengembangan website skripsi dari nol (konsep dari klien, eksekusi kode individual):",
-				"description_en": "Thesis website development from scratch (client concept, individual code execution):",
 				"items": [
 					"<strong>Magenda Futsal (2014)</strong>: Jejaring sosial pencari lawan futsal online.",
 					"<strong>KSP Bintang Harapan (2013)</strong>: Aplikasi manajemen koperasi simpan pinjam (KSP)."
-				],
-				"items_en": [
-					"<strong>Magenda Futsal (2014)</strong>: Online futsal opponent finder social network.",
-					"<strong>KSP Bintang Harapan (2013)</strong>: Savings and loan cooperative management application."
 				]
 			}
 		},
 		{
 			"title": "Senior Web Programmer",
 			"period": "Nov 2013 - Agt 2014",
-			"period_en": "Nov 2013 - Aug 2014",
 			"company": "CV. Solusi Dunia Digital (SDD)",
 			"location": "Yogyakarta",
 			"details": {
 				"description": "Pengembangan berbagai jenis website (Company Profile, Sekolah, Pemerintah) sewaktu SMK:",
-				"description_en": "Development of various types of websites (Company Profile, School, Government) during vocational school:",
 				"items": [
 					"SMA Mardisiswa (Sistem Manajemen Sekolah)",
 					"Suara Demak (Sistem Informasi & Portal Berita)",
 					"IndoGator (Server Hosting)",
 					"DJK ESDM (Sistem Informasi)"
-				],
-				"items_en": [
-					"SMA Mardisiswa (School Management System)",
-					"Suara Demak (Information System & News Portal)",
-					"IndoGator (Server Hosting)",
-					"DJK ESDM (Information System)"
 				]
 			}
 		}
@@ -230,7 +167,6 @@
 			"id": "others",
 			"icon": "bi bi-tools",
 			"title": "Lainnya",
-			"title_en": "Others",
 			"skills": [
 				"Linux (Debian/Ubuntu/Mint)",
 				"Windows",
@@ -246,38 +182,32 @@
 		{
 			"id": "reading",
 			"icon": "bi bi-book",
-			"text": "Menulis 10%<br>Membaca 90%",
-			"text_en": "Writing 10%<br>Reading 90%"
+			"text": "Menulis 10%<br>Membaca 90%"
 		},
 		{
 			"id": "art",
 			"icon": "bi bi-palette",
-			"text": "Bakat Seniman &<br>Mengajar",
-			"text_en": "Artist Talent &<br>Teaching"
+			"text": "Bakat Seniman &<br>Mengajar"
 		},
 		{
 			"id": "gaming",
 			"icon": "bi bi-controller",
-			"text": "Mobile Gaming",
-			"text_en": "Mobile Gaming"
+			"text": "Mobile Gaming"
 		},
 		{
 			"id": "business",
 			"icon": "bi bi-shop",
-			"text": "Tertarik Bisnis<br>Kuliner / Hotel",
-			"text_en": "Interested in<br>Culinary / Hotel Business"
+			"text": "Tertarik Bisnis<br>Kuliner / Hotel"
 		},
 		{
 			"id": "startup",
 			"icon": "bi bi-rocket",
-			"text": "Mimpi Membangun<br>Startup",
-			"text_en": "Dream of Building<br>a Startup"
+			"text": "Mimpi Membangun<br>Startup"
 		},
 		{
 			"id": "cycling",
 			"icon": "bi bi-bicycle",
-			"text": "Bersepeda &<br>Eksplorasi Rute Bis",
-			"text_en": "Cycling &<br>Bus Route Exploration"
+			"text": "Bersepeda &<br>Eksplorasi Rute Bis"
 		}
 	],
 	"footer": {

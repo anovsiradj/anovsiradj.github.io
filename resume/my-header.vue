@@ -20,7 +20,7 @@
 					</li>
 					<li class="mb-0">
 						<i class="bi bi-calendar2-heart-fill"></i>
-						<span v-text="age"></span>
+						<span v-text="workExperience"></span>
 					</li>
 				</ul>
 			</div>
@@ -29,27 +29,6 @@
 </template>
 
 <script>
-	function calculateAge(birthDateString) {
-		const today = new Date();
-		const birthDate = new Date(birthDateString);
-
-		let years = today.getFullYear() - birthDate.getFullYear();
-		let months = today.getMonth() - birthDate.getMonth();
-		let days = today.getDate() - birthDate.getDate();
-
-		if (days < 0) {
-			months--;
-		}
-
-		if (months < 0) {
-			years--;
-			months += 12;
-		}
-
-		const t = window.ResumeDB.t.bind(window.ResumeDB);
-		return `${years} ${t('years_label')}, ${months} ${t('months_label')}.`;
-	}
-
 	module.exports = {
 		data: () => {
 			return {
@@ -57,17 +36,16 @@
 					name: '',
 					address: '',
 					email: '',
-					phone: '',
-					birthDate: ''
+					phone: ''
 				},
-				age: ''
+				workExperience: ''
 			}
 		},
 		created: function() {
 			const db = window.ResumeDB;
 			if (db.data) {
 				this.profile = db.getProfile();
-				this.age = calculateAge(this.profile.birthDate);
+				this.workExperience = db.getWorkExperience();
 			}
 		}
 	};

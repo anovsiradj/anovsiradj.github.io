@@ -1,8 +1,8 @@
 // Core Colors
-@color-primary: #121212;       // Dark gray
-@color-secondary: #1e1e1e;     // Lighter gray for cards
-@color-purple: #9b59b6;        // Purple
-@color-accent: #800020;        // Burgundy (Dark Red)
+@color-primary: #121212;
+@color-secondary: #1e1e1e;
+@color-purple: #9b59b6;
+@color-accent: #800020;
 
 // Light Mode Colors
 @bg-light: #f4f6f9;
@@ -41,7 +41,6 @@ body {
 	background-color: @bg-light;
 	color: @text-light;
 }
-
 body.dark-mode {
 	background-color: @bg-dark;
 	color: @text-dark;
@@ -57,17 +56,21 @@ body.dark-mode .text-accent {
 
 .section-title {
 	font-weight: 800;
-	font-size: 2rem;
+	font-size: 1.5rem;
 	letter-spacing: -0.5px;
 	border-bottom: 2px solid fade(@accent-light, 20%);
 	padding-bottom: 0.5rem;
 	display: inline-block;
 }
+@media (min-width: 768px) {
+	.section-title {
+		font-size: 2rem;
+	}
+}
 body.dark-mode .section-title {
 	border-bottom-color: fade(@purple-dark, 30%);
 }
 
-// Ensure muted text is readable in dark mode
 body.dark-mode .text-muted {
 	color: #ced4da !important;
 }
@@ -90,21 +93,33 @@ body.dark-mode a {
 
 // Components: Profile Sidebar
 .profile-card {
-	padding: 2rem;
+	padding: 1.25rem;
 	text-align: center;
 	.glassmorphism(@card-light);
+}
+@media (min-width: 768px) {
+	.profile-card {
+		padding: 2rem;
+	}
 }
 body.dark-mode .profile-card {
 	.glassmorphism(@card-dark);
 }
 
 .profile-avatar {
-	width: 150px;
-	height: 150px;
+	width: 120px;
+	height: 120px;
 	border-radius: 50%;
 	object-fit: cover;
 	border: 4px solid @accent-light;
-	margin-bottom: 1.5rem;
+	margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+	.profile-avatar {
+		width: 150px;
+		height: 150px;
+		margin-bottom: 1.5rem;
+	}
 }
 body.dark-mode .profile-avatar {
 	border-color: @accent-dark;
@@ -114,16 +129,30 @@ body.dark-mode .profile-avatar {
 .info-list {
 	list-style: none;
 	padding: 0;
-	margin: 1.5rem 0;
+	margin: 1rem 0;
 	text-align: left;
 	li {
-		margin-bottom: 1rem;
+		margin-bottom: 0.75rem;
 		display: flex;
 		align-items: center;
-		gap: 1rem;
+		gap: 0.75rem;
+		font-size: 0.875rem;
 		i {
-			font-size: 1.25rem;
+			font-size: 1.1rem;
 			color: @accent-light;
+		}
+	}
+}
+@media (min-width: 768px) {
+	.info-list {
+		margin: 1.5rem 0;
+		li {
+			margin-bottom: 1rem;
+			gap: 1rem;
+			font-size: 1rem;
+			i {
+				font-size: 1.25rem;
+			}
 		}
 	}
 }
@@ -134,11 +163,17 @@ body.dark-mode .info-list li i {
 // Components: Content Cards
 .content-card {
 	.glassmorphism(@card-light);
-	padding: 1.5rem;
-	margin-bottom: 1.5rem;
+	padding: 1rem;
+	margin-bottom: 1rem;
 	transition: transform 0.3s ease;
 	&:hover {
 		transform: translateY(-5px);
+	}
+}
+@media (min-width: 768px) {
+	.content-card {
+		padding: 1.5rem;
+		margin-bottom: 1.5rem;
 	}
 }
 body.dark-mode .content-card {
@@ -148,11 +183,11 @@ body.dark-mode .content-card {
 // Theme Toggle Button
 .btn-theme-toggle {
 	position: fixed;
-	bottom: 2rem;
-	right: 2rem;
+	bottom: 1.25rem;
+	right: 1.25rem;
 	z-index: 1000;
-	width: 50px;
-	height: 50px;
+	width: 44px;
+	height: 44px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -160,13 +195,22 @@ body.dark-mode .content-card {
 	color: #fff;
 	border: none;
 	transition: transform 0.3s ease;
-	
+
 	&:hover {
 		transform: scale(1.1);
 		background-color: darken(@accent-light, 10%);
 		color: #fff;
 	}
-	i { font-size: 1.5rem; }
+	i { font-size: 1.25rem; }
+}
+@media (min-width: 768px) {
+	.btn-theme-toggle {
+		bottom: 2rem;
+		right: 2rem;
+		width: 50px;
+		height: 50px;
+		i { font-size: 1.5rem; }
+	}
 }
 body.dark-mode .btn-theme-toggle {
 	background-color: @purple-dark;
@@ -179,42 +223,72 @@ body.dark-mode .btn-theme-toggle {
 // Custom Timelines for Experiences
 .timeline-item {
 	position: relative;
-	padding-left: 2.5rem;
-	margin-bottom: 2rem;
+	padding-left: 2rem;
+	margin-bottom: 1.5rem;
 	border-left: 2px solid fade(@accent-light, 30%);
-	
+
 	&::before {
 		content: '';
 		position: absolute;
 		left: -0.45rem;
 		top: 0;
-		width: 1rem;
-		height: 1rem;
+		width: 0.875rem;
+		height: 0.875rem;
 		border-radius: 50%;
 		background-color: @accent-light;
-		box-shadow: 0 0 0 4px fade(@accent-light, 20%);
+		box-shadow: 0 0 0 3px fade(@accent-light, 20%);
+	}
+}
+@media (min-width: 768px) {
+	.timeline-item {
+		padding-left: 2.5rem;
+		margin-bottom: 2rem;
+		&::before {
+			width: 1rem;
+			height: 1rem;
+			box-shadow: 0 0 0 4px fade(@accent-light, 20%);
+		}
 	}
 }
 body.dark-mode .timeline-item {
 	border-left-color: fade(@purple-dark, 40%);
 	&::before {
 		background-color: @purple-dark;
+		box-shadow: 0 0 0 3px fade(@purple-dark, 20%);
+	}
+}
+@media (min-width: 768px) {
+	body.dark-mode .timeline-item::before {
 		box-shadow: 0 0 0 4px fade(@purple-dark, 20%);
 	}
 }
 
 // Badge Overrides for Competences
 .badge-skill {
-	font-size: 0.9rem;
-	padding: 0.5rem 0.8rem;
+	font-size: 0.8rem;
+	padding: 0.4rem 0.65rem;
 	font-weight: 400;
 	background-color: fade(@accent-light, 15%);
 	color: @accent-light;
 	border: 1px solid fade(@accent-light, 30%);
 	border-radius: 2rem;
 }
+@media (min-width: 768px) {
+	.badge-skill {
+		font-size: 0.9rem;
+		padding: 0.5rem 0.8rem;
+	}
+}
 body.dark-mode .badge-skill {
 	background-color: fade(@purple-dark, 15%);
 	color: @purple-dark;
 	border-color: fade(@purple-dark, 30%);
+}
+
+// Hobbies grid mobile-first
+@media (max-width: 575.98px) {
+	.row.g-3 > [class*="col-"] {
+		padding-left: 0.5rem;
+		padding-right: 0.5rem;
+	}
 }

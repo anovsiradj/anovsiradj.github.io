@@ -1,29 +1,40 @@
 $(function() {
-    // Check local storage for theme preference
-    const currentTheme = localStorage.getItem('resume-theme');
-    
-    // Apply theme on load
-    if (currentTheme === 'dark') {
-        $('body').addClass('dark-mode');
-        $('#theme-toggle i').removeClass('bi-moon-stars-fill').addClass('bi-sun-fill');
-    }
+	const STORAGE_KEY = 'resume-theme';
+	const body = $('body');
+	const icon = $('#theme-toggle i');
 
-    // Toggle button click handler
-    $('#theme-toggle').on('click', function() {
-        $('body').toggleClass('dark-mode');
-        const isDark = $('body').hasClass('dark-mode');
-        
-        // Update Local Storage
-        localStorage.setItem('resume-theme', isDark ? 'dark' : 'light');
-        
-        // Update Icon
-        if (isDark) {
-            $(this).find('i').removeClass('bi-moon-stars-fill').addClass('bi-sun-fill');
-        } else {
-            $(this).find('i').removeClass('bi-sun-fill').addClass('bi-moon-stars-fill');
-        }
-    });
+	function applyTheme(isDark) {
+		if (isDark) {
+			body.addClass('dark-mode');
+			icon.removeClass('bi-moon-stars-fill').addClass('bi-sun-fill');
+		} else {
+			body.removeClass('dark-mode');
+			icon.removeClass('bi-sun-fill').addClass('bi-moon-stars-fill');
+		}
+	}
 
-    // Expose Service Worker Flag
-    // window.enableSW = true;
+	// Priority: localStorage > prefers-color-scheme > light
+	const stored = localStorage.getItem(STORAGE_KEY);
+	if (stored !== null) {
+		applyTheme(stored === 'dark');
+	} else {
+		const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+		applyTheme(prefersDark);
+	}
+
+	// Toggle button
+	$('#theme-toggle').on('click', function() {
+		const isDark = body.toggleClass('dark-mode').hasClass('dark-mode');
+		localStorage.setItem(STORAGE_KEY, isDark ? 'dark' : 'light');
+		applyTheme(isDark);
+	});
+
+	// Listen for OS theme changes (only when no localStorage override)
+	if (window.matchMedia) {
+		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+			if (localStorage.getItem(STORAGE_KEY) === null) {
+				applyTheme(e.matches);
+			}
+		});
+	}
 });

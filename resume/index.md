@@ -11,8 +11,8 @@ resume.html          # Entry point (HTML shell)
 resume/
   db.json            # Centralized data store (base64 encoded sensitive fields)
   index.js           # Data loader + Vue app orchestrator (ResumeDB)
-  index.less         # Styles
-  darkmode.js        # Theme toggle
+  index.less         # Mobile-first responsive styles (Less)
+  darkmode.js        # Dark mode: prefers-color-scheme + localStorage
   pdf-export.js      # PDF export
   worker.js          # Service Worker
   my-header.vue      # Profile header component
@@ -28,9 +28,8 @@ resume/
 ### Structure
 
 - `version` - Schema version
-- `lang` - Language configuration (default + supported)
-- `translations` - UI string translations per locale
-- `profile` - Personal info (name, address, email, phone, birth_date, socials)
+- `profile` - Personal info (name, address, email, phone, socials)
+- `experience_start` - Career start date (for total work experience calculation)
 - `experiences` - Work history array
 - `competences` - Skills grouped by category
 - `hobbies` - Hobbies/interests cards
@@ -42,32 +41,40 @@ Sensitive fields are base64 encoded in `db.json`:
 - `profile.address`
 - `profile.email`
 - `profile.phone`
-- `profile.birth_date`
 
 Decode at runtime via `ResumeDB.decode(encoded)`.
-
-### Multi-language Support
-
-Two locales supported:
-- `id-ID` (default)
-- `en-US`
-
-Translation keys defined in `translations` object. Components use `ResumeDB.t(key)` for UI strings. Data fields use `_en` suffix for English variants (e.g., `period` / `period_en`).
 
 ### API (`ResumeDB`)
 
 ```javascript
-ResumeDB.init()           // Load db.json, returns Promise
-ResumeDB.getLocale()      // Get current locale string
-ResumeDB.setLocale(lang)  // Switch locale, returns boolean
-ResumeDB.t(key)           // Get translated string
-ResumeDB.decode(encoded)  // Base64 decode
-ResumeDB.getProfile()     // Returns decoded profile object
-ResumeDB.getExperiences() // Returns experiences array
-ResumeDB.getCompetences() // Returns competences array
-ResumeDB.getHobbies()     // Returns hobbies array
-ResumeDB.getFooter()      // Returns footer config
+ResumeDB.init()              // Load db.json, returns Promise
+ResumeDB.decode(encoded)     // Base64 decode
+ResumeDB.getProfile()        // Returns decoded profile object
+ResumeDB.getWorkExperience() // Returns formatted total work duration
+ResumeDB.getExperiences()    // Returns experiences array
+ResumeDB.getCompetences()    // Returns competences array
+ResumeDB.getHobbies()        // Returns hobbies array
+ResumeDB.getFooter()         // Returns footer config
 ```
+
+## Dark Mode
+
+Detection priority:
+1. `localStorage('resume-theme')` - User's explicit choice (persistent)
+2. `prefers-color-scheme: dark` - OS/system preference
+3. Light mode - Default fallback
+
+Toggle saves preference to localStorage. OS theme changes are respected only when no localStorage override exists.
+
+## Responsive Design
+
+Mobile-first approach:
+- Base styles target mobile screens
+- `@media (min-width: 768px)` breakpoint for tablet/desktop
+- Theme toggle button smaller on mobile (44px vs 50px)
+- Profile card, info list, content cards adapt padding/spacing
+- Timeline dots and badges scale with screen size
+- Hobbies grid: 2 columns mobile, 3 tablet, 3 desktop
 
 ## Tech Stack (unchanged)
 
