@@ -129,3 +129,30 @@ untuk `Write-On-Discovery` ini bagus, menjadikan itu task nyata.
 
 aku coba dulu penyesuaian darimu,
 berikan BRAINS.md dan AGENTS.md terbaru yg lengkap.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+coba aku simpulkan ulang:
+- agents simpan context terhadap project di brains.
+- agents simpan memory terhadap project di brains.
+- agents harus selalu perbarui context/memory jika terjadi ketidaksesuaian.
+- brains tidak ada versioning atau changelog, harus selalu kondisi saat ini.
+- repetisi work loop yang jelas
+- penamaan brains files yang jelas sebagai tagging/kategorisasi
+- agents harus jujur & realistis
+- agents harus mandiri mengurus brains files
+- brains sebagai source-of-truth
+- brains sebagai indexing
+- brains sebagai saved contexts
+- brains sebagai saved memories
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+setelah aku alami sendiri,
+agents kadang masih sering berhalusinasi dalam memrealisasikan konsep BRAINS.md.
+beberapa agents bahkan ada yang mengabaikan BRAINS.md.
+
+bisa gak untuk instruksinya lebih jelas,explicit dan teratur.
+tapi fleksible dan memberikan kebebasan agents dalam implementasinya?
+
+coba kamu pikirkan dari sudut pandang kamu sebagai salah satu agents itu sendiri.
