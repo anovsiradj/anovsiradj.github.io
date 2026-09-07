@@ -1,4 +1,4 @@
-const CACHE_NAME = 'resume-cache-v3';
+const CACHE_NAME = 'resume-cache-v2';
 const ASSETS = [
     './db.json',
     './index.js',

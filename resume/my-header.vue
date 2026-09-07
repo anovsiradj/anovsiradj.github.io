@@ -7,19 +7,19 @@
 			<div class="col-md-8 text-md-start">
 				<ul class="info-list d-flex flex-wrap gap-4 justify-content-center justify-content-md-start mb-4">
 					<li class="mb-0">
-						<i class="bi bi-geo-alt-fill"></i>
+						<i class="bi bi-geo-alt-fill" title="Alamat" data-bs-toggle="tooltip"></i>
 						<span v-text="profile.address"></span>
 					</li>
 					<li class="mb-0">
-						<i class="bi bi-envelope-fill"></i>
+						<i class="bi bi-envelope-fill" title="Email" data-bs-toggle="tooltip"></i>
 						<span v-text="profile.email"></span>
 					</li>
 					<li class="mb-0">
-						<i class="bi bi-telephone-fill"></i>
+						<i class="bi bi-telephone-fill" title="Telepon" data-bs-toggle="tooltip"></i>
 						<span v-text="profile.phone"></span>
 					</li>
 					<li class="mb-0">
-						<i class="bi bi-calendar2-heart-fill"></i>
+						<i class="bi bi-clock-fill" title="Pengalaman" data-bs-toggle="tooltip"></i>
 						<span v-text="workExperience"></span>
 					</li>
 				</ul>
@@ -29,15 +29,18 @@
 </template>
 
 <script>
-	module.exports = {
-		data: () => ({
-			profile: { name: '', address: '', email: '', phone: '' },
-			workExperience: ''
-		}),
-		created() {
-			const db = window.ResumeDB;
-			this.profile = db.getProfile();
-			this.workExperience = db.getWorkExperience();
-		}
-	};
+module.exports = {
+	data: () => ({
+		profile: { name: '', address: '', email: '', phone: '' },
+		workExperience: ''
+	}),
+	created() {
+		const db = window.ResumeDB;
+		this.profile = db.getProfile();
+		this.workExperience = db.getWorkExperience();
+	},
+	mounted() {
+		$(this.$el).find('[data-bs-toggle="tooltip"]').tooltip();
+	}
+};
 </script>
