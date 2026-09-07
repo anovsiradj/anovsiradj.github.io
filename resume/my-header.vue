@@ -30,23 +30,14 @@
 
 <script>
 	module.exports = {
-		data: () => {
-			return {
-				profile: {
-					name: '',
-					address: '',
-					email: '',
-					phone: ''
-				},
-				workExperience: ''
-			}
-		},
-		created: function() {
+		data: () => ({
+			profile: { name: '', address: '', email: '', phone: '' },
+			workExperience: ''
+		}),
+		created() {
 			const db = window.ResumeDB;
-			if (db.data) {
-				this.profile = db.getProfile();
-				this.workExperience = db.getWorkExperience();
-			}
+			this.profile = db.getProfile();
+			this.workExperience = db.getWorkExperience();
 		}
 	};
 </script>

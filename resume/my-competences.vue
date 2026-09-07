@@ -13,16 +13,9 @@
 
 <script>
 	module.exports = {
-		data: () => {
-			return {
-				competences: []
-			}
-		},
-		created: function() {
-			const db = window.ResumeDB;
-			if (db.data) {
-				this.competences = db.getCompetences();
-			}
+		data: () => ({ competences: [] }),
+		created() {
+			this.competences = window.ResumeDB.getCompetences();
 		}
 	};
 </script>

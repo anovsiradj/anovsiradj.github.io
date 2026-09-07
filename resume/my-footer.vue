@@ -18,11 +18,15 @@
 
 <script>
 	module.exports = {
-		created: function() {
+		data: () => ({
+			footerData: { credits: [], github_api_url: '', cache_key: 'git-resume-revision' },
+			revision_count: 0,
+			revision_last: new Date(),
+			revision_first: new Date()
+		}),
+		created() {
 			const db = window.ResumeDB;
-			if (db.data) {
-				this.footerData = db.getFooter();
-			}
+			this.footerData = db.getFooter();
 			if (datastore_isa) {
 				var commits = localStorage.getItem(this.footerData.cache_key);
 				if (commits === null) this.github_api_ajax();
@@ -30,29 +34,17 @@
 			} else this.github_api_ajax();
 		},
 		methods: {
-			github_api_exec: function(commits) {
-				this.$data.revision_count = commits.length;
-				this.$data.revision_last = new Date(commits[0].commit.committer.date);
-				this.$data.revision_first = new Date(commits[commits.length-1].commit.committer.date);
+			github_api_exec(commits) {
+				this.revision_count = commits.length;
+				this.revision_last = new Date(commits[0].commit.committer.date);
+				this.revision_first = new Date(commits[commits.length - 1].commit.committer.date);
 			},
-			github_api_ajax: function() {
+			github_api_ajax() {
 				XHRGET(this.footerData.github_api_url, commits => {
 					if (datastore_isa) localStorage.setItem(this.footerData.cache_key, JSON.stringify(commits));
 					this.github_api_exec(commits);
 				});
-			},
-		},
-		data: () => {
-			return {
-				footerData: {
-					credits: [],
-					github_api_url: '',
-					cache_key: 'git-resume-revision'
-				},
-				revision_count: 0,
-				revision_last: (new Date),
-				revision_first: (new Date),
-			};
-		},
+			}
+		}
 	};
 </script>

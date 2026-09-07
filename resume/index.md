@@ -2,21 +2,20 @@
 
 ## Overview
 
-Resume page with separation of data and view. Data is stored in `db.json` and loaded at runtime via `ResumeDB` global object.
+Resume page with separation of data and view. Data is stored in `db.json` and loaded at runtime via `ResumeDB` global object. Uses Bootstrap 5.3 CSS variables for theming.
 
 ## Architecture
 
 ```
-resume.html          # Entry point (HTML shell)
+resume.html          # Entry point (HTML shell), v-cloak for data-ready rendering
 resume/
   db.json            # Centralized data store (base64 encoded sensitive fields)
   index.js           # Data loader + Vue app orchestrator (ResumeDB)
-  index.less         # Mobile-first responsive styles (Less)
-  darkmode.js        # Dark mode: prefers-color-scheme + localStorage
-  pdf-export.js      # PDF export
+  index.less         # Minimal custom styles, extends Bootstrap CSS variables
+  darkmode.js        # Dark mode: prefers-color-scheme + localStorage + data-bs-theme
   worker.js          # Service Worker
   my-header.vue      # Profile header component
-  my-experiences.vue # Work experiences component
+  my-experiences.vue # Work experiences component (structured date fields)
   my-competences.vue # Skills/competences component
   my-random.vue      # Hobbies & interests component
   my-about.vue       # About section (commented out)
@@ -29,11 +28,27 @@ resume/
 
 - `version` - Schema version
 - `profile` - Personal info (name, address, email, phone, socials)
-- `experience_start` - Career start date (for total work experience calculation)
-- `experiences` - Work history array
+- `experiences` - Work history with structured date fields
 - `competences` - Skills grouped by category
 - `hobbies` - Hobbies/interests cards
 - `footer` - Footer config (credits, GitHub API)
+
+### Experience Date Fields
+
+Each experience has structured date fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `mulai` | string | Start date (YYYY-mm-dd) |
+| `selesai` | string/null | End date (YYYY-mm-dd) or null = present |
+| `tahun_mulai` | number | Start year (YYYY) |
+| `bulan_mulai` | number | Start month (1-12) |
+| `tahun_selesai` | number/null | End year or null |
+| `bulan_selesai` | number/null | End month or null |
+
+Priority for period display: `mulai` OR `tahun_mulai`+`bulan_mulai` OR `tahun_mulai` OR null.
+
+Period text is composed automatically by `ResumeDB.formatPeriod()`.
 
 ### Base64 Encoding
 
@@ -48,42 +63,48 @@ Decode at runtime via `ResumeDB.decode(encoded)`.
 
 ```javascript
 ResumeDB.init()              // Load db.json, returns Promise
+ResumeDB.ready               // Boolean, true after init
 ResumeDB.decode(encoded)     // Base64 decode
-ResumeDB.getProfile()        // Returns decoded profile object
-ResumeDB.getWorkExperience() // Returns formatted total work duration
-ResumeDB.getExperiences()    // Returns experiences array
-ResumeDB.getCompetences()    // Returns competences array
-ResumeDB.getHobbies()        // Returns hobbies array
-ResumeDB.getFooter()         // Returns footer config
+ResumeDB.formatPeriod(exp)   // Compose period text from structured fields
+ResumeDB.getWorkExperience() // Accumulated total work duration
+ResumeDB.getProfile()        // Decoded profile object
+ResumeDB.getExperiences()    // Experiences array
+ResumeDB.getCompetences()    // Competences array
+ResumeDB.getHobbies()        // Hobbies array
+ResumeDB.getFooter()         // Footer config
 ```
+
+### Work Experience Calculation
+
+Total duration is calculated by accumulating months from all experiences:
+- Uses only `bulan_mulai`, `tahun_mulai`, `bulan_selesai`, `tahun_selesai`
+- For present positions (null `selesai`), uses current date
+- Returns formatted string like "10 Tahun 6 Bulan"
 
 ## Dark Mode
 
 Detection priority:
-1. `localStorage('resume-theme')` - User's explicit choice (persistent)
+1. `localStorage('resume-theme')` - User's explicit choice
 2. `prefers-color-scheme: dark` - OS/system preference
-3. Light mode - Default fallback
+3. Light mode - Default
 
-Toggle saves preference to localStorage. OS theme changes are respected only when no localStorage override exists.
+Uses Bootstrap 5.3 `data-bs-theme` attribute on `<html>` element. Toggle saves preference to localStorage.
 
 ## Responsive Design
 
-Mobile-first approach:
-- Base styles target mobile screens
-- `@media (min-width: 768px)` breakpoint for tablet/desktop
-- Theme toggle button smaller on mobile (44px vs 50px)
-- Profile card, info list, content cards adapt padding/spacing
-- Timeline dots and badges scale with screen size
-- Hobbies grid: 2 columns mobile, 3 tablet, 3 desktop
+Mobile-first with Bootstrap CSS variables:
+- Base styles for mobile
+- `@media (min-width: 768px)` for tablet/desktop
+- Theme toggle smaller on mobile (44px vs 50px)
+- `v-cloak` prevents FOUC during data load
 
-## Tech Stack (unchanged)
+## Tech Stack
 
 - Vue 3 (CDN)
-- Bootstrap 5 + Bootstrap Icons
+- Bootstrap 5.3 + Bootstrap Icons
 - Less (runtime)
 - jQuery
 - vue3-sfc-loader (runtime .vue SFC loading)
-- jsPDF (PDF export)
 
 ## Future Plans
 

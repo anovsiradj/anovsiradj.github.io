@@ -1,19 +1,14 @@
 $(function() {
 	const STORAGE_KEY = 'resume-theme';
-	const body = $('body');
+	const html = document.documentElement;
 	const icon = $('#theme-toggle i');
 
 	function applyTheme(isDark) {
-		if (isDark) {
-			body.addClass('dark-mode');
-			icon.removeClass('bi-moon-stars-fill').addClass('bi-sun-fill');
-		} else {
-			body.removeClass('dark-mode');
-			icon.removeClass('bi-sun-fill').addClass('bi-moon-stars-fill');
-		}
+		html.setAttribute('data-bs-theme', isDark ? 'dark' : 'light');
+		icon.removeClass('bi-moon-stars-fill bi-sun-fill')
+			.addClass(isDark ? 'bi-sun-fill' : 'bi-moon-stars-fill');
 	}
 
-	// Priority: localStorage > prefers-color-scheme > light
 	const stored = localStorage.getItem(STORAGE_KEY);
 	if (stored !== null) {
 		applyTheme(stored === 'dark');
@@ -22,14 +17,12 @@ $(function() {
 		applyTheme(prefersDark);
 	}
 
-	// Toggle button
 	$('#theme-toggle').on('click', function() {
-		const isDark = body.toggleClass('dark-mode').hasClass('dark-mode');
+		const isDark = html.getAttribute('data-bs-theme') !== 'dark';
 		localStorage.setItem(STORAGE_KEY, isDark ? 'dark' : 'light');
 		applyTheme(isDark);
 	});
 
-	// Listen for OS theme changes (only when no localStorage override)
 	if (window.matchMedia) {
 		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
 			if (localStorage.getItem(STORAGE_KEY) === null) {

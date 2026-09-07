@@ -11,16 +11,9 @@
 
 <script>
 	module.exports = {
-		data: () => {
-			return {
-				hobbies: []
-			}
-		},
-		created: function() {
-			const db = window.ResumeDB;
-			if (db.data) {
-				this.hobbies = db.getHobbies();
-			}
+		data: () => ({ hobbies: [] }),
+		created() {
+			this.hobbies = window.ResumeDB.getHobbies();
 		}
 	};
 </script>

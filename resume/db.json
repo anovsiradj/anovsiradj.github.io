@@ -1,5 +1,5 @@
 {
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"profile": {
 		"name": "Mayendra Costanov",
 		"address": "WW9neWFrYXJ0YSwgSW5kb25lc2lh",
@@ -32,18 +32,27 @@
 			}
 		]
 	},
-	"experience_start": "2013-11-01",
 	"experiences": [
 		{
 			"title": "Lead Programmer",
-			"period": "Feb 2021 - Sekarang",
+			"mulai": "2021-02-01",
+			"selesai": null,
+			"tahun_mulai": 2021,
+			"bulan_mulai": 2,
+			"tahun_selesai": null,
+			"bulan_selesai": null,
 			"company": "Produksi / JMC IT Consultant",
 			"location": "Yogyakarta",
 			"details": null
 		},
 		{
 			"title": "Web Programmer",
-			"period": "Feb 2016 - Sep 2020",
+			"mulai": "2016-02-01",
+			"selesai": "2020-09-01",
+			"tahun_mulai": 2016,
+			"bulan_mulai": 2,
+			"tahun_selesai": 2020,
+			"bulan_selesai": 9,
 			"company": "PT. Global Intermedia Nusantara (GIN)",
 			"location": "Yogyakarta, Papua (Nabire, Yahukimo, Jayapura), Jakarta",
 			"details": {
@@ -59,7 +68,12 @@
 		},
 		{
 			"title": "Web Developer",
-			"period": "Agt 2015 - Jan 2016",
+			"mulai": "2015-08-01",
+			"selesai": "2016-01-01",
+			"tahun_mulai": 2015,
+			"bulan_mulai": 8,
+			"tahun_selesai": 2016,
+			"bulan_selesai": 1,
 			"company": "NextIn Indonesia",
 			"location": "Yogyakarta",
 			"details": {
@@ -69,7 +83,12 @@
 		},
 		{
 			"title": "Pembimbing Skripsi / Freelance",
-			"period": "2013 - 2014",
+			"mulai": "2013-01-01",
+			"selesai": "2014-01-01",
+			"tahun_mulai": 2013,
+			"bulan_mulai": 1,
+			"tahun_selesai": 2014,
+			"bulan_selesai": 1,
 			"company": "CV. Solusi Dunia Digital (SDD)",
 			"location": "Yogyakarta",
 			"details": {
@@ -82,7 +101,12 @@
 		},
 		{
 			"title": "Senior Web Programmer",
-			"period": "Nov 2013 - Agt 2014",
+			"mulai": "2013-11-01",
+			"selesai": "2014-08-01",
+			"tahun_mulai": 2013,
+			"bulan_mulai": 11,
+			"tahun_selesai": 2014,
+			"bulan_selesai": 8,
 			"company": "CV. Solusi Dunia Digital (SDD)",
 			"location": "Yogyakarta",
 			"details": {
