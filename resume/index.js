@@ -1,10 +1,12 @@
-if (typeof WebAppData === 'undefined') window.WebAppData = { debug: false };
+if (typeof WebAppData === 'undefined') window.WebAppData = {
+	debug: false,
+};
 
 const { loadModule } = window['vue3-sfc-loader'];
 
 const MONTH_NAMES = [
-	'', 'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
-	'Agt', 'Sep', 'Okt', 'Nov', 'Des'
+	'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
+	'Agt', 'Sep', 'Okt', 'Nov', 'Des',
 ];
 
 window.ResumeDB = {
@@ -12,17 +14,15 @@ window.ResumeDB = {
 	ready: false,
 
 	async init() {
-		if (this.data) return this.data;
-		try {
-			const url = 'resume/db.json' + (WebAppData.debug ? `?_=${Date.now()}` : '');
-			const res = await fetch(url);
-			this.data = await res.json();
-			this.ready = true;
-			return this.data;
-		} catch (e) {
-			console.error('ResumeDB: failed to load db.json', e);
-			return null;
+		let url = `resume/db.json`;
+		if (WebAppData.debug) {
+			url += `?_=${Date.now()}`
 		}
+
+		let res = await fetch(url);
+		this.data = await res.json();
+		this.ready = true;
+		return this.data;
 	},
 
 	decode(encoded) {
@@ -33,8 +33,8 @@ window.ResumeDB = {
 	formatPeriod(exp) {
 		const start = this._composeDate(exp.tahun_mulai, exp.bulan_mulai);
 		const end = this._composeDate(exp.tahun_selesai, exp.bulan_selesai);
-		if (start && end) return `${start} - ${end}`;
-		if (start) return `${start} - Sekarang`;
+		if (start && end) return `${start} — ${end}`;
+		if (start) return `${start} — Sekarang`;
 		return exp.mulai || '';
 	},
 
@@ -112,6 +112,8 @@ const options = {
 	},
 };
 
+window.ResumeElem = document.getElementById('index')
+
 window.ResumeApp = Vue.createApp({
 	data() {
 		return { loaded: false };
@@ -128,4 +130,4 @@ window.ResumeApp = Vue.createApp({
 		await window.ResumeDB.init();
 		this.loaded = true;
 	},
-}).mount(document.getElementById('index'));
+}).mount(ResumeElem);

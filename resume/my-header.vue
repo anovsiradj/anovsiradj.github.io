@@ -15,7 +15,7 @@
 						<span v-text="profile.email"></span>
 					</li>
 					<li class="mb-0">
-						<i class="bi bi-telephone-fill" title="Telepon" data-bs-toggle="tooltip"></i>
+						<i class="bi bi-telephone-fill" title="Phone (+62)" data-bs-toggle="tooltip"></i>
 						<span v-text="profile.phone"></span>
 					</li>
 					<li class="mb-0">

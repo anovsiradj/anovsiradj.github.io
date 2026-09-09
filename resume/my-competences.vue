@@ -12,10 +12,10 @@
 </template>
 
 <script>
-	module.exports = {
-		data: () => ({ competences: [] }),
-		created() {
-			this.competences = window.ResumeDB.getCompetences();
-		}
-	};
+module.exports = {
+	data: () => ({ competences: [] }),
+	created() {
+		this.competences = window.ResumeDB.getCompetences();
+	}
+};
 </script>

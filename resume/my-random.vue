@@ -10,10 +10,10 @@
 </template>
 
 <script>
-	module.exports = {
-		data: () => ({ hobbies: [] }),
-		created() {
-			this.hobbies = window.ResumeDB.getHobbies();
-		}
-	};
+module.exports = {
+	data: () => ({ hobbies: [] }),
+	created() {
+		this.hobbies = window.ResumeDB.getHobbies();
+	}
+};
 </script>

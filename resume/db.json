@@ -4,7 +4,7 @@
 		"name": "Mayendra Costanov",
 		"address": "WW9neWFrYXJ0YSwgSW5kb25lc2lh",
 		"email": "YW5vdi5zaXJhZGoyMkBnbWFpbC5jb20=",
-		"phone": "KCs2Mjg4MjEgOTgxMCAyNTI2",
+		"phone": "MDgyMSA5ODEwIDI1MjY=",
 		"socials": [
 			{
 				"id": "github",
@@ -122,83 +122,96 @@
 	],
 	"competences": [
 		{
-			"id": "mobile",
+			"id": "mob",
 			"icon": "bi bi-phone",
 			"title": "Mobile Development",
-			"skills": ["Flutter v2, v3"]
+			"skills": [
+				"Flutter v3"
+			]
 		},
 		{
 			"id": "php",
 			"icon": "bi bi-filetype-php",
 			"title": "PHP Ecosystem",
 			"skills": [
-				"PHP v7, v8",
+				"PHP v5,dst",
 				"Composer",
-				"Yii v2, v3",
-				"Laravel v8, v9",
-				"CodeIgniter v3"
+				"Yii v2,v3",
+				"Laravel v5,dst",
+				"CodeIgniter v3,v4"
 			]
 		},
 		{
-			"id": "python",
+			"id": "py",
 			"icon": "bi bi-filetype-py",
-			"title": "Python",
+			"title": "Python Ecosystem",
 			"skills": [
 				"Python v3",
+				"venv",
 				"pip",
-				"Flask",
-				"Django v2, v3"
+				"Django v2,v3"
 			]
 		},
 		{
-			"id": "javascript",
+			"id": "js",
 			"icon": "bi bi-filetype-js",
-			"title": "JavaScript & Node",
+			"title": "JS & Runtime",
 			"skills": [
-				"JavaScript (ES262)",
+				"npm",
+				"pnpm",
 				"Node.js",
-				"Nuxt.js v3",
-				"Vue.js v2/v3",
-				"jQuery / UI",
-				"NPM / Yarn"
+				"Deno.js",
+				"Nuxt.js",
+				"Next.js",
+				"Vue.js v2,v3",
+				"React",
+				"jQuery"
 			]
 		},
 		{
-			"id": "database",
+			"id": "db",
 			"icon": "bi bi-database-fill",
-			"title": "Database",
+			"title": "Database SQL/noSQL",
 			"skills": [
+				"DDL/SQL",
+				"DML/SQL",
+				"DQL/SQL",
 				"SQLite v3",
-				"FireBirdSQL",
+				"MariaDB",
 				"PostgreSQL",
-				"MariaDB / MySQL",
+				"PostGIS",
+				"MySQL",
+				"FireBirdSQL",
 				"CouchDB v2"
 			]
 		},
 		{
-			"id": "frontend",
+			"id": "web",
 			"icon": "bi bi-palette-fill",
-			"title": "Frontend & Design",
+			"title": "Website & Toolkit",
 			"skills": [
-				"HTML5 / XML",
-				"CSS3",
-				"Bootstrap v3, v5",
-				"LESS / SASS",
-				"PureCSS"
+				"JS",
+				"CSS",
+				"LESS",
+				"SASS",
+				"HTML",
+				"Bootstrap v3,v4,v5"
 			]
 		},
 		{
-			"id": "others",
+			"id": "mix",
 			"icon": "bi bi-tools",
 			"title": "Lainnya",
 			"skills": [
-				"Linux (Debian/Ubuntu/Mint)",
+				"XML",
+				"Debian/Linux",
 				"Windows",
-				"Git (Hub/Lab)",
-				"Docker / Heroku / OpenShift",
-				"Gimp / Photoshop",
-				"InkScape / CorelDraw",
-				"Wings3D"
+				"GitHub",
+				"GitLab",
+				"Docker",
+				"GDAL (GIS)",
+				"GeoServer (GIS)",
+				"Prompt Master"
 			]
 		}
 	],
@@ -211,27 +224,27 @@
 		{
 			"id": "art",
 			"icon": "bi bi-palette",
-			"text": "Bakat Seniman &<br>Mengajar"
+			"text": "Bakat Seniman &<br>Mengajar / Motivator"
 		},
 		{
 			"id": "gaming",
 			"icon": "bi bi-controller",
-			"text": "Mobile Gaming"
+			"text": "Mobile Gaming<br>MLBB (Glory) / FPS / AFK"
 		},
 		{
 			"id": "business",
 			"icon": "bi bi-shop",
-			"text": "Tertarik Bisnis<br>Kuliner / Hotel"
+			"text": "Tertarik Kerja<br>Resto / Hotel"
 		},
 		{
 			"id": "startup",
 			"icon": "bi bi-rocket",
-			"text": "Mimpi Membangun<br>Startup"
+			"text": "Ngimpi Punya<br>Startup"
 		},
 		{
 			"id": "cycling",
 			"icon": "bi bi-bicycle",
-			"text": "Bersepeda &<br>Eksplorasi Rute Bis"
+			"text": "Bersepeda &<br>Eksplorasi Angkutan Umum"
 		}
 	],
 	"footer": {
@@ -264,6 +277,11 @@
 			{
 				"label": "Vue 3",
 				"url": "https://vuejs.org/",
+				"icon": null
+			},
+			{
+				"label": "vue3-sfc-loader",
+				"url": "https://github.com/FranckFreiburger/vue3-sfc-loader",
 				"icon": null
 			}
 		]

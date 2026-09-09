@@ -17,6 +17,7 @@
 			"formatters":
 			{
 				"embedding.php": "LSP-intelephense",
+				"text.html.vue": "LSP-vue",
 			},
 		},
 	},
